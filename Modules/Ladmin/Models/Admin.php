@@ -7,18 +7,19 @@ use Hexters\Ladmin\LadminLoggable;
 use Hexters\Ladmin\UuidGenerator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, LadminAccount, UuidGenerator, LadminLoggable;
+    use HasApiTokens, HasFactory, Notifiable, LadminAccount, UuidGenerator, LadminLoggable, SoftDeletes;
 
     /**
      * Table name
      */
-    protected $table = 'ladmin_accounts';
+    protected $table = 'admin_users';
 
     /**
      * The attributes that are mass assignable.
@@ -27,9 +28,10 @@ class Admin extends Authenticatable
      */
     protected $fillable = [
         'uuid',
-        'name',
+        'username',
         'email',
         'password',
+        'display_name',
     ];
 
     /**
@@ -48,7 +50,7 @@ class Admin extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        // 'email_verified_at' => 'datetime',
     ];
 
     /**

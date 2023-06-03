@@ -27,10 +27,11 @@ class AdminRequest extends FormRequest
     public function rules()
     {
         $roles = [
-            'name' => ['required', 'max:30'],
+            'username' => ['required', 'max:100'],
             'email' => ['required', Rule::unique(ladmin()->getAdminTable(), 'email'), 'email'],
             'password' => ['required', 'confirmed', 'min:6'],
-            'roles' => ['required', 'array']
+            'roles' => ['required', 'array'],
+            'display_name' => ['required', 'max:100'],
         ];
 
         if ($this->id) {
@@ -49,9 +50,10 @@ class AdminRequest extends FormRequest
     public function adminCreate() {
         
         $admin = ladmin()->admin()->create([
-            'name' => $this->name,
+            'username' => $this->username,
             'email' => $this->email,
-            'password' => Hash::make($this->password)
+            'password' => Hash::make($this->password),
+            'display_name' => $this->display_name
         ]);
 
         $admin->roles()->sync($this->roles);
@@ -73,8 +75,9 @@ class AdminRequest extends FormRequest
     {
 
         $data = [
-            'name' => $this->name,
+            'username' => $this->username,
             'email' => $this->email,
+            'display_name' => $this->display_name
         ];
 
         if(! is_null($this->password)) {

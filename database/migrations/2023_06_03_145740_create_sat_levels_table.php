@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create('ladmin_roles', function (Blueprint $table) {
+        Schema::create('sat_levels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('gates')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -30,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('ladmin_roles');
-        Schema::enableForeignKeyConstraints();
+        Schema::dropIfExists('sat_levels');
     }
 };

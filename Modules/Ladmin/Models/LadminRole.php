@@ -10,6 +10,8 @@ class LadminRole extends Model
 {
     use HasFactory, LadminLoggable;
 
+    protected $table = 'roles';
+
     protected $fillable = [
         'name',
         'gates',
