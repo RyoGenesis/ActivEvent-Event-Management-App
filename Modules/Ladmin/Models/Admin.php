@@ -2,6 +2,7 @@
 
 namespace Modules\Ladmin\Models;
 
+use App\Models\Community;
 use Hexters\Ladmin\LadminAccount;
 use Hexters\Ladmin\LadminLoggable;
 use Hexters\Ladmin\UuidGenerator;
@@ -32,6 +33,7 @@ class Admin extends Authenticatable
         'email',
         'password',
         'display_name',
+        'community_id',
     ];
 
     /**
@@ -61,5 +63,9 @@ class Admin extends Authenticatable
     protected static function newFactory()
     {
         return \Modules\Ladmin\Databases\Factories\AdminFactory::new();
+    }
+
+    public function community() {
+        return $this->belongsTo(Community::class, 'community_id', 'id');
     }
 }

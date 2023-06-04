@@ -21,6 +21,8 @@ return new class extends Migration
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('display_name');
+            $table->foreignId('community_id')->references('id')
+            ->on('communities')->onUpdate('cascade')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

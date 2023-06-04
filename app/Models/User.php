@@ -27,6 +27,7 @@ class User extends Authenticatable
         'campus_id',
         'faculty_id',
         'major_id',
+        'topics'
     ];
 
     /**
@@ -47,4 +48,29 @@ class User extends Authenticatable
     protected $casts = [
         // 'email_verified_at' => 'datetime',
     ];
+
+    public function campus() {
+        return $this->belongsTo(Campus::class);
+    }
+
+    public function faculty() {
+        return $this->belongsTo(Faculty::class);
+    }
+
+    public function major() {
+        return $this->belongsTo(Major::class);
+    }
+
+    public function communities() {
+        return $this->belongsToMany(Community::class, 'user_community', 'user_id', 'community_id');
+    }
+
+    public function events() {
+        return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')
+                ->withPivot('status', 'reasoning');
+    }
+
+    public function categories() {
+        return $this->belongsToMany(Category::class, 'user_category_interest', 'user_id', 'category_id');
+    }
 }
