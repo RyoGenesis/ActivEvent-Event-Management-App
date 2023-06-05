@@ -16,10 +16,10 @@ class SatLevelSeeder extends Seeder
     public function run()
     {
         $data = [
+            ["name" => "Local",],
+            ["name" => "Provinsi",],
             ["name" => "Regional",],
-            ["name" => "",],
-            ["name" => "",],
-            ["name" => "",],
+            ["name" => "National",],
             ["name" => "International",],
         ];
         DB::table("sat_levels")->insert($data);

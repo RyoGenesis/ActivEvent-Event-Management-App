@@ -25,6 +25,11 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Super Admin',
                 'gates' => ladmin()->menu()->allGates()
             ]);
+
+            LadminRole::create([
+                'name' => 'Admin',
+                'gates' => null
+            ]);
         }
 
         $this->command->line('');
@@ -36,7 +41,7 @@ class DatabaseSeeder extends Seeder
         /**
          * Create dummy ladmin account 
          */
-        \Modules\Ladmin\Models\Admin::factory(3)->create()
+        \Modules\Ladmin\Models\Admin::factory(1)->create()
             ->each(function ($admin) use ($role) {
                 $admin->roles()->sync([$role->id]);
 

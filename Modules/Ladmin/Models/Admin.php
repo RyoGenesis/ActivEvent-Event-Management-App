@@ -8,14 +8,13 @@ use Hexters\Ladmin\LadminLoggable;
 use Hexters\Ladmin\UuidGenerator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, LadminAccount, UuidGenerator, LadminLoggable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, LadminAccount, UuidGenerator, LadminLoggable;
 
     /**
      * Table name
@@ -34,6 +33,7 @@ class Admin extends Authenticatable
         'password',
         'display_name',
         'community_id',
+        'deactivated_at',
     ];
 
     /**
@@ -53,6 +53,7 @@ class Admin extends Authenticatable
      */
     protected $casts = [
         // 'email_verified_at' => 'datetime',
+        'deactivated_at' => 'datetime',
     ];
 
     /**

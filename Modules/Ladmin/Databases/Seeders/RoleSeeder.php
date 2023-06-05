@@ -23,6 +23,11 @@ class RoleSeeder extends Seeder
 
             ladmin()->admin()->each( fn ( $user ) => $user->roles()->attach($role));
 
+            LadminRole::create([
+                'name' => 'Admin',
+                'gates' => null
+            ]);
+
         }
     }
 }

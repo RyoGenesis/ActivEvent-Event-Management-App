@@ -25,7 +25,7 @@ return new class extends Migration
             ->on('communities')->onUpdate('cascade')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes();
+            $table->timestamp('deactivated_at')->nullable();
         });
     }
 

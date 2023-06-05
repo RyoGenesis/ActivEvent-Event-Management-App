@@ -90,6 +90,10 @@ class MajorSeeder extends Seeder
             ["name" => "Master of Information System Management", 'faculty_id' => '10',], //63
             ["name" => "Master of Industrial Engineering", 'faculty_id' => '10',], //64
             ["name" => "Doctor of Computer Science", 'faculty_id' => '10',], //65
+
+            ["name" => "Taxation", 'faculty_id' => '5',], //66
+            ["name" => "Accounting Technology", 'faculty_id' => '5',], //67
+            ["name" => "International Finance", 'faculty_id' => '5',], //68
         ];
         DB::table("majors")->insert($data);
     }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Ladmin\Databases\Seeders\DatabaseSeeder as SeedersDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             BgaSeeder::class,
             SatLevelSeeder::class,
             CommunityMajorSeeder::class,
+            SeedersDatabaseSeeder::class,
             // UserSeeder::class,
         ]);
     }
