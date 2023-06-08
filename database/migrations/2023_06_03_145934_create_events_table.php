@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->decimal('price')->default(0);
             $table->integer('max_slot')->default(0);
+            $table->boolean('is_highlighted')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
