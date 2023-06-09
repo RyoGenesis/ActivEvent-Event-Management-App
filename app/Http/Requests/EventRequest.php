@@ -24,7 +24,47 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'community_id' => 'required|integer|exists:communities,id',
+            'description' => 'required|string',
+            'registration_end' => 'required|date|after:tomorrow',
+            'date' => 'required|date|after:registration_end',
+            'status' => 'required|string',
+            'category_id' => 'required|integer|exists:categories,id',
+            'topic' => 'nullable|string',
+            'has_certificate' => 'nullable|boolean',
+            'has_comserv' => 'nullable|boolean',
+            'has_sat' => 'nullable|boolean',
+            'sat_level_id' => 'nullable|integer|exists:sat_levels,id',
+            'speaker' => 'nullable|string',
+            'contact_person' => 'nullable|string',
+            'additional_form_link' => 'nullable|url',
+            'exclusive_major' => 'nullable|boolean',
+            'exclusive_member' => 'nullable|boolean',
+            'images' => 'nullable|file|image',
+            'price' => 'required|numeric|min:0',
+            'max_slot' => 'nullable|integer|min:1',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'event name',
+            'community_id' => 'associated community',
+            'registration_end' => 'registration end date',
+            'category_id' => 'category',
+            'has_certificate' => 'has certificate',
+            'has_comserv' => 'has community service hour',
+            'has_sat' => 'has SAT points',
+            'sat_level_id' => 'SAT level',
+            'contact_person' => 'contact person',
+            'additional_form_link' => 'additional form link',
+            'exclusive_major' => 'major exclusive',
+            'exclusive_member' => 'community member exclusive',
+            'max_slot' => 'maximum slot',
+            'bgas' => 'selected BGA',
+            'majors' => 'associated majors',
         ];
     }
 }

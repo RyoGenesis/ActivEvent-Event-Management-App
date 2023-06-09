@@ -12,6 +12,15 @@ class Event extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'has_certificate' => 'boolean',
+        'has_comserv' => 'boolean',
+        'has_sat' => 'boolean',
+        'exclusive_major' => 'boolean',
+        'exclusive_member' => 'boolean',
+        'is_highlighted' => 'boolean',
+    ];
+
     public function majors() {
         return $this->belongsToMany(Major::class, 'event_major', 'event_id', 'major_id');
     }
