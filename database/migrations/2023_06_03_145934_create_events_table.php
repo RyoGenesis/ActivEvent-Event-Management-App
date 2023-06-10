@@ -37,7 +37,7 @@ return new class extends Migration
             $table->boolean('exclusive_member')->default(false);
             $table->string('image')->nullable();
             $table->decimal('price', 10, 2)->default(0);
-            $table->integer('max_slot')->default(0);
+            $table->integer('max_slot')->default(-1); //no max slot
             $table->boolean('is_highlighted')->default(false);
             $table->timestamps();
             $table->softDeletes();
