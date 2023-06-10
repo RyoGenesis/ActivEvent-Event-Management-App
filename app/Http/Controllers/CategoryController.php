@@ -2,9 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
-    //
+    function indexList() {
+        $categories = Category::all();
+        return view('admin.category.index', compact(['categories']));
+    }
+
+    function create() {
+        return view('admin.category.create');
+    }
+
+    function insert(CategoryRequest $request) {
+        Category::create([
+            'name' => $request->name,
+            'display_name' => $request->display_name,
+        ]);
+        return view('admin.category.index')->with('success','Successfully added new category!');
+    }
+
+    function edit($id) {
+        $category = Category::find($id);
+        return view('admin.category.edit', compact(['category']));
+    }
+
+    function update(CategoryRequest $request, $id) {
+
+        $category = Category::find($id);
+        if(!$category) {
+            return Redirect::back()->with('error','Category data not found!');
+        }
+        $category->update([
+            'name' => $request->name,
+            'display_name' => $request->display_name,
+        ]);
+
+        return view('admin.category.index')->with('success','Successfully update category information!');
+    }
+
+    function destroy(Request $request) {
+
+        $validation = [
+            "id"=>'required|integer|exists:categories,id',
+        ];
+
+        $request->validate($validation);
+        Category::destroy($request->id);
+
+        return view('admin.category.index')->with('success','Successfully deleted category!');
+    }
 }
