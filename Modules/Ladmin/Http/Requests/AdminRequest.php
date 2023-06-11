@@ -32,6 +32,7 @@ class AdminRequest extends FormRequest
             'password' => ['required', 'confirmed', 'min:6'],
             'roles' => ['required', 'array'],
             'display_name' => ['required', 'max:100'],
+            'community_id' => ['required', 'integer', 'exists:communities,id'],
         ];
 
         if ($this->id) {
@@ -40,6 +41,14 @@ class AdminRequest extends FormRequest
         }
         
         return $roles;
+    }
+
+    public function attributes()
+    {
+        return [
+            'display_name' => 'display name',
+            'community_id' => 'associated community',
+        ];
     }
 
     /**
@@ -53,7 +62,8 @@ class AdminRequest extends FormRequest
             'username' => $this->username,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'display_name' => $this->display_name
+            'display_name' => $this->display_name,
+            'community_id' => $this->community_id,
         ]);
 
         $admin->roles()->sync($this->roles);
@@ -77,7 +87,8 @@ class AdminRequest extends FormRequest
         $data = [
             'username' => $this->username,
             'email' => $this->email,
-            'display_name' => $this->display_name
+            'display_name' => $this->display_name,
+            'community_id' => $this->community_id,
         ];
 
         if(! is_null($this->password)) {
@@ -87,7 +98,7 @@ class AdminRequest extends FormRequest
         $admin->update($data);
         $admin->roles()->sync($this->roles);
 
-        session()->flash('success', 'Updated has been successfully!');
+        session()->flash('success', 'Admin has been updated successfully!');
 
         return redirect()->back();
 
