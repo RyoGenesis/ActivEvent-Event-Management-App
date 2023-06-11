@@ -19,10 +19,15 @@ class CommunityController extends Controller
     }
 
     function insert(CommunityRequest $request) {
-        Community::create([
+        $community = Community::create([
             'name' => $request->name,
             'display_name' => $request->display_name,
         ]);
+
+        if($request->majors) { //if majors array not empty
+            $community->majors()->attach($request->majors);
+        }
+
         return view('admin.community.index')->with('success','Successfully added new community!');
     }
 
@@ -41,6 +46,10 @@ class CommunityController extends Controller
             'name' => $request->name,
             'display_name' => $request->display_name,
         ]);
+
+        //update majors association
+        $majors = $request->majors ?? []; //if null then empty array
+        $community->majors()->sync($majors);
 
         return view('admin.community.index')->with('success','Successfully update community information!');
     }
