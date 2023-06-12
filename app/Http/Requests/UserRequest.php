@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Faculty;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -26,20 +27,22 @@ class UserRequest extends FormRequest
     public function rules()
     {
         $id = $this->route('id') ?? Auth::user()->id;
+        $faculty =  Faculty::find($this->faculty_id);
+        $major_ids = $faculty ? $faculty->majors->pluck('id') : [];
         return [
             'name' => 'required|string',
-            'email' => ['required','email', Rule::unique('users','email')->ignore($id)],
+            'email' => ['sometimes', 'required','email', Rule::unique('users','email')->ignore($id)],
             'phone' => ['required','numeric', 'max:20', Rule::unique('users','phone')->ignore($id)],
-            'nim' => ['required','size:10', 'regex:/^[0-9]+$/', Rule::unique('users','nim')->ignore($id)],
-            'password' => 'required|string',
+            'nim' => ['sometimes', 'required','size:10', 'regex:/^[0-9]+$/', Rule::unique('users','nim')->ignore($id)],
+            'password' => 'sometimes|required|string',
             'campus_id' => 'required|integer|exists:campuses,id',
             'faculty_id' => 'required|integer|exists:faculties,id',
-            'major_id' => 'required|integer|exists:majors,id',
+            'major_id' => ['required','integer','exists:majors,id', Rule::in($major_ids)],
             'topics' => 'nullable|array',
             'communities' => 'nullable|array|exists:communities,id',
             'communities.*' => 'required|integer',
             'categories' => 'nullable|array|exists:categories,id',
-            'categories.*' => 'required|integer',
+            'categories.*' => 'required|integer|distinct',
         ];
     }
 

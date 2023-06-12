@@ -22,7 +22,15 @@ class UserController extends Controller
 
         $user->update([
             'name' => $request->name,
+            'phone' => $request->phone,
+            'campus_id' => $request->campus_id,
+            'faculty_id' => $request->faculty_id,
+            'major_id' => $request->major_id,
+            'topics' => $request->topics ? implode(',',$request->topics) : null,
         ]);
+
+        $user->communities()->sync($request->communities);
+        $user->categories()->sync($request->categories);
 
         return view('main.index')->with('success','Successfully update profile information!');
     }
