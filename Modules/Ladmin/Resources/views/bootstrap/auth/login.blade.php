@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="text-end mb-4">
-                                <x-ladmin-button>Sign In</x-ladmin-button>
+                                <x-ladmin-button class="text-white">Sign In</x-ladmin-button>
                             </div>
                         </form>
                     </div>
