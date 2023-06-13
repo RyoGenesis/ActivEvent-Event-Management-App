@@ -26,7 +26,7 @@ class SatLevelController extends Controller
 
     function edit($id) {
         $satLevel = SatLevel::find($id);
-        return view('admin.satLevel.edit', compact(['satLevel']));
+        return view('admin.sat_level.edit', compact(['satLevel']));
     }
 
     function update(Request $request, $id) {

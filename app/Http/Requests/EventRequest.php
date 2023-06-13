@@ -41,9 +41,13 @@ class EventRequest extends FormRequest
             'additional_form_link' => 'nullable|url',
             'exclusive_major' => 'nullable|boolean',
             'exclusive_member' => 'nullable|boolean',
-            'images' => 'nullable|file|image',
+            'image' => 'nullable|file|image',
             'price' => 'required|numeric|min:0',
             'max_slot' => 'nullable|integer|min:1',
+            'majors' => 'nullable|array|exists:majors,id',
+            'majors.*' => 'required|integer',
+            'bgas' => 'nullable|array|exists:bgas,id',
+            'bgas.*' => 'required|integer',
         ];
     }
 

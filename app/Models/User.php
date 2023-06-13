@@ -71,6 +71,19 @@ class User extends Authenticatable
                 ->withPivot('status', 'reasoning');
     }
 
+    public function events_upcoming() {
+        return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')
+                ->where()
+                ->wherePivot('status', 'Registered')
+                ->withPivot('status', 'reasoning');
+    }
+
+    public function events_rejected() {
+        return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')
+                ->wherePivot('status', 'Rejected')
+                ->withPivot('status', 'reasoning');
+    }
+
     public function categories() {
         return $this->belongsToMany(Category::class, 'user_category_interest', 'user_id', 'category_id');
     }
