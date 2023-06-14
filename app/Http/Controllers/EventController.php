@@ -21,8 +21,8 @@ class EventController extends Controller
     }
 
     function create() {
-        $majors = Major::all();
-        $community = Community::where('id', ladmin()->user()->community_id)->first();
+        $community = Community::with(['majors'])->where('id', ladmin()->user()->community_id)->first();
+        $majors = $community->majors ? Major::whereIn('id', $community->majors->pluck('id')) :  Major::all();
         $categories = Category::all();
         $sat_levels = SatLevel::all();
         $bgas = Bga::all();
@@ -156,6 +156,11 @@ class EventController extends Controller
     }
 
     function searchEventsResult(Request $request) {
+        //wip
+        $events = Event::where();
 
+        $events = $events->simplePaginate(15);
+
+        return view('main.search_page', compact(['events']));
     }
 }
