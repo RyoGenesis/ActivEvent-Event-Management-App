@@ -54,4 +54,12 @@ class FacultyController extends Controller
 
         return view('admin.faculty.index')->with('success','Successfully deleted faculty!');
     }
+
+    function getMajors(Request $request) {
+
+        $faculty = Faculty::where('id',$request->id)->first();
+        $majors = $faculty->majors;
+        
+        return $majors;
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommunityRequest;
 use App\Models\Community;
+use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -15,7 +16,8 @@ class CommunityController extends Controller
     }
 
     function create() {
-        return view('admin.community.create');
+        $majors = Major::all();
+        return view('admin.community.create', compact(['majors']));
     }
 
     function insert(CommunityRequest $request) {
@@ -32,8 +34,9 @@ class CommunityController extends Controller
     }
 
     function edit($id) {
-        $community = Community::find($id);
-        return view('admin.community.edit', compact(['community']));
+        $community = Community::with(['majors'])->where('id',$id)->first();
+        $majors = Major::all();
+        return view('admin.community.edit', compact(['community','majors']));
     }
 
     function update(CommunityRequest $request, $id) {

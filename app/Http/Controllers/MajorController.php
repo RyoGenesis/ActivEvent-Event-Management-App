@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MajorRequest;
+use App\Models\Faculty;
 use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,8 @@ class MajorController extends Controller
     }
 
     function create() {
-        return view('admin.major.create');
+        $faculties = Faculty::all();
+        return view('admin.major.create', compact(['faculties']));
     }
 
     function insert(MajorRequest $request) {
@@ -27,8 +29,9 @@ class MajorController extends Controller
     }
 
     function edit($id) {
-        $major = Major::find($id);
-        return view('admin.major.edit', compact(['major']));
+        $major = Major::with(['faculty'])->where('id',$id)->first();
+        $faculties = Faculty::all();
+        return view('admin.major.edit', compact(['major', 'faculties']));
     }
 
     function update(MajorRequest $request, $id) {

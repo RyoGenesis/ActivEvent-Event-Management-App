@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EventRequest;
+use App\Models\Bga;
+use App\Models\Category;
+use App\Models\Community;
 use App\Models\Event;
+use App\Models\Major;
+use App\Models\SatLevel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +21,12 @@ class EventController extends Controller
     }
 
     function create() {
-        return view('admin.event.create');
+        $majors = Major::all();
+        $community = Community::where('id', ladmin()->user()->community_id)->first();
+        $categories = Category::all();
+        $sat_levels = SatLevel::all();
+        $bgas = Bga::all();
+        return view('admin.event.create', compact(['majors','community','categories','sat_levels','bgas']));
     }
 
     function insert(EventRequest $request) {
@@ -65,8 +75,12 @@ class EventController extends Controller
     }
 
     function edit($id) {
-        $event = Event::find($id);
-        return view('admin.event.edit', compact(['event']));
+        $event = Event::with(['majors','community','category','bgas','sat_level'])->where('id',$id)->first();
+        $majors = Major::all();
+        $categories = Category::all();
+        $sat_levels = SatLevel::all();
+        $bgas = Bga::all();
+        return view('admin.event.edit', compact(['event','majors','categories','sat_levels','bgas']));
     }
 
     function update(EventRequest $request, $id) {
@@ -139,5 +153,9 @@ class EventController extends Controller
         Event::destroy($request->id);
 
         return view('admin.event.index')->with('success','Successfully deleted event!');
+    }
+
+    function searchEventsResult(Request $request) {
+
     }
 }
