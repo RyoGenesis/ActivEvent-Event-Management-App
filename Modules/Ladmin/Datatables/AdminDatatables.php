@@ -19,7 +19,7 @@ class AdminDatatables extends Datatables
      */
     public function __construct()
     {
-        $this->query = ladmin()->admin()->with('roles');
+        $this->query = ladmin()->admin()->with(['roles','community']);
     }
 
     /**
@@ -65,8 +65,10 @@ class AdminDatatables extends Datatables
     {
         return [
             'Avatar' => ['class' => 'text-end'],
-            'Name',
+            'Username',
+            'Display Name',
             'Email',
+            'Associated Community',
             'Roles',
             'Action',
         ];
@@ -81,8 +83,10 @@ class AdminDatatables extends Datatables
     {
         return [
             ['data' => 'avatar', 'class' => 'text-center'],
-            ['data' => 'name'],
+            ['data' => 'username'],
+            ['data' => 'display_name'],
             ['data' => 'email'],
+            ['data' => 'community.display_name'],
             ['data' => 'roles.name', 'orderable' => false],
             ['data' => 'action', 'class' => 'text-end', 'orderable' => false]
         ];

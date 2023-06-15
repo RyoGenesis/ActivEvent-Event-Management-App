@@ -69,7 +69,7 @@ class AdminRequest extends FormRequest
         $admin->roles()->sync($this->roles);
 
         
-        session()->flash('success', $this->name . ' has been created!');
+        session()->flash('success', $this->username . ' has been created!');
 
         return redirect()->route('ladmin.admin.edit', $admin->id);
 
