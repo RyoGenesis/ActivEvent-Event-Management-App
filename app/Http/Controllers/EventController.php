@@ -163,4 +163,10 @@ class EventController extends Controller
 
         return view('main.search_page', compact(['events']));
     }
+
+    function eventdetail($id){
+        $event=Event::find($id);
+        return view('eventdetail')->with('event',$event);
+    }
+    
 }

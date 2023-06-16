@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Community;
 use App\Models\Faculty;
 use App\Models\User;
+use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -70,4 +71,10 @@ class UserController extends Controller
 
         return view('main.profile.index')->with('success','Successfully update new password!');
     }
+
+    function userevent(){
+        $event=Event::all();
+        return view('profile')->with('event', $event);
+    }
+
 }
