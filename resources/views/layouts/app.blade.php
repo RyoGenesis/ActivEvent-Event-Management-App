@@ -17,10 +17,12 @@
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -28,6 +30,30 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                                
+                <form class="d-flex ms-5" role="search">
+                    <input type="search" class="form-control-lg me-2" placeholder="Search Event">
+                    <button type="submit" class="btn btn-dark ms-3">Search</button>
+                </form>
+                
+                <div class="collapse navbar-collapse" id=navbarApp>
+                    <ul class="navbar-nav me-auto ms-3 my-2">
+                        <li class="nav-item">
+                            <a class="nav-link active">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
+                            <ul class="dropdown-menu">
+                                <li>Popular</li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>Featured</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Contact us</a>
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -77,6 +103,15 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer>
+            <div class="container bg-info">
+                <div class="row">
+                    <div class="col"> nama website </div>
+                    <div class="col font-italic"> @nama website 2023</div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
