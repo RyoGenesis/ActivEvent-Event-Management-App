@@ -1,5 +1,5 @@
 @can('role.assign')
-    <a href="{{ route('ladmin.role.show', ladmin()->back($role->id)) }}" class="btn btn-sm btn-primary">Assign
+    <a href="{{ route('ladmin.role.show', ladmin()->back($role->id)) }}" class="btn btn-sm btn-primary text-white">Assign
         Permission</a>
 @endcan
 
@@ -8,7 +8,6 @@
         data-bs-target="#modal-edit-role-{{ $role->id }}">
         Edit Role
     </a>
-
 
     <x-ladmin-modal id="modal-edit-role-{{ $role->id }}">
         <x-slot name="title">Edit Role</x-slot>

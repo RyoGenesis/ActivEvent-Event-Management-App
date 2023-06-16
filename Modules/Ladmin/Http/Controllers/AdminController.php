@@ -2,6 +2,7 @@
 
 namespace Modules\Ladmin\Http\Controllers;
 
+use App\Models\Community;
 use Modules\Ladmin\Datatables\AdminDatatables;
 use Modules\Ladmin\Http\Controllers\Controller;
 use Modules\Ladmin\Http\Requests\AdminRequest;
@@ -67,6 +68,7 @@ class AdminController extends Controller
         ladmin()->allows(['ladmin.admin.update']);
 
         $data['admin'] = ladmin()->admin()->findOrFail($id);
+        $data['communities'] = Community::all();
         return ladmin()->view('admin.edit', $data);
     }
 

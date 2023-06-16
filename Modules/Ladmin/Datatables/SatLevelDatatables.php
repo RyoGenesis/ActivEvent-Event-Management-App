@@ -2,9 +2,8 @@
 
 namespace Modules\Ladmin\Datatables;
 
-use App\Models\Model;
+use App\Models\SatLevel;
 use Hexters\Ladmin\Supports\Datatables;
-use Illuminate\Support\Facades\Blade;
 
 class SatLevelDatatables extends Datatables
 {
@@ -14,14 +13,14 @@ class SatLevelDatatables extends Datatables
      *
      * @var String
      */
-    protected $title = 'Page Title';
+    protected $title = 'SAT Levels List';
 
     /**
      * Setup query builder
      */
     public function __construct()
     {
-        $this->query = Model::query();
+        $this->query = SatLevel::query();
     }
     
     /**
@@ -33,8 +32,13 @@ class SatLevelDatatables extends Datatables
     {
         return $this->eloquent($this->query)
             ->addColumn('action', function ($row) {
-                return Blade::render('<a href="">Button</a>');
+                return $this->action($row);
             });
+    }
+
+    public function action($data)
+    {
+        return ladmin()->view('sat_level._parts.table-action', $data);
     }
 
     /**
@@ -45,7 +49,8 @@ class SatLevelDatatables extends Datatables
     public function headers(): array
     {
         return [
-            'id',
+            'ID',
+            'Name',
             'Action' => ['class' => 'text-center'],
         ];
     }
@@ -60,6 +65,7 @@ class SatLevelDatatables extends Datatables
     {
         return [
             ['data' => 'id', 'class' => 'text-center'],
+            ['data' => 'name',],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
     }

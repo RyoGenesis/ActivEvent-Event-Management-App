@@ -2,6 +2,7 @@
 
 use Modules\Ladmin\Menus\Account;
 use Modules\Ladmin\Menus\Access;
+use Modules\Ladmin\Menus\CampusMenu;
 use Modules\Ladmin\Menus\System;
 
 /**
@@ -9,6 +10,9 @@ use Modules\Ladmin\Menus\System;
  */
 
 return [
+
+    CampusMenu::class,
+
     Account::class,
 
     Access::class,

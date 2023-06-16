@@ -29,7 +29,7 @@ class AdminRequest extends FormRequest
         $roles = [
             'username' => ['required', 'max:100'],
             'email' => ['required', Rule::unique(ladmin()->getAdminTable(), 'email'), 'email'],
-            'password' => ['required', 'confirmed', 'min:6'],
+            'password' => ['sometimes', 'required', 'confirmed', 'min:6'],
             'roles' => ['required', 'array'],
             'display_name' => ['required', 'max:100'],
             'community_id' => ['required', 'integer', 'exists:communities,id'],

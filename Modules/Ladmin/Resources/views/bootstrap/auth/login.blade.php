@@ -7,7 +7,7 @@
                     <div class="px-4">
                         <div class="text-center p-3">
                             <img src="{{ config('ladmin.logo') }}" alt="Logo" class="mb-3" width="200">
-                            <div>Sign in as {{ config('ladmin.prefix') }}</div>
+                            <div>Administrator Login</div>
                         </div>
 
                         <x-ladmin-alert class="mb-3" />
@@ -41,9 +41,9 @@
                 </x-slot>
             </x-ladmin-card>
 
-            <div class="text-center">
+            {{-- <div class="text-center">
                 <a href="{{ url('/') }}">&larr; Back to home</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 

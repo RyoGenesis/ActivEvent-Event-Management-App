@@ -84,14 +84,14 @@
                     <div class="d-flex align-items-center">
                         @if (request()->has('back'))
                             <a href="{{ request()->get('back') }}"
-                                class="btn btn-sm btn-primary rounded-circle me-3">
+                                class="btn btn-sm btn-primary rounded-circle text-white me-3">
                                 &larr;
                             </a>
                         @endif
                         <h3 class="me-3 my-0">{{ $title ?? 'Page Title' }}</h3>
                         <div>{{ $button ?? null }}</div>
                     </div>
-                    <ol class="breadcrumb m-0"></ol>
+                    <ol class="breadcrumb m-0 d-none"></ol>
                 </div>
 
                 {{ $slot }}

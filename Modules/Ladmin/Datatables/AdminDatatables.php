@@ -43,6 +43,9 @@ class AdminDatatables extends Datatables
             ->addColumn('avatar', function ($row) {
                 return "<img src=\"{$row->gravatar}\" class=\"rounded-circle img-thumbnail\" width=\"45\" alt=\"Avatar\">";
             })
+            ->editColumn('community.name', function ($row) {
+                return $row->community->display_name;
+            })
             ->editColumn('roles.name', function ($row) {
                 return $row->roles->pluck('name');
             })
@@ -86,7 +89,7 @@ class AdminDatatables extends Datatables
             ['data' => 'username'],
             ['data' => 'display_name'],
             ['data' => 'email'],
-            ['data' => 'community.display_name'],
+            ['data' => 'community.name'],
             ['data' => 'roles.name', 'orderable' => false],
             ['data' => 'action', 'class' => 'text-end', 'orderable' => false]
         ];

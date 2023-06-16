@@ -2,9 +2,8 @@
 
 namespace Modules\Ladmin\Datatables;
 
-use App\Models\Model;
+use App\Models\Major;
 use Hexters\Ladmin\Supports\Datatables;
-use Illuminate\Support\Facades\Blade;
 
 class MajorDatatables extends Datatables
 {
@@ -14,14 +13,14 @@ class MajorDatatables extends Datatables
      *
      * @var String
      */
-    protected $title = 'Page Title';
+    protected $title = 'Majors List';
 
     /**
      * Setup query builder
      */
     public function __construct()
     {
-        $this->query = Model::query();
+        $this->query = Major::query()->with(['faculty']);
     }
     
     /**
@@ -32,9 +31,17 @@ class MajorDatatables extends Datatables
     public function handle()
     {
         return $this->eloquent($this->query)
+            ->editColumn('faculty.name', function ($row) {
+                return $row->faculty->name;
+            })
             ->addColumn('action', function ($row) {
-                return Blade::render('<a href="">Button</a>');
+                return $this->action($row);
             });
+    }
+
+    public function action($data)
+    {
+        return ladmin()->view('major._parts.table-action', $data);
     }
 
     /**
@@ -45,7 +52,9 @@ class MajorDatatables extends Datatables
     public function headers(): array
     {
         return [
-            'id',
+            'ID',
+            'Name',
+            'Faculty',
             'Action' => ['class' => 'text-center'],
         ];
     }
@@ -60,6 +69,8 @@ class MajorDatatables extends Datatables
     {
         return [
             ['data' => 'id', 'class' => 'text-center'],
+            ['data' => 'name',],
+            ['data' => 'faculty.name',],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
     }

@@ -35,7 +35,7 @@ class UserController extends Controller
         $campuses = Campus::all();
         $faculties = Faculty::all();
         $communities = Community::all();
-        return view('admin.student_users.edit', compact(['userStudent', 'campuses', 'faculties', 'communities']));
+        return view('admin.student_user.edit', compact(['userStudent', 'campuses', 'faculties', 'communities']));
     }
 
     function update(UserRequest $request) {

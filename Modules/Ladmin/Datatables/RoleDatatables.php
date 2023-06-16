@@ -42,7 +42,7 @@ class RoleDatatables extends Datatables
     {
         return $this->eloquent($this->query)
             ->editColumn('gates', function ($row) {
-                return count($row->gates) . ' access';
+                return ($row->gates ? count($row->gates) : 0 ). ' access';
             })
             ->addColumn('admins', function ($row) {
                 return $row->admins->count() . ' admin';
@@ -63,7 +63,7 @@ class RoleDatatables extends Datatables
             'Role Name',
             'Used' => ['class' => 'text-center'],
             'Permissions' => ['class' => 'text-center'],
-            'Action' => ['class' => 'text-end'],
+            'Action' => ['class' => 'text-center'],
         ];
     }
 
@@ -79,7 +79,7 @@ class RoleDatatables extends Datatables
             ['data' => 'name'],
             ['data' => 'admins', 'class' => 'text-center'],
             ['data' => 'gates', 'class' => 'text-center'],
-            ['data' => 'action', 'class' => 'text-end', 'orderable' => false]
+            ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
     }
 }

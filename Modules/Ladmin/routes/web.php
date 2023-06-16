@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampusController;
 use Illuminate\Support\Facades\Route;
 use Modules\Ladmin\Http\Controllers\AdminController;
 use Modules\Ladmin\Http\Controllers\Auth\LoginController;
@@ -33,6 +34,14 @@ ladmin()->route(function () {
     Route::resource('/permission', PermissionController::class)->only(['update']);
     Route::resource('/activities', UserActivityController::class)->only(['index', 'show', 'destroy']);
     Route::resource('/systemlog', SystemLogController::class)->only(['index', 'destroy']);
+
+    // campus
+    Route::get('campus', [CampusController::class, 'indexList'])->name('campus.index');
+    Route::get('campus/create', [CampusController::class, 'create'])->name('campus.create');
+    Route::post('campus', [CampusController::class, 'store'])->name('campus.store');
+    Route::get('campus/{id}/edit', [CampusController::class, 'edit'])->name('campus.edit');
+    Route::post('campus/{id}', [CampusController::class, 'update'])->name('campus.update');
+    Route::post('campus/{id}/delete', [CampusController::class, 'destroy'])->name('campus.destroy');
 
     Route::get('/group-search', GroupSearchController::class)->name('group.search');
 });

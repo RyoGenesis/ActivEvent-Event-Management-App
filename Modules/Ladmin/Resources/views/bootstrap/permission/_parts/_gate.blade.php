@@ -27,7 +27,7 @@ $uniq = uniqid();
         </div>
         @if (isset($gate['gates']) && count($gate['gates']) > 0 && ($gate['type'] ?? 'menu') === 'menu')
             <div>
-                <x-ladmin-button size="sm" type="button" data-bs-toggle="collapse"
+                <x-ladmin-button class="text-white" size="sm" type="button" data-bs-toggle="collapse"
                     data-bs-target="#permission-{{ $uniq }}">Show Permissions</x-ladmin-button>
             </div>
         @endif
@@ -37,9 +37,9 @@ $uniq = uniqid();
     @if (isset($gate['gates']) && count($gate['gates']) > 0 && ($gate['type'] ?? 'menu') === 'menu')
         <div class="collapse" id="permission-{{ $uniq }}">
             <h6 class="text-primary">Permissions</h6>
-            <ul class="bg-dark text-light rounded">
+            <ul class="rounded">
                 @foreach ($gate['gates'] as $item)
-                    <li class="py-3 form-check ladmin-permission-tile">
+                    <li class="py-3 form-check">
                         <input class="form-check-input" type="checkbox"
                             {{ in_array($item['gate'], $role->gates ?? []) ? 'checked' : '' }}
                             value="{{ $item['gate'] }}" name="gates[]" id="{{ $item['gate'] }}">

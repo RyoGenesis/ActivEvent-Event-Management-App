@@ -2,7 +2,7 @@
 
 namespace Modules\Ladmin\Datatables;
 
-use App\Models\Model;
+use App\Models\Community;
 use Hexters\Ladmin\Supports\Datatables;
 use Illuminate\Support\Facades\Blade;
 
@@ -14,14 +14,14 @@ class CommunityDatatables extends Datatables
      *
      * @var String
      */
-    protected $title = 'Page Title';
+    protected $title = 'Communities List';
 
     /**
      * Setup query builder
      */
     public function __construct()
     {
-        $this->query = Model::query();
+        $this->query = Community::query()->with(['majors']);
     }
     
     /**
@@ -32,9 +32,23 @@ class CommunityDatatables extends Datatables
     public function handle()
     {
         return $this->eloquent($this->query)
+            ->editColumn('majors.name', function ($row) {
+                $majors = $row->majors;
+                $formattedMajors = '';
+                foreach($majors as $major) {
+                    $formattedMajors .= '<div class="d-inline rounded border border-info border-3 p-2 m-1">'.$major.'</div>';
+                }
+                $formattedMajors = $majors ? '<div class= "">'.$formattedMajors.'</div>'  : 'No association';
+                return Blade::render($formattedMajors);
+            })
             ->addColumn('action', function ($row) {
-                return Blade::render('<a href="">Button</a>');
+                return $this->action($row);
             });
+    }
+
+    public function action($data)
+    {
+        return ladmin()->view('community._parts.table-action', $data);
     }
 
     /**
@@ -45,7 +59,10 @@ class CommunityDatatables extends Datatables
     public function headers(): array
     {
         return [
-            'id',
+            'ID',
+            'Name',
+            'Display Name',
+            'Associated Major(s)',
             'Action' => ['class' => 'text-center'],
         ];
     }
@@ -60,6 +77,9 @@ class CommunityDatatables extends Datatables
     {
         return [
             ['data' => 'id', 'class' => 'text-center'],
+            ['data' => 'name',],
+            ['data' => 'display_name',],
+            ['data' => 'majors.name', 'orderable' => false],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
     }

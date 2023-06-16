@@ -2,9 +2,8 @@
 
 namespace Modules\Ladmin\Datatables;
 
-use App\Models\Model;
+use App\Models\Category;
 use Hexters\Ladmin\Supports\Datatables;
-use Illuminate\Support\Facades\Blade;
 
 class CategoryDatatables extends Datatables
 {
@@ -14,14 +13,14 @@ class CategoryDatatables extends Datatables
      *
      * @var String
      */
-    protected $title = 'Page Title';
+    protected $title = 'Categories List';
 
     /**
      * Setup query builder
      */
     public function __construct()
     {
-        $this->query = Model::query();
+        $this->query = Category::query();
     }
     
     /**
@@ -33,8 +32,13 @@ class CategoryDatatables extends Datatables
     {
         return $this->eloquent($this->query)
             ->addColumn('action', function ($row) {
-                return Blade::render('<a href="">Button</a>');
+                return $this->action($row);
             });
+    }
+
+    public function action($data)
+    {
+        return ladmin()->view('category._parts.table-action', $data);
     }
 
     /**
@@ -45,7 +49,9 @@ class CategoryDatatables extends Datatables
     public function headers(): array
     {
         return [
-            'id',
+            'ID',
+            'Name',
+            'Display Name',
             'Action' => ['class' => 'text-center'],
         ];
     }
@@ -60,6 +66,8 @@ class CategoryDatatables extends Datatables
     {
         return [
             ['data' => 'id', 'class' => 'text-center'],
+            ['data' => 'name',],
+            ['data' => 'display_name',],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
     }

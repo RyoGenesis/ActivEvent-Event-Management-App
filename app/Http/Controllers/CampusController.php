@@ -6,28 +6,32 @@ use App\Http\Requests\CampusRequest;
 use App\Models\Campus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Ladmin\Datatables\CampusDatatables;
 
 class CampusController extends Controller
 {
     function indexList() {
-        $campuses = Campus::all();
-        return view('admin.campus.index', compact(['campuses']));
+        if( request()->has('datatables') ) {
+            return CampusDatatables::renderData();
+        }
+
+        return ladmin()->view('campus.index');
     }
 
     function create() {
-        return view('admin.campus.create');
+        return ladmin()->view('campus.create');
     }
 
     function insert(CampusRequest $request) {
         Campus::create([
             'name' => $request->name
         ]);
-        return view('admin.campus.index')->with('success','Successfully added new campus!');
+        return redirect()->route('ladmin.campus.index')->with('success','Successfully added new campus!');
     }
 
     function edit($id) {
         $campus = Campus::find($id);
-        return view('admin.campus.edit', compact(['campus']));
+        return ladmin()->view('campus.edit', compact(['campus']));
     }
 
     function update(CampusRequest $request, $id) {
@@ -40,7 +44,7 @@ class CampusController extends Controller
             'name' => $request->name,
         ]);
 
-        return view('admin.campus.index')->with('success','Successfully update campus information!');
+        return redirect()->route('ladmin.campus.index')->with('success','Successfully update campus information!');
     }
 
     function destroy(Request $request) {
@@ -52,6 +56,6 @@ class CampusController extends Controller
         $request->validate($validation);
         Campus::destroy($request->id);
 
-        return view('admin.campus.index')->with('success','Successfully deleted campus!');
+        return redirect()->route('ladmin.campus.index')->with('success','Successfully deleted campus!');
     }
 }
