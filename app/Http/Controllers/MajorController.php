@@ -7,17 +7,21 @@ use App\Models\Faculty;
 use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Ladmin\Datatables\MajorDatatables;
 
 class MajorController extends Controller
 {
     function indexList() {
-        $majors = Major::all();
-        return view('admin.major.index', compact(['majors']));
+        if( request()->has('datatables') ) {
+            return MajorDatatables::renderData();
+        }
+
+        return ladmin()->view('major.index');
     }
 
     function create() {
         $faculties = Faculty::all();
-        return view('admin.major.create', compact(['faculties']));
+        return ladmin()->view('major.create', compact(['faculties']));
     }
 
     function insert(MajorRequest $request) {
@@ -25,13 +29,13 @@ class MajorController extends Controller
             'name' => $request->name,
             'faculty_id' => $request->faculty_id,
         ]);
-        return view('admin.major.index')->with('success','Successfully added new major!');
+        return redirect()->route('ladmin.major.index')->with('success','Successfully added new major!');
     }
 
     function edit($id) {
         $major = Major::with(['faculty'])->where('id',$id)->first();
         $faculties = Faculty::all();
-        return view('admin.major.edit', compact(['major', 'faculties']));
+        return ladmin()->view('major.edit', compact(['major', 'faculties']));
     }
 
     function update(MajorRequest $request, $id) {
@@ -45,7 +49,7 @@ class MajorController extends Controller
             'faculty_id' => $request->faculty_id,
         ]);
 
-        return view('admin.major.index')->with('success','Successfully update major information!');
+        return redirect()->route('ladmin.major.index')->with('success','Successfully update major information!');
     }
 
     function destroy(Request $request) {
@@ -57,6 +61,6 @@ class MajorController extends Controller
         $request->validate($validation);
         Major::destroy($request->id);
 
-        return view('admin.major.index')->with('success','Successfully deleted major!');
+        return redirect()->route('ladmin.major.index')->with('success','Successfully deleted major!');
     }
 }

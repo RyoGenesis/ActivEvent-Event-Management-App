@@ -40,8 +40,8 @@ class AdminController extends Controller
     public function create()
     {
         ladmin()->allows(['ladmin.admin.create']);
-
-        return ladmin()->view('admin.create');
+        $communities = Community::all();
+        return ladmin()->view('admin.create', compact('communities'));
     }
 
     /**

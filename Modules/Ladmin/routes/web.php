@@ -3,6 +3,7 @@
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\MajorController;
 use App\Http\Controllers\SatLevelController;
 use Illuminate\Support\Facades\Route;
 use Modules\Ladmin\Http\Controllers\AdminController;
@@ -53,6 +54,14 @@ ladmin()->route(function () {
     Route::get('faculty/{id}/edit', [FacultyController::class, 'edit'])->name('faculty.edit');
     Route::post('faculty/{id}', [FacultyController::class, 'update'])->name('faculty.update');
     Route::post('faculty/{id}/delete', [FacultyController::class, 'destroy'])->name('faculty.destroy');
+
+    // major
+    Route::get('major', [MajorController::class, 'indexList'])->name('major.index');
+    Route::get('major/create', [MajorController::class, 'create'])->name('major.create');
+    Route::post('major', [MajorController::class, 'store'])->name('major.store');
+    Route::get('major/{id}/edit', [MajorController::class, 'edit'])->name('major.edit');
+    Route::post('major/{id}', [MajorController::class, 'update'])->name('major.update');
+    Route::post('major/{id}/delete', [MajorController::class, 'destroy'])->name('major.destroy');
 
     // category
     Route::get('category', [CategoryController::class, 'indexList'])->name('category.index');

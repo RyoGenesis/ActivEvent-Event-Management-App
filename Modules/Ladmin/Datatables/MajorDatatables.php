@@ -22,6 +22,11 @@ class MajorDatatables extends Datatables
     {
         $this->query = Major::query()->with(['faculty']);
     }
+
+    public function ajax()
+    {
+        return route('ladmin.major.index', ['datatables']);
+    }
     
     /**
      * DataTables using Eloquent Builder.
@@ -73,5 +78,11 @@ class MajorDatatables extends Datatables
             ['data' => 'faculty.name',],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
+    }
+
+    public function order()
+    {
+        //first column with asc
+        return [[0, "asc"]];
     }
 }

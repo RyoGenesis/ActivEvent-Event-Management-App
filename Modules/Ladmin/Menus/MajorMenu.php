@@ -14,28 +14,28 @@ class MajorMenu extends BaseMenu
      *
      * @var string
      */
-    protected $gate = 'menu.gate.index';
+    protected $gate = 'ladmin.major.index';
 
     /**
      * Name of menu
      *
      * @var string
      */
-    protected $name = 'Menu Name';
+    protected $name = 'Major';
 
     /**
      * Font icons 
      *
      * @var string
      */
-    protected $icon = 'fa fa-regular fa-square-check'; // fontawesome
+    protected $icon = 'fa-solid fa-graduation-cap'; // fontawesome
 
     /**
      * Menu description
      *
      * @var string
      */
-    protected $description = 'User can access module name';
+    protected $description = 'User can access major menu';
 
     /**
      * Inspecting The Request Path / Route active
@@ -60,7 +60,7 @@ class MajorMenu extends BaseMenu
      */
     protected function route()
     {
-        return null;
+        return ['ladmin.major.index'];
     }
 
     /**
@@ -71,7 +71,9 @@ class MajorMenu extends BaseMenu
     protected function gates()
     {
         return [
-            // new Gate(gate: 'gate.menu.uniq', title: 'Gate Title', description: 'Description of gate'),
+            new Gate(gate: 'ladmin.major.create', title: 'Create New Major', description: 'User can create new major data'),
+            new Gate(gate: 'ladmin.major.update', title: 'Update Major', description: 'User can update major data'),
+            new Gate(gate: 'ladmin.major.destroy', title: 'Delete Major', description: 'User can delete major data'),
         ];
     }
 
@@ -82,8 +84,6 @@ class MajorMenu extends BaseMenu
      */
     protected function submenus()
     {
-        return [
-            // OtherMenu::class
-        ];
+        return [];
     }
 }
