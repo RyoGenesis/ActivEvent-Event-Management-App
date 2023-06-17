@@ -6,7 +6,7 @@ use Hexters\Ladmin\Contracts\MenuDivider;
 use Hexters\Ladmin\Menus\Gate;
 use Hexters\Ladmin\Supports\BaseMenu;
 
-class CampusMenu extends BaseMenu
+class CategoryMenu extends BaseMenu
 {
 
     /**
@@ -14,28 +14,28 @@ class CampusMenu extends BaseMenu
      *
      * @var string
      */
-    protected $gate = 'ladmin.campus.index';
+    protected $gate = 'ladmin.category.index';
 
     /**
      * Name of menu
      *
      * @var string
      */
-    protected $name = 'Campus';
+    protected $name = 'Category';
 
     /**
      * Font icons 
      *
      * @var string
      */
-    protected $icon = 'fa-solid fa-school'; // fontawesome
+    protected $icon = 'fa-solid fa-square-list'; // fontawesome
 
     /**
      * Menu description
      *
      * @var string
      */
-    protected $description = 'User can access campus menu';
+    protected $description = 'User can access category menu';
 
     /**
      * Inspecting The Request Path / Route active
@@ -60,7 +60,7 @@ class CampusMenu extends BaseMenu
      */
     protected function route()
     {
-        return ['ladmin.campus.index'];
+        return ['ladmin.category.index'];
     }
 
     /**
@@ -71,9 +71,9 @@ class CampusMenu extends BaseMenu
     protected function gates()
     {
         return [
-            new Gate(gate: 'ladmin.campus.create', title: 'Create New Campus', description: 'User can create new campus data'),
-            new Gate(gate: 'ladmin.campus.update', title: 'Update Campus', description: 'User can update campus data'),
-            new Gate(gate: 'ladmin.campus.destroy', title: 'Delete Campus', description: 'User can delete campus data'),
+            new Gate(gate: 'ladmin.category.create', title: 'Create New Category', description: 'User can create new category data'),
+            new Gate(gate: 'ladmin.category.update', title: 'Update Category', description: 'User can update category data'),
+            new Gate(gate: 'ladmin.category.destroy', title: 'Delete Category', description: 'User can delete category data'),
         ];
     }
 

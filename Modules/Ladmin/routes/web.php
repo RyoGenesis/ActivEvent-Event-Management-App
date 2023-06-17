@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Modules\Ladmin\Http\Controllers\AdminController;
 use Modules\Ladmin\Http\Controllers\Auth\LoginController;
@@ -42,6 +43,14 @@ ladmin()->route(function () {
     Route::get('campus/{id}/edit', [CampusController::class, 'edit'])->name('campus.edit');
     Route::post('campus/{id}', [CampusController::class, 'update'])->name('campus.update');
     Route::post('campus/{id}/delete', [CampusController::class, 'destroy'])->name('campus.destroy');
+
+    // category
+    Route::get('category', [CategoryController::class, 'indexList'])->name('category.index');
+    Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('category', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('category/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::post('category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     Route::get('/group-search', GroupSearchController::class)->name('group.search');
 });

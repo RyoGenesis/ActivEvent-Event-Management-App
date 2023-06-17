@@ -22,6 +22,11 @@ class CategoryDatatables extends Datatables
     {
         $this->query = Category::query();
     }
+
+    public function ajax()
+    {
+        return route('ladmin.category.index', ['datatables']);
+    }
     
     /**
      * DataTables using Eloquent Builder.
@@ -70,5 +75,11 @@ class CategoryDatatables extends Datatables
             ['data' => 'display_name',],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
+    }
+
+    public function order()
+    {
+        //first column with asc
+        return [[0, "asc"]];
     }
 }

@@ -6,16 +6,20 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Ladmin\Datatables\CategoryDatatables;
 
 class CategoryController extends Controller
 {
     function indexList() {
-        $categories = Category::all();
-        return view('admin.category.index', compact(['categories']));
+        if( request()->has('datatables') ) {
+            return CategoryDatatables::renderData();
+        }
+
+        return ladmin()->view('category.index');
     }
 
     function create() {
-        return view('admin.category.create');
+        return ladmin()->view('category.create');
     }
 
     function insert(CategoryRequest $request) {
@@ -23,12 +27,12 @@ class CategoryController extends Controller
             'name' => $request->name,
             'display_name' => $request->display_name,
         ]);
-        return view('admin.category.index')->with('success','Successfully added new category!');
+        return redirect()->route('ladmin.category.index')->with('success','Successfully added new category!');
     }
 
     function edit($id) {
         $category = Category::find($id);
-        return view('admin.category.edit', compact(['category']));
+        return ladmin()->view('category.edit', compact(['category']));
     }
 
     function update(CategoryRequest $request, $id) {
@@ -42,7 +46,7 @@ class CategoryController extends Controller
             'display_name' => $request->display_name,
         ]);
 
-        return view('admin.category.index')->with('success','Successfully update category information!');
+        return redirect()->route('ladmin.category.index')->with('success','Successfully update category information!');
     }
 
     function destroy(Request $request) {
@@ -54,6 +58,6 @@ class CategoryController extends Controller
         $request->validate($validation);
         Category::destroy($request->id);
 
-        return view('admin.category.index')->with('success','Successfully deleted category!');
+        return redirect()->route('ladmin.category.index')->with('success','Successfully deleted category!');
     }
 }

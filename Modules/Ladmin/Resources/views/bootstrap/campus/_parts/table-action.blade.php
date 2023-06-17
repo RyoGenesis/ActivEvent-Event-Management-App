@@ -20,7 +20,6 @@
           <div class="modal-content">
             <form action="{{ route('ladmin.campus.destroy', [$id]) }}" method="post">
               @csrf
-              @method('DELETE')
               <div class="modal-header border-0">
                 <h5 class="modal-title" id="action-item-{{$id}}-label">Delete</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
