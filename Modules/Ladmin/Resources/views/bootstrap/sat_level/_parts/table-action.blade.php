@@ -7,10 +7,6 @@
         {!! 'Edit' ?? ladmin()->icon('pencil-alt') !!}
     </a>
 
-    {{-- <a href="{{ $destroy['url'] }}" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
-        {!! 'Delete' ?? ladmin()->icon('trash') !!}
-    </a> --}}
-
     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
         {!! 'Delete' ?? ladmin()->icon('trash') !!}
     </button>
@@ -20,7 +16,6 @@
           <div class="modal-content">
             <form action="{{ route('ladmin.sat_level.destroy', [$id]) }}" method="post">
               @csrf
-              @method('DELETE')
               <div class="modal-header border-0">
                 <h5 class="modal-title" id="action-item-{{$id}}-label">Delete</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">

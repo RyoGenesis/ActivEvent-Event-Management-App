@@ -5,28 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\SatLevel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Ladmin\Datatables\SatLevelDatatables;
 
 class SatLevelController extends Controller
 {
     function indexList() {
-        $sat_levels = SatLevel::all();
-        return view('admin.sat_level.index', compact(['sat_levels']));
+        if( request()->has('datatables') ) {
+            return SatLevelDatatables::renderData();
+        }
+
+        return ladmin()->view('sat_level.index');
     }
 
     function create() {
-        return view('admin.sat_level.create');
+        return ladmin()->view('sat_level.create');
     }
 
     function insert(Request $request) {
         SatLevel::create([
             'name' => $request->name
         ]);
-        return view('admin.sat_level.index')->with('success','Successfully added new SAT level!');
+        return redirect()->route('ladmin.sat_level.index')->with('success','Successfully added new SAT level!');
     }
 
     function edit($id) {
         $satLevel = SatLevel::find($id);
-        return view('admin.sat_level.edit', compact(['satLevel']));
+        return ladmin()->view('sat_level.edit', compact(['satLevel']));
     }
 
     function update(Request $request, $id) {
@@ -39,7 +43,7 @@ class SatLevelController extends Controller
             'name' => $request->name,
         ]);
 
-        return view('admin.sat_level.index')->with('success','Successfully update information!');
+        return redirect()->route('ladmin.sat_level.index')->with('success','Successfully update information!');
     }
 
     function destroy(Request $request) {
@@ -51,6 +55,6 @@ class SatLevelController extends Controller
         $request->validate($validation);
         SatLevel::destroy($request->id);
 
-        return view('admin.sat_level.index')->with('success','Successfully deleted SAT level!');
+        return redirect()->route('ladmin.sat_level.index')->with('success','Successfully deleted SAT level!');
     }
 }

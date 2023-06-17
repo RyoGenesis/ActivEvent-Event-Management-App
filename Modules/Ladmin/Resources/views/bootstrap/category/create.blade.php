@@ -12,7 +12,7 @@
             <x-ladmin-input id="display_name" type="text" class="col" required name="display_name" 
                 value="{{ old('display_name') }}" placeholder="Display Name" />
         </div>
-        <div class="text-end">
+        <div class="text-end text-white">
             <x-ladmin-button>Submit</x-ladmin-button>
         </div>
     </form>

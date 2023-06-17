@@ -22,6 +22,11 @@ class FacultyDatatables extends Datatables
     {
         $this->query = Faculty::query();
     }
+
+    public function ajax()
+    {
+        return route('ladmin.faculty.index', ['datatables']);
+    }
     
     /**
      * DataTables using Eloquent Builder.
@@ -68,5 +73,11 @@ class FacultyDatatables extends Datatables
             ['data' => 'name',],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
+    }
+
+    public function order()
+    {
+        //first column with asc
+        return [[0, "asc"]];
     }
 }

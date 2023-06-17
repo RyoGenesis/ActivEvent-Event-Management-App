@@ -7,10 +7,6 @@
         {!! 'Edit' ?? ladmin()->icon('pencil-alt') !!}
     </a>
 
-    {{-- <a href="{{ $destroy['url'] }}" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
-        {!! 'Delete' ?? ladmin()->icon('trash') !!}
-    </a> --}}
-
     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
         {!! 'Delete' ?? ladmin()->icon('trash') !!}
     </button>

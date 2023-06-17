@@ -6,28 +6,32 @@ use App\Http\Requests\FacultyRequest;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Ladmin\Datatables\FacultyDatatables;
 
 class FacultyController extends Controller
 {
     function indexList() {
-        $faculties = Faculty::all();
-        return view('admin.faculty.index', compact(['faculties']));
+        if( request()->has('datatables') ) {
+            return FacultyDatatables::renderData();
+        }
+
+        return ladmin()->view('faculty.index');
     }
 
     function create() {
-        return view('admin.faculty.create');
+        return ladmin()->view('faculty.create');
     }
 
     function insert(FacultyRequest $request) {
         Faculty::create([
             'name' => $request->name
         ]);
-        return view('admin.faculty.index')->with('success','Successfully added new faculty!');
+        return redirect()->route('ladmin.faculty.index')->with('success','Successfully added new faculty!');
     }
 
     function edit($id) {
         $faculty = Faculty::find($id);
-        return view('admin.faculty.edit', compact(['faculty']));
+        return ladmin()->view('faculty.edit', compact(['faculty']));
     }
 
     function update(FacultyRequest $request, $id) {
@@ -40,7 +44,7 @@ class FacultyController extends Controller
             'name' => $request->name,
         ]);
 
-        return view('admin.faculty.index')->with('success','Successfully update faculty information!');
+        return redirect()->route('ladmin.faculty.index')->with('success','Successfully update faculty information!');
     }
 
     function destroy(Request $request) {
@@ -52,7 +56,7 @@ class FacultyController extends Controller
         $request->validate($validation);
         Faculty::destroy($request->id);
 
-        return view('admin.faculty.index')->with('success','Successfully deleted faculty!');
+        return redirect()->route('ladmin.faculty.index')->with('success','Successfully deleted faculty!');
     }
 
     function getMajors(Request $request) {

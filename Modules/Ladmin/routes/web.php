@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\SatLevelController;
 use Illuminate\Support\Facades\Route;
 use Modules\Ladmin\Http\Controllers\AdminController;
 use Modules\Ladmin\Http\Controllers\Auth\LoginController;
@@ -44,6 +46,14 @@ ladmin()->route(function () {
     Route::post('campus/{id}', [CampusController::class, 'update'])->name('campus.update');
     Route::post('campus/{id}/delete', [CampusController::class, 'destroy'])->name('campus.destroy');
 
+    // faculty
+    Route::get('faculty', [FacultyController::class, 'indexList'])->name('faculty.index');
+    Route::get('faculty/create', [FacultyController::class, 'create'])->name('faculty.create');
+    Route::post('faculty', [FacultyController::class, 'store'])->name('faculty.store');
+    Route::get('faculty/{id}/edit', [FacultyController::class, 'edit'])->name('faculty.edit');
+    Route::post('faculty/{id}', [FacultyController::class, 'update'])->name('faculty.update');
+    Route::post('faculty/{id}/delete', [FacultyController::class, 'destroy'])->name('faculty.destroy');
+
     // category
     Route::get('category', [CategoryController::class, 'indexList'])->name('category.index');
     Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
@@ -51,6 +61,14 @@ ladmin()->route(function () {
     Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
     Route::post('category/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::post('category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+    // sat_level
+    Route::get('sat-level', [SatLevelController::class, 'indexList'])->name('sat_level.index');
+    Route::get('sat-level/create', [SatLevelController::class, 'create'])->name('sat_level.create');
+    Route::post('sat-level', [SatLevelController::class, 'store'])->name('sat_level.store');
+    Route::get('sat-level/{id}/edit', [SatLevelController::class, 'edit'])->name('sat_level.edit');
+    Route::post('sat-level/{id}', [SatLevelController::class, 'update'])->name('sat_level.update');
+    Route::post('sat-level/{id}/delete', [SatLevelController::class, 'destroy'])->name('sat_level.destroy');
 
     Route::get('/group-search', GroupSearchController::class)->name('group.search');
 });
