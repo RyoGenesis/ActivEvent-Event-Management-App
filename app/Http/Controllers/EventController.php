@@ -34,9 +34,9 @@ class EventController extends Controller
         $imageFile = $request->file('image');
 
         $imageUrl = null;
-
+        
         if($imageFile) {
-            $imageName = time().'_'.$request->name;
+            $imageName = time().'_'.str_replace(' ', '-',$request->name).'.'.$imageFile->getClientOriginalExtension();
             Storage::putFileAs('public/images/event_images/', $imageFile, $imageName);
             $imageUrl = 'images/event_images/'.$imageName;
         }
@@ -114,7 +114,7 @@ class EventController extends Controller
         $imageFile = $request->file('image');
 
         if($imageFile) {
-            $imageName = time().'_'.$request->name;
+            $imageName = time().'_'.str_replace(' ', '-',$request->name).'.'.$imageFile->getClientOriginalExtension();
             Storage::putFileAs('public/images/event_images/', $imageFile, $imageName);
             $imageUrl = 'images/event_images/'.$imageName;
             Storage::delete('public/'.$event->image);
