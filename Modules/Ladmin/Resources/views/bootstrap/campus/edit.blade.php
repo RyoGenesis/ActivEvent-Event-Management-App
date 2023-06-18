@@ -8,7 +8,7 @@
                 value="{{ old('name', $campus->name) }}" placeholder="Name" />
         </div>
         <div class="text-end">
-            <x-ladmin-button class="text-white">Update</x-ladmin-button>
+            <x-ladmin-button>Update</x-ladmin-button>
         </div>
     </form>
 </x-ladmin-auth-layout>

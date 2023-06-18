@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $metaTitle }}</title>
+    <title>Administrator {{ $metaTitle }} | ActivEvent</title>
 
     @stack('before-styles')
     <link rel="stylesheet" href="{{ mix('/css/bs-ladmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/custom-css-admin.css') }}">
     {{ $styles ?? null }}
     @stack('after-styles')
 
@@ -21,7 +22,6 @@
 
     @stack('before-scripts')
     <script src="{{ mix('/js/bs-ladmin.js') }}"></script>
-    {{ $scripts ?? null }}
     @stack('after-scripts')
 </body>
 

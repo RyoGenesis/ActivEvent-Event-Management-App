@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             BgaSeeder::class,
             SatLevelSeeder::class,
             CommunityMajorSeeder::class,
+            CategorySeeder::class,
             SeedersDatabaseSeeder::class,
             // UserSeeder::class,
         ]);

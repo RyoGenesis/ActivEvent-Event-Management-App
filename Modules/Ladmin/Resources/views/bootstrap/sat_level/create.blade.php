@@ -7,7 +7,7 @@
             <x-ladmin-input id="name" type="text" class="col" required name="name" 
                 value="{{ old('name') }}" placeholder="Name" />
         </div>
-        <div class="text-end text-white">
+        <div class="text-end">
             <x-ladmin-button>Submit</x-ladmin-button>
         </div>
     </form>

@@ -11,6 +11,9 @@
 
     @stack('before-styles')
     <link rel="stylesheet" href="{{ mix('/css/bs-ladmin.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet" href="{{ asset('/css/custom-css-admin.css') }}">
     {{ $styles ?? null }}
     @stack('after-styles')
 
@@ -112,6 +115,7 @@
 
     @stack('before-scripts')
     <script src="{{ mix('/js/bs-ladmin.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     {{ $scripts ?? null }}
     @stack('after-scripts')
 </body>

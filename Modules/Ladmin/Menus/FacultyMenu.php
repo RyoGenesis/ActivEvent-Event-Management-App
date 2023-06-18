@@ -28,7 +28,7 @@ class FacultyMenu extends BaseMenu
      *
      * @var string
      */
-    protected $icon = 'fa-solid fa-screen-users'; // fontawesome
+    protected $icon = 'fa-solid fa-building-columns'; // fontawesome
 
     /**
      * Menu description

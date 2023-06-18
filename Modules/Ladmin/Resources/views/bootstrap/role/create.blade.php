@@ -1,4 +1,4 @@
-<x-ladmin-button class="text-white" type="button" data-bs-toggle="modal" data-bs-target="#modal-create-role">
+<x-ladmin-button type="button" data-bs-toggle="modal" data-bs-target="#modal-create-role">
     &plus; Add New
 </x-ladmin-button>
 

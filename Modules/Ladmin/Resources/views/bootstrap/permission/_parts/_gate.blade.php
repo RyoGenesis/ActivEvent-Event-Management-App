@@ -27,7 +27,7 @@ $uniq = uniqid();
         </div>
         @if (isset($gate['gates']) && count($gate['gates']) > 0 && ($gate['type'] ?? 'menu') === 'menu')
             <div>
-                <x-ladmin-button class="text-white" size="sm" type="button" data-bs-toggle="collapse"
+                <x-ladmin-button size="sm" type="button" data-bs-toggle="collapse"
                     data-bs-target="#permission-{{ $uniq }}">Show Permissions</x-ladmin-button>
             </div>
         @endif

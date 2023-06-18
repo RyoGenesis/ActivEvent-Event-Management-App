@@ -2,7 +2,7 @@
     <x-slot name="title">List of Faculties</x-slot>
     @can(['ladmin.faculty.create'])
         <x-slot name="button">
-            <a href="{{ route('ladmin.faculty.create', ladmin()->back()) }}" class="btn btn-primary text-white">&plus; Add New Faculty</a>
+            <a href="{{ route('ladmin.faculty.create', ladmin()->back()) }}" class="btn btn-primary">&plus; Add New Faculty</a>
         </x-slot>
     @endcan
     <x-ladmin-card>

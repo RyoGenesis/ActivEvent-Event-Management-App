@@ -28,7 +28,7 @@ class CategoryMenu extends BaseMenu
      *
      * @var string
      */
-    protected $icon = 'fa-solid fa-square-list'; // fontawesome
+    protected $icon = 'fa-solid fa-rectangle-list'; // fontawesome
 
     /**
      * Menu description

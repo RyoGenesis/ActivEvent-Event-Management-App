@@ -22,7 +22,7 @@
                 @enderror
             </div>
         </div>
-        <div class="text-end text-white">
+        <div class="text-end">
             <x-ladmin-button>Submit</x-ladmin-button>
         </div>
     </form>
