@@ -14,28 +14,28 @@ class CommunityMenu extends BaseMenu
      *
      * @var string
      */
-    protected $gate = 'menu.gate.index';
+    protected $gate = 'ladmin.community.index';
 
     /**
      * Name of menu
      *
      * @var string
      */
-    protected $name = 'Menu Name';
+    protected $name = 'Community';
 
     /**
      * Font icons 
      *
      * @var string
      */
-    protected $icon = 'fa fa-regular fa-square-check'; // fontawesome
+    protected $icon = 'fa-solid fa-users'; // fontawesome
 
     /**
      * Menu description
      *
      * @var string
      */
-    protected $description = 'User can access module name';
+    protected $description = 'User can access community menu';
 
     /**
      * Inspecting The Request Path / Route active
@@ -60,7 +60,7 @@ class CommunityMenu extends BaseMenu
      */
     protected function route()
     {
-        return null;
+        return ['ladmin.community.index'];
     }
 
     /**
@@ -71,7 +71,9 @@ class CommunityMenu extends BaseMenu
     protected function gates()
     {
         return [
-            // new Gate(gate: 'gate.menu.uniq', title: 'Gate Title', description: 'Description of gate'),
+            new Gate(gate: 'ladmin.community.create', title: 'Create New Community', description: 'User can create new community data'),
+            new Gate(gate: 'ladmin.community.update', title: 'Update Community', description: 'User can update community data'),
+            new Gate(gate: 'ladmin.community.destroy', title: 'Delete Community', description: 'User can delete community data'),
         ];
     }
 
@@ -82,8 +84,6 @@ class CommunityMenu extends BaseMenu
      */
     protected function submenus()
     {
-        return [
-            // OtherMenu::class
-        ];
+        return [];
     }
 }

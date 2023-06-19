@@ -16,5 +16,15 @@
         </div>
 
     </form>
-
+    <x-slot name="scripts">
+        <script>
+            $('#roles').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data('placeholder'),
+                closeOnSelect: false,
+                allowClear: true,
+            });
+        </script>
+    </x-slot>
 </x-ladmin-auth-layout>

@@ -23,6 +23,11 @@ class CommunityDatatables extends Datatables
     {
         $this->query = Community::query()->with(['majors']);
     }
+
+    public function ajax()
+    {
+        return route('ladmin.community.index', ['datatables']);
+    }
     
     /**
      * DataTables using Eloquent Builder.
@@ -82,5 +87,11 @@ class CommunityDatatables extends Datatables
             ['data' => 'majors.name', 'orderable' => false],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
+    }
+
+    public function order()
+    {
+        //first column with asc
+        return [[0, "asc"]];
     }
 }

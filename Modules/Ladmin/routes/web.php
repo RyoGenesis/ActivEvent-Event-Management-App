@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\SatLevelController;
@@ -70,6 +71,14 @@ ladmin()->route(function () {
     Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
     Route::post('category/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::post('category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+    // community
+    Route::get('community', [CommunityController::class, 'indexList'])->name('community.index');
+    Route::get('community/create', [CommunityController::class, 'create'])->name('community.create');
+    Route::post('community', [CommunityController::class, 'store'])->name('community.store');
+    Route::get('community/{id}/edit', [CommunityController::class, 'edit'])->name('community.edit');
+    Route::post('community/{id}', [CommunityController::class, 'update'])->name('community.update');
+    Route::post('community/{id}/delete', [CommunityController::class, 'destroy'])->name('community.destroy');
 
     // sat_level
     Route::get('sat-level', [SatLevelController::class, 'indexList'])->name('sat_level.index');

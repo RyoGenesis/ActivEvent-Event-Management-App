@@ -7,17 +7,21 @@ use App\Models\Community;
 use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Ladmin\Datatables\CommunityDatatables;
 
 class CommunityController extends Controller
 {
     function indexList() {
-        $communities = Community::all();
-        return view('admin.community.index', compact(['communities']));
+        if( request()->has('datatables') ) {
+            return CommunityDatatables::renderData();
+        }
+
+        return ladmin()->view('community.index');
     }
 
     function create() {
         $majors = Major::all();
-        return view('admin.community.create', compact(['majors']));
+        return ladmin()->view('community.create', compact(['majors']));
     }
 
     function insert(CommunityRequest $request) {
@@ -30,13 +34,14 @@ class CommunityController extends Controller
             $community->majors()->attach($request->majors);
         }
 
-        return view('admin.community.index')->with('success','Successfully added new community!');
+        return redirect()->route('ladmin.community.index')->with('success','Successfully added new community!');
     }
 
     function edit($id) {
         $community = Community::with(['majors'])->where('id',$id)->first();
+        $communityMajors = $community->majors ? $community->majors->pluck('id') : [] ;
         $majors = Major::all();
-        return view('admin.community.edit', compact(['community','majors']));
+        return ladmin()->view('community.edit', compact(['community', 'communityMajors' ,'majors']));
     }
 
     function update(CommunityRequest $request, $id) {
@@ -54,7 +59,7 @@ class CommunityController extends Controller
         $majors = $request->majors ?? []; //if null then empty array
         $community->majors()->sync($majors);
 
-        return view('admin.community.index')->with('success','Successfully update community information!');
+        return redirect()->route('ladmin.community.index')->with('success','Successfully update community information!');
     }
 
     function destroy(Request $request) {
@@ -66,6 +71,6 @@ class CommunityController extends Controller
         $request->validate($validation);
         Community::destroy($request->id);
 
-        return view('admin.community.index')->with('success','Successfully deleted community!');
+        return redirect()->route('ladmin.community.index')->with('success','Successfully deleted community!');
     }
 }

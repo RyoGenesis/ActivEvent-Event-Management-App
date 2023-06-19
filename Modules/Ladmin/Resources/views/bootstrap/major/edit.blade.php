@@ -1,6 +1,6 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Edit Major</x-slot>
-    <form action="{{ route('ladmin.major.store') }}" method="POST">
+    <form action="{{ route('ladmin.major.update') }}" method="POST">
         @csrf
         <div class="row d-flex align-items-center mb-3">
             <label for="name" class="form-label col-lg-3">Name <span class="text-danger">*</span></label>
