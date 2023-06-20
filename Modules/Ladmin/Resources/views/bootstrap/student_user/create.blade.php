@@ -1,28 +1,28 @@
 <x-ladmin-auth-layout>
-    <x-slot name="title">Edit Student</x-slot>
-    <form action="{{ route('ladmin.student_user.update') }}" method="POST" enctype="multipart/form-data">
+    <x-slot name="title">Add New Student</x-slot>
+    <form action="{{ route('ladmin.student_user.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row d-flex align-items-center mb-3">
             <label for="name" class="form-label col-lg-3">Name <span class="text-danger">*</span></label>
             <x-ladmin-input id="name" type="text" class="col" required name="name" 
-                value="{{ old('name', $userStudent->name) }}" placeholder="Name" />
+                value="{{ old('name') }}" placeholder="Name" />
         </div>
         <div class="row d-flex align-items-center mb-3">
             <label for="email" class="form-label col-lg-3">E-mail Address <span class="text-danger">*</span></label>
             <x-ladmin-input id="email" type="email" class="col" required name="email"
-                value="{{ old('email', $userStudent->email) }}" placeholder="E-mail Address" />
+                value="{{ old('email') }}" placeholder="E-mail Address" />
         </div>
         <div class="row d-flex align-items-center mb-3">
             <label for="nim" class="form-label col-lg-3">NIM <span class="text-danger">*</span></label>
             <x-ladmin-input id="nim" type="text" class="col" required name="nim"
-                value="{{ old('nim', $userStudent->nim) }}" placeholder="NIM" />
+                value="{{ old('nim') }}" placeholder="NIM" />
         </div>
         <div class="row d-flex align-items-center mb-3">
             <label for="campus_id" class="form-label col-lg-3">Campus <span class="text-danger">*</span></label>
             <div class="col">
                 <select name="campus_id" id="campus_id" data-placeholder="Select campus" class="form-select form-control @error('campus_id') is-invalid @enderror">
                     @foreach ($campuses as $campus)
-                        <option value="{{$campus->id}}" {{ $campus->id == $userStudent->campus_id ? 'selected' : '' }}>{{ $campus->name }}</option>
+                        <option value="{{$campus->id}}">{{ $campus->name }}</option>
                     @endforeach
                 </select>
                 @error('campus_id')
@@ -35,7 +35,7 @@
             <div class="col">
                 <select name="faculty_id" id="faculty_id" data-placeholder="Select faculty" class="form-select form-control @error('faculty_id') is-invalid @enderror">
                     @foreach ($faculties as $faculty)
-                        <option value="{{$faculty->id}}" {{ $faculty->id == $userStudent->faculty_id ? 'selected' : '' }}>{{ $faculty->name }}</option>
+                        <option value="{{$faculty->id}}">{{ $faculty->name }}</option>
                     @endforeach
                 </select>
                 @error('faculty_id')
@@ -58,7 +58,7 @@
             <div class="col">
                 <select name="communities[]" id="communities" data-placeholder="Select communities" class="form-select form-control @error('communities') is-invalid @enderror" multiple>
                     @foreach ($communities as $community)
-                        <option value="{{$community->id}}" {{ in_array($community->id, $userCommunities) ? 'selected' : '' }}>{{ $community->name }}</option>
+                        <option value="{{$community->id}}">{{ $community->name }}</option>
                     @endforeach
                 </select>
                 @error('communities')
@@ -108,11 +108,9 @@
                         },
                         success : function (response) {
                             var majorId = $("#major_id");
-                            var studentMajor = {{$userStudent->major_id}};
                             majorId.html('');
                             $.each(response, function (i, item) {
-                                var selected = (item['id'] == studentMajor ? ' selected' : '');
-                                majorId.append("<option value='" + item['id'] + "'" + selected +">" + item['name'] + "</option>");
+                                majorId.append("<option value='" + item['id'] + "'>" + item['name'] + "</option>");
                             });
                             majorId.prop('disabled',false);
                         },

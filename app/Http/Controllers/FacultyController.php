@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FacultyRequest;
 use App\Models\Faculty;
+use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Modules\Ladmin\Datatables\FacultyDatatables;
@@ -61,9 +62,7 @@ class FacultyController extends Controller
 
     function getMajors(Request $request) {
 
-        $faculty = Faculty::where('id',$request->id)->first();
-        $majors = $faculty->majors;
-        
+        $majors = Major::where('faculty_id',$request->id)->get();        
         return $majors;
     }
 }

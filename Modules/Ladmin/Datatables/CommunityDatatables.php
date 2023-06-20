@@ -41,9 +41,9 @@ class CommunityDatatables extends Datatables
                 $majors = $row->majors;
                 $formattedMajors = '';
                 foreach($majors as $major) {
-                    $formattedMajors .= '<div class="d-inline rounded border border-info border-3 p-2 m-1">'.$major.'</div>';
+                    $formattedMajors .= '<div class="d-inline-flex rounded border border-info border-3 p-2 m-1">'.$major->name.'</div>';
                 }
-                $formattedMajors = $majors ? '<div class= "">'.$formattedMajors.'</div>'  : 'No association';
+                $formattedMajors = !$majors->isEmpty() ? '<div class= "">'.$formattedMajors.'</div>'  : 'No association';
                 return Blade::render($formattedMajors);
             })
             ->addColumn('action', function ($row) {

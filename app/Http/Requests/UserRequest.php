@@ -32,16 +32,16 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => ['sometimes', 'required','email', Rule::unique('users','email')->ignore($id)],
-            'phone' => ['required','numeric', 'max:20', Rule::unique('users','phone')->ignore($id)],
+            'phone' => ['sometimes','required','numeric', 'max:20', Rule::unique('users','phone')->ignore($id)],
             'nim' => ['sometimes', 'required','size:10', 'regex:/^[0-9]+$/', Rule::unique('users','nim')->ignore($id)],
             'password' => 'sometimes|required|string|min:6',
             'campus_id' => 'required|integer|exists:campuses,id',
             'faculty_id' => 'required|integer|exists:faculties,id',
             'major_id' => ['required','integer','exists:majors,id', Rule::in($major_ids)],
-            'topics' => 'nullable|array',
+            'topics' => 'sometimes|nullable|array',
             'communities' => 'nullable|array|exists:communities,id',
             'communities.*' => 'required|integer',
-            'categories' => 'nullable|array|exists:categories,id',
+            'categories' => 'sometimes|nullable|array|exists:categories,id',
             'categories.*' => 'required|integer|distinct',
         ];
     }

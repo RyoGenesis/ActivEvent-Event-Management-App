@@ -3,12 +3,12 @@
 @endphp
 
 @can(['ladmin.community.index'])
-    <a href="{{ route('ladmin.community.edit', [$id, 'back' => $back]) }}" class="btn btn-sm btn-outline-primary">
-        {!! 'Edit' ?? ladmin()->icon('pencil-alt') !!}
+    <a href="{{ route('ladmin.community.edit', [$id, 'back' => $back]) }}" class="btn btn-sm btn-outline-primary m-1">
+      Edit
     </a>
 
-    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
-        {!! 'Delete' ?? ladmin()->icon('trash') !!}
+    <button type="button" class="btn btn-sm btn-outline-danger m-1" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
+      Delete
     </button>
   
     <div class="modal fade" id="action-item-{{$id}}" tabindex="-1" role="dialog" aria-labelledby="action-item-{{$id}}-label" aria-hidden="true">

@@ -4,15 +4,11 @@
 
 @can(['ladmin.student_user.index'])
     <a href="{{ route('ladmin.student_user.edit', [$id, 'back' => $back]) }}" class="btn btn-sm btn-outline-primary">
-        {!! 'Edit' ?? ladmin()->icon('pencil-alt') !!}
+      Edit
     </a>
 
-    {{-- <a href="{{ $destroy['url'] }}" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
-        {!! 'Delete' ?? ladmin()->icon('trash') !!}
-    </a> --}}
-
     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
-        {!! 'Deactivate' ?? ladmin()->icon('trash') !!}
+      Deactivate
     </button>
   
     <div class="modal fade" id="action-item-{{$id}}" tabindex="-1" role="dialog" aria-labelledby="action-item-{{$id}}-label" aria-hidden="true">

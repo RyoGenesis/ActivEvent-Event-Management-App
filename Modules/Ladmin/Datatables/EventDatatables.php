@@ -2,6 +2,7 @@
 
 namespace Modules\Ladmin\Datatables;
 
+use App\Models\Event;
 use App\Models\Model;
 use Hexters\Ladmin\Supports\Datatables;
 use Illuminate\Support\Facades\Blade;
@@ -14,14 +15,14 @@ class EventDatatables extends Datatables
      *
      * @var String
      */
-    protected $title = 'Page Title';
+    protected $title = 'Events List';
 
     /**
      * Setup query builder
      */
     public function __construct()
     {
-        $this->query = Model::query();
+        $this->query = Event::query();
     }
     
     /**

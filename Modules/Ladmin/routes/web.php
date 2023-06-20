@@ -6,6 +6,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\SatLevelController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Modules\Ladmin\Http\Controllers\AdminController;
 use Modules\Ladmin\Http\Controllers\Auth\LoginController;
@@ -43,7 +44,7 @@ ladmin()->route(function () {
     // campus
     Route::get('campus', [CampusController::class, 'indexList'])->name('campus.index');
     Route::get('campus/create', [CampusController::class, 'create'])->name('campus.create');
-    Route::post('campus', [CampusController::class, 'store'])->name('campus.store');
+    Route::post('campus', [CampusController::class, 'insert'])->name('campus.store');
     Route::get('campus/{id}/edit', [CampusController::class, 'edit'])->name('campus.edit');
     Route::post('campus/{id}', [CampusController::class, 'update'])->name('campus.update');
     Route::post('campus/{id}/delete', [CampusController::class, 'destroy'])->name('campus.destroy');
@@ -51,7 +52,7 @@ ladmin()->route(function () {
     // faculty
     Route::get('faculty', [FacultyController::class, 'indexList'])->name('faculty.index');
     Route::get('faculty/create', [FacultyController::class, 'create'])->name('faculty.create');
-    Route::post('faculty', [FacultyController::class, 'store'])->name('faculty.store');
+    Route::post('faculty', [FacultyController::class, 'insert'])->name('faculty.store');
     Route::get('faculty/{id}/edit', [FacultyController::class, 'edit'])->name('faculty.edit');
     Route::post('faculty/{id}', [FacultyController::class, 'update'])->name('faculty.update');
     Route::post('faculty/{id}/delete', [FacultyController::class, 'destroy'])->name('faculty.destroy');
@@ -59,7 +60,7 @@ ladmin()->route(function () {
     // major
     Route::get('major', [MajorController::class, 'indexList'])->name('major.index');
     Route::get('major/create', [MajorController::class, 'create'])->name('major.create');
-    Route::post('major', [MajorController::class, 'store'])->name('major.store');
+    Route::post('major', [MajorController::class, 'insert'])->name('major.store');
     Route::get('major/{id}/edit', [MajorController::class, 'edit'])->name('major.edit');
     Route::post('major/{id}', [MajorController::class, 'update'])->name('major.update');
     Route::post('major/{id}/delete', [MajorController::class, 'destroy'])->name('major.destroy');
@@ -67,7 +68,7 @@ ladmin()->route(function () {
     // category
     Route::get('category', [CategoryController::class, 'indexList'])->name('category.index');
     Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
-    Route::post('category', [CategoryController::class, 'store'])->name('category.store');
+    Route::post('category', [CategoryController::class, 'insert'])->name('category.store');
     Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
     Route::post('category/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::post('category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.destroy');
@@ -75,15 +76,23 @@ ladmin()->route(function () {
     // community
     Route::get('community', [CommunityController::class, 'indexList'])->name('community.index');
     Route::get('community/create', [CommunityController::class, 'create'])->name('community.create');
-    Route::post('community', [CommunityController::class, 'store'])->name('community.store');
+    Route::post('community', [CommunityController::class, 'insert'])->name('community.store');
     Route::get('community/{id}/edit', [CommunityController::class, 'edit'])->name('community.edit');
     Route::post('community/{id}', [CommunityController::class, 'update'])->name('community.update');
     Route::post('community/{id}/delete', [CommunityController::class, 'destroy'])->name('community.destroy');
 
+    // student-users
+    Route::get('student-user', [UserController::class, 'indexList'])->name('student_user.index');
+    Route::get('student-user/create', [UserController::class, 'adminCreate'])->name('student_user.create');
+    Route::post('student-user', [UserController::class, 'adminInsert'])->name('student_user.store');
+    Route::get('student-user/{id}/edit', [UserController::class, 'adminEdit'])->name('student_user.edit');
+    Route::post('student-user/{id}', [UserController::class, 'adminUpdate'])->name('student_user.update');
+    Route::post('student-user/{id}/deactivate', [UserController::class, 'destroy'])->name('student_user.destroy');
+
     // sat_level
     Route::get('sat-level', [SatLevelController::class, 'indexList'])->name('sat_level.index');
     Route::get('sat-level/create', [SatLevelController::class, 'create'])->name('sat_level.create');
-    Route::post('sat-level', [SatLevelController::class, 'store'])->name('sat_level.store');
+    Route::post('sat-level', [SatLevelController::class, 'insert'])->name('sat_level.store');
     Route::get('sat-level/{id}/edit', [SatLevelController::class, 'edit'])->name('sat_level.edit');
     Route::post('sat-level/{id}', [SatLevelController::class, 'update'])->name('sat_level.update');
     Route::post('sat-level/{id}/delete', [SatLevelController::class, 'destroy'])->name('sat_level.destroy');

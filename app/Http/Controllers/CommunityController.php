@@ -39,7 +39,7 @@ class CommunityController extends Controller
 
     function edit($id) {
         $community = Community::with(['majors'])->where('id',$id)->first();
-        $communityMajors = $community->majors ? $community->majors->pluck('id') : [] ;
+        $communityMajors = $community->majors ? $community->majors->pluck('id')->toArray() : [] ;
         $majors = Major::all();
         return ladmin()->view('community.edit', compact(['community', 'communityMajors' ,'majors']));
     }

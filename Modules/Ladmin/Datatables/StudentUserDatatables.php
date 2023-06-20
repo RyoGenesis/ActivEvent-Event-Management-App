@@ -23,6 +23,11 @@ class StudentUserDatatables extends Datatables
     {
         $this->query = User::query()->with(['campus','faculty','major','communities']);
     }
+
+    public function ajax()
+    {
+        return route('ladmin.student_user.index', ['datatables']);
+    }
     
     /**
      * DataTables using Eloquent Builder.
@@ -45,13 +50,13 @@ class StudentUserDatatables extends Datatables
                 $communities = $row->communities;
                 $formattedComms = '';
                 foreach($communities as $community) {
-                    $formattedComms .= '<div class="d-inline rounded border border-info border-3 p-2 m-1">'.$community.'</div>';
+                    $formattedComms .= '<div class="d-inline-flex rounded border border-info border-3 p-2 m-1">'.$community->display_name.'</div>';
                 }
-                $formattedComms = $communities ? '<div class= "">'.$formattedComms.'</div>'  : 'No community';
+                $formattedComms = !$communities->isEmpty() ? '<div class= "">'.$formattedComms.'</div>'  : 'No community';
                 return Blade::render($formattedComms);
             })
             ->addColumn('action', function ($row) {
-                return Blade::render('<a href="">Button</a>');
+                return $this->action($row);
             });
     }
 
@@ -68,11 +73,10 @@ class StudentUserDatatables extends Datatables
     public function headers(): array
     {
         return [
-            'ID',
+            'NIM',
             'Name',
             'Email',
             'Phone',
-            'NIM',
             'Campus',
             'Faculty',
             'Major',
@@ -90,16 +94,21 @@ class StudentUserDatatables extends Datatables
     public function columns(): array
     {
         return [
-            ['data' => 'id', 'class' => 'text-center'],
+            ['data' => 'nim',],
             ['data' => 'name',],
             ['data' => 'email',],
             ['data' => 'phone',],
-            ['data' => 'nim',],
             ['data' => 'campus.name',],
             ['data' => 'faculty.name',],
             ['data' => 'major.name',],
             ['data' => 'communities.name', 'orderable' => false],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
+    }
+
+    public function order()
+    {
+        //first column with asc
+        return [[0, "asc"]];
     }
 }

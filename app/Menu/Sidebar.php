@@ -7,6 +7,7 @@ use Modules\Ladmin\Menus\CategoryMenu;
 use Modules\Ladmin\Menus\CommunityMenu;
 use Modules\Ladmin\Menus\FacultyMenu;
 use Modules\Ladmin\Menus\MajorMenu;
+use Modules\Ladmin\Menus\StudentMenu;
 use Modules\Ladmin\Menus\System;
 
 /**
@@ -24,6 +25,8 @@ return [
     CommunityMenu::class,
 
     CategoryMenu::class,
+
+    StudentMenu::class,
 
     Account::class,
 

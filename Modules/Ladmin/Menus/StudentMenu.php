@@ -14,28 +14,28 @@ class StudentMenu extends BaseMenu
      *
      * @var string
      */
-    protected $gate = 'menu.gate.index';
+    protected $gate = 'ladmin.student_user.index';
 
     /**
      * Name of menu
      *
      * @var string
      */
-    protected $name = 'Menu Name';
+    protected $name = 'Student';
 
     /**
      * Font icons 
      *
      * @var string
      */
-    protected $icon = 'fa fa-regular fa-square-check'; // fontawesome
+    protected $icon = 'fa-solid fa-user-graduate'; // fontawesome
 
     /**
      * Menu description
      *
      * @var string
      */
-    protected $description = 'User can access module name';
+    protected $description = 'User can access student users menu';
 
     /**
      * Inspecting The Request Path / Route active
@@ -60,7 +60,7 @@ class StudentMenu extends BaseMenu
      */
     protected function route()
     {
-        return null;
+        return ['ladmin.student_user.index'];
     }
 
     /**
@@ -71,7 +71,9 @@ class StudentMenu extends BaseMenu
     protected function gates()
     {
         return [
-            // new Gate(gate: 'gate.menu.uniq', title: 'Gate Title', description: 'Description of gate'),
+            new Gate(gate: 'ladmin.student_user.create', title: 'Create New Student User', description: 'User can create new student data'),
+            new Gate(gate: 'ladmin.student_user.update', title: 'Update Student User', description: 'User can update student data'),
+            new Gate(gate: 'ladmin.student_user.destroy', title: 'Delete Student User', description: 'User can delete student data'),
         ];
     }
 
@@ -82,8 +84,6 @@ class StudentMenu extends BaseMenu
      */
     protected function submenus()
     {
-        return [
-            // OtherMenu::class
-        ];
+        return [];
     }
 }

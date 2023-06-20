@@ -4,11 +4,11 @@
 
 @can(['ladmin.sat_level.index'])
     <a href="{{ route('ladmin.sat_level.edit', [$id, 'back' => $back]) }}" class="btn btn-sm btn-outline-primary">
-        {!! 'Edit' ?? ladmin()->icon('pencil-alt') !!}
+      Edit
     </a>
 
     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-{{$id}}">
-        {!! 'Delete' ?? ladmin()->icon('trash') !!}
+      Delete
     </button>
   
     <div class="modal fade" id="action-item-{{$id}}" tabindex="-1" role="dialog" aria-labelledby="action-item-{{$id}}-label" aria-hidden="true">

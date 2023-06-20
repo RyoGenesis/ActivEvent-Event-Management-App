@@ -1,6 +1,6 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Edit Community</x-slot>
-    <form action="{{ route('ladmin.community.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('ladmin.community.update', $community->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row d-flex align-items-center mb-3">
             <label for="name" class="form-label col-lg-3">Name <span class="text-danger">*</span></label>

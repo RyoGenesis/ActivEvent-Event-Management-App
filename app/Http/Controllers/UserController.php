@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Modules\Ladmin\Datatables\StudentUserDatatables;
 
 class UserController extends Controller
 {
@@ -20,6 +21,39 @@ class UserController extends Controller
         $upcomingEvents = $user->events_upcoming;
         $rejectedEvents = $user->events_rejected;
         return view('main.profile.index', compact(['user','upcomingEvents','rejectedEvents']));
+    }
+
+    function indexList() {
+        if( request()->has('datatables') ) {
+            return StudentUserDatatables::renderData();
+        }
+        return ladmin()->view('student_user.index');
+    }
+
+    function adminCreate() {
+        $campuses = Campus::all();
+        $faculties = Faculty::all();
+        $communities = Community::all();
+        return ladmin()->view('student_user.create', compact(['campuses', 'faculties', 'communities']));
+    }
+
+    function adminInsert(UserRequest $request) {
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'nim' => $request->nim,
+            'password' => Hash::make('b!Nu$password'),
+            'campus_id' => $request->campus_id,
+            'faculty_id' => $request->faculty_id,
+            'major_id' => $request->major_id,
+        ]);
+
+        if($request->communities) {
+            $user->communities()->sync($request->communities);
+        }
+
+        return redirect()->route('ladmin.student_user.index')->with('success','Successfully insert new student!');
     }
 
     function edit() {
@@ -36,7 +70,8 @@ class UserController extends Controller
         $campuses = Campus::all();
         $faculties = Faculty::all();
         $communities = Community::all();
-        return view('admin.student_user.edit', compact(['userStudent', 'campuses', 'faculties', 'communities']));
+        $userCommunities = $userStudent->communities ? $userStudent->communities->pluck('id')->toArray() : [];
+        return ladmin()->view('student_user.edit', compact(['userStudent', 'campuses', 'faculties', 'communities', 'userCommunities']));
     }
 
     function update(UserRequest $request) {
@@ -55,7 +90,26 @@ class UserController extends Controller
         $user->communities()->sync($request->communities);
         $user->categories()->sync($request->categories);
 
-        return view('main.profile.index')->with('success','Successfully update profile information!');
+        return redirect()->route('profile.index')->with('success','Successfully update profile information!');
+    }
+
+    function adminUpdate(UserRequest $request, $id) {
+
+        $user = User::find($id);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'nim' => $request->nim,
+            'campus_id' => $request->campus_id,
+            'faculty_id' => $request->faculty_id,
+            'major_id' => $request->major_id,
+        ]);
+
+        $comms = $request->communities ?? [];
+        $user->communities()->sync($comms);
+
+        return redirect()->route('ladmin.student_user.index')->with('success','Successfully update student information!');
     }
 
     function passwordChangeIndex() {
