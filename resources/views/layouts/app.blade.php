@@ -27,91 +27,93 @@
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                                
-                <form class="d-flex ms-5" role="search">
-                    <input type="search" class="form-control-lg me-2" placeholder="Search Event">
-                    <button type="submit" class="btn btn-dark ms-3">Search</button>
-                </form>
-                
-                <div class="collapse navbar-collapse" id=navbarApp>
-                    <ul class="navbar-nav me-auto ms-3 my-2">
-                        <li class="nav-item">
-                            <a class="nav-link active">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
-                            <ul class="dropdown-menu">
-                                <li>Popular</li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>Featured</li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Contact us</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+    <div id="app" class="d-flex flex-column min-vh-100">
+        <header>
+            <nav class="navbar navbar-expand-md navbar-light bg-white shadow">
+                <div class="container">
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                                    
+                    <form class="d-flex ms-5" role="search">
+                        <input type="search" class="form-control-lg me-2" placeholder="Search Event">
+                        <button type="submit" class="btn btn-dark ms-3">Search</button>
+                    </form>
+                    
+                    <div class="collapse navbar-collapse" id=navbarApp>
+                        <ul class="navbar-nav me-auto ms-3 my-2">
+                            <li class="nav-item">
+                                <a class="nav-link active">Home</a>
                             </li>
-                        @endguest
-                    </ul>
+                            <li class="nav-item dropdown">
+                                <a  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
+                                <ul class="dropdown-menu">
+                                    <li>Popular</li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>Featured</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav me-auto">
+    
+                        </ul>
+    
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ms-auto">
+                            <!-- Authentication Links -->
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
+    
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
+    
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+    
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </header>
 
-        <main class="py-4">
+        <main class="py-4 flex-fill">
             @yield('content')
         </main>
 
-        <footer class="bg-info">
-            <div class="container">
+        <footer class="footer bg-info">
+            <div class="container p-3">
                 <div class="row">
                     <div class="col"> ActivEvent </div>
                     <div class="col font-italic"> ActivEvent - &copy 2023</div>
