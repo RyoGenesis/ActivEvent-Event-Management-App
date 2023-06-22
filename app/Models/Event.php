@@ -22,7 +22,7 @@ class Event extends Model
     ];
 
     public function majors() {
-        return $this->belongsToMany(Major::class, 'event_major', 'event_id', 'major_id');
+        return $this->belongsToMany(Major::class, 'event_major', 'event_id', 'major_id')->withTrashed();
     }
 
     public function users() {
@@ -31,11 +31,11 @@ class Event extends Model
     }
 
     public function community() {
-        return $this->belongsTo(Community::class);
+        return $this->belongsTo(Community::class)->withTrashed();
     }
 
     public function category() {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->withTrashed();
     }
 
     public function bgas() {
@@ -43,6 +43,6 @@ class Event extends Model
     }
 
     public function sat_level() {
-        return $this->belongsTo(SatLevel::class);
+        return $this->belongsTo(SatLevel::class)->withTrashed();
     }
 }

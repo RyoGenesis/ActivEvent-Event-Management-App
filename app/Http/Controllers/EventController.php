@@ -12,12 +12,16 @@ use App\Models\SatLevel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Modules\Ladmin\Datatables\EventDatatables;
 
 class EventController extends Controller
 {
     function indexList() {
-        $events = Event::all();
-        return view('admin.event.index', compact(['events']));
+        if( request()->has('datatables') ) {
+            return EventDatatables::renderData();
+        }
+
+        return ladmin()->view('event.index');
     }
 
     function create() {
@@ -26,7 +30,7 @@ class EventController extends Controller
         $categories = Category::all();
         $sat_levels = SatLevel::all();
         $bgas = Bga::all();
-        return view('admin.event.create', compact(['majors','community','categories','sat_levels','bgas']));
+        return ladmin()->view('event.create', compact(['majors','community','categories','sat_levels','bgas']));
     }
 
     function insert(EventRequest $request) {
@@ -45,6 +49,7 @@ class EventController extends Controller
             'name' => $request->name,
             'community_id' => $request->community_id,
             'description' => $request->description,
+            'status' => 'Draft',
             'date' => $request->date,
             'registration_end' => $request->registration_end,
             'category_id' => $request->category_id,
@@ -71,7 +76,15 @@ class EventController extends Controller
             $event->bgas()->attach($request->bgas);
         }
 
-        return view('admin.event.index')->with('success','Successfully added new event!');
+        return redirect()->route('ladmin.event.index')->with('success','Successfully added new event!');
+    }
+
+    function showView($id) {
+        $event = Event::with(['majors','community','category','bgas','sat_level'])->where('id',$id)->first();
+        if(!$event) {
+            abort(404);
+        }
+        return ladmin()->view('event.view', compact(['event']));
     }
 
     function edit($id) {
@@ -80,7 +93,7 @@ class EventController extends Controller
         $categories = Category::all();
         $sat_levels = SatLevel::all();
         $bgas = Bga::all();
-        return view('admin.event.edit', compact(['event','majors','categories','sat_levels','bgas']));
+        return ladmin()->view('event.edit', compact(['event','majors','categories','sat_levels','bgas']));
     }
 
     function update(EventRequest $request, $id) {
@@ -94,6 +107,7 @@ class EventController extends Controller
             'name' => $request->name,
             'community_id' => $request->community_id,
             'description' => $request->description,
+            'status' => $request->status,
             'date' => $request->date,
             'registration_end' => $request->registration_end,
             'category_id' => $request->category_id,
@@ -140,7 +154,7 @@ class EventController extends Controller
 
         //wip if majors changed and exclusive major is true(?)
 
-        return view('admin.event.index')->with('success','Successfully update event information!');
+        return redirect()->route('ladmin.event.index')->with('success','Successfully update event information!');
     }
 
     function destroy(Request $request) {
@@ -152,7 +166,7 @@ class EventController extends Controller
         $request->validate($validation);
         Event::destroy($request->id);
 
-        return view('admin.event.index')->with('success','Successfully deleted event!');
+        return redirect()->route('ladmin.event.index')->with('success','Successfully deleted event!');
     }
 
     function searchEventsResult(Request $request) {
@@ -168,5 +182,4 @@ class EventController extends Controller
         $event=Event::find($id);
         return view('eventdetail')->with('event',$event);
     }
-    
 }

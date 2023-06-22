@@ -67,6 +67,6 @@ class Admin extends Authenticatable
     }
 
     public function community() {
-        return $this->belongsTo(Community::class, 'community_id', 'id');
+        return $this->belongsTo(Community::class, 'community_id', 'id')->withTrashed();
     }
 }

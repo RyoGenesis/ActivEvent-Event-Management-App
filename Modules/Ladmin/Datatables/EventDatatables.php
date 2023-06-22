@@ -24,6 +24,11 @@ class EventDatatables extends Datatables
     {
         $this->query = Event::query();
     }
+
+    public function ajax()
+    {
+        return route('ladmin.event.index', ['datatables']);
+    }
     
     /**
      * DataTables using Eloquent Builder.
@@ -34,8 +39,13 @@ class EventDatatables extends Datatables
     {
         return $this->eloquent($this->query)
             ->addColumn('action', function ($row) {
-                return Blade::render('<a href="">Button</a>');
+                return $this->action($row);
             });
+    }
+
+    public function action($data)
+    {
+        return ladmin()->view('event._parts.table-action', $data);
     }
 
     /**
@@ -63,5 +73,11 @@ class EventDatatables extends Datatables
             ['data' => 'id', 'class' => 'text-center'],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
+    }
+
+    public function order()
+    {
+        //first column with asc
+        return [[0, "asc"]];
     }
 }

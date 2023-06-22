@@ -13,7 +13,7 @@
                 value="{{ old('display_name') }}" placeholder="Display Name" />
         </div>
         <div class="row d-flex align-items-center mb-3">
-            <label for="majors" class="form-label col-lg-3">Associated Majors <span class="text-danger">*</span></label>
+            <label for="majors" class="form-label col-lg-3">Associated Majors</label>
             <div class="col">
                 <select name="majors[]" id="majors" data-placeholder="Select majors" class="form-select form-control @error('majors') is-invalid @enderror" multiple>
                     @foreach ($majors as $major)

@@ -22,7 +22,7 @@ class Community extends Model
     }
 
     public function majors() {
-        return $this->belongsToMany(Major::class, 'community_major', 'community_id', 'major_id');
+        return $this->belongsToMany(Major::class, 'community_major', 'community_id', 'major_id')->withTrashed();
     }
 
     public function admins() {

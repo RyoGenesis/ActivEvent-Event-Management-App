@@ -10,8 +10,8 @@
         <div class="row d-flex align-items-center mb-3">
             <label for="faculty_id" class="form-label col-lg-3">Faculty <span class="text-danger">*</span></label>
             <div class="col">
-                <select name="faculty_id" id="faculty_id" class="form-select form-control @error('faculty_id') is-invalid @enderror">
-                    <option value="" selected disabled>Select faculty</option>
+                <select name="faculty_id" id="faculty_id" data-placeholder="Select faculty" class="form-select form-control @error('faculty_id') is-invalid @enderror">
+                    <option></option>
                     @foreach ($faculties as $faculty)
                         <option value="{{$faculty->id}}">{{ $faculty->name }}</option>
                     @endforeach
@@ -25,4 +25,13 @@
             <x-ladmin-button>Submit</x-ladmin-button>
         </div>
     </form>
+    <x-slot name="scripts">
+        <script>
+            $('#faculty_id').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            });
+        </script>
+    </x-slot>
 </x-ladmin-auth-layout>

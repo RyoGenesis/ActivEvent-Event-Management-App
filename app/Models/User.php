@@ -51,19 +51,19 @@ class User extends Authenticatable
     ];
 
     public function campus() {
-        return $this->belongsTo(Campus::class);
+        return $this->belongsTo(Campus::class)->withTrashed();
     }
 
     public function faculty() {
-        return $this->belongsTo(Faculty::class);
+        return $this->belongsTo(Faculty::class)->withTrashed();
     }
 
     public function major() {
-        return $this->belongsTo(Major::class);
+        return $this->belongsTo(Major::class)->withTrashed();
     }
 
     public function communities() {
-        return $this->belongsToMany(Community::class, 'user_community', 'user_id', 'community_id');
+        return $this->belongsToMany(Community::class, 'user_community', 'user_id', 'community_id')->withTrashed();
     }
 
     public function events() {
@@ -85,6 +85,6 @@ class User extends Authenticatable
     }
 
     public function categories() {
-        return $this->belongsToMany(Category::class, 'user_category_interest', 'user_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'user_category_interest', 'user_id', 'category_id')->withTrashed();
     }
 }

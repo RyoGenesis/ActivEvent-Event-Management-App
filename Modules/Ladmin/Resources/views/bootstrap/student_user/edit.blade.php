@@ -1,6 +1,6 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Edit Student</x-slot>
-    <form action="{{ route('ladmin.student_user.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('ladmin.student_user.update', $userStudent->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row d-flex align-items-center mb-3">
             <label for="name" class="form-label col-lg-3">Name <span class="text-danger">*</span></label>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="row d-flex align-items-center mb-3">
-            <label for="communities" class="form-label col-lg-3">Associated communities <span class="text-danger">*</span></label>
+            <label for="communities" class="form-label col-lg-3">Associated communities</label>
             <div class="col">
                 <select name="communities[]" id="communities" data-placeholder="Select communities" class="form-select form-control @error('communities') is-invalid @enderror" multiple>
                     @foreach ($communities as $community)
