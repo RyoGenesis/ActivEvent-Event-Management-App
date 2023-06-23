@@ -46,7 +46,7 @@
                     <div class="collapse navbar-collapse" id=navbarApp>
                         <ul class="navbar-nav me-auto ms-3 my-2">
                             <li class="nav-item">
-                                <a class="nav-link active">Home</a>
+                                <a class="nav-link active" href="">Home</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
@@ -74,13 +74,13 @@
                             @guest
                                 @if (Route::has('login'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Sign In') }}</a>
                                     </li>
                                 @endif
     
                                 @if (Route::has('register'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Sign Up') }}</a>
                                     </li>
                                 @endif
                             @else

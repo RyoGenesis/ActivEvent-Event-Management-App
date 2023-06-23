@@ -22,6 +22,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{$event->name}}</h5>
                                                     <p class="card-text">
+                                                        This <a href="#" class="text-warning stretched-link">stretched link</a>
                                                         <p class="fs-6">
                                                             {{$event->date}}
                                                         </p>

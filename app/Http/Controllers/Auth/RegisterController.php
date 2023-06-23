@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Campus;
+use App\Models\Faculty;
+use App\Models\Major;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -68,7 +71,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'name' => $data['name'],
+            'name' => $data['naAme'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'nim' => $data['nim'],
@@ -93,5 +96,14 @@ class RegisterController extends Controller
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
                     : redirect($this->redirectPath());
+    }
+
+    public function showRegistrationForm()
+    {
+        $campus=Campus::all();
+        $faculty=Faculty::all();
+        $major=Major::all();
+        return view('auth.register')->with('campus', $campus)->with('faculty', $faculty)->with('major', $major);
+
     }
 }
