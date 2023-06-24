@@ -6,7 +6,7 @@ use Hexters\Ladmin\Contracts\MenuDivider;
 use Hexters\Ladmin\Menus\Gate;
 use Hexters\Ladmin\Supports\BaseMenu;
 
-class EventMenu extends BaseMenu
+class ManageEventMenu extends BaseMenu
 {
 
     /**
@@ -14,28 +14,28 @@ class EventMenu extends BaseMenu
      *
      * @var string
      */
-    protected $gate = 'event.index';
+    protected $gate = 'ladmin.event.index';
 
     /**
      * Name of menu
      *
      * @var string
      */
-    protected $name = 'Events';
+    protected $name = 'Manage Event';
 
     /**
      * Font icons 
      *
      * @var string
      */
-    protected $icon = 'fa-regular fa-calendar-days'; // fontawesome
+    protected $icon = null; // fontawesome
 
     /**
      * Menu description
      *
      * @var string
      */
-    protected $description = 'User can access event menu modules';
+    protected $description = 'User can access event management menu';
 
     /**
      * Inspecting The Request Path / Route active
@@ -43,7 +43,7 @@ class EventMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'event*';
 
     /**
      * Menu ID
@@ -60,7 +60,7 @@ class EventMenu extends BaseMenu
      */
     protected function route()
     {
-        return null;
+        return ['ladmin.event.index'];
     }
 
     /**
@@ -71,7 +71,11 @@ class EventMenu extends BaseMenu
     protected function gates()
     {
         return [
-            // new Gate(gate: 'gate.menu.uniq', title: 'Gate Title', description: 'Description of gate'),
+            new Gate(gate: 'ladmin.event.show', title: 'View Event Details', description: 'User can view details of an event'),
+            new Gate(gate: 'ladmin.event.create', title: 'Create New Event', description: 'User can create new event'),
+            new Gate(gate: 'ladmin.event.update', title: 'Update Event', description: 'User can update event informations'),
+            new Gate(gate: 'ladmin.event.destroy', title: 'Cancel Event', description: 'User can delete / cancel an event'),
+            new Gate(gate: 'ladmin.event.participant', title: 'View & Manage Participants', description: "User can view and manage event's participants data"),
         ];
     }
 
@@ -82,10 +86,6 @@ class EventMenu extends BaseMenu
      */
     protected function submenus()
     {
-        return [
-            ManageEventMenu::class,
-            ApprovalEventMenu::class,
-            HighlightMenu::class,
-        ];
+        return [];
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Modules\Ladmin\Datatables\EventDatatables;
+use Modules\Ladmin\Datatables\HighlightEventDatatables;
 
 class EventController extends Controller
 {
@@ -50,6 +51,7 @@ class EventController extends Controller
             'community_id' => $request->community_id,
             'description' => $request->description,
             'status' => 'Draft',
+            'location' => $request->location,
             'date' => $request->date,
             'registration_end' => $request->registration_end,
             'category_id' => $request->category_id,
@@ -108,6 +110,7 @@ class EventController extends Controller
             'community_id' => $request->community_id,
             'description' => $request->description,
             'status' => $request->status,
+            'location' => $request->location,
             'date' => $request->date,
             'registration_end' => $request->registration_end,
             'category_id' => $request->category_id,
@@ -138,7 +141,7 @@ class EventController extends Controller
         $event->fill($updateData);
 
         //if date is changed, then send notification
-        if($event->isDirty('date')) {
+        if($event->isDirty('date') || $event->isDirty('location')) {
             //wip
         }
 
@@ -160,7 +163,7 @@ class EventController extends Controller
     function destroy(Request $request) {
 
         $validation = [
-            "id"=>'required|integer|exists:events,id',
+            "id"=>'required|integer|exists:events,id,deleted_at,NULL',
         ];
 
         $request->validate($validation);
@@ -181,5 +184,60 @@ class EventController extends Controller
     function eventdetail($id){
         $event=Event::find($id);
         return view('eventdetail')->with('event',$event);
+    }
+
+    //WIP!!!!
+    function approveIndex() {
+        return ladmin()->view('event.approval-index');
+    }
+
+    function approve(Request $request) {
+
+        return redirect()->route('ladmin.event.approve.index');
+    }
+
+    function highlightIndex() {
+        if( request()->has('datatables') ) {
+            return HighlightEventDatatables::renderData();
+        }
+
+        return ladmin()->view('highlight.index');
+    }
+
+    function highlightCreate() {
+        $events = Event::with(['community'])
+                ->where('is_highlighted',false)->where('status','active')
+                ->whereDate('date','>', now())->get();
+        return ladmin()->view('highlight.create', compact(['events']));
+    }
+
+    function highlightInsert(Request $request) {
+        $validation = [
+            "id"=>'required|integer|exists:events,id,deleted_at,NULL',
+        ];
+
+        $request->validate($validation);
+        Event::where('id',$request->id)
+            ->update(['is_highlighted', true]);
+        return redirect()->route('ladmin.event.highlight.index')->with('success','Successfully highlight selected event!');
+    }
+
+    function highlightRemove(Request $request) {
+        $validation = [
+            "id"=>'required|integer|exists:events,id,deleted_at,NULL',
+        ];
+
+        $request->validate($validation);
+        Event::where('id',$request->id)
+            ->update(['is_highlighted', false]);
+        return redirect()->route('ladmin.event.highlight.index')->with('success','Successfully remove highlight from event!');
+    }
+
+    function viewParticipant($id) {
+        return ladmin()->view('event.participants');
+    }
+
+    function rejectParticipant($id, Request $request) {
+        return ladmin()->view('event.participants');
     }
 }

@@ -6,7 +6,7 @@ use Hexters\Ladmin\Contracts\MenuDivider;
 use Hexters\Ladmin\Menus\Gate;
 use Hexters\Ladmin\Supports\BaseMenu;
 
-class EventMenu extends BaseMenu
+class ApprovalEventMenu extends BaseMenu
 {
 
     /**
@@ -14,28 +14,28 @@ class EventMenu extends BaseMenu
      *
      * @var string
      */
-    protected $gate = 'event.index';
+    protected $gate = 'ladmin.approval.index';
 
     /**
      * Name of menu
      *
      * @var string
      */
-    protected $name = 'Events';
+    protected $name = 'Approval';
 
     /**
      * Font icons 
      *
      * @var string
      */
-    protected $icon = 'fa-regular fa-calendar-days'; // fontawesome
+    protected $icon = null; // fontawesome
 
     /**
      * Menu description
      *
      * @var string
      */
-    protected $description = 'User can access event menu modules';
+    protected $description = 'User can access event approval menu';
 
     /**
      * Inspecting The Request Path / Route active
@@ -43,7 +43,7 @@ class EventMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'event.approval*';
 
     /**
      * Menu ID
@@ -60,7 +60,7 @@ class EventMenu extends BaseMenu
      */
     protected function route()
     {
-        return null;
+        return ['ladmin.event.approval.index'];
     }
 
     /**
@@ -71,7 +71,7 @@ class EventMenu extends BaseMenu
     protected function gates()
     {
         return [
-            // new Gate(gate: 'gate.menu.uniq', title: 'Gate Title', description: 'Description of gate'),
+            new Gate(gate: 'ladmin.approval.approve', title: 'Approve Event', description: 'User can approve event to be public'),
         ];
     }
 
@@ -82,10 +82,6 @@ class EventMenu extends BaseMenu
      */
     protected function submenus()
     {
-        return [
-            ManageEventMenu::class,
-            ApprovalEventMenu::class,
-            HighlightMenu::class,
-        ];
+        return [];
     }
 }

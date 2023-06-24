@@ -6,7 +6,7 @@ use Hexters\Ladmin\Contracts\MenuDivider;
 use Hexters\Ladmin\Menus\Gate;
 use Hexters\Ladmin\Supports\BaseMenu;
 
-class EventMenu extends BaseMenu
+class HighlightMenu extends BaseMenu
 {
 
     /**
@@ -14,28 +14,28 @@ class EventMenu extends BaseMenu
      *
      * @var string
      */
-    protected $gate = 'event.index';
+    protected $gate = 'ladmin.highlight.index';
 
     /**
      * Name of menu
      *
      * @var string
      */
-    protected $name = 'Events';
+    protected $name = 'Highlight';
 
     /**
      * Font icons 
      *
      * @var string
      */
-    protected $icon = 'fa-regular fa-calendar-days'; // fontawesome
+    protected $icon = null; // fontawesome
 
     /**
      * Menu description
      *
      * @var string
      */
-    protected $description = 'User can access event menu modules';
+    protected $description = 'User can access highlighted event menu';
 
     /**
      * Inspecting The Request Path / Route active
@@ -43,7 +43,7 @@ class EventMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'event.highlight*';
 
     /**
      * Menu ID
@@ -60,7 +60,7 @@ class EventMenu extends BaseMenu
      */
     protected function route()
     {
-        return null;
+        return ['ladmin.event.highlight.index'];
     }
 
     /**
@@ -71,7 +71,9 @@ class EventMenu extends BaseMenu
     protected function gates()
     {
         return [
-            // new Gate(gate: 'gate.menu.uniq', title: 'Gate Title', description: 'Description of gate'),
+            // new Gate(gate: 'ladmin.event.show', title: 'View Event Details', description: 'User can view details of an event'),
+            new Gate(gate: 'ladmin.highlight.create', title: 'Highlight An Event', description: 'User can set an event to be highlighted'),
+            new Gate(gate: 'ladmin.highlight.remove', title: 'Remove Highlighted Event', description: 'User can remove event from being highlighted'),
         ];
     }
 
@@ -82,10 +84,6 @@ class EventMenu extends BaseMenu
      */
     protected function submenus()
     {
-        return [
-            ManageEventMenu::class,
-            ApprovalEventMenu::class,
-            HighlightMenu::class,
-        ];
+        return [];
     }
 }

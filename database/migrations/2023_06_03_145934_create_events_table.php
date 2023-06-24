@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('community_id')->references('id')
             ->on('communities')->onUpdate('cascade')->onDelete('cascade');
             $table->longText('description');
+            $table->string('location');
             $table->dateTime('date');
             $table->dateTime('registration_end');
             $table->string('status');
