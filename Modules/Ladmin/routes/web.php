@@ -92,20 +92,21 @@ ladmin()->route(function () {
 
     //event
     Route::get('event', [EventController::class, 'indexList'])->name('event.index');
+    Route::get('highlight/event', [EventController::class, 'highlightIndex'])->name('event.highlight.index');
+    Route::get('highlight/event/create', [EventController::class, 'highlightCreate'])->name('event.highlight.create');
+    Route::post('highlight/event', [EventController::class, 'highlightInsert'])->name('event.highlight.store');
+    Route::post('highlight/event/remove', [EventController::class, 'highlightRemove'])->name('event.highlight.remove');
+    Route::get('approval/event', [EventController::class, 'approveIndex'])->name('event.approval.index');
+    Route::post('approval/event/approve', [EventController::class, 'approve'])->name('event.approval.post');
     Route::get('event/create', [EventController::class, 'create'])->name('event.create');
     Route::post('event', [EventController::class, 'insert'])->name('event.store');
     Route::post('event/delete', [EventController::class, 'destroy'])->name('event.destroy');
-    Route::get('event/highlight', [EventController::class, 'highlightIndex'])->name('event.highlight.index');
-    Route::get('event/highlight/create', [EventController::class, 'highlightCreate'])->name('event.highlight.create');
-    Route::post('event/highlight', [EventController::class, 'highlightInsert'])->name('event.highlight.store');
-    Route::post('event/highlight/remove', [EventController::class, 'highlightRemove'])->name('event.highlight.remove');
-    Route::get('event/approval', [EventController::class, 'approveIndex'])->name('event.approval.index');
-    Route::post('event/approval/approve', [EventController::class, 'approve'])->name('event.approval.post');
     Route::get('event/{id}', [EventController::class, 'showView'])->name('event.show');
     Route::get('event/{id}/edit', [EventController::class, 'edit'])->name('event.edit');
     Route::post('event/{id}', [EventController::class, 'update'])->name('event.update');
     Route::get('event/{id}/participants', [EventController::class, 'viewParticipant'])->name('event.participant.index');
-    Route::post('event/{id}/participants/reject', [EventController::class, 'rejectParticipant'])->name('event.participant.index');
+    Route::post('event/{id}/participants/reject', [EventController::class, 'rejectParticipant'])->name('event.participant.reject');
+    Route::get('event/{id}/participants/download', [EventController::class, 'downloadData'])->name('event.participant.download');
 
     // sat_level
     Route::get('sat-level', [SatLevelController::class, 'indexList'])->name('sat_level.index');

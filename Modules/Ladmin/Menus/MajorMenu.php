@@ -43,7 +43,7 @@ class MajorMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'major*';
 
     /**
      * Menu ID

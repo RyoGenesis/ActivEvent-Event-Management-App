@@ -94,6 +94,7 @@
                         <h3 class="me-3 my-0">{{ $title ?? 'Page Title' }}</h3>
                         <div>{{ $button ?? null }}</div>
                     </div>
+                    <div>{{ $button_end ?? null }}</div>
                     <ol class="breadcrumb m-0 d-none"></ol>
                 </div>
 

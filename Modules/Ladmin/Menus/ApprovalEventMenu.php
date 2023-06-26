@@ -43,7 +43,7 @@ class ApprovalEventMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = 'event.approval*';
+    protected $isActive = 'approval*';
 
     /**
      * Menu ID

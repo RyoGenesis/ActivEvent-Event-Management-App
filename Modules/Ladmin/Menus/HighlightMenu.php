@@ -43,7 +43,7 @@ class HighlightMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = 'event.highlight*';
+    protected $isActive = 'highlight*';
 
     /**
      * Menu ID

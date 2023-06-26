@@ -1,6 +1,6 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Add New Event</x-slot>
-    <form action="{{ route('ladmin.student_user.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('ladmin.event.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         {{-- name --}}
         <div class="row d-flex align-items-center mb-3">
@@ -29,20 +29,24 @@
         {{-- date --}}
         <div class="row d-flex align-items-center mb-3">
             <label for="date" class="form-label col-lg-3">Event date <span class="text-danger">*</span></label>
-            <input type="datetime-local" id="date" name="date" value="{{ old('date') ?? null }}" 
-                class="col form-control @error('date') is-invalid @enderror" placeholder="Event Date" required/>
-            @error('date')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+            <div class="col">
+                <input type="datetime-local" id="date" name="date" value="{{ old('date') ?? null }}" 
+                    class="form-control @error('date') is-invalid @enderror" placeholder="Event Date" required/>
+                @error('date')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
         </div>
         {{-- regis end date --}}
         <div class="row d-flex align-items-center mb-3">
             <label for="registration_end" class="form-label col-lg-3">Registrastion end date <span class="text-danger">*</span></label>
-            <input type="datetime-local" id="registration_end" name="registration_end" value="{{ old('registration_date') ?? null }}" 
-                class="col form-control @error('registration_end') is-invalid @enderror" placeholder="Registration End Date" required/>
-            @error('registration_end')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+            <div class="col">
+                <input type="datetime-local" id="registration_end" name="registration_end" value="{{ old('registration_end') ?? null }}" 
+                    class="form-control @error('registration_end') is-invalid @enderror" placeholder="Registration End Date" required/>
+                @error('registration_end')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
         </div>
         {{-- category --}}
         <div class="row d-flex align-items-center mb-3">
@@ -66,14 +70,14 @@
                 value="{{ old('topic') }}" placeholder="Topic" />
         </div>
         {{-- description --}}
-        <div class="row d-flex align-items-center mb-3">
-            <label for="topic" class="form-label col-lg-3">Description <span class="text-danger">*</span></label>
-            <textarea name="description" id="description" class="col form-control" rows="10">
-
-            </textarea>
-            @error('description')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+        <div class="row d-flex mb-3">
+            <label for="description" class="form-label col-lg-3">Description <span class="text-danger">*</span></label>
+            <div class="col">
+                <textarea name="description" id="description" class="form-control" rows="8" placeholder="Event detail and description..."></textarea>
+                @error('description')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
         </div>
         {{-- speaker --}}
         <div class="row d-flex align-items-center mb-3">
@@ -108,11 +112,11 @@
         </div>
 
         {{-- SAT level and has SAT --}}
-        <div class="row d-flex align-items-center mb-3">
+        <div class="row d-flex mb-3">
             <label for="sat_level_id" class="form-label col-lg-3">SAT level</label>
             <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="has_sat" name="has_sat">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="1" id="has_sat" name="has_sat">
                     <label class="form-check-label" for="has_sat">
                         Provide SAT
                     </label>
@@ -124,6 +128,24 @@
                     @endforeach
                 </select>
                 @error('sat_level_id')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+
+        {{-- BGA --}}
+        <div class="row d-flex mb-3">
+            <div class="col-lg-3">
+                <label for="bgas" class="form-label">BGA</label>
+                <div class="text-desc">This option only available when event provide SAT</div>
+            </div>
+            <div class="col">
+                <select name="bgas[]" id="bgas" data-placeholder="Select BGA" class="form-select form-control @error('bgas') is-invalid @enderror" multiple disabled>
+                    @foreach ($bgas as $bga)
+                        <option value="{{$bga->id}}">{{ $bga->name }}</option>
+                    @endforeach
+                </select>
+                @error('bgas')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
@@ -144,10 +166,12 @@
         {{-- image --}}
         <div class="row d-flex align-items-center mb-3">
             <label for="image" class="form-label col-lg-3">Poster image</label>
-            <input type="file" class="col form-control" name="image" id="image">
-            @error('image')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+            <div class="col">
+                <input type="file" class="col form-control" name="image" id="image">
+                @error('image')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
         </div>
         {{-- price --}}
         <div class="row d-flex align-items-center mb-3">
@@ -158,15 +182,18 @@
         {{-- max slot --}}
         <div class="row d-flex align-items-center mb-3">
             <div class="col-lg-3">
-                <label for="max_slot" class="form-label">Maximum slot</label>
-                <span class="text-muted">Leave it empty if event has no maximum slot</span>
+                <label for="max_slot" class="form-label">Maximum slot</label><br>
+                <div class="text-desc">Leave it empty if event has no maximum slot</div>
             </div>
             <x-ladmin-input id="max_slot" type="number" class="col" name="max_slot"
                 value="{{ old('max_slot') }}" placeholder="Maximum Slot" />
         </div>
         {{-- majors --}}
-        <div class="row d-flex align-items-center mb-3">
-            <label for="majors" class="form-label col-lg-3">Majors <span class="text-danger">*</span></label>
+        <div class="row d-flex mb-3">
+            <div class="col-lg-3">
+                <label for="majors" class="form-label">Majors</label>
+                <div class="text-desc">Event's main majors target, can be optional.<br>Available options are tied to community associated majors</div>
+            </div>
             <div class="col">
                 <select name="majors[]" id="majors" data-placeholder="Select majors" class="form-select form-control @error('majors') is-invalid @enderror" multiple>
                     @foreach ($majors as $major)
@@ -210,6 +237,7 @@
         </div>
     </form>
     <x-slot name="scripts">
+        <x-head.tinymce-config/>
         <script>
             $('#category_id').select2({
                 theme: "bootstrap-5",
@@ -225,27 +253,36 @@
                 allowClear: true,
             });
 
+            $('#bgas').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+                allowClear: true,
+                maximumSelectionLength: 3,
+            });
+
+            $('#sat_level_id').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            });
+
             $(document).ready(function() {
-                // $('#faculty_id').change(function() {
-                //     $.ajax({
-                //         url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
-                //         type : 'get',
-                //         data : {
-                //             id: $(this).val(),
-                //         },
-                //         success : function (response) {
-                //             var majorId = $("#major_id");
-                //             majorId.html('');
-                //             majorId.append("<option></option>");
-                //             $.each(response, function (i, item) {
-                //                 majorId.append("<option value='" + item['id'] + "'>" + item['name'] + "</option>");
-                //             });
-                //             majorId.prop('disabled',false);
-                //         },
-                //         error: function(err) {
-                //         }
-                //     })
-                // });
+                $('#has_sat').on('change', function() {
+                    if($(this).is(':checked')) {
+                        $('#sat_level_id').prop('disabled', false);
+                        $('#bgas').prop('disabled', false);
+                    } else {
+                        $('#sat_level_id').prop('disabled', true);
+                        $('#sat_level_id').val('');
+                        $('#sat_level_id').trigger('change');
+
+                        $('#bgas').prop('disabled', true);
+                        $('#bgas').val('');
+                        $('#bgas').trigger('change');
+                    }
+                });
             });
         </script>
     </x-slot>

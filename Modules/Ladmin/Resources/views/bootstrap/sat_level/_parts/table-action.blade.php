@@ -3,11 +3,11 @@
 @endphp
 
 @can(['ladmin.sat_level.index'])
-    <a href="{{ route('ladmin.sat_level.edit', [$id, 'back' => $back]) }}" class="btn btn-sm btn-outline-primary">
+    <a href="{{ route('ladmin.sat_level.edit', [$id, 'back' => $back]) }}" class="btn btn-sm btn-primary">
       Edit
     </a>
 
-    <button type="button" class="btn btn-sm btn-outline-danger" data-id="{{$id}}" data-bs-toggle="modal" data-bs-target="#delete-modal">
+    <button type="button" class="btn btn-sm btn-danger" data-id="{{$id}}" data-bs-toggle="modal" data-bs-target="#delete-modal">
       Delete
     </button>
 @endcan

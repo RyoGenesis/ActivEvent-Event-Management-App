@@ -43,7 +43,7 @@ class SatLevelMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'sat-level*';
 
     /**
      * Menu ID

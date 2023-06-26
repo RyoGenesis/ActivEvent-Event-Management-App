@@ -19,6 +19,8 @@ class Event extends Model
         'exclusive_major' => 'boolean',
         'exclusive_member' => 'boolean',
         'is_highlighted' => 'boolean',
+        'date' => 'datetime',
+        'registration_end' => 'datetime',
     ];
 
     public function majors() {

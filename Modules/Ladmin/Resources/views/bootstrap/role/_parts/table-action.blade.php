@@ -28,7 +28,7 @@
 
 @if ($role->id > 1)
     @can(['role.destroy'])
-        <a href="" data-bs-toggle="modal" class="btn btn-sm btn-outline-danger"
+        <a href="" data-bs-toggle="modal" class="btn btn-sm btn-danger"
             data-bs-target="#modal-delete-role-{{ $role->id }}">
             Delete
         </a>

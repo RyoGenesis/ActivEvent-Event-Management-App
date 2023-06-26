@@ -12,8 +12,11 @@ use App\Models\SatLevel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Modules\Ladmin\Datatables\ApprovalDatatables;
 use Modules\Ladmin\Datatables\EventDatatables;
 use Modules\Ladmin\Datatables\HighlightEventDatatables;
+use Modules\Ladmin\Datatables\ParticipantDatatables;
+use Modules\Ladmin\Models\Admin;
 
 class EventController extends Controller
 {
@@ -26,8 +29,8 @@ class EventController extends Controller
     }
 
     function create() {
-        $community = Community::with(['majors'])->where('id', ladmin()->user()->community_id)->first();
-        $majors = $community->majors ? Major::whereIn('id', $community->majors->pluck('id')) :  Major::all();
+        $community = Community::with(['majors'])->where('id', auth()->user()->community_id)->first();
+        $majors = !$community->majors->isEmpty() ? Major::whereIn('id', $community->majors->pluck('id')) :  Major::all();
         $categories = Category::all();
         $sat_levels = SatLevel::all();
         $bgas = Bga::all();
@@ -35,7 +38,6 @@ class EventController extends Controller
     }
 
     function insert(EventRequest $request) {
-
         $imageFile = $request->file('image');
 
         $imageUrl = null;
@@ -65,7 +67,7 @@ class EventController extends Controller
             'additional_form_link' => $request->additional_form_link,
             'exclusive_major' => $request->exclusive_major ?? false,
             'exclusive_member' => $request->exclusive_member ?? false,
-            'images' => $imageUrl,
+            'image' => $imageUrl,
             'price' => $request->price ?? 0,
             'max_slot' => $request->max_slot ?? -1,
         ]);
@@ -91,14 +93,19 @@ class EventController extends Controller
 
     function edit($id) {
         $event = Event::with(['majors','community','category','bgas','sat_level'])->where('id',$id)->first();
-        $majors = Major::all();
+        $community = $event->community;
+        $majors = !$community->majors->isEmpty() ? Major::whereIn('id', $community->majors->pluck('id')) :  Major::all();
         $categories = Category::all();
         $sat_levels = SatLevel::all();
         $bgas = Bga::all();
-        return ladmin()->view('event.edit', compact(['event','majors','categories','sat_levels','bgas']));
+        $eventBgas = $event->bgas->pluck('id')->toArray();
+        $eventMajors = $event->majors->pluck('id')->toArray();
+        return ladmin()->view('event.edit', compact(['event','community','majors','categories','sat_levels','bgas','eventBgas','eventMajors']));
     }
 
     function update(EventRequest $request, $id) {
+
+        // dd($request->all());
 
         $event = Event::find($id);
         if(!$event) {
@@ -107,9 +114,7 @@ class EventController extends Controller
 
         $updateData = [
             'name' => $request->name,
-            'community_id' => $request->community_id,
             'description' => $request->description,
-            'status' => $request->status,
             'location' => $request->location,
             'date' => $request->date,
             'registration_end' => $request->registration_end,
@@ -122,11 +127,22 @@ class EventController extends Controller
             'speaker' => $request->speaker,
             'contact_person' => $request->contact_person,
             'additional_form_link' => $request->additional_form_link,
-            'exclusive_major' => $request->exclusive_major ?? false,
-            'exclusive_member' => $request->exclusive_member ?? false,
             'price' => $request->price ?? 0,
-            'max_slot' => $request->max_slot ?? -1,
         ];
+
+        //rule to decide whether certain attribute can be changed or not
+        if($event->status == 'Active') { 
+            //when set to no max slot, but trying to set a new one after approved or new slot lower than current slot
+            if(($event->max_slot == -1 || $request->max_slot < $event->max_slot) && $request->max_slot) {
+                return redirect()->back()->withErrors(['max_slot' => 'Can not set maximum slot lower than previous slot when event is already approved']);
+            } else {
+                $updateData['max_slot'] = $request->max_slot ?? -1;
+            }
+        } else {
+            $updateData['max_slot'] = $request->max_slot ?? -1;
+            $updateData['exclusive_major'] = $request->exclusive_major ?? false;
+            $updateData['exclusive_member'] = $request->exclusive_member ?? false;
+        }
 
         $imageFile = $request->file('image');
 
@@ -147,26 +163,27 @@ class EventController extends Controller
 
         $event->save();
 
-        //update majors association
-        $majors = $request->majors ?? []; //if null then empty array
-        $event->majors()->sync($majors);
+        if($event->status != 'Active') { // only update when still draft
+            //update majors association
+            $majors = $request->majors ?? []; //if null then empty array
+            $event->majors()->sync($majors);
+        }
 
         //update bga association
         $bgas = $request->bgas ?? []; //if null then empty array
         $event->bgas()->sync($bgas);
 
-        //wip if majors changed and exclusive major is true(?)
-
         return redirect()->route('ladmin.event.index')->with('success','Successfully update event information!');
     }
 
     function destroy(Request $request) {
-
         $validation = [
             "id"=>'required|integer|exists:events,id,deleted_at,NULL',
         ];
 
         $request->validate($validation);
+        Event::where('id',$request->id)
+            ->update(['status' => 'Cancelled']);
         Event::destroy($request->id);
 
         return redirect()->route('ladmin.event.index')->with('success','Successfully deleted event!');
@@ -186,14 +203,24 @@ class EventController extends Controller
         return view('eventdetail')->with('event',$event);
     }
 
-    //WIP!!!!
     function approveIndex() {
+        if( request()->has('datatables') ) {
+            return ApprovalDatatables::renderData();
+        }
+
         return ladmin()->view('event.approval-index');
     }
 
     function approve(Request $request) {
+        $validation = [
+            "id"=>'required|integer|exists:events,id,deleted_at,NULL',
+        ];
 
-        return redirect()->route('ladmin.event.approve.index');
+        $request->validate($validation);
+        Event::where('id',$request->id)
+            ->update(['status' => 'Active']);
+
+        return redirect()->route('ladmin.event.approval.index');
     }
 
     function highlightIndex() {
@@ -206,7 +233,7 @@ class EventController extends Controller
 
     function highlightCreate() {
         $events = Event::with(['community'])
-                ->where('is_highlighted',false)->where('status','active')
+                ->where('is_highlighted',false)->where('status','Active')
                 ->whereDate('date','>', now())->get();
         return ladmin()->view('highlight.create', compact(['events']));
     }
@@ -218,7 +245,7 @@ class EventController extends Controller
 
         $request->validate($validation);
         Event::where('id',$request->id)
-            ->update(['is_highlighted', true]);
+            ->update(['is_highlighted' => true]);
         return redirect()->route('ladmin.event.highlight.index')->with('success','Successfully highlight selected event!');
     }
 
@@ -229,15 +256,26 @@ class EventController extends Controller
 
         $request->validate($validation);
         Event::where('id',$request->id)
-            ->update(['is_highlighted', false]);
+            ->update(['is_highlighted' => false]);
         return redirect()->route('ladmin.event.highlight.index')->with('success','Successfully remove highlight from event!');
     }
 
     function viewParticipant($id) {
-        return ladmin()->view('event.participants');
+        $event = Event::with(['users'])->where('id',$id)->first();
+
+        if( request()->has('datatables') ) {
+            $data['id'] = $id;
+            return ParticipantDatatables::renderData($data);
+        }
+
+        return ladmin()->view('event.participants', compact('event'));
     }
 
     function rejectParticipant($id, Request $request) {
+        return ladmin()->view('event.participants');
+    }
+
+    function downloadData($id) {
         return ladmin()->view('event.participants');
     }
 }

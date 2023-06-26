@@ -7,7 +7,7 @@ use App\Models\Model;
 use Hexters\Ladmin\Supports\Datatables;
 use Illuminate\Support\Facades\Blade;
 
-class EventDatatables extends Datatables
+class ApprovalDatatables extends Datatables
 {
 
     /**
@@ -15,19 +15,19 @@ class EventDatatables extends Datatables
      *
      * @var String
      */
-    protected $title = 'Events List';
+    protected $title = 'Waiting Approval';
 
     /**
      * Setup query builder
      */
     public function __construct()
     {
-        $this->query = Event::query()->with(['community','category','majors']);
+        $this->query = Event::query()->with(['community','category','majors'])->where('status','Draft');
     }
 
     public function ajax()
     {
-        return route('ladmin.event.index', ['datatables']);
+        return route('ladmin.event.approval.index', ['datatables']);
     }
     
     /**

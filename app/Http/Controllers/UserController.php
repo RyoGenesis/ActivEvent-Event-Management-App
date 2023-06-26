@@ -70,7 +70,7 @@ class UserController extends Controller
         $campuses = Campus::all();
         $faculties = Faculty::all();
         $communities = Community::all();
-        $userCommunities = $userStudent->communities ? $userStudent->communities->pluck('id')->toArray() : [];
+        $userCommunities = $userStudent->communities->pluck('id')->toArray();
         return ladmin()->view('student_user.edit', compact(['userStudent', 'campuses', 'faculties', 'communities', 'userCommunities']));
     }
 

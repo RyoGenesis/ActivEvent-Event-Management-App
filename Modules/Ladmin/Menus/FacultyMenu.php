@@ -43,7 +43,7 @@ class FacultyMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'faculty*';
 
     /**
      * Menu ID

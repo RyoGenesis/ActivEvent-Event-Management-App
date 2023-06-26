@@ -83,9 +83,9 @@ class EventMenu extends BaseMenu
     protected function submenus()
     {
         return [
-            ManageEventMenu::class,
-            ApprovalEventMenu::class,
             HighlightMenu::class,
+            ApprovalEventMenu::class,
+            ManageEventMenu::class,
         ];
     }
 }

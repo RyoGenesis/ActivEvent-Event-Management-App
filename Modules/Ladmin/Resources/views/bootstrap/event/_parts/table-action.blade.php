@@ -1,27 +1,39 @@
 @php
+  if(Route::is('ladmin.event.approval.index')) {
+    $back = route('ladmin.event.approval.index');
+  } else {
     $back = route('ladmin.event.index');
+  }
 @endphp
-
-@can(['ladmin.event.index'])
-    <a href="{{ route('ladmin.event.show', [$id, 'back' => $back]) }}" class="btn btn-sm btn-outline-warning">
-      View
-    </a>
-
-    @can(['ladmin.approval.approve'])
-    @if (Route::is('ladmin.event.approval.index'))
-    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#action-item-approve-{{$id}}">
-      Approve
-    </button>
-    @endif
-    @endcan
-
-    @if (Route::is('ladmin.event.index'))
-    <a href="{{ route('ladmin.event.edit', [$id, 'back' => $back]) }}" class="btn btn-sm btn-outline-primary">
-      Edit
-    </a>
-
-    <button type="button" class="btn btn-sm btn-outline-danger" data-id="{{$id}}" data-bs-toggle="modal" data-bs-target="#delete-modal">
-      Cancel
-    </button>
-    @endif
-@endcan
+<div class="d-grid gap-2">
+  @can(['ladmin.event.index'])
+      <a href="{{ route('ladmin.event.show', [$id, 'back' => $back]) }}" class="btn btn-sm btn-warning">
+        View
+      </a>
+  
+      @can(['ladmin.approval.approve'])
+      @if (Route::is('ladmin.event.approval.index'))
+      <button type="button" class="btn btn-sm btn-success" data-id="{{$id}}" data-bs-toggle="modal" data-bs-target="#approve-modal">
+        Approve
+      </button>
+      @endif
+      @endcan
+  
+      @if (Route::is('ladmin.event.index'))
+  
+      @if ($status == 'Active')
+      <a href="{{ route('ladmin.event.participant.index', [$id, 'back' => $back]) }}" class="btn btn-sm btn-success">
+        Participants
+      </a>
+      @endif
+  
+      <a href="{{ route('ladmin.event.edit', [$id, 'back' => $back]) }}" class="btn btn-sm btn-primary">
+        Edit
+      </a>
+  
+      <button type="button" class="btn btn-sm btn-danger" data-id="{{$id}}" data-bs-toggle="modal" data-bs-target="#delete-modal">
+        Cancel
+      </button>
+      @endif
+  @endcan
+</div>

@@ -43,7 +43,7 @@ class CommunityMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'community*';
 
     /**
      * Menu ID

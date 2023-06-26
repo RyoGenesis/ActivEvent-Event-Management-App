@@ -43,7 +43,7 @@ class StudentMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'student-user*';
 
     /**
      * Menu ID

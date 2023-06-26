@@ -43,7 +43,7 @@ class CategoryMenu extends BaseMenu
      *
      * @var string
      */
-    protected $isActive = '';
+    protected $isActive = 'category*';
 
     /**
      * Menu ID

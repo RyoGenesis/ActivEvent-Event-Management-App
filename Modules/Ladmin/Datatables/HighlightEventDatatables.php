@@ -22,7 +22,7 @@ class HighlightEventDatatables extends Datatables
      */
     public function __construct()
     {
-        $this->query = Event::query()->with(['community,category,majors'])->where('is_highlighted', true);
+        $this->query = Event::query()->with(['community','category','majors'])->where('is_highlighted', true);
     }
 
     public function ajax()
@@ -74,7 +74,7 @@ class HighlightEventDatatables extends Datatables
             return $row->price == 0 ? 'Free' : number_format($row->price,2,',','.');
         })
         ->editColumn('status', function ($row) {
-            $text = $row->status == 'Active' ? '<span class="text-success">'.$row->status.'</span>' : '<span>'.$row->status.'</span>';
+            $text = $row->status == 'Active' ? '<span class="fw-bold text-success">'.$row->status.'</span>' : '<span>'.$row->status.'</span>';
             return Blade::render($text);
         })
         ->addColumn('action', function ($row) {
