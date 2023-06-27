@@ -40,6 +40,9 @@ class ParticipantDatatables extends Datatables
         $event = Event::with(['users' => ['campus','faculty','major']])->where('id',$this->data['id'])->first();
         $this->query = $event->users;
         return $this->eloquent($this->query)
+            ->editColumn('personal_email', function ($row) {
+                return $row->personal_email ?? '-';
+            })
             ->editColumn('campus.name', function ($row) {
                 return $row->campus->name;
             })
@@ -70,6 +73,7 @@ class ParticipantDatatables extends Datatables
             'NIM',
             'Name',
             'Email',
+            'Personal Email',
             'Phone',
             'Campus',
             'Faculty',
@@ -91,6 +95,7 @@ class ParticipantDatatables extends Datatables
             ['data' => 'nim',],
             ['data' => 'name',],
             ['data' => 'email',],
+            ['data' => 'personal_email',],
             ['data' => 'phone',],
             ['data' => 'campus.name',],
             ['data' => 'faculty.name',],

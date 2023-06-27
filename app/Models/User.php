@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'nim',
+        'personal_email',
         'campus_id',
         'faculty_id',
         'major_id',

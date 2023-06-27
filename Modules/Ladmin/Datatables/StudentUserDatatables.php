@@ -37,6 +37,9 @@ class StudentUserDatatables extends Datatables
     public function handle()
     {
         return $this->eloquent($this->query)
+            ->editColumn('personal_email', function ($row) {
+                return $row->personal_email ?? '-';
+            })
             ->editColumn('campus.name', function ($row) {
                 return $row->campus->name;
             })
@@ -76,6 +79,7 @@ class StudentUserDatatables extends Datatables
             'NIM',
             'Name',
             'Email',
+            'Personal Email',
             'Phone',
             'Campus',
             'Faculty',
@@ -97,6 +101,7 @@ class StudentUserDatatables extends Datatables
             ['data' => 'nim',],
             ['data' => 'name',],
             ['data' => 'email',],
+            ['data' => 'personal_email',],
             ['data' => 'phone',],
             ['data' => 'campus.name',],
             ['data' => 'faculty.name',],

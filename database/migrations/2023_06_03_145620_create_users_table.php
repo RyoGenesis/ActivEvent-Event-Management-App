@@ -21,6 +21,7 @@ return new class extends Migration
             $table->char('nim',10)->unique();
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('personal_email')->nullable()->unique();
             $table->foreignId('campus_id')->references('id')
             ->on('campuses')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('faculty_id')->references('id')

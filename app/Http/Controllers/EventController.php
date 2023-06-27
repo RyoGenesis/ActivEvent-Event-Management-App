@@ -17,6 +17,8 @@ use Modules\Ladmin\Datatables\EventDatatables;
 use Modules\Ladmin\Datatables\HighlightEventDatatables;
 use Modules\Ladmin\Datatables\ParticipantDatatables;
 use Modules\Ladmin\Models\Admin;
+use OpenSpout\Common\Entity\Style\Style;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class EventController extends Controller
 {
@@ -272,10 +274,38 @@ class EventController extends Controller
     }
 
     function rejectParticipant($id, Request $request) {
-        return ladmin()->view('event.participants');
+        $validation = [
+            "id" => 'required|integer|exists:users,id,deleted_at,NULL',
+            "reason" => 'required|string',
+        ];
+        $request->validate($validation);
+
+        $event = Event::with(['users'])->where('id',$id)->first();
+        $event->users()->updateExistingPivot($id, [
+            'status' => 'Rejected',
+            'reasoning' => $request->reason,
+        ]);
+
+        return redirect()->back()->with('success', 'Rejected participant registration');
     }
 
     function downloadData($id) {
-        return ladmin()->view('event.participants');
+
+        $event = Event::with(['users' => ['campus','faculty','major']])->where('id',$id)->first();
+        $participants = $event->users()->where('status','!=','Rejected')->get();
+        $header_style = (new Style())->setFontBold();
+
+        return (new FastExcel($participants))->headerStyle($header_style)->download('Participants Data - '. $event->name .'.xlsx',function ($participant) {
+            return [
+                'NIM' => $participant->nim,
+                'Name' => $participant->name,
+                'Email' => $participant->email,
+                'Personal Email' => $participant->personal_email ?? '-',
+                'Phone' => $participant->phone,
+                'Campus' => $participant->campus->name,
+                'Faculty' => $participant->faculty->name,
+                'Major' => $participant->major->name,
+            ];
+        });
     }
 }
