@@ -64,7 +64,7 @@
                 <a href="" class="lh-1 text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                     <div>
                         <strong class="text-primary"
-                            title="{{ $user->name }}">{{ Str::limit($user->name, 10) }}</strong>
+                            title="{{ $user->username }}">{{ Str::limit($user->username, 10) }}</strong>
                         <i class="fa fa-solid text-muted fa-caret-down"></i>
                     </div>
                     <small class="text-muted" title="{{ $role }}">{{ Str::limit($role, 10) }}</small>

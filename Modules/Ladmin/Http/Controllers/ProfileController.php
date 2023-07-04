@@ -2,6 +2,7 @@
 
 namespace Modules\Ladmin\Http\Controllers;
 
+use App\Models\Community;
 use Modules\Ladmin\Http\Controllers\Controller;
 use Modules\Ladmin\Http\Requests\ProfileRequest;
 
@@ -15,6 +16,7 @@ class ProfileController extends Controller
     public function index()
     {
         $data['user'] = auth()->user();
+        $data['communities'] = Community::all();
         return ladmin()->view('profile.index', $data);
     }
 

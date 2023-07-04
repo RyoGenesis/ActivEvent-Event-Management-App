@@ -2,11 +2,7 @@
     <x-slot name="title">Profile</x-slot>
 
     <div class="row">
-        <div class="col-lg-2 mb-3 text-center">
-            <img src="{{ $user->gravatar }}" class="img-thumbnail mb-3" alt="Avatar" width="100"> <br>
-            <a href="https://gravatar.com" target="_blank">Change</a>
-        </div>
-        <div class="col-lg-10 mb-3">
+        <div class="col mb-3">
             <form action="{{ route('ladmin.profile.store') }}" method="POST">
                 @csrf
 
