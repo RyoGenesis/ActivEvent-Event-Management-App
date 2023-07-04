@@ -25,11 +25,19 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         $roles = [
-            'name' => ['required', 'max:30'],
-            'password' => ['nullable', 'confirmed']
+            'username' => ['required', 'max:100'],
+            'display_name' => ['required', 'max:100'],
+            'password' => ['nullable', 'confirmed', 'min:6']
         ];
 
         return $roles;
+    }
+
+    public function attributes()
+    {
+        return [
+            'display_name' => 'display name',
+        ];
     }
 
     /**
@@ -40,7 +48,10 @@ class ProfileRequest extends FormRequest
     public function updateProfile()
     {
 
-        $data['name'] = $this->name;
+        $data = [
+            'username' => $this->username,
+            'display_name' => $this->display_name,
+        ];
         if ($this->has('password')) {
             $data['password'] = Hash::make($this->password);
         }

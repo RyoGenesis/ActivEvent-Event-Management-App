@@ -16,7 +16,7 @@ class ProfileController extends Controller
     public function index()
     {
         $data['user'] = auth()->user();
-        $data['communities'] = Community::all();
+        $data['communities'] = Community::where('id', auth()->user()->community_id)->get();
         return ladmin()->view('profile.index', $data);
     }
 
