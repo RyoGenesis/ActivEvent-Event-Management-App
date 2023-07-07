@@ -3,6 +3,7 @@
     <div class="m-3">
         <p class="fs-4 fw-bold">Hello, {{auth()->user()->display_name}}</p>
         <div class="row">
+            {{-- featuring events latest active, near closing, already past but latest, last updated, waiting approval (?)--}}
             <div class="col-lg-6 m-0 p-0">
                 <x-ladmin-card class="rounded-0">
                     <x-slot name="body">

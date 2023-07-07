@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
         $category = Category::find($id);
         if(!$category) {
-            return Redirect::back()->with('error','Category data not found!');
+            return Redirect::back()->with('danger','Category data not found!');
         }
         $category->update([
             'name' => $request->name,

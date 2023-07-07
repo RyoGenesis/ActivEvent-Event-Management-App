@@ -38,7 +38,7 @@ class CampusController extends Controller
 
         $campus = Campus::find($id);
         if(!$campus) {
-            return Redirect::back()->with('error','Campus data not found!');
+            return Redirect::back()->with('danger','Campus data not found!');
         }
         $campus->update([
             'name' => $request->name,

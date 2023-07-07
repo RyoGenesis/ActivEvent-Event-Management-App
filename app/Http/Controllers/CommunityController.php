@@ -48,7 +48,7 @@ class CommunityController extends Controller
 
         $community = Community::find($id);
         if(!$community) {
-            return Redirect::back()->with('error','Community data not found!');
+            return Redirect::back()->with('danger','Community data not found!');
         }
         $community->update([
             'name' => $request->name,
@@ -69,6 +69,12 @@ class CommunityController extends Controller
         ];
 
         $request->validate($validation);
+
+        $community = Community::with('admins')->where('id', $request->id)->first();
+        if(!$community->admins->where('deactivated_at',null)->isEmpty()) {
+            return redirect()->back()->with('danger','Community can not be deleted. There are active admin users still associated with this');
+        }
+
         Community::destroy($request->id);
 
         return redirect()->route('ladmin.community.index')->with('success','Successfully deleted community!');

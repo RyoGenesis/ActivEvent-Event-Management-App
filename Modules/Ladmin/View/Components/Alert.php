@@ -16,9 +16,9 @@ class Alert extends Component
      *
      * @return void
      */
-    public function __construct($calss = null)
+    public function __construct($class = null)
     {
-        $this->class = $calss;
+        $this->class = $class;
         $this->types = [
             'warning',
             'danger',

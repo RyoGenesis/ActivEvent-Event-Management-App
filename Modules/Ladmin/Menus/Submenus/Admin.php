@@ -71,6 +71,7 @@ class Admin extends BaseMenu
         return [
             new Gate(gate: 'ladmin.admin.create', title: 'Create New Admin', description: 'User can create new admin account'),
             new Gate(gate: 'ladmin.admin.update', title: 'Update Admin', description: 'User can update admin account'),
+            new Gate(gate: 'ladmin.admin.deactivate', title: 'Deactivate Admin Account', description: 'User can deactivate admin account'),
         ];
     }
 

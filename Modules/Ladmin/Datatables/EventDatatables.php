@@ -23,6 +23,10 @@ class EventDatatables extends Datatables
     public function __construct()
     {
         $this->query = Event::query()->with(['community','category','majors']);
+
+        if(auth()->user()->community_id != 1) { //if not on behalf of university
+            $this->query = $this->query->where('community_id', auth()->user()->community_id);
+        }
     }
 
     public function ajax()

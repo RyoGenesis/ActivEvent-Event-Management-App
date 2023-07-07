@@ -23,6 +23,7 @@
               </div>
               <div class="modal-body">
                 Are you sure to delete this?
+                <p class="text-danger mt-2">Note: Make sure there's no active admin associated with this community</p>
               </div>
               <div class="modal-footer border-0">
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">No</button>

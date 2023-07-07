@@ -39,7 +39,7 @@ class FacultyController extends Controller
 
         $faculty = Faculty::find($id);
         if(!$faculty) {
-            return Redirect::back()->with('error','Faculty data not found!');
+            return Redirect::back()->with('danger','Faculty data not found!');
         }
         $faculty->update([
             'name' => $request->name,

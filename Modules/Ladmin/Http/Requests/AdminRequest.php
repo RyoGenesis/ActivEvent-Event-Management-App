@@ -71,7 +71,7 @@ class AdminRequest extends FormRequest
         
         session()->flash('success', $this->username . ' has been created!');
 
-        return redirect()->route('ladmin.admin.edit', $admin->id);
+        return redirect()->route('ladmin.admin.index');
 
     }
 

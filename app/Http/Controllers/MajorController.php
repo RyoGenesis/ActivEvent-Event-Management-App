@@ -42,7 +42,7 @@ class MajorController extends Controller
 
         $major = Major::find($id);
         if(!$major) {
-            return Redirect::back()->with('error','Major data not found!');
+            return Redirect::back()->with('danger','Major data not found!');
         }
         $major->update([
             'name' => $request->name,

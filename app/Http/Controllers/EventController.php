@@ -111,7 +111,7 @@ class EventController extends Controller
 
         $event = Event::find($id);
         if(!$event) {
-            return Redirect::back()->with('error','Event data not found!');
+            return Redirect::back()->with('danger','Event data not found!');
         }
 
         $updateData = [

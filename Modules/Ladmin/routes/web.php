@@ -42,6 +42,9 @@ ladmin()->route(function () {
     Route::resource('/activities', UserActivityController::class)->only(['index', 'show', 'destroy']);
     Route::resource('/systemlog', SystemLogController::class)->only(['index', 'destroy']);
 
+    Route::post('admin/deactivate', [AdminController::class, 'deactivate'])->name('admin.deactivate');
+    Route::post('admin/reactivate', [AdminController::class, 'reactivate'])->name('admin.reactivate');
+
     // campus
     Route::get('campus', [CampusController::class, 'indexList'])->name('campus.index');
     Route::get('campus/create', [CampusController::class, 'create'])->name('campus.create');

@@ -3,6 +3,8 @@
 namespace Modules\Ladmin\Http\Controllers;
 
 use App\Models\Community;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Modules\Ladmin\Datatables\AdminDatatables;
 use Modules\Ladmin\Http\Controllers\Controller;
 use Modules\Ladmin\Http\Requests\AdminRequest;
@@ -86,6 +88,28 @@ class AdminController extends Controller
         return $request->updateAdmin(
             ladmin()->admin()->findOrFail($id)
         );
+
+    }
+
+    public function deactivate(Request $request)
+    {
+        ladmin()->allows(['ladmin.admin.deactivate']);
+        
+        $admin = ladmin()->admin()->findOrFail($request->id);
+        $admin->update(['deactivated_at' => Carbon::now()]);
+        session()->flash('success', 'Successfully deactivate admin account!');
+        return redirect()->back();
+
+    }
+
+    public function reactivate(Request $request)
+    {
+        ladmin()->allows(['ladmin.admin.deactivate']);
+        
+        $admin = ladmin()->admin()->findOrFail($request->id);
+        $admin->update(['deactivated_at' => null]);
+        session()->flash('success', 'Successfully re-activate admin account!');
+        return redirect()->back();
 
     }
     

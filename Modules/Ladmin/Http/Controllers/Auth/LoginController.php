@@ -35,6 +35,8 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
+        $data['deactivated_at'] = null;
+
         if (Auth::guard( config('ladmin.auth.guard') )->attempt($data, $request->remember)) {
             $request->session()->regenerate();
 

@@ -37,7 +37,7 @@ class SatLevelController extends Controller
 
         $satLevel = SatLevel::find($id);
         if(!$satLevel) {
-            return Redirect::back()->with('error','SAT level data not found!');
+            return Redirect::back()->with('danger','SAT level data not found!');
         }
         $satLevel->update([
             'name' => $request->name,
