@@ -7,8 +7,15 @@
         Edit
       </a>
 
-      <button type="button" class="btn btn-sm btn-danger" data-id="{{$id}}" data-bs-toggle="modal" data-bs-target="#delete-modal">
-        Deactivate
-      </button>
+      @if ($deleted_at == null)
+        <button type="button" class="btn btn-sm btn-danger" data-id="{{$id}}" data-bs-toggle="modal" data-bs-target="#delete-modal">
+          Deactivate
+        </button>
+      @else
+        <button type="button" class="btn btn-sm btn-warning" data-id="{{$id}}" data-bs-toggle="modal" data-bs-target="#reactivate-modal">
+          Re-activate
+        </button>
+      @endif
+      
   @endcan
 </div>

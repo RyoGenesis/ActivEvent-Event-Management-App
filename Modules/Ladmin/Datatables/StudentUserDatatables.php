@@ -21,7 +21,7 @@ class StudentUserDatatables extends Datatables
      */
     public function __construct()
     {
-        $this->query = User::query()->with(['campus','faculty','major','communities']);
+        $this->query = User::query()->withTrashed()->with(['campus','faculty','major','communities']);
     }
 
     public function ajax()

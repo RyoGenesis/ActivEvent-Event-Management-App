@@ -90,6 +90,7 @@ ladmin()->route(function () {
     Route::get('student-user/create', [UserController::class, 'adminCreate'])->name('student_user.create');
     Route::post('student-user', [UserController::class, 'adminInsert'])->name('student_user.store');
     Route::post('student-user/deactivate', [UserController::class, 'destroy'])->name('student_user.destroy');
+    Route::post('student-user/reactivate', [UserController::class, 'reactivate'])->name('student_user.reactivate');
     Route::get('student-user/{id}/edit', [UserController::class, 'adminEdit'])->name('student_user.edit');
     Route::post('student-user/{id}', [UserController::class, 'adminUpdate'])->name('student_user.update');
 

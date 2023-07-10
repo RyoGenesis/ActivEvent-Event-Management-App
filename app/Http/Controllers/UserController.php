@@ -10,6 +10,7 @@ use App\Models\Community;
 use App\Models\Faculty;
 use App\Models\User;
 use App\Models\Event;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Modules\Ladmin\Datatables\StudentUserDatatables;
@@ -110,6 +111,25 @@ class UserController extends Controller
         $user->communities()->sync($comms);
 
         return redirect()->route('ladmin.student_user.index')->with('success','Successfully update student information!');
+    }
+
+    public function deactivate(Request $request)
+    {
+        ladmin()->allows(['ladmin.student_user.destroy']);
+        
+        $user = User::findOrFail($request->id);
+        $user->delete();
+        return redirect()->back()->with('success','Successfully deactivate student user!');
+
+    }
+
+    public function reactivate(Request $request)
+    {
+        ladmin()->allows(['ladmin.student_user.destroy']);
+        
+        $user = User::withTrashed()->findOrFail($request->id);
+        $user->restore();
+        return redirect()->back()->with('success','Successfully re-activate student account!');
     }
 
     function passwordChangeIndex() {
