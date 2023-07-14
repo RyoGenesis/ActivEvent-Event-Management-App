@@ -69,9 +69,12 @@ class AdminController extends Controller
     {
         ladmin()->allows(['ladmin.admin.update']);
 
-        $data['admin'] = ladmin()->admin()->findOrFail($id);
-        $data['communities'] = Community::all();
-        return ladmin()->view('admin.edit', $data);
+        $admin = ladmin()->admin()->find($id);
+        if(!$admin) {
+            return redirect()->route('ladmin.admin.index')->with('danger','Admin data not found!');
+        }
+        $communities = Community::all();
+        return ladmin()->view('admin.edit', compact(['admin','communities']));
     }
 
     /**

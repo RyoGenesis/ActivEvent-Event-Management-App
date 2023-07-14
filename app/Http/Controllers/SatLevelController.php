@@ -30,6 +30,9 @@ class SatLevelController extends Controller
 
     function edit($id) {
         $satLevel = SatLevel::find($id);
+        if(!$satLevel) {
+            return redirect()->route('ladmin.sat_level.index')->with('danger','SAT level data not found!');
+        }
         return ladmin()->view('sat_level.edit', compact(['satLevel']));
     }
 
@@ -55,6 +58,6 @@ class SatLevelController extends Controller
         $request->validate($validation);
         SatLevel::destroy($request->id);
 
-        return redirect()->route('ladmin.sat_level.index')->with('success','Successfully deleted SAT level!');
+        return redirect()->back()->with('success','Successfully deleted SAT level!');
     }
 }

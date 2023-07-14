@@ -39,6 +39,9 @@ class CommunityController extends Controller
 
     function edit($id) {
         $community = Community::with(['majors'])->where('id',$id)->first();
+        if(!$community) {
+            return redirect()->route('ladmin.community.index')->with('danger','Community data not found!');
+        }
         $communityMajors = $community->majors->pluck('id')->toArray();
         $majors = Major::all();
         return ladmin()->view('community.edit', compact(['community', 'communityMajors' ,'majors']));
@@ -77,6 +80,6 @@ class CommunityController extends Controller
 
         Community::destroy($request->id);
 
-        return redirect()->route('ladmin.community.index')->with('success','Successfully deleted community!');
+        return redirect()->back()->with('success','Successfully deleted community!');
     }
 }

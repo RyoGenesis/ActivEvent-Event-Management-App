@@ -31,6 +31,9 @@ class CampusController extends Controller
 
     function edit($id) {
         $campus = Campus::find($id);
+        if(!$campus) {
+            return redirect()->route('ladmin.campus.index')->with('danger','Campus data not found!');
+        }
         return ladmin()->view('campus.edit', compact(['campus']));
     }
 
@@ -56,6 +59,6 @@ class CampusController extends Controller
         $request->validate($validation);
         Campus::destroy($request->id);
 
-        return redirect()->route('ladmin.campus.index')->with('success','Successfully deleted campus!');
+        return redirect()->back()->with('success','Successfully deleted campus!');
     }
 }

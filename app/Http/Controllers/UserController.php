@@ -13,6 +13,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Modules\Ladmin\Datatables\StudentUserDatatables;
 
 class UserController extends Controller
@@ -68,6 +69,9 @@ class UserController extends Controller
 
     function adminEdit($id) {
         $userStudent = User::with(['campus','faculty','major','communities'])->where('id',$id)->first();
+        if(!$userStudent) {
+            return redirect()->route('ladmin.student_user.index')->with('danger','Student data not found!');
+        }
         $campuses = Campus::all();
         $faculties = Faculty::all();
         $communities = Community::all();
@@ -97,7 +101,9 @@ class UserController extends Controller
     function adminUpdate(UserRequest $request, $id) {
 
         $user = User::find($id);
-
+        if(!$user) {
+            return Redirect::back()->with('danger','Student not found!');
+        }
         $user->update([
             'name' => $request->name,
             'email' => $request->email,

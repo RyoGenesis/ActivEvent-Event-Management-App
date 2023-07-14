@@ -32,6 +32,9 @@ class FacultyController extends Controller
 
     function edit($id) {
         $faculty = Faculty::find($id);
+        if(!$faculty) {
+            return redirect()->route('ladmin.faculty.index')->with('danger','Faculty data not found!');
+        }
         return ladmin()->view('faculty.edit', compact(['faculty']));
     }
 
@@ -57,7 +60,7 @@ class FacultyController extends Controller
         $request->validate($validation);
         Faculty::destroy($request->id);
 
-        return redirect()->route('ladmin.faculty.index')->with('success','Successfully deleted faculty!');
+        return redirect()->back()->with('success','Successfully deleted faculty!');
     }
 
     function getMajors(Request $request) {

@@ -3,6 +3,7 @@
 namespace Modules\Ladmin\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Modules\Ladmin\Datatables\RoleDatatables;
 use Modules\Ladmin\Http\Controllers\Controller;
 use Modules\Ladmin\Http\Requests\RoleRequest;
@@ -60,9 +61,14 @@ class RoleController extends Controller
     {
         ladmin()->allows(['role.update']);
 
-        return $request->updateRole(
-            LadminRole::findOrFail($id)
-        );
+        $role = LadminRole::find($id);
+        if(!$role) {
+            return Redirect::back()->with('danger','Role not found!');
+        }
+        $role->update(['name' => $request->name]);
+
+        session()->flash('success', 'Role has been updated');
+        return redirect()->back();
     }
 
     /**

@@ -32,6 +32,9 @@ class CategoryController extends Controller
 
     function edit($id) {
         $category = Category::find($id);
+        if(!$category) {
+            return redirect()->route('ladmin.category.index')->with('danger','Category data not found!');
+        }
         return ladmin()->view('category.edit', compact(['category']));
     }
 
@@ -58,6 +61,6 @@ class CategoryController extends Controller
         $request->validate($validation);
         Category::destroy($request->id);
 
-        return redirect()->route('ladmin.category.index')->with('success','Successfully deleted category!');
+        return redirect()->back()->with('success','Successfully deleted category!');
     }
 }

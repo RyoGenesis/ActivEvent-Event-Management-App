@@ -95,6 +95,9 @@ class EventController extends Controller
 
     function edit($id) {
         $event = Event::with(['majors','community','category','bgas','sat_level'])->where('id',$id)->first();
+        if(!$event) {
+            return redirect()->route('ladmin.event.index')->with('danger','Event data not found!');
+        }
         $community = $event->community;
         $majors = !$community->majors->isEmpty() ? Major::whereIn('id', $community->majors->pluck('id')) :  Major::all();
         $categories = Category::all();
@@ -188,7 +191,7 @@ class EventController extends Controller
             ->update(['status' => 'Cancelled']);
         Event::destroy($request->id);
 
-        return redirect()->route('ladmin.event.index')->with('success','Successfully deleted event!');
+        return redirect()->back()->with('success','Successfully deleted event!');
     }
 
     function searchEventsResult(Request $request) {

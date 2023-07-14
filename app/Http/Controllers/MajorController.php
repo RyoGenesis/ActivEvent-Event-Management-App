@@ -34,6 +34,9 @@ class MajorController extends Controller
 
     function edit($id) {
         $major = Major::with(['faculty'])->where('id',$id)->first();
+        if(!$major) {
+            return redirect()->route('ladmin.major.index')->with('danger','Major data not found!');
+        }
         $faculties = Faculty::all();
         return ladmin()->view('major.edit', compact(['major', 'faculties']));
     }
@@ -61,6 +64,6 @@ class MajorController extends Controller
         $request->validate($validation);
         Major::destroy($request->id);
 
-        return redirect()->route('ladmin.major.index')->with('success','Successfully deleted major!');
+        return redirect()->back()->with('success','Successfully deleted major!');
     }
 }
