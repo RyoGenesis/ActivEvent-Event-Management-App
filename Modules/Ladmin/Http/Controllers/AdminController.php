@@ -117,8 +117,7 @@ class AdminController extends Controller
             return Redirect::back()->with('danger','Admin not found!');
         }
         $admin->update(['deactivated_at' => Carbon::now()]);
-        session()->flash('success', 'Successfully deactivate admin account!');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Successfully deactivate admin account!');
 
     }
 
@@ -131,8 +130,7 @@ class AdminController extends Controller
             return Redirect::back()->with('danger','Admin not found!');
         }
         $admin->update(['deactivated_at' => null]);
-        session()->flash('success', 'Successfully re-activate admin account!');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Successfully re-activate admin account!');
 
     }
     
