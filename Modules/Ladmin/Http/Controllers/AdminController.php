@@ -5,6 +5,8 @@ namespace Modules\Ladmin\Http\Controllers;
 use App\Models\Community;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Modules\Ladmin\Datatables\AdminDatatables;
 use Modules\Ladmin\Http\Controllers\Controller;
 use Modules\Ladmin\Http\Requests\AdminRequest;
@@ -87,10 +89,22 @@ class AdminController extends Controller
     public function update(AdminRequest $request, $id)
     {
         ladmin()->allows(['ladmin.admin.update']);
+
+        $admin = ladmin()->admin()->findOrFail($id);
+        if(!$admin) {
+            return Redirect::back()->with('danger','Admin not found!');
+        }
         
-        return $request->updateAdmin(
-            ladmin()->admin()->findOrFail($id)
-        );
+        $admin->update([
+            'username' => $request->username,
+            'email' => $request->email,
+            'display_name' => $request->display_name,
+            'community_id' => $request->community_id,
+        ]);
+        
+        $admin->roles()->sync($request->roles);
+
+        return redirect()->back()->with('success', 'Admin has been updated successfully!');
 
     }
 

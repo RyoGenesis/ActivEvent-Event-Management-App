@@ -67,8 +67,7 @@ class RoleController extends Controller
         }
         $role->update(['name' => $request->name]);
 
-        session()->flash('success', 'Role has been updated');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Role has been updated');
     }
 
     /**
