@@ -112,7 +112,10 @@ class AdminController extends Controller
     {
         ladmin()->allows(['ladmin.admin.deactivate']);
         
-        $admin = ladmin()->admin()->findOrFail($request->id);
+        $admin = ladmin()->admin()->find($request->id);
+        if(!$admin) {
+            return Redirect::back()->with('danger','Admin not found!');
+        }
         $admin->update(['deactivated_at' => Carbon::now()]);
         session()->flash('success', 'Successfully deactivate admin account!');
         return redirect()->back();
@@ -123,7 +126,10 @@ class AdminController extends Controller
     {
         ladmin()->allows(['ladmin.admin.deactivate']);
         
-        $admin = ladmin()->admin()->findOrFail($request->id);
+        $admin = ladmin()->admin()->find($request->id);
+        if(!$admin) {
+            return Redirect::back()->with('danger','Admin not found!');
+        }
         $admin->update(['deactivated_at' => null]);
         session()->flash('success', 'Successfully re-activate admin account!');
         return redirect()->back();
