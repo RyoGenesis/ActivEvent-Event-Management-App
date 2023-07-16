@@ -78,7 +78,7 @@ class CommunityController extends Controller
             return redirect()->back()->with('danger','Community can not be deleted. There are active admin users still associated with this');
         }
 
-        Community::destroy($request->id);
+        $community->delete();
 
         return redirect()->back()->with('success','Successfully deleted community!');
     }
