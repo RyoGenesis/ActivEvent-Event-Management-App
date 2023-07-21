@@ -30,7 +30,7 @@ class RoleDatatables extends Datatables
      */
     public function button()
     {
-        return ladmin()->view('role.create');
+        return ladmin()->view('role.create-btn');
     }
 
     /**

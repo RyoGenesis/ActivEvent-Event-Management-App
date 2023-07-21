@@ -22,6 +22,12 @@ class RoleController extends Controller
 
         return RoleDatatables::view();
     }
+
+    public function create()
+    {
+        ladmin()->allows(['role.create']);
+        return ladmin()->view('role.create');
+    }
     
     /**
      * Store a newly created resource in storage.
@@ -46,8 +52,22 @@ class RoleController extends Controller
     {
         ladmin()->allows(['role.assign']);
         
-        $data['role'] = LadminRole::findOrFail($id);
+        $data['role'] = LadminRole::find($id);
+        if(!$data['role']) {
+            return redirect()->route('ladmin.role.index')->with('danger','Role not found!');
+        }
         return ladmin()->view('permission.show', $data);
+    }
+
+    public function edit($id)
+    {
+        ladmin()->allows(['role.update']);
+
+        $role = LadminRole::find($id);
+        if(!$role) {
+            return redirect()->route('ladmin.role.index')->with('danger','Role not found!');
+        }
+        return ladmin()->view('role.edit', compact(['role']));
     }
     
     /**
@@ -76,21 +96,21 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        ladmin()->allows(['role.destroy']);
+    // public function destroy($id)
+    // {
+    //     ladmin()->allows(['role.destroy']);
 
-        $role = LadminRole::findOrFail($id);
+    //     $role = LadminRole::findOrFail($id);
 
-        if($id == 1) {
-            session()->flash('danger', $role->name . ' can\'t be deleted!');
-        } else if ($role->admins->count() < 1) {
-            $role->delete();
-            session()->flash('success', 'Role has been deleted!');
-        } else {
-            session()->flash('danger', 'The role cannot be deleted, because it is still used by some users!');
-        }
+    //     if($id == 1) {
+    //         session()->flash('danger', $role->name . ' can\'t be deleted!');
+    //     } else if ($role->admins->count() < 1) {
+    //         $role->delete();
+    //         session()->flash('success', 'Role has been deleted!');
+    //     } else {
+    //         session()->flash('danger', 'The role cannot be deleted, because it is still used by some users!');
+    //     }
 
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
 }

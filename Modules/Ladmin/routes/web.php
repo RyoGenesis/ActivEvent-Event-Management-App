@@ -37,7 +37,7 @@ ladmin()->route(function () {
     Route::resource('/notification', NotificationController::class)->only(['index', 'show', 'store']);
     Route::resource('/admin', AdminController::class)->except(['destroy', 'show']);
     Route::resource('/profile', ProfileController::class)->only(['index', 'store']);
-    Route::resource('/role', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::resource('/role', RoleController::class)->only(['index', 'create', 'show', 'store', 'edit', 'update']);
     Route::resource('/permission', PermissionController::class)->only(['update']);
     Route::resource('/activities', UserActivityController::class)->only(['index', 'show', 'destroy']);
     Route::resource('/systemlog', SystemLogController::class)->only(['index', 'destroy']);
