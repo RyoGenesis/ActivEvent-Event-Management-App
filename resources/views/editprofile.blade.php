@@ -91,11 +91,32 @@
                 <div class="row g-3">
                     <div class="col px-5 py-5">
                         <label for="passion"><h5 class="text-primary">Passion</h5></label>
-                          
+                        <input class="form-control" name="tagpassion" value="name, name1 ">
+                        <button class='tags--removeAllBtn mt-3' type='button'>Remove all tags</button>
+
                     </div>
                 </div>
             </div>
         </form>
-
     </div>
 @endsection
+
+@section('scripts')
+<script>
+    var input = document.querySelector("input[name=tagpassion]");
+    tagify = new Tagify(input, {
+      whitelist: ["nama3, nama4, nama5"],
+      maxTags: 10,
+      dropdown: {
+        maxItems: 20,           // <- mixumum allowed rendered suggestions
+        classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+        enabled: 0,             // <- show suggestions on focus
+        closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+      }
+    });
+    document.querySelector('.tags--removeAllBtn')
+    .addEventListener('click', tagify.removeAllTags.bind(tagify))
+
+</script>
+@endsection
+

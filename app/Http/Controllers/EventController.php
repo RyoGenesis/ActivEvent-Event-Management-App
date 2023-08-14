@@ -311,4 +311,9 @@ class EventController extends Controller
             ];
         });
     }
+
+    public function latestevent(){
+        $latestevents=Event::where('status', 'like', '%Active%')->orderBy('created_at', 'DESC')->get();
+        return view('latestevent', compact('latestevents'));
+    }
 }

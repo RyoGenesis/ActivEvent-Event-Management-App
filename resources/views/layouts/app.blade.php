@@ -38,8 +38,16 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                                     
-                    <form class="d-flex ms-5" role="search">
-                        <input type="search" class="form-control-lg me-2" placeholder="Search Event">
+                    <form class="d-flex ms-5" role="search" method="GET" action="/search/nama">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle">
+                                Filter
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href=""></a></li>
+                            </ul>
+                        </div>
+                        <input type="search" class="form-control-lg me-2" placeholder="Search Event" name="nama">
                         <button type="submit" class="btn btn-dark ms-3">Search</button>
                     </form>
                     
@@ -110,6 +118,7 @@
 
         <main class="py-4 flex-fill">
             @yield('content')
+            
         </main>
 
         <footer class="footer bg-info">

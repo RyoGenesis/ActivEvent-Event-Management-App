@@ -46,3 +46,7 @@ Route::get('/editprofile', function(){
 });
 
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'userevent'])->name('profile');
+
+Route::get('/search/nama', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
+
+Route::get('/latestevent', [App\Http\Controllers\EventController::class, 'latestevent'])->name('latestevent');
