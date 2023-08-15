@@ -26,10 +26,11 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('id') ?? Auth::user()->id;
+        $id = $this->route('id') ?? (Auth::user() ? Auth::user()->id : null);
         $faculty =  Faculty::find($this->faculty_id);
         $major_ids = $faculty ? $faculty->majors->pluck('id') : [];
-        return [
+
+        $rules = [
             'name' => 'required|string',
             'email' => ['sometimes', 'required','email', Rule::unique('users','email')->ignore($id)],
             'phone' => ['sometimes','required','numeric', 'max:20', Rule::unique('users','phone')->ignore($id)],
@@ -44,6 +45,8 @@ class UserRequest extends FormRequest
             'categories' => 'sometimes|nullable|array|exists:categories,id',
             'categories.*' => 'required|integer|distinct',
         ];
+        
+        return $rules;
     }
 
     public function attributes()
