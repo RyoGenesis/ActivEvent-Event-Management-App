@@ -4,7 +4,7 @@
         <p class="fs-4 fw-bold">Hello, {{auth()->user()->display_name}}</p>
         <div class="row">
             {{-- featuring events latest active, near closing, already past but latest, last updated, waiting approval (?)--}}
-            <div class="col-lg-6 m-0 p-0">
+            {{-- <div class="col-lg-6 m-0 p-0">
                 <x-ladmin-card class="rounded-0">
                     <x-slot name="body">
                         <div class="d-flex align-item-top">
@@ -42,10 +42,10 @@
                         </div>
                     </x-slot>
                 </x-ladmin-card>
-            </div>
+            </div> --}}
         </div>
         <div class="row">
-            <div class="col-lg-6 m-0 p-0">
+            {{-- <div class="col-lg-6 m-0 p-0">
                 <x-ladmin-card class="rounded-0">
                     <x-slot name="body">
                         <div class="d-flex align-item-top">
@@ -83,9 +83,7 @@
                         </div>
                     </x-slot>
                 </x-ladmin-card>
-            </div>
+            </div> --}}
         </div>
     </div>
-
-
 </x-ladmin-auth-layout>

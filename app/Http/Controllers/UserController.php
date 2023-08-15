@@ -123,7 +123,10 @@ class UserController extends Controller
     {
         ladmin()->allows(['ladmin.student_user.destroy']);
         
-        $user = User::findOrFail($request->id);
+        $user = User::find($request->id);
+        if(!$user) {
+            return Redirect::back()->with('danger','Student user not found!');
+        }
         $user->delete();
         return redirect()->back()->with('success','Successfully deactivate student user!');
 
@@ -133,7 +136,10 @@ class UserController extends Controller
     {
         ladmin()->allows(['ladmin.student_user.destroy']);
         
-        $user = User::withTrashed()->findOrFail($request->id);
+        $user = User::withTrashed()->find($request->id);
+        if(!$user) {
+            return Redirect::back()->with('danger','Student user not found!');
+        }
         $user->restore();
         return redirect()->back()->with('success','Successfully re-activate student account!');
     }

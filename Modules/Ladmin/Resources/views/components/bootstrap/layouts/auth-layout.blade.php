@@ -51,9 +51,6 @@
                         <path d="M4 8 L28 8 M4 16 L28 16 M4 24 L28 24" />
                     </svg>
                 </a>
-                <div class="content-header-search">
-                    <x-ladmin-global-search />
-                </div>
             </div>
             <div class="d-flex align-items-center me-3">
 
