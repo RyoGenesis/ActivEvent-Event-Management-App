@@ -50,3 +50,5 @@ Route::get('/profile', [App\Http\Controllers\UserController::class, 'userevent']
 Route::get('/search/nama', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 
 Route::get('/latestevent', [App\Http\Controllers\EventController::class, 'latestevent'])->name('latestevent');
+
+Route::get('/featuredevent', [App\Http\Controllers\EventController::class, 'featuredevent'])->name('featuredevent');

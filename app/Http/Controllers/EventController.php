@@ -313,7 +313,12 @@ class EventController extends Controller
     }
 
     public function latestevent(){
-        $latestevents=Event::where('status', 'like', '%Active%')->orderBy('created_at', 'DESC')->get();
+        $latestevents=Event::where('status', 'like', '%Active%')->orderBy('created_at', 'DESC')->paginate(3);
         return view('latestevent', compact('latestevents'));
+    }
+
+    public function featuredevent(){
+        $featuredevents=Event::where([['status', 'like', '%Active%'], ['is_highlighted', true]])->paginate(3);
+        return view('featuredevent', compact('featuredevents'));
     }
 }

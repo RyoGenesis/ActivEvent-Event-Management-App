@@ -1,88 +1,81 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-flex justify-content-center">
-    <div class="card mx-3 " style="width:60rem">
-        <img src="{{$event->image}}" class="card-img-top" alt="gambar {{$event->name}}">
-        <div class="card-body">
-            <h1 class="card-title mb-2">{{$event->name}}</h1>
-            <div class="row">
-                <div class="col">
-                    <p class="card-text">
-                        <small class="text-body-secondary">
-                            {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $event->date)->format('Y-m-d')}}
-                            {{-- {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $event->date)->format('H:i')}} --}}
-                        </small>
-                    </p>
-                </div>
-                <div class="col">
-                    @auth
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegister">
-                            Register Now
-                        </button>
+<div class="container bg-light border border-dark-subtle border-3 mt-4">
+    <div class="row">
+        <div class="col-6 ps-5">
+            <div class="mb-4 mt-5">
+                <a href="{{ url()->previous() }} " style="text-decoration:none">Go back</a>
+            </div>
+            <div class="ps-5">
+                <h1 class="fw-bold mb-3">{{$event->name}}</h1>
+                <p>{{$event->date}}</p>
+                <p>created by {{$event->community->name}}</p>
+                <div class="row my-3">
+                    <div class="col">
+                        @if ($event->has_certificate == 'true')
+                            <span class="rounded-pill border border-success border-3 p-1 me-2 text-success fs-5 fw-bold">
+                                E-Certificate                                
+                            </span>
+                        @endif
+                        
+                        @if ($event->has_sat == 'true')
+                            <span class="rounded-pill border border-3 border-info text-info p-1 me-2 fs-5 fw-bold">
+                                SAT Point
+                            </span>
+                        @endif 
 
-                        <div class="modal" id="modalRegister">
-                            <div class='modal-dialog'>
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Confirmation</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p class='fs-5 text-center'>
-                                            Are you sure want to register to this event
-                                        </p>
-                                        <div class="container text-center">
-                                            <div class="row mt-4">
-                                                <div class="col">
-                                                    <button>Confirm</button>
-                                                </div>
-                                                <div class="col">
-                                                    <button>Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <a href="/login" class="btn btn-primary" role="button">Register Now</a>
-                    @endauth
+                        @if ($event->has_comserv == 'true')
+                            <span class="rounded-pill border border-3 border-warning text-warning p-1 me-2 fs-5 fw-bold">
+                                Community Service Hour
+                            </span>
+                        @endif 
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="fw-bold">Category Event</h2>
+                        <p class="fs-5">{{$event->category->name}}</p>
+                    </div>
+                    <div class="col-6 ps-5">
+                        <h4 class="fw-bold">Topic Event</h4>
+                        <p class="fs-5">{{$event->topic}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="fw-bold">Available Slot</h4>
+                        <p class="fs-5">{{$event->max_slot}}</p>
+                    </div>
+                    <div class="col-6 ps-5">
+                        <h4 class="fw-bold">Location</h4>
+                        <p class="fs-5">{{$event->location}}</p>
+                    </div>
+                </div>
+    
+                <div>
+                    <h4 class="fw-bold">Description</h4>
+                    <p class="fs-5 text-left">{{$event->description}}</p>
                 </div>
             </div>
-            <p class="card-text">
-                {{$event->status}}
-            </p>
-            <div class="row">
-                <div class="col">
-                    <p class="card-text">
-                        <p class="fs-5 text-primary">Category acara</p>                
-                        <small>
-                            {{$event->category->name}}
-                        </small>
-                    </p>
-                </div>
-                <div class="col">
-                    <p class="card-text">
-                        <p class="fs-5 text-primary">Topik acara</p>                
-                        <small>
-                            {{$event->topic}}
-                        </small>
-                    </p>
-                </div>
-
-            </div>
-            <p class="card-text">
-                <p class="fs-5 text-primary"> Avaiable Slot</p>
-                <p>{{$event->max_slot}}</p>
-            </p>
-            <p class="card-text">
-                <p class="fs-5 text-primary"> Event Description</p>
-                {{$event->description}} 
-            </p>
+        </div>
+        <div class="col-6" style="padding: 0%">
+            <img src="{{$event->image}}" alt="gambar {{$event->image}}" style="max-width: 40rem; height:43rem" class="float-end">
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-8 d-flex justify-content-center py-5">
+            @if (Auth::check())
+                register
+            @else
+                <a href="/login" class="btn btn-primary">register</a>
+            @endif
+        </div>
+    </div>
+
 </div>
 
 @endsection
