@@ -37,7 +37,7 @@ class ParticipantDatatables extends Datatables
      */
     public function handle()
     {
-        $event = Event::with(['users' => ['campus','faculty','major']])->where('id',$this->data['id'])->first();
+        $event = Event::with(['users' => ['campus','faculty','major','communities']])->where('id',$this->data['id'])->first();
         $this->query = $event->users;
         return $this->eloquent($this->query)
             ->editColumn('personal_email', function ($row) {
@@ -51,6 +51,22 @@ class ParticipantDatatables extends Datatables
             })
             ->editColumn('major.name', function ($row) {
                 return $row->major->name;
+            })
+            ->editColumn('communities.name', function ($row) {
+                $communities = $row->communities;
+                $formattedComms = '';
+                if ($communities->isEmpty()) {
+                    $formattedComms = 'No community association';
+                } else {
+                    foreach($communities as $community) {
+                        if (end($communities) == $community) {
+                            $formattedComms .= $community->name;
+                        } else {
+                            $formattedComms .= $community->name.', ';
+                        }
+                    }
+                }
+                return Blade::render($formattedComms);
             })
             ->addColumn('action', function ($row) {
                 return $this->action($row);

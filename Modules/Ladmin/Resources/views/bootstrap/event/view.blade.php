@@ -104,13 +104,15 @@
             <div class="col">
                 <p class="fw-bold mb-1">Target Majors</p>
                 <p>
-                @if (!$event->majors->isEmpty())
-                    @foreach ($event->majors as $major)
+                @forelse ($event->majors as $major)
+                    @if ($loop->last)
+                        {{$major->name}}
+                    @else
                         {{$major->name}}, 
-                    @endforeach
-                @else
+                    @endif
+                @empty
                     -
-                @endif
+                @endforelse
                 </p>
             </div>
         </div>
