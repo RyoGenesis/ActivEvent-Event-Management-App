@@ -29,11 +29,10 @@ class UserRequest extends FormRequest
         $id = $this->route('id') ?? (Auth::user() ? Auth::user()->id : null);
         $faculty =  Faculty::find($this->faculty_id);
         $major_ids = $faculty ? $faculty->majors->pluck('id') : [];
-
         $rules = [
             'name' => 'required|string',
             'email' => ['sometimes', 'required','email', Rule::unique('users','email')->ignore($id)],
-            'phone' => ['sometimes','required','numeric', 'max:20', Rule::unique('users','phone')->ignore($id)],
+            'phone' => ['sometimes','required', 'digits_between:1,20', Rule::unique('users','phone')->ignore($id)],
             'nim' => ['sometimes', 'required','size:10', 'regex:/^[0-9]+$/', Rule::unique('users','nim')->ignore($id)],
             'password' => 'sometimes|required|string|min:6',
             'campus_id' => 'required|integer|exists:campuses,id',

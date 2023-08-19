@@ -68,17 +68,22 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create($data)
     {
+        $topics = null;
+        if(array_key_exists('topics', $data)) {
+            $topics = implode(',',$data['topics']);
+        }
         $user = User::create([
-            'name' => $data['naAme'],
+            'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
             'nim' => $data['nim'],
             'campus_id' => $data['campus_id'],
             'faculty_id' => $data['faculty_id'],
             'major_id' => $data['major_id'],
-            'topics' => $data['topics'] ? implode(',',$data['topics']) : null,
+            'topics' => $topics,
         ]);
 
         $user->communities()->sync($data['communities'] ?? []);

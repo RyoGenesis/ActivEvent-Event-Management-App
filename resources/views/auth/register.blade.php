@@ -17,7 +17,6 @@
 
                             <div class="col-md-8">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Name">
-
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -27,75 +26,10 @@
                         </div>
 
                         <div class="row my-4 justify-content-center">
-                            {{-- <label for="nim" class="col-md-4 col-form-label text-md-end">{{ __('Nim') }}</label> --}}
-
-                            <div class="col-md-8">
-                                <input id="nim" type="text" class="form-control @error('nim') is-invalid @enderror" name="nim" value="{{ old('nim') }}" required autocomplete="nim" autofocus placeholder="Nim">
-
-                                @error('nim')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row my-4 justify-content-center">
-                            {{-- <label for="campus" class="col-md-4 col-form-label text-md-end">{{ __('Campus') }}</label> --}}
-                            <div class="col-md-8">
-                                <select class="form-control" id="campus">
-                                    {{-- loop pake kampus nanti --}}
-                                    <option value="">
-                                        <p class="fw-lighter">Your Campus Location</p>
-                                    </option>
-                                    @foreach ($campus as $campus)
-                                        <option value="{{$campus->id}}">{{$campus->name}}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                        </div>
-                        
-                        <div class="row myt-4 justify-content-center">
-                            {{-- <label for="faculty" class="col-md-4 col-form-label text-md-end">{{ __('Faculty') }}</label> --}}
-                            <div class="col-md-8">
-                                <select class="form-control" id="faculty" >
-                                    {{-- loop pake kampus nanti --}}
-                                    <option value="">Your Faculty</option>
-                                    @foreach ($faculty as $faculty)
-                                        <option value="{{$faculty->id}}">{{$faculty->name}}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                        </div>
-                        
-                        <div class="row my-4 justify-content-center">
-                            {{-- <label for="major" class="col-md-4 col-form-label text-md-end">{{ __('Major') }}</label> --}}
-                            <div class="col-md-8">
-                                <select class="form-control" id="major" >
-                                    {{-- loop pake kampus nanti --}}
-                                    <option value="">Your Major</option>
-                                    {{-- @if ($major->faculty_id==2)  --}}
-
-                                        @foreach ($major as $major)
-                                            <option   option value="{{$major->id}}">{{$major->name}}</option>
-                                        @endforeach
-                                    {{-- @endif --}}
-
-                                </select>
-
-                            </div>
-                        </div>
-
-
-
-                        <div class="row my-4 justify-content-center">
                             {{-- <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label> --}}
 
                             <div class="col-md-8">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email Address">
-
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -109,7 +43,6 @@
 
                             <div class="col-md-8">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
-
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -119,10 +52,84 @@
                         </div>
 
                         <div class="row my-4 justify-content-center">
-                            {{-- <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label> --}}
+                            {{-- <label for="nim" class="col-md-4 col-form-label text-md-end">{{ __('Nim') }}</label> --}}
 
                             <div class="col-md-8">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+                                <input id="nim" type="text" class="form-control @error('nim') is-invalid @enderror" name="nim" value="{{ old('nim') }}" required autocomplete="nim" autofocus placeholder="NIM">
+                                @error('nim')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center">
+                            {{-- <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone') }}</label> --}}
+
+                            <div class="col-md-8">
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus placeholder="Phone">
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center">
+                            {{-- <label for="campus" class="col-md-4 col-form-label text-md-end">{{ __('Campus') }}</label> --}}
+                            <div class="col-md-8">
+                                <select class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
+                                    {{-- loop pake kampus nanti --}}
+                                    <option value="" selected disabled>
+                                        <p class="fw-lighter">Your Campus Location</p>
+                                    </option>
+                                    @foreach ($campus as $campus)
+                                        <option value="{{$campus->id}}">{{$campus->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('campus_id')
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="row my-4 justify-content-center">
+                            {{-- <label for="faculty" class="col-md-4 col-form-label text-md-end">{{ __('Faculty') }}</label> --}}
+                            <div class="col-md-8">
+                                <select class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
+                                    {{-- loop pake kampus nanti --}}
+                                    <option value="" selected disabled>Your Faculty</option>
+                                    @foreach ($faculty as $faculty)
+                                        <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('faculty_id')
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="row my-4 justify-content-center">
+                            {{-- <label for="major" class="col-md-4 col-form-label text-md-end">{{ __('Major') }}</label> --}}
+                            <div class="col-md-8">
+                                <select class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id">
+                                    {{-- loop pake kampus nanti --}}
+                                    <option value="" selected disabled>Your Major</option>
+                                        @foreach ($major as $major)
+                                            <option option value="{{$major->id}}">{{$major->name}}</option>
+                                        @endforeach
+                                </select>
+                                @error('major_id')
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -136,7 +143,7 @@
 
                         <div class="text-center">
                             <p>
-                                Alreadty have an account? <a href="/login" style="text-decoration: none;">Login</a>
+                                Already have an account? <a href="/login" style="text-decoration: none;">Login</a>
                             </p>
                         </div>
                     </form>
