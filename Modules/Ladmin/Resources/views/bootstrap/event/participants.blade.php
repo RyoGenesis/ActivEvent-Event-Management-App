@@ -1,7 +1,7 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Registered Participants</x-slot>
     <x-slot name="button_end">
-        <a href="{{ route('ladmin.event.participant.download') }}" class="btn btn-primary">Download Participant Data</a>
+        <a href="{{ route('ladmin.event.participant.download', [$event->id]) }}" class="btn btn-primary">Download Participant Data</a>
     </x-slot>
     <x-ladmin-card>
         <x-slot name="body">
@@ -12,7 +12,7 @@
     <div class="modal fade" id="reject-modal" tabindex="-1" role="dialog" aria-labelledby="reject-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
-            <form action="{{ route('ladmin.event.participant.reject') }}" method="post">
+            <form action="{{ route('ladmin.event.participant.reject', [$event->id]) }}" method="post">
               @csrf
               <input type="hidden" name="id" value="">
               <div class="modal-header border-0">

@@ -27,7 +27,7 @@ class ParticipantDatatables extends Datatables
 
     public function ajax()
     {
-        return route('ladmin.event.participant.index', ['datatables']);
+        return route('ladmin.event.participant.index', ['datatables', 'id' => request()->route('id')]);
     }
     
     /**
@@ -39,7 +39,7 @@ class ParticipantDatatables extends Datatables
     {
         $event = Event::with(['users' => ['campus','faculty','major','communities']])->where('id',$this->data['id'])->first();
         $this->query = $event->users;
-        return $this->eloquent($this->query)
+        return $this->collection($this->query)
             ->editColumn('personal_email', function ($row) {
                 return $row->personal_email ?? '-';
             })

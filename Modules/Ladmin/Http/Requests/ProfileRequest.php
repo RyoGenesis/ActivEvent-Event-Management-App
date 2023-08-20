@@ -39,26 +39,4 @@ class ProfileRequest extends FormRequest
             'display_name' => 'display name',
         ];
     }
-
-    /**
-     * Update profile
-     *
-     * @return void
-     */
-    public function updateProfile()
-    {
-
-        $data = [
-            'username' => $this->username,
-            'display_name' => $this->display_name,
-        ];
-        if ($this->has('password')) {
-            $data['password'] = Hash::make($this->password);
-        }
-        auth()->user()->update($data);
-
-        session()->flash('success', 'Profile has been updated!');
-
-        return redirect()->back();
-    }
 }

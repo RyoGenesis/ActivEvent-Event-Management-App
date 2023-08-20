@@ -249,8 +249,8 @@ class EventController extends Controller
         ];
 
         $request->validate($validation);
-        Event::where('id',$request->id)
-            ->update(['is_highlighted' => true]);
+        Event::where('id',$request->id)->update(['is_highlighted' => true]);
+        
         return redirect()->route('ladmin.event.highlight.index')->with('success','Successfully highlight selected event!');
     }
 
@@ -260,8 +260,8 @@ class EventController extends Controller
         ];
 
         $request->validate($validation);
-        Event::where('id',$request->id)
-            ->update(['is_highlighted' => false]);
+        Event::where('id',$request->id)->update(['is_highlighted' => false]);
+        
         return redirect()->route('ladmin.event.highlight.index')->with('success','Successfully remove highlight from event!');
     }
 
@@ -284,7 +284,7 @@ class EventController extends Controller
         $request->validate($validation);
 
         $event = Event::with(['users'])->where('id',$id)->first();
-        $event->users()->updateExistingPivot($id, [
+        $event->users()->updateExistingPivot($request->id, [
             'status' => 'Rejected',
             'reasoning' => $request->reason,
         ]);

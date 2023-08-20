@@ -3,6 +3,7 @@
 namespace Modules\Ladmin\Http\Controllers;
 
 use App\Models\Community;
+use Illuminate\Support\Facades\Hash;
 use Modules\Ladmin\Http\Controllers\Controller;
 use Modules\Ladmin\Http\Requests\ProfileRequest;
 
@@ -28,7 +29,16 @@ class ProfileController extends Controller
      */
     public function store(ProfileRequest $request)
     {
-        return $request->updateProfile();
+        $data = [
+            'username' => $request->username,
+            'display_name' => $request->display_name,
+        ];
+        if ($this->has('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+        auth()->user()->update($data);
+
+        return redirect()->back()->with('success', 'Profile has been updated!');
     }
 
 }
