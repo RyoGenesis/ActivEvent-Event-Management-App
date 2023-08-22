@@ -10,6 +10,7 @@ use App\Models\Community;
 use App\Models\Faculty;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -80,12 +81,14 @@ class UserController extends Controller
     }
 
     function update(UserRequest $request) {
+        dd("ab");
 
         $user = User::find(Auth::user()->id);
 
         $user->update([
             'name' => $request->name,
             'phone' => $request->phone,
+            'personal_email' => $request->personal_email,
             'campus_id' => $request->campus_id,
             'faculty_id' => $request->faculty_id,
             'major_id' => $request->major_id,
@@ -95,7 +98,7 @@ class UserController extends Controller
         $user->communities()->sync($request->communities);
         $user->categories()->sync($request->categories);
 
-        return redirect()->route('profile.index')->with('success','Successfully update profile information!');
+        return redirect()->route('editprofile', compact('user'))->with('success','Successfully update profile information!');
     }
 
     function adminUpdate(UserRequest $request, $id) {
@@ -106,7 +109,7 @@ class UserController extends Controller
         }
         $user->update([
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $request->email, 
             'nim' => $request->nim,
             'campus_id' => $request->campus_id,
             'faculty_id' => $request->faculty_id,
@@ -158,9 +161,17 @@ class UserController extends Controller
         return view('main.profile.index')->with('success','Successfully update new password!');
     }
 
-    function userevent(){
-        $event=Event::all();
-        return view('profile')->with('event', $event);
+    function userprofile(){
+        $user=User::find(Auth::user()->id);
+        $events=Event::all();
+        return view('profile', compact('user', 'events'));
     }
 
+    function showEditProfileForm(){
+        $user=User::find(Auth::user()->id);
+        $campuses=Campus::all();
+        $faculties=Faculty::all();
+        $majors=Major::all();
+        return view('editprofile', compact('user', 'campuses', 'faculties', 'majors'));
+    }
 }

@@ -33,7 +33,7 @@
                                                                         </span>
                                                                     @endif
                                                                     
-                                                                    @if ($featuredevent->has_sat != 'true')
+                                                                    @if ($featuredevent->has_sat == 'true')
                                                                         <span class="rounded-pill border border-3 border-info text-info p-1 me-2 fs-6 fw-bold">
                                                                             SAT Point
                                                                         </span>
@@ -71,7 +71,7 @@
                                                             <div class="card-body">
                                                                 <h5 class="card-title mb-3">{{$fevent->name}}</h5>
                                                                 <div class="card-text">
-                                                                    <p class="my-2">
+                                                                    <p class="my-2" style="">
                                                                         @if ($fevent->has_certificate == 'true')
                                                                             <span span class="rounded-pill border border-success border-3 p-1 me-2 text-success fs-6 fw-bold">
                                                                                 E-Certificate         
@@ -85,7 +85,7 @@
                                                                     @endif 
                                                 
                                                                     @if ($fevent->has_comserv == 'true')
-                                                                        <span class="rounded-pill border border-3 border-warning text-warning p-1 me-2 fs- fw-bold">
+                                                                        <span class="rounded-pill border border-3 border-warning text-warning p-1 fs-6 fw-bold">
                                                                             Community Service Hour
                                                                         </span>
                                                                     @endif 
