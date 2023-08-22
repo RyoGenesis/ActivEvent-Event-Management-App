@@ -110,6 +110,10 @@
                                     </div>
                                 </li>
                             @endguest
+
+                            @auth
+                                hello, {{Auth::user()->name}}
+                            @endauth
                         </ul>
                     </div>
                 </div>

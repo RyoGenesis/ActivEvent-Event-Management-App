@@ -41,14 +41,14 @@ Route::get('/prevevent', function(){
     return view('prevevent');
 });
 
-Route::get('/editprofile', function(){
-    return view('editprofile');
-});
-
-Route::get('/profile', [App\Http\Controllers\UserController::class, 'userevent'])->name('profile');
-
 Route::get('/search/nama', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 
 Route::get('/latestevent', [App\Http\Controllers\EventController::class, 'latestevent'])->name('latestevent');
 
 Route::get('/featuredevent', [App\Http\Controllers\EventController::class, 'featuredevent'])->name('featuredevent');
+
+Route::middleware('auth')->group(function(){
+    Route::get('/profile', [App\Http\Controllers\UserController::class, 'userprofile'])->name('profile');
+    Route::get('/editprofile', [App\Http\Controllers\UserController::class, 'showEditProfileForm'])->name('editprofile');
+    Route::post('editprofile/update', [App\Http\Controllers\UserController::class, 'profileUpdate'])->name('editprofile.update');
+});

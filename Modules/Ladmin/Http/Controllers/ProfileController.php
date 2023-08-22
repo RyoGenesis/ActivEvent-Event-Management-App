@@ -33,7 +33,7 @@ class ProfileController extends Controller
             'username' => $request->username,
             'display_name' => $request->display_name,
         ];
-        if ($this->has('password')) {
+        if ($request->has('password')) {
             $data['password'] = Hash::make($request->password);
         }
         auth()->user()->update($data);

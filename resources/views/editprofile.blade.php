@@ -5,60 +5,31 @@
         <h2>Edit Profile</h2>
     </div>
     <div class="d-flex justify-content-center mt-5">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{{route('editprofile.update')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('put')
             <div class="card d-flex justify-content-center" style="width:65rem">
                 <div class="form-group btn-reset btn mt-3 me-3">
                     <div class="d-flex justify-content-end">
-                        <button name="submit" type="submit" class="btn btn-outline-danger btn-submit btn-sm">
-                            <p class="fs-5">Save</p>
+                        <button type="submit" class="btn btn-outline-danger btn-submit btn-sm">
+                            {{ __('Save') }}          
                         </button>
                     </div>
                 </div>
-                <div class="row g-3 mt-3">
+                <div class="form-group row g-3 mt-3">
                     <div class="col-md-6 px-5 pt-4">
-                        <label for="user_name"><h5 class="text-primary">Name</h5></label>
-                        <input type="text" id="user_name" value="nama pengguna" class="form-control @error('user_name')
-                            is-invalid
-                        @enderror">
-                        @error('user_name')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>  
-                        @enderror
-                    </div>
-
-                    <div class="col-md-6 px-5 pt-4">
-                        <label for="major"><h5 class="text-primary">Major</h5></label>
-                        <input type="text" value="user_major" id="major" class="form-control @error('major')
-                            is-invalid
-                        @enderror">
-                        @error('major')
+                        <label for="name"><h5 class="text-primary">Name</h5></label>
+                        <input type="text" id="name" name="name" value="{{$user->name}}" class="form-control @error('name') is-invalid @enderror">
+                        @error('name')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
                         @enderror
                     </div>
-                </div>
 
-                <div class="row g-3">
-                    <div class="col-md-6 px-5 pt-5">
-                        <label for="email"><h5 class="text-primary">Email</h5></label>
-                        <input type="email" value="user_email" id="email" class="form-control @error('email')
-                            is-invalid
-                        @enderror">
-                        @error('email')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="col-md-6 px-5 pt-5">
+                    <div class="col-md-6 px-5 pt-4">
                         <label for="nim"><h5 class="text-primary">Nim</h5></label>
-                        <input type="text" value="user_nim" id="nim" class="form-control @error('nim')
-                            is-invalid
-                        @enderror">
+                        <input type="text" value="{{$user->nim}}" id="nim" name="nim"
+                        disabled='true' class="form-control @error('nim') is-invalid @enderror">
                         @error('nim')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -67,43 +38,120 @@
                     </div>
                 </div>
 
-                <div class="row g-3">
+                <div class="form group row g-3">
                     <div class="col-md-6 px-5 pt-5">
-                        <label for="DoB"><h5 class="text-primary">DateofBirth</h5></label>
-                        <input type="date" value="" id="DoB" class="form-control @error('DoB')
+                        <label for="phone"><h5 class="text-primary">Phone</h5></label>
+                        <input type="text" value="{{$user->phone}}" id="phone" name="phone" class="form-control @error('phone')
                             is-invalid
                         @enderror">
-                        @error('DoB')
+                        @error('phone')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
                         @enderror
                     </div>
                     <div class="col-md-6 px-5 pt-5">
-                        <label for="gender"><h5 class="text-primary">Gender</h5></label>
-                        <select class="form-select" id="inputgender">
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                        </select>
+                        <label for="email"><h5 class="text-primary">Email</h5></label>
+                        <input type="email" value="{{$user->email}}" id="email" name="email" disabled= 'true' class="form-control @error('email')
+                            is-invalid
+                        @enderror">
+                        @error('email')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                        @enderror
                     </div>
                 </div>
 
-                <div class="row g-3">
+                <div class="form-group row g-3">
+                    <div class="col-md-6 px-5 pt-5">
+                        <label for="personal_email"><h5 class="text-primary">Personal Email</h5></label>
+                        <input type="email" value="{{$user->personal_email}}" name="personal_email" id="personal_email" class="form-control @error('personal_email')
+                            is-invalid
+                        @enderror">
+                        @error('personal_email')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6 px-5 pt-5">
+                        <label for="campus_id"><h5 class="text-primary">Campus</h5></label>
+                        <select class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
+                            <option value="{{$user->campus->id}}">
+                                <p class="fw-lighter">{{$user->campus->name}}</p>
+                            </option>
+                            @foreach ($campuses as $campus)
+                                <option value="{{$campus->id}}">{{$campus->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('campus_id')
+                            <span class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row g-3">
+                    <div class="col-md-6 px-5 pt-5">
+                        <label for="faculty_id"><h5 class="text-primary">Faculty</h5></label>
+                        <select class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
+                            <option value="{{$user->faculty->id}}">
+                                <p class="fw-lighter">{{$user->faculty->name}}</p>
+                            </option>
+                            @foreach ($faculties as $faculty)
+                                <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('faculty_id')
+                            <span class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6 px-5 pt-5">
+                        <label for="major_id"><h5 class="text-primary">Major</h5></label>
+                        <select class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id">
+                            <option value="{{$user->major->id}}">
+                                <p class="fw-lighter">{{$user->major->name}}</p>
+                            </option>
+                            @foreach ($majors as $major)
+                                <option value="{{$major->id}}">{{$major->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('major_id')
+                            <span class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                
+                @if($errors->any())
+                <div class="alert alert-danger">
+                    {{ implode('', $errors->all(':message')) }}
+                </div>
+                @endif
+
+                <div class="form-group row g-3">
                     <div class="col px-5 py-5">
                         <label for="passion"><h5 class="text-primary">Passion</h5></label>
-                        <input class="form-control" name="tagpassion" value="name, name1 ">
+                        <input class="form-control" name="topics" value="name, name1 ">
                         <button class='tags--removeAllBtn mt-3' type='button'>Remove all tags</button>
 
                     </div>
                 </div>
-            </div>
+            </div>  
         </form>
     </div>
 @endsection
 
 @section('scripts')
 <script>
-    var input = document.querySelector("input[name=tagpassion]");
+    var input = document.querySelector("input[name=topics]");
     tagify = new Tagify(input, {
       whitelist: ["nama3, nama4, nama5"],
       maxTags: 10,
