@@ -80,8 +80,7 @@ class UserController extends Controller
         return ladmin()->view('student_user.edit', compact(['userStudent', 'campuses', 'faculties', 'communities', 'userCommunities']));
     }
 
-    function profileUpdate(UserRequest $request) {
-        dd("ab");
+    function update(UserRequest $request) {
 
         $user = User::find(Auth::user()->id);
 
@@ -98,7 +97,7 @@ class UserController extends Controller
         $user->communities()->sync($request->communities);
         $user->categories()->sync($request->categories);
 
-        return redirect()->back()->with('success','Successfully update profile information!');
+        return redirect()->route('profile.index')->with('success','Successfully update profile information!');
     }
 
     function adminUpdate(UserRequest $request, $id) {
