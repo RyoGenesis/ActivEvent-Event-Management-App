@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EventRequest;
+use App\Mail\RejectedParticipationMail;
 use App\Models\Bga;
 use App\Models\Category;
 use App\Models\Community;
 use App\Models\Event;
 use App\Models\Major;
 use App\Models\SatLevel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Modules\Ladmin\Datatables\ApprovalDatatables;
@@ -187,8 +190,13 @@ class EventController extends Controller
         ];
 
         $request->validate($validation);
-        Event::where('id',$request->id)
-            ->update(['status' => 'Cancelled']);
+        $event = Event::where('id',$request->id)->first();
+
+        if($event->status == 'Active') {
+            //send notification to participants
+        }
+
+        $event->update(['status' => 'Cancelled']);
         Event::destroy($request->id);
 
         return redirect()->back()->with('success','Successfully deleted event!');
@@ -288,6 +296,12 @@ class EventController extends Controller
             'status' => 'Rejected',
             'reasoning' => $request->reason,
         ]);
+
+        $participant = User::where('id', $request->id)->first();
+        // Mail::to($participant->email)->send(new RejectedParticipationMail($event, $request->reason));
+        if($participant->personal_email) {
+            // Mail::to($participant->personal_email)->send(new RejectedParticipationMail($event, $request->reason));
+        }
 
         return redirect()->back()->with('success', 'Rejected participant registration');
     }

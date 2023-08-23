@@ -23,6 +23,8 @@ class Event extends Model
         'registration_end' => 'datetime',
     ];
 
+    protected $dates = ['date','registration_end'];
+
     public function majors() {
         return $this->belongsToMany(Major::class, 'event_major', 'event_id', 'major_id')->withTrashed();
     }
