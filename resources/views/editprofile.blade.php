@@ -167,18 +167,18 @@
     document.getElementById('submitbtn').addEventListener('click', function (event) {
         event.preventDefault();
 
-        var dataInput = JSON.parse(input.value);
-        var dataArray = [];
-        console.log(dataInput);
-
-        var topicsInput = $("input[name='topics[]']");
-
-        dataInput.forEach(function(item){
-            console.log(item.value) 
-            dataArray.push(item.value);
-        });
-
-        input.value = dataArray;
+        if(input.value) {
+            var dataInput = JSON.parse(input.value);
+            var dataArray = [];
+            console.log(dataInput);
+    
+            dataInput.forEach(function(item){
+                console.log(item.value) 
+                dataArray.push(item.value);
+            });
+    
+            input.value = dataArray;
+        }
         
         console.log(dataArray);
         document.getElementById('formeditprofile').submit();

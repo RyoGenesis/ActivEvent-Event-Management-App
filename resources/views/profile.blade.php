@@ -69,12 +69,12 @@
                 </div>
 
                 <div>
-                    <h5 class="text-primary">Intrested Topics</h5>
-                    @empty($user->topics)
+                    <h5 class="text-primary">Interested Topics</h5>
+                    @if(!$user->topics)
                         <div class="fs-6">-</div>
                     @else
-                        @foreach ($user->topics as $topic)
-                            <div class="fs-6">topic</div>                            
+                        @foreach ($topicInterests as $topic)
+                            <div class="fs-6">{{$topic}}</div>                            
                         @endforeach
                     @endempty
                 </div>
@@ -100,7 +100,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($events as $event)
+                @foreach ($upcomingEvents as $event)
                     <tr class="table-light">
                         <th>{{$loop->iteration}}</th>
                         <th>{{$event->name}}</th>

@@ -19,13 +19,6 @@ use Modules\Ladmin\Datatables\StudentUserDatatables;
 
 class UserController extends Controller
 {
-    function profileIndex() {
-        $user = User::with(['campus','faculty','major','communities','categories','events_upcoming','events_rejected'])->where('id',Auth::user()->id)->first();
-        $upcomingEvents = $user->events_upcoming;
-        $rejectedEvents = $user->events_rejected;
-        return view('main.profile.index', compact(['user','upcomingEvents','rejectedEvents']));
-    }
-
     function indexList() {
         if( request()->has('datatables') ) {
             return StudentUserDatatables::renderData();
@@ -160,9 +153,11 @@ class UserController extends Controller
     }
 
     function userprofile(){
-        $user=User::find(Auth::user()->id);
-        $events=Event::all();
-        return view('profile', compact('user', 'events'));
+        $user = User::with(['campus','faculty','major','communities','categories','events_upcoming','events_rejected'])->where('id',Auth::user()->id)->first();
+        $upcomingEvents = $user->events_upcoming;
+        $rejectedEvents = $user->events_rejected;
+        $topicInterests = explode(',',$user->topics);
+        return view('profile', compact(['user','upcomingEvents','rejectedEvents','topicInterests']));
     }
 
     function showEditProfileForm(){

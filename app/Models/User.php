@@ -74,7 +74,6 @@ class User extends Authenticatable
 
     public function events_upcoming() {
         return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')
-                ->where()
                 ->wherePivot('status', 'Registered')
                 ->withPivot('status', 'reasoning');
     }
