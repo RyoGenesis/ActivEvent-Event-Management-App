@@ -72,7 +72,7 @@ class RegisterController extends Controller
     {
         $topics = null;
         if(array_key_exists('topics', $data)) {
-            $topics = implode(',',$data['topics']);
+            $topics = $data['topics'];
         }
         $user = User::create([
             'name' => $data['name'],

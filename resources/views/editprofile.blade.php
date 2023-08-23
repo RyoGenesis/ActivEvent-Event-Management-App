@@ -138,25 +138,24 @@
 
                 <div class="form-group row g-3">
                     <div class="col px-5 py-5">
-                        <label for="passion"><h5 class="text-primary">Passion</h5></label>
-                        <input class="form-control" name="topics[]" value="" multiple="multiple" id="topics">
-                        <button class='tags--removeAllBtn mt-3' type='button'>Remove all tags</button>
+                        <label for="topics"><h5 class="text-primary">Topic Interests</h5></label>
+                        <input class="form-control" name="topics" value="{{$user->topics}}" multiple id="topics">
+                        <button class='btn btn-warning tags--removeAllBtn mt-3' type='button'>Remove all tags</button>
                     </div>
                 </div>
-            </div>  
+            </div>
         </form>
     </div>
 @endsection
 
 @section('scripts')
 <script>
-    console.log(document.querySelector("input[name=topics[]]"))
-    var input = document.querySelector("input[name=topics[]]");
+    // console.log(document.querySelector("input[name=topics]"))
+    var input = document.querySelector("input[name=topics]");
     tagify = new Tagify(input, {
-      whitelist: ["nama3, nama4, nama5"],
       maxTags: 10,
       dropdown: {
-        maxItems: 20,           // <- mixumum allowed rendered suggestions
+        maxItems: 20,           // <- maximum allowed rendered suggestions
         classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
         enabled: 0,             // <- show suggestions on focus
         closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
@@ -165,24 +164,26 @@
     document.querySelector('.tags--removeAllBtn')
     .addEventListener('click', tagify.removeAllTags.bind(tagify))
 
-    // document.getElementById('submitbtn').addEventListener('click', function (event) {
-    //     event.preventDefault();
+    document.getElementById('submitbtn').addEventListener('click', function (event) {
+        event.preventDefault();
 
-    //     var dataInput = JSON.parse(input.value);
-    //     var dataArray = [];
-    //     console.log(dataInput);
+        var dataInput = JSON.parse(input.value);
+        var dataArray = [];
+        console.log(dataInput);
 
-    //     dataInput.forEach(function(item){
-    //         console.log(item.value) 
-    //         dataArray.push(item.value);
-    //     });
+        var topicsInput = $("input[name='topics[]']");
+
+        dataInput.forEach(function(item){
+            console.log(item.value) 
+            dataArray.push(item.value);
+        });
+
+        input.value = dataArray;
         
-    //     console.log(dataArray);
-    //     input.value = JSON.stringify(dataArray);
-    //     console.log(input.value);
-    //     document.getElementById('formeditprofile').submit();
+        console.log(dataArray);
+        document.getElementById('formeditprofile').submit();
 
-    // });
+    });
 </script>
 
 @endsection

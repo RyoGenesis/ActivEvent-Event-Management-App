@@ -83,7 +83,6 @@ class UserController extends Controller
     function profileUpdate(UserRequest $request) {
 
         $user = User::find(Auth::user()->id);
-        // $topics = json_decode($request->topics, true);
         $user->update([
             'name' => $request->name,
             'phone' => $request->phone,
@@ -91,7 +90,7 @@ class UserController extends Controller
             'campus_id' => $request->campus_id,
             'faculty_id' => $request->faculty_id,
             'major_id' => $request->major_id,
-            // 'topics' => $topics
+            'topics' => $request->topics ? $request->topics : null,
         ]);
 
         $user->communities()->sync($request->communities);

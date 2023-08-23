@@ -39,7 +39,7 @@ class UserRequest extends FormRequest
             'campus_id' => 'required|integer|exists:campuses,id',
             'faculty_id' => 'required|integer|exists:faculties,id',
             'major_id' => ['required','integer','exists:majors,id', Rule::in($major_ids)],
-            'topics' => 'sometimes|nullable|array',
+            'topics' => 'sometimes|nullable|string|min:2',
             'communities' => 'nullable|array|exists:communities,id',
             'communities.*' => 'required|integer',
             'categories' => 'sometimes|nullable|array|exists:categories,id',
