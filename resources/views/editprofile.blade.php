@@ -5,12 +5,12 @@
         <h2>Edit Profile</h2>
     </div>
     <div class="d-flex justify-content-center mt-5">
-        <form action="{{route('editprofile.update')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('editprofile.update')}}" method="POST" enctype="multipart/form-data" id="formeditprofile">
             @csrf
             <div class="card d-flex justify-content-center" style="width:65rem">
                 <div class="form-group btn-reset btn mt-3 me-3">
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-outline-danger btn-submit btn-sm">
+                        <button id='submitbtn' type="submit" class="btn btn-outline-danger btn-submit btn-sm">
                             {{ __('Save') }}          
                         </button>
                     </div>
@@ -139,9 +139,8 @@
                 <div class="form-group row g-3">
                     <div class="col px-5 py-5">
                         <label for="passion"><h5 class="text-primary">Passion</h5></label>
-                        <input class="form-control" name="topics" value="name, name1 ">
+                        <input class="form-control" name="topics[]" value="" multiple="multiple" id="topics">
                         <button class='tags--removeAllBtn mt-3' type='button'>Remove all tags</button>
-
                     </div>
                 </div>
             </div>  
@@ -151,7 +150,8 @@
 
 @section('scripts')
 <script>
-    var input = document.querySelector("input[name=topics]");
+    console.log(document.querySelector("input[name=topics[]]"))
+    var input = document.querySelector("input[name=topics[]]");
     tagify = new Tagify(input, {
       whitelist: ["nama3, nama4, nama5"],
       maxTags: 10,
@@ -165,6 +165,25 @@
     document.querySelector('.tags--removeAllBtn')
     .addEventListener('click', tagify.removeAllTags.bind(tagify))
 
+    // document.getElementById('submitbtn').addEventListener('click', function (event) {
+    //     event.preventDefault();
+
+    //     var dataInput = JSON.parse(input.value);
+    //     var dataArray = [];
+    //     console.log(dataInput);
+
+    //     dataInput.forEach(function(item){
+    //         console.log(item.value) 
+    //         dataArray.push(item.value);
+    //     });
+        
+    //     console.log(dataArray);
+    //     input.value = JSON.stringify(dataArray);
+    //     console.log(input.value);
+    //     document.getElementById('formeditprofile').submit();
+
+    // });
 </script>
+
 @endsection
 

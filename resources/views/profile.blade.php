@@ -24,16 +24,24 @@
                 <div class="row mb-3">
                     <div class="col">
                         <h5 class="text-primary">Email</h5>
-                        <div class="fs-6">{{$user->email}}</div>
+                        @empty($user->email)
+                            <div class="fs-6">-</div>
+                        @else
+                            <div class="fs-6">{{$user->email}}</div>
+                        @endempty
                     </div>
                     <div class="col">
                         <h5 class="text-primary">Personal Email</h5>
-                        <div class="fs-6"></div>
+                        @empty($user->personal_email)
+                            <div class="fs-6">-</div>
+                        @else
+                            <div class="fs-6">{{$user->personal_email}}</div>
+                        @endempty
                     </div>
                     <div class="col">
                         <h5 class="text-primary">Campus</h5>
                         @empty($user->campus)
-                            <div class="fs-6">Empty</div>
+                            <div class="fs-6">-</div>
                         @else
                             <div class="fs-6">{{$user->campus->name}}</div>
                         @endempty
@@ -44,7 +52,7 @@
                     <div class="col-4">
                         <h5 class="text-primary">Faculty</h5>
                         @empty($user->faculty)
-                            <div class="fs-6">Empty</div>
+                            <div class="fs-6">-</div>
                         @else
                             <div class="fs-6">{{$user->faculty->name}}</div>
                         @endempty
@@ -53,7 +61,7 @@
                     <div class="col-4">
                         <h5 class="text-primary">Major</h5>
                         @empty($user->major)
-                            <div class="fs-6">Empty</div>
+                            <div class="fs-6">-</div>
                         @else
                             <div class="fs-6">{{$user->major->name}}</div>
                         @endempty
@@ -61,15 +69,13 @@
                 </div>
 
                 <div>
-                    <h5 class="text-primary">Passion</h5>
+                    <h5 class="text-primary">Intrested Topics</h5>
                     @empty($user->topics)
-                        <div class="fs-6">
-                            Empty
-                        </div>
+                        <div class="fs-6">-</div>
                     @else
-                        <div class="fs-5">
-                            {{$user->topics}}
-                        </div>
+                        @foreach ($user->topics as $topic)
+                            <div class="fs-6">topic</div>                            
+                        @endforeach
                     @endempty
                 </div>
             </div>

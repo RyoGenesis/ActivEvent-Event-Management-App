@@ -29,6 +29,7 @@ class UserRequest extends FormRequest
         $id = $this->route('id') ?? (Auth::user() ? Auth::user()->id : null);
         $faculty =  Faculty::find($this->faculty_id);
         $major_ids = $faculty ? $faculty->majors->pluck('id') : [];
+        
         $rules = [
             'name' => 'required|string',
             'email' => ['sometimes', 'required','email', Rule::unique('users','email')->ignore($id)],
