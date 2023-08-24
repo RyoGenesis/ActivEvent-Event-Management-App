@@ -23,23 +23,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route::get('/eventdetail', function(){
-//     return view('eventdetail');
-// });
+Route::get('/contactus', function(){
+    return view('contactus');
+})->name('contactus');
 
 Route::get('/eventdetail/{id}', [App\Http\Controllers\EventController::class, 'eventdetail'])->name('eventdetail');
-
-Route::get('/profile', function(){
-    return view('profile');
-});
-
-// Route::get('/userevent', function(){
-//     return view('userevent');
-// });
-
-Route::get('/prevevent', function(){
-    return view('prevevent');
-});
 
 Route::get('/search/nama', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 
@@ -49,6 +37,11 @@ Route::get('/featuredevent', [App\Http\Controllers\EventController::class, 'feat
 
 Route::middleware('auth')->group(function(){
     Route::get('/profile', [App\Http\Controllers\UserController::class, 'userprofile'])->name('profile');
+    Route::get('/changepassword', function(){
+        return view('changepassword');
+    })->name('changepassword');
+    Route::get('/historyevent', [App\Http\Controllers\UserController::class, 'historyevent'])->name('historyevent');
     Route::get('/editprofile', [App\Http\Controllers\UserController::class, 'showEditProfileForm'])->name('editprofile');
     Route::post('editprofile/update', [App\Http\Controllers\UserController::class, 'profileUpdate'])->name('editprofile.update');
+    Route::post('/changepassword/update', [App\Http\Controllers\UserController::class, 'passwordChange'])->name('changepassword.update');
 });
