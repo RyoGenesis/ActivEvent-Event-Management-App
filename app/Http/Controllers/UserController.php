@@ -143,13 +143,11 @@ class UserController extends Controller
     }
 
     function passwordChange(ChangePasswordRequest $request) {
-        $user = User::find(Auth::user()->id);
-
-        $user->update([
+        User::where(Auth::user()->id)->update([
             'password' => Hash::make($request->new_password),
         ]);
 
-        return view('main.profile.index')->with('success','Successfully update new password!');
+        return redirect()->back()->with('success','Successfully changed password!');
     }
 
     function userprofile(){

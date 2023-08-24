@@ -90,7 +90,7 @@ class AdminController extends Controller
     {
         ladmin()->allows(['ladmin.admin.update']);
 
-        $admin = ladmin()->admin()->findOrFail($id);
+        $admin = ladmin()->admin()->find($id);
         if(!$admin) {
             return Redirect::back()->with('danger','Admin not found!');
         }
