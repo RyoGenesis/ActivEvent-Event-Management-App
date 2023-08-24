@@ -34,7 +34,7 @@ class ChangePasswordRequest extends FormRequest
         return [
             'current_password' => 'current password',
             'new_password' => 'new password',
-            'new_password_confirm' => 'password confirmation',
+            'new_password_confirmation' => 'password confirmation',
         ];
     }
 }
