@@ -165,4 +165,10 @@ class UserController extends Controller
         $majors=Major::all();
         return view('editprofile', compact('user', 'campuses', 'faculties', 'majors'));
     }
+
+    function historyevent(){
+        $user = User::with('events')->where('id',Auth::user()->id)->first();
+        $historyEvents = $user->events->where('status', 'not like', 'Registered')->get();
+        return view('prevevent', compact('user', 'historyevents'));
+    }
 }

@@ -39,14 +39,14 @@
                     </button>
                                     
                     <form class="d-flex ms-5" role="search" method="GET" action="/search/nama">
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle">
                                 Filter
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href=""></a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <input type="search" class="form-control-lg me-2" placeholder="Search Event" name="nama">
                         <button type="submit" class="btn btn-dark ms-3">Search</button>
                     </form>
@@ -54,18 +54,27 @@
                     <div class="collapse navbar-collapse" id=navbarApp>
                         <ul class="navbar-nav me-auto ms-3 my-2">
                             <li class="nav-item">
-                                <a class="nav-link active" href="">Home</a>
+                                <a class="nav-link active" href="{{route('home')}}">Home</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
-                                <ul class="dropdown-menu">
-                                    <li>Popular</li>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="">Popular</a>
+
+                                    <a class="dropdown-item" href="{{route ('featuredevent')}}">Featured</a>
+
+                                    <a  class="dropdown-item" href="{{route('latestevent')}}">Latest</a>
+                                </div>
+                                {{-- <ul class="dropdown-menu">
+                                    <li class="ps-2">Popular</li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li>Featured</li>
-                                </ul>
+                                    <li class="ps-2"><a href="{{route ('featuredevent')}}" style="text-decoration: none; color: black">Featured</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li class="ps-2"><a href="{{route('latestevent')}}" style="text-decoration: none; color: black">Latest</a></li>
+                                </ul> --}}
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link">Contact us</a>
+                                <a class="nav-link" href="{{route('contactus')}}">Contact us</a>
                             </li>
                         </ul>
                     </div>
@@ -100,7 +109,7 @@
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
 
-                                        <a href="" class="dropdown-item">Change Password</a>
+                                        <a href="{{route('changepassword')}}" class="dropdown-item">Change Password</a>
 
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
@@ -129,7 +138,7 @@
             <div class="container p-3">
                 <div class="row">
                     <div class="col"> ActivEvent </div>
-                    <div class="col font-italic"> ActivEvent - &copy 2023</div>
+                    <div class="col font-italic text-end"> ActivEvent - &copy 2023</div>
                 </div>
             </div>
         </footer>

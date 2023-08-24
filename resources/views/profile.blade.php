@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-center">
         <div class="card" style="width:50rem">
             <div class="card-body ms-5  ps-5 pe-3">
-                <a href="/editprofile" class="fa-solid fa-xl fa-pencil d-flex justify-content-end my-3 pe-3" style="text-decoration: none; color:black"></a>
+                <a href="{{route("editprofile")}}" class="fa-solid fa-xl fa-pencil d-flex justify-content-end my-3 pe-3" style="text-decoration: none; color:black"></a>
                 <div class="row mb-4">
                     <div class="col">
                         <h5 class="text-primary">Name</h5>
@@ -69,12 +69,14 @@
                 </div>
 
                 <div>
-                    <h5 class="text-primary">Interested Topics</h5>
+                    <h5 class="text-primary mb-3">Interested Topics</h5>
                     @if(!$user->topics)
                         <div class="fs-6">-</div>
                     @else
                         @foreach ($topicInterests as $topic)
-                            <div class="fs-6">{{$topic}}</div>                            
+                            <span class="rounded-pill border border-3 border-success text-success p-1 me-2 fs-6 fw-bold">
+                                {{$topic}}
+                            </span>                           
                         @endforeach
                     @endempty
                 </div>
@@ -88,7 +90,7 @@
                 <h3>Your Up Coming Event</h3>
             </div>
             <div class="col">
-                <a href="/prevevent" class="btn btn-secondary">History Event</a>
+                <a href="{{route('historyevent')}}" class="btn btn-secondary">History Event</a>
             </div>
         </div>
         <table class="table table-secondary mt-5">
