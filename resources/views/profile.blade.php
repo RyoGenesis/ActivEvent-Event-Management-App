@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session()->has('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}
+    </div>
+    @endif
     <div class="container text-center"><h3>Profile</h3></div>
 
     <div class="d-flex justify-content-center">

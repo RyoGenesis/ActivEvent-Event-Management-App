@@ -143,7 +143,7 @@ class UserController extends Controller
     }
 
     function passwordChange(ChangePasswordRequest $request) {
-        User::where(Auth::user()->id)->update([
+        User::where('id', Auth::user()->id)->update([
             'password' => Hash::make($request->new_password),
         ]);
 

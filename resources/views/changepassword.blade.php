@@ -22,7 +22,7 @@
 
                     <div class="row mb-3 justify-content-center mb-4">
                         <div class="col-md-8">
-                            <input id="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" name="new_password" required autocomplete="new-password" placeholder="New Password">
+                            <input id="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" name="new_password" placeholder="New Password">
 
                             @error('new_password')
                                 <span class="invalid-feedback" role="alert">
@@ -34,9 +34,9 @@
 
                     <div class="row mb-3 justify-content-center mb-4">
                         <div class="col-md-8">
-                            <input id="new_password_confirm" type="password" class="form-control @error('new_password_confirm') is-invalid @enderror" name="new_password_confirm" required autocomplete="new-password" placeholder="New Password Confirmation">
+                            <input id="new_password_confirmation" type="password" class="form-control @error('new_password_confirmation') is-invalid @enderror" name="new_password_confirmation" placeholder="New Password Confirmation">
 
-                            @error('new_password_confirm')
+                            @error('new_password_confirmation')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
