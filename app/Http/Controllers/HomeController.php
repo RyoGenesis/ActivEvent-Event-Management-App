@@ -34,8 +34,12 @@ class HomeController extends Controller
 
     public function search(Request $request){
         $search=$request->nama;
-        $event=Event::where('name', 'like', "%".$search."%")->get();
         $category=Category::all();
+        $event=Event::where('name', 'like', "%".$search."%")->get();
+        if($request->checkcomserv){
+            $sat=$request->checkcomserv;
+            $event = Event :: where('has_comserv', true)->whereIn('id', $event->pluck('id'))->get();
+        }
         return view('search', compact('event', 'search', 'category'));
     }
 }

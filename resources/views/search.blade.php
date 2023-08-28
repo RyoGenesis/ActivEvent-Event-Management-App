@@ -3,8 +3,55 @@
 @section('content')
 
 <div class="container my-3">
-    <h3 class="mb-4">Events containing the word "{{$search}}"</h3>
+    <div class="row">
+        <div class="col">
+            <h3 class="mb-4">Events containing the word "{{$search}}"</h3>
+        </div>
 
+        <div class="col text-end">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Filter
+                </button>
+                <ul class="dropdown-menu px-3">
+                    <form id="formsearch" role="search" method="GET" action="{{route('search')}}">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checksat" name="checksat">
+                                    <label class="form-check-label"><small>SAT POINT</small></label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkcomserv" name="checkcomserv">
+                                    <label class="form-check-label"><small>COMSERV</small></label>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkcertificate" name="checkcertificate">
+                                    <label class="form-check-label"><small>E-Certificate</small></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h5>Category</h5>
+                            <div class="row d-flex">
+                                @foreach ($category as $item)
+                                    <div class="col-3 mb-2">
+                                        <small class="px-1">{{$item->name}}</small>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </form>
+                </ul>
+                
+            </div>
+        </div>
+    </div>
     {{-- <div class="d-flex me-sm-2">
         <div id="filter" class="border bg-light ms-md-4 ms-sm-2" style="width:10cm">
             <div class="border-bottom h4 text-center">Filter by</div>
@@ -151,3 +198,26 @@
 
 @endsection
 
+@section('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const autoSubmitCheckbox = document.querySelectorAll('.form-check-input');
+        const form = document.getElementById('formsearch');
+        autoSubmitCheckbox.forEach(function(checkbox){
+            console.log(checkbox.checked);
+            checkbox.addEventListener('change', function(){
+                var search = "{{$search}}";
+                console.log(search);
+                var prevsearch = document.createElement('input');
+                prevsearch.type = 'hidden';
+                prevsearch.name = 'nama';
+                prevsearch.value = search;
+                
+                form.appendChild(prevsearch);
+                console.log(form);         
+                form.submit();
+            });
+        });
+    });
+</script>
+@endsection

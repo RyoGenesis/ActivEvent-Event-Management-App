@@ -38,7 +38,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                                     
-                    <form class="d-flex ms-5" role="search" method="GET" action="/search/nama">
+                    <form class="d-flex ms-5" role="search" method="GET" action="{{route('search')}}">
                         {{-- <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle">
                                 Filter
