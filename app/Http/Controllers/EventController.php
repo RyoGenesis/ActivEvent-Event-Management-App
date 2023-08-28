@@ -12,6 +12,7 @@ use App\Models\Major;
 use App\Models\SatLevel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -327,12 +328,41 @@ class EventController extends Controller
     }
 
     public function latestevent(){
-        $latestevents=Event::where('status', 'like', '%Active%')->orderBy('created_at', 'DESC')->paginate(3);
+        $latestevents=Event::where('status', 'Active')->orderBy('created_at', 'DESC')->paginate(10);
         return view('latestevent', compact('latestevents'));
     }
 
     public function featuredevent(){
-        $featuredevents=Event::where([['status', 'like', '%Active%'], ['is_highlighted', true]])->paginate(3);
+        $featuredevents=Event::where([['status', 'Active'], ['is_highlighted', true]])->paginate(10);
         return view('featuredevent', compact('featuredevents'));
+    }
+
+    function register(Request $request) {
+        $validation = [
+            "id"=>'required|integer|exists:events,id,deleted_at,NULL',
+        ];
+        $event = Event::find($request->id);
+
+        //check eligibility
+
+        $user = User::find(Auth::user()->id);
+
+        //registering to event
+        $user->events()->attach($request->id, ['status' => 'Registered']);
+
+        return redirect()->back()->with('successful', true)->with('registration', true);
+    }
+
+    function cancelRegistration(Request $request) {
+        $validation = [
+            "id"=>'required|integer|exists:events,id,deleted_at,NULL',
+        ];
+        
+        $user = User::find(Auth::user()->id);
+
+        //cancel registration
+        $user->events()->detach($request->id);
+
+        return redirect()->back()->with('successful', true)->with('registration', false);
     }
 }

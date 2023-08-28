@@ -26,8 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latestevents=Event::where('status', 'like', '%Active%')->orderBy('created_at', 'DESC')->limit(9)->get();
-        $featuredevents=Event::where([['status', 'like', '%Active%'], ['is_highlighted', true]])->limit(9)->get();
+        $latestevents=Event::where('status', 'Active')->orderBy('created_at', 'DESC')->limit(9)->get();
+        $featuredevents=Event::where([['status', 'Active'], ['is_highlighted', true]])->limit(9)->get();
         // $activeevents=Event::join('user_event', 'events.id', '=', 'user_event.event_id')->where('events.status', 'like', '%Active%')->selectRaw('user_event.*', count(user_event.User))
         return view('home', compact('latestevents', 'featuredevents'));
     }

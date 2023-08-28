@@ -12,6 +12,11 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
+            @if ($featuredevents->isEmpty())
+                <div class="text-dark mx-auto text-center">
+                    No Featured Event Yet
+                </div>
+            @else
                 <div id="carouselControlFE" class="carousel carousel-dark slide" data-bs-interval="false">
                     <div class="carousel-inner">                                
                             <div class="carousel-item active">
@@ -20,7 +25,7 @@
                                         @if ($loop->iteration <= 3)
                                             <div class="col">
                                                 <div class="card" style="height: 27rem" data-clickable="true" data-href="/eventdetail/{{$featuredevent->id}}">
-                                                    <img src="{{$featuredevent->image}}" alt="gambar {{$featuredevent->name}}" class="card-img-top" style="height: 15rem">
+                                                    <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$featuredevent->name}}" class="card-img-top img-fluid" style="height: 15rem">
                                                     <div class="card-body">
                                                         <h5 class="card-title mb-3">{{$featuredevent->name}}</h5>
                                                         <div class="card-text">
@@ -53,8 +58,8 @@
                                                     </div>
                                                 </div>
                                             </div>     
-                                        @endif                                   
-                                    @endforeach 
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                             
@@ -65,15 +70,15 @@
                                             @if ($loop->iteration > 3)
                                                 <div class="col">
                                                     <div class="card" style="height: 27rem">
-                                                        <img src="{{$fevent->image}}" alt="gambar {{$fevent->name}}" class="card-img-top image-fluid" style="height: 15rem">
+                                                        <img src="{{$fevent->image ? asset('storage/'.$fevent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$fevent->name}}" class="card-img-top img-fluid" style="height: 15rem">
                                                         <div class="card-body">
                                                             <h5 class="card-title mb-3">{{$fevent->name}}</h5>
                                                             <div class="card-text">
                                                                 <p class="my-2" style="">
-                                                                    @if ($fevent->has_certificate == 'true')
-                                                                        <span span class="rounded-pill border border-success border-3 p-1 me-2 text-success fs-6 fw-bold">
-                                                                            E-Certificate         
-                                                                        </span>
+                                                                @if ($fevent->has_certificate == 'true')
+                                                                    <span span class="rounded-pill border border-success border-3 p-1 me-2 text-success fs-6 fw-bold">
+                                                                        E-Certificate         
+                                                                    </span>
                                                                 @endif
                                                                     
                                                                 @if ($fevent->has_sat == 'true')
@@ -104,15 +109,18 @@
                                 </div>
                             @endif
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselControlFE" data-bs-slide="prev" style="left: -75pt">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselControlFE" data-bs-slide="next" style="right: -75pt">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                    </div>
+                    @if ($featuredevents->count() > 3)
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselControlFE" data-bs-slide="prev" style="left: -75pt">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselControlFE" data-bs-slide="next" style="right: -75pt">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    @endif
+                </div>
+            @endif
             </div>
         </div>
     </div>
@@ -124,6 +132,11 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
+            @if ($latestevents->isEmpty())
+                <div class="text-dark mx-auto text-center">
+                    No Featured Event Yet
+                </div>
+            @else
                 <div id="carouselControl" class="carousel carousel-dark slide" data-bs-interval="false">
                     <div class="carousel-inner">                                
                             <div class="carousel-item active">
@@ -132,7 +145,7 @@
                                         @if ($loop->iteration <= 3)
                                             <div class="col">
                                                 <div class="card" style="height: 27rem" data-clickable="true", data-href="/eventdetail/{{$activelatestevent->id}}">
-                                                    <img src="{{$activelatestevent->image}}" alt="gambar {{$activelatestevent->name}}" class="card-img-top" style="height: 15rem">
+                                                    <img src="{{$activelatestevent->image ? asset('storage/'.$activelatestevent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$activelatestevent->name}}" class="card-img-top img-fluid" style="height: 15rem">
                                                     <div class="card-body">
                                                         <h5 class="card-title mb-3">{{$activelatestevent->name}}</h5>
                                                         <div class="card-text">
@@ -166,7 +179,7 @@
                                                 </div>
                                             </div>     
                                         @endif                                   
-                                    @endforeach 
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -176,7 +189,7 @@
                                         @if ($loop->iteration > 3)
                                             <div class="col">
                                                 <div class="card" style="height: 27rem" data-clickable="true" data-href="/eventdetail/{{$latestevent->id}}">
-                                                    <img src="{{$latestevent->image}}" alt="gambar {{$latestevent->name}}" class="card-img-top image-fluid" style="height: 15rem">
+                                                    <img src="{{$latestevent->image ? asset('storage/'.$latestevent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$latestevent->name}}" class="card-img-top img-fluid" style="height: 15rem">
                                                     <div class="card-body">
                                                         <h5 class="card-title mb-3">{{$latestevent->name}}</h5>
                                                         <div class="card-text">
@@ -215,15 +228,18 @@
                             </div>
 
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselControl" data-bs-slide="prev" style="left: -75pt">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselControl" data-bs-slide="next" style="right: -75pt">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                    </div>
+                    @if ($latestevents->count() > 3)
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselControl" data-bs-slide="prev" style="left: -75pt">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselControl" data-bs-slide="next" style="right: -75pt">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    @endif
+                </div>
+            @endif
             </div>
         </div>
     </div>

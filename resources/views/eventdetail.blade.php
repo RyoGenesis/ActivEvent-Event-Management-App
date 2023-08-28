@@ -44,8 +44,8 @@
                 </div>
                 <div class="row py-3">
                     <div class="col-6">
-                        <h4 class="fw-bold">Available Slot</h4>
-                        <p class="fs-5">{{$event->max_slot}}</p>
+                        <h4 class="fw-bold">Maximum Slot</h4>
+                        <p class="fs-5">{{$event->max_slot == -1 ? 'No Limit' : $event->max_slot}}</p>
                     </div>
                     <div class="col-6 ps-5">
                         <h4 class="fw-bold">Location</h4>
@@ -55,16 +55,17 @@
     
                 <div>
                     <h4 class="fw-bold">Description</h4>
-                    <p class="fs-5 text-left">{{$event->description}}</p>
+                    <p class="fs-5 text-left">{!!$event->description!!}</p>
                 </div>
             </div>
         </div>
         <div class="col-6" style="padding: 0%">
-            <img src="{{$event->image}}" alt="gambar {{$event->image}}" style="max-width: 40rem; height:43rem" class="float-end">
+            <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" style="max-width: 40rem; height:43rem" class="float-end">
             <div class="row">
                 <div class="col d-flex justify-content-center py-5">
                     @if (Auth::check())
-                        register PARTICIPANT
+                        {{-- wip for register event--}}
+                        <a href="" class="btn btn-primary btn-lg">Register</a>
                     @else
                         <a href="/login" class="btn btn-primary btn-lg">Register</a>
                     @endif

@@ -1,6 +1,8 @@
 <?php
 
 // use Illuminate\Support\Facades\App;
+
+use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 use Modules\Ladmin\Menus\Submenus\Role;
 
@@ -45,3 +47,10 @@ Route::middleware('auth')->group(function(){
     Route::post('editprofile/update', [App\Http\Controllers\UserController::class, 'profileUpdate'])->name('editprofile.update');
     Route::post('/changepassword/update', [App\Http\Controllers\UserController::class, 'passwordChange'])->name('changepassword.update');
 });
+
+Route::post('/test-email', [App\Http\Controllers\EventController::class, 'testingEmail'])->name('email.test');
+
+Route::get('/email', function(){
+    $event = Event::first();
+    return view('mail.reminder')->with('data', $event);
+})->name('email');
