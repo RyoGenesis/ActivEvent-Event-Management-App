@@ -121,14 +121,36 @@
         <div class="col-6" style="padding: 0%">
             <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" style="height:43rem" class="float-end img-fluid">
             <div class="row">
-                <div class="col d-flex justify-content-center py-5">
+                <div class="col d-flex justify-content-end py-5">
                     @if (Auth::check())
                         {{-- wip for register event--}}
                         @if ($registered)
+                            @if ($event->additional_form_link)
+                                 <button type="button" class="btn btn-primary me-4" data-bs-toggle="modal" data-bs-target="#modalform">
+                                External Form Link
+                                </button>
+
+                                <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="modallabelform" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="modallabelform">External Form Link</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Please fill out the external form which can be accessed via the link below 
+                                            <div>{{$event->additional_form_link}}</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                    </div>
+                                    </div>
+                                </div>
+                            @endif
+                           
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
                                 Cancel
                             </button>
-                            
+
                             <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
                                 <div class="modal-dialog">
                                 <div class="modal-content">
@@ -149,6 +171,7 @@
                                 </div>
                                 </div>
                             </div>
+                        
                         @else
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalregister">
                                 Register
@@ -169,26 +192,12 @@
                                     <form action="{{route('registration')}}" method="post">
                                         @csrf
                                         <input type="hidden" name="id" value="{{$event->id}}">
-                                        <button type="submit" class="btn btn-secondary btn-primary">Register</button>
+                                        <button type="submit" class="btn btn-primary">Register</button>
                                     </form>
                                 </div>
                                 </div>
                             </div>
                         @endif
-                       
-                        {{-- @if ($registered)
-                            <form action="{{route('cancelregistration')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="id" value="{{$event->id}}">
-                                <button type="submit" class="btn btn-lg btn-danger">Cancel</button>
-                            </form>
-                        @else
-                            <form action="{{route('registration')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="id" value="{{$event->id}}">
-                                <button type="submit" class="btn btn-lg btn-primary">Register</button>
-                            </form>
-                        @endif --}}
                     @else
                         <a href="{{route('login')}}" class="btn btn-primary btn-lg">Register</a>
                     @endif
