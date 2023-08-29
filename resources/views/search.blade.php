@@ -41,7 +41,8 @@
                             <div class="row d-flex">
                                 @foreach ($category as $item)
                                     <div class="col-3 mb-2">
-                                        <small class="px-1">{{$item->name}}</small>
+                                        <input type="button" name="category" placeholder="{{$item->name}}">
+                                        <button class="px-1">{{$item->name}}</button>
                                     </div>
                                 @endforeach
                             </div>
@@ -203,6 +204,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const autoSubmitCheckbox = document.querySelectorAll('.form-check-input');
         const form = document.getElementById('formsearch');
+        
         autoSubmitCheckbox.forEach(function(checkbox){
             console.log(checkbox.checked);
             checkbox.addEventListener('change', function(){
