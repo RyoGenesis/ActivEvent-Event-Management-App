@@ -140,9 +140,10 @@ class EventController extends Controller
         ];
 
         //rule to decide whether certain attribute can be changed or not
+        //exclusivity trait cannot be changed when already active
         if($event->status == 'Active') { 
             //when set to no max slot, but trying to set a new one after approved or new slot lower than current slot
-            if(($event->max_slot == -1 || $request->max_slot < $event->max_slot) && $request->max_slot) {
+            if($request->max_slot && ($event->max_slot == -1 || $request->max_slot < $event->max_slot)) {
                 return redirect()->back()->withErrors(['max_slot' => 'Can not set maximum slot lower than previous slot when event is already approved']);
             } else {
                 $updateData['max_slot'] = $request->max_slot ?? -1;
@@ -341,16 +342,23 @@ class EventController extends Controller
         $validation = [
             "id"=>'required|integer|exists:events,id,deleted_at,NULL',
         ];
-        $event = Event::find($request->id);
+        $event = Event::with(['users','majors','community'])->find($request->id);
+        $user = User::with(['events','communities','major'])->find(Auth::user()->id);
 
         //check eligibility
-
-        $user = User::find(Auth::user()->id);
+        if($this->checkEligibility($user, $event)) {
+            return redirect()->back()->with('successful', false)->with('error', 'You\'re not eligible to register for this event!');
+        }
 
         //registering to event
         $user->events()->attach($request->id, ['status' => 'Registered']);
 
-        return redirect()->back()->with('successful', true)->with('registration', true);
+        //if event has additional form link
+        if($event->additional_form_link){
+            session()->flash('form_link', true);
+        }
+
+        return redirect()->back()->with('successful', true)->with('registered', true);
     }
 
     function cancelRegistration(Request $request) {
@@ -363,6 +371,31 @@ class EventController extends Controller
         //cancel registration
         $user->events()->detach($request->id);
 
-        return redirect()->back()->with('successful', true)->with('registration', false);
+        return redirect()->back()->with('success_cancel', true)->with('registered', false);
+    }
+
+    private function checkEligibility(User $student, Event $event) {
+
+        //check register date
+        if($event->registration_end->isPast()) {
+            return false;
+        }
+
+        //check available slot
+        if($event->max_slot != -1 && $event->users->count() >= $event->max_slot) {
+            return false;
+        }
+
+        //exclusive member check
+        if($event->exclusive_member && !$student->communities->contains($event->community)) {
+            return false;
+        }
+
+        //exclusive major check
+        if($event->exclusive_major && !$event->majors->contains($student->major)) {
+            return false;
+        }
+
+        return true;
     }
 }
