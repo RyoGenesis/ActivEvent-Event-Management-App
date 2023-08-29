@@ -101,10 +101,9 @@
         <table class="table table-secondary mt-5">
             <thead>
                 <tr>
-                    <th scope="col" class="fs-4">#</th>
-                    <th scope="col" class="fs-4">Event name</th>
-                    <th scope="col" class="fs-4">Date</th>
-                    <th scope="col" class="fs-4">Action</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Event name</th>
+                    <th scope="col">date</th>
                 </tr>
             </thead>
             <tbody>
@@ -113,42 +112,6 @@
                         <th>{{$loop->iteration}}</th>
                         <th>{{$event->name}}</th>
                         <th>{{$event->date}}</th>
-                        <th class="row justify-content-center">
-                            <div class="col-2">
-                                <a href="/eventdetail/{{$event->id}}" class="btn btn-primary">View</a>
-                            </div>
-                            <div class="col-2">
-                                <form action="{{route('cancelregistration')}}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{$event->id}}">
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
-                                        Cancel
-                                    </button>
-        
-                                    <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Confirm to Cancel Your Registration?
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                            <form action="{{route('cancelregistration')}}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$event->id}}">
-                                                <button type="submit" class="btn btn-secondary btn-danger">yes</button>
-                                            </form>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                           
-                        </th>
                     </tr>
                 @endforeach
             </tbody>
