@@ -215,7 +215,19 @@ class EventController extends Controller
 
     function eventdetail($id){
         $event=Event::find($id);
-        return view('eventdetail')->with('event',$event);
+        if(Auth::check()){
+            $user_event = $event->users->find(Auth::user()->id);
+            if($user_event !== NULL){
+                // dd($user_event);
+                return view('eventdetail')->with('event', $event)->with('registered', true);
+            }
+            else{
+                return view('eventdetail')->with('event',$event)->with('registered', false);
+            }
+        }
+        else{
+            return view('eventdetail')->with('event',$event);
+        }
     }
 
     function approveIndex() {

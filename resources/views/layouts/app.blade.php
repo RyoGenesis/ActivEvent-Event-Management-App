@@ -37,18 +37,17 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                                    
-                    <form class="d-flex ms-5" role="search" method="GET" action="{{route('search')}}">
-                        {{-- <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle">
-                                Filter
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href=""></a></li>
-                            </ul>
-                        </div> --}}
-                        <input type="search" class="form-control-lg me-2" placeholder="Search Event" name="nama">
-                        <button type="submit" class="btn btn-dark ms-3">Search</button>
+
+                    <form class="input-xl col-lg-4 border rounded-pill bg-light" role="search" method="GET" action="{{route('search')}}">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text mt-1 bg-light border-0">
+                                <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
+                              </span>
+                            </div>
+                            <input type="search" class="form-control" placeholder="Search Event">
+                        </div>
+                        {{-- <button class="btn btn-outline-secondary">Search</button> --}}
                     </form>
                     
                     <div class="collapse navbar-collapse" id=navbarApp>
@@ -134,11 +133,48 @@
             
         </main>
 
-        <footer class="footer bg-info">
+        <footer class="footer" style="background-color: #05559e; color:white">
             <div class="container p-3">
-                <div class="row">
-                    <div class="col"> ActivEvent </div>
-                    <div class="col font-italic text-end"> ActivEvent - &copy 2023</div>
+                <div class="row mb-3">
+                    <div class="col fs-4 fw-bold"> ActivEvent </div>
+                    <div class="col-3">
+                        <div class="fs-4">Event</div>
+                        <div class="mt-2">
+                            <a href="" style="text-decoration:none; color:white">Featured</a>
+                        </div>
+                        <div class="mt-2">
+                            <a href="" style="text-decoration:none; color:white">Populer</a>
+                        </div>
+                        <div class="mt-2">
+                            <a href="" style="text-decoration:none; color:white">Latest</a>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="fs-4">Need help?</div>
+                        <div class="mt-2">
+                            <div class="">Admission:</div>
+                            <small>
+                                +62852 08 696969
+                            </small>
+                        </div>
+                        <div class="mt-2">
+                            <div>Student Service:</div>
+                            <small>+62878 0172 4687
+                            </small>
+                        </div>
+                    </div>
+                    <div class="text-end col">
+                        <div class="fw-bold fs-4 mb-3">Connect With Us</div>
+                        <div>
+                            <i class="fa-brands fa-facebook fa-2xl mx-1" style="color: #ffffff;"></i>
+                            <i class="fa-brands fa-instagram fa-2xl mx-1" style="color: #ffffff;"></i>
+                            <i class="fa-brands fa-twitter fa-2xl mx-1" style="color: #ffffff;"></i>
+                            <i class="fa-brands fa-youtube fa-2xl mx-1" style="color: #ffffff;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2 text-end">
+                    ActivEvent - &copy 2023
                 </div>
             </div>
         </footer>

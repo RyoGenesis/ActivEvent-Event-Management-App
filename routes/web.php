@@ -46,6 +46,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/editprofile', [App\Http\Controllers\UserController::class, 'showEditProfileForm'])->name('editprofile');
     Route::post('editprofile/update', [App\Http\Controllers\UserController::class, 'profileUpdate'])->name('editprofile.update');
     Route::post('/changepassword/update', [App\Http\Controllers\UserController::class, 'passwordChange'])->name('changepassword.update');
+    Route::post('/registration', [App\Http\Controllers\EventController::class, 'register'])->name('registration');
+    Route::post('/cancelregistration', [App\Http\Controllers\EventController::class, 'cancelRegistration'])->name('cancelregistration');
 });
 
 Route::post('/test-email', [App\Http\Controllers\EventController::class, 'testingEmail'])->name('email.test');
@@ -54,3 +56,4 @@ Route::get('/email', function(){
     $event = Event::first();
     return view('mail.reminder')->with('data', $event);
 })->name('email');
+
