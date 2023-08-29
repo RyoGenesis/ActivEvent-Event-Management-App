@@ -31,7 +31,7 @@ Route::get('/contactus', function(){
 
 Route::get('/eventdetail/{id}', [App\Http\Controllers\EventController::class, 'eventdetail'])->name('eventdetail');
 
-Route::get('/search/nama', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
+Route::get('/search', [App\Http\Controllers\EventController::class, 'search'])->name('search');
 
 Route::get('/latestevent', [App\Http\Controllers\EventController::class, 'latestevent'])->name('latestevent');
 

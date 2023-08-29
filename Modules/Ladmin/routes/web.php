@@ -113,12 +113,12 @@ ladmin()->route(function () {
     Route::get('event/{id}/participants/download', [EventController::class, 'downloadData'])->name('event.participant.download');
 
     // sat_level
-    Route::get('sat-level', [SatLevelController::class, 'indexList'])->name('sat_level.index');
-    Route::get('sat-level/create', [SatLevelController::class, 'create'])->name('sat_level.create');
-    Route::post('sat-level', [SatLevelController::class, 'insert'])->name('sat_level.store');
-    Route::post('sat-level/delete', [SatLevelController::class, 'destroy'])->name('sat_level.destroy');
-    Route::get('sat-level/{id}/edit', [SatLevelController::class, 'edit'])->name('sat_level.edit');
-    Route::post('sat-level/{id}', [SatLevelController::class, 'update'])->name('sat_level.update');
+    // Route::get('sat-level', [SatLevelController::class, 'indexList'])->name('sat_level.index');
+    // Route::get('sat-level/create', [SatLevelController::class, 'create'])->name('sat_level.create');
+    // Route::post('sat-level', [SatLevelController::class, 'insert'])->name('sat_level.store');
+    // Route::post('sat-level/delete', [SatLevelController::class, 'destroy'])->name('sat_level.destroy');
+    // Route::get('sat-level/{id}/edit', [SatLevelController::class, 'edit'])->name('sat_level.edit');
+    // Route::post('sat-level/{id}', [SatLevelController::class, 'update'])->name('sat_level.update');
 
-    Route::get('/group-search', GroupSearchController::class)->name('group.search');
+    // Route::get('/group-search', GroupSearchController::class)->name('group.search');
 });

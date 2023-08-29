@@ -31,15 +31,4 @@ class HomeController extends Controller
         // $activeevents=Event::join('user_event', 'events.id', '=', 'user_event.event_id')->where('events.status', 'like', '%Active%')->selectRaw('user_event.*', count(user_event.User))
         return view('home', compact('latestevents', 'featuredevents'));
     }
-
-    public function search(Request $request){
-        $search=$request->nama;
-        $category=Category::all();
-        $event=Event::where('name', 'like', "%".$search."%")->get();
-        if($request->checkcomserv){
-            $sat=$request->checkcomserv;
-            $event = Event :: where('has_comserv', true)->whereIn('id', $event->pluck('id'))->get();
-        }
-        return view('search', compact('event', 'search', 'category'));
-    }
 }

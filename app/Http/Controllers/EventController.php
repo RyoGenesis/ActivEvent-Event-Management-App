@@ -11,6 +11,7 @@ use App\Models\Event;
 use App\Models\Major;
 use App\Models\SatLevel;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -114,8 +115,6 @@ class EventController extends Controller
 
     function update(EventRequest $request, $id) {
 
-        // dd($request->all());
-
         $event = Event::find($id);
         if(!$event) {
             return Redirect::back()->with('danger','Event data not found!');
@@ -204,13 +203,26 @@ class EventController extends Controller
         return redirect()->back()->with('success','Successfully deleted event!');
     }
 
-    function searchEventsResult(Request $request) {
-        //wip
-        $events = Event::where();
+    public function search(Request $request){
+        $validation = [
+            "nama"=>'string|max:60',
+        ];
 
-        $events = $events->simplePaginate(15);
-
-        return view('main.search_page', compact(['events']));
+        $search = strip_tags($request->nama);
+        $category = Category::all();
+        $event = Event::where('name', 'like', "%".$search."%") //search name
+                ->orWhere('topic', 'like', "%".$search."%") //search topic
+                ->orWhere('description', 'like', "%".$search."%") //search description
+                ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
+                ->orWhereHas('community', function (Builder $query) use ($search){ //search community name
+                    $query->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
+                })
+                ->get();
+        if($request->checkcomserv){
+            $sat=$request->checkcomserv;
+            $event = Event::where('has_comserv', true)->whereIn('id', $event->pluck('id'))->get();
+        }
+        return view('search', compact('event', 'search', 'category'));
     }
 
     function eventdetail($id){
@@ -218,7 +230,6 @@ class EventController extends Controller
         if(Auth::check()){
             $user_event = $event->users->find(Auth::user()->id);
             if($user_event !== NULL){
-                // dd($user_event);
                 return view('eventdetail')->with('event', $event)->with('registered', true);
             }
             else{
