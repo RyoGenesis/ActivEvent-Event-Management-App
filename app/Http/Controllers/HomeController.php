@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,16 @@ class HomeController extends Controller
     {
         $latestevents=Event::where('status', 'Active')->orderBy('created_at', 'DESC')->limit(9)->get();
         $featuredevents=Event::where([['status', 'Active'], ['is_highlighted', true]])->limit(9)->get();
-        // $activeevents=Event::join('user_event', 'events.id', '=', 'user_event.event_id')->where('events.status', 'like', '%Active%')->selectRaw('user_event.*', count(user_event.User))
-        return view('home', compact('latestevents', 'featuredevents'));
+        if(Auth::check()){
+            $user = User::find(Auth::user()->id);
+            $topicInterests = explode(',',$user->topics);
+            foreach($topicInterests as $interest){
+                $recomendedevents[$interest] = Event::where('topic', 'like', "%".$interest."%")->get();
+            }
+            return view('home', compact('latestevents', 'featuredevents', 'recomendedevents', 'topicInterests'));
+        }
+        else{
+            return view('home', compact('latestevents', 'featuredevents'));
+        }
     }
 }
