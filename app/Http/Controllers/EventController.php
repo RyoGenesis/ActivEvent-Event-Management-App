@@ -11,7 +11,6 @@ use App\Models\Event;
 use App\Models\Major;
 use App\Models\SatLevel;
 use App\Models\User;
-use App\Models\UserEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
