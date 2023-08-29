@@ -9,8 +9,9 @@
             </div>
             <div class="ps-5">
                 <h1 class="fw-bold mb-3">{{$event->name}}</h1>
-                <p class="fs-5">{{$event->date}}</p>
                 <p class="fs-5">created by {{$event->community->name}}</p>
+                <h4 class="fw-bold">Date and Time</h4>
+                <p class="fs-5">{{$event->date}}</p>
                 <div class="row py-3">
                     <div class="col">
                         @if ($event->has_certificate == 'true')
@@ -52,6 +53,25 @@
                         <p class="fs-5">{{$event->location}}</p>
                     </div>
                 </div>
+
+                <div class="row py-3">
+                    <div class="col-6">
+                        <h4 class="fw-bold">Speaker</h4>
+                        @empty($event->speaker)
+                            <div class="fs-6">-</div>
+                        @else  
+                            <div class="fs-6">{{$event->speaker}}</div>
+                        @endempty
+                    </div>
+                    <div class="col-6 ps-5">
+                        <h4 class="fw-bold">Contact Person</h4>
+                        @empty($event->contact_person)
+                            <div class="fs-6">-</div>
+                        @else  
+                            <div class="fs-6">{{$event->contact_person}}</div>
+                        @endempty
+                    </div>
+                </div>
     
                 <div>
                     <h4 class="fw-bold">Description</h4>
@@ -65,9 +85,21 @@
                 <div class="col d-flex justify-content-center py-5">
                     @if (Auth::check())
                         {{-- wip for register event--}}
-                        <a href="" class="btn btn-primary btn-lg">Register</a>
+                        @if ($registered)
+                            <form action="{{route('cancelregistration')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$event->id}}">
+                                <button type="submit" class="btn btn-lg btn-danger">Cancel</button>
+                            </form>
+                        @else
+                            <form action="{{route('registration')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$event->id}}">
+                                <button type="submit" class="btn btn-lg btn-primary">Register</button>
+                            </form>
+                        @endif
                     @else
-                        <a href="/login" class="btn btn-primary btn-lg">Register</a>
+                        <a href="{{route('login')}}" class="btn btn-primary btn-lg">Register</a>
                     @endif
                 </div>
             </div>
