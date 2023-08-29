@@ -125,6 +125,58 @@
                     @if (Auth::check())
                         {{-- wip for register event--}}
                         @if ($registered)
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
+                                Cancel
+                            </button>
+                            
+                            <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Confirm to Cancel Your Registration?
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <form action="{{route('cancelregistration')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{$event->id}}">
+                                        <button type="submit" class="btn btn-secondary btn-danger">yes</button>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                        @else
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalregister">
+                                Register
+                            </button>
+                            
+                            <div class="modal fade" id="modalregister" tabindex="-1" aria-labelledby="modallabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="modallabel">Registration Event</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Confirm Registration for This Event?
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <form action="{{route('registration')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{$event->id}}">
+                                        <button type="submit" class="btn btn-secondary btn-primary">Register</button>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                        @endif
+                       
+                        {{-- @if ($registered)
                             <form action="{{route('cancelregistration')}}" method="post">
                                 @csrf
                                 <input type="hidden" name="id" value="{{$event->id}}">
@@ -136,7 +188,7 @@
                                 <input type="hidden" name="id" value="{{$event->id}}">
                                 <button type="submit" class="btn btn-lg btn-primary">Register</button>
                             </form>
-                        @endif
+                        @endif --}}
                     @else
                         <a href="{{route('login')}}" class="btn btn-primary btn-lg">Register</a>
                     @endif
