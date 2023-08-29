@@ -93,7 +93,11 @@
                 <p>
                 @if ($event->has_sat)
                     @foreach ($event->bgas as $bga)
-                        {{$bga->name}}, 
+                        @if ($loop->last)
+                            {{$bga->name}}
+                        @else
+                            {{$bga->name}}, 
+                        @endif
                     @endforeach
                 @else
                     -

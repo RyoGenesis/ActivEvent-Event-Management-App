@@ -392,17 +392,14 @@ class EventController extends Controller
         if($event->registration_end->isPast()) {
             return false;
         }
-
         //check available slot
         if($event->max_slot != -1 && $event->users->count() >= $event->max_slot) {
             return false;
         }
-
         //exclusive member check
         if($event->exclusive_member && !$student->communities->contains($event->community)) {
             return false;
         }
-
         //exclusive major check
         if($event->exclusive_major && !$event->majors->contains($student->major)) {
             return false;
