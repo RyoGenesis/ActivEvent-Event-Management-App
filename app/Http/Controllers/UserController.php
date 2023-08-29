@@ -167,8 +167,8 @@ class UserController extends Controller
     }
 
     function historyevent(){
-        $user = User::with('events')->where('id',Auth::user()->id)->first();
-        $historyEvents = $user->events->where('status', 'not like', 'Registered')->get();
-        return view('prevevent', compact('user', 'historyevents'));
+        $user = User::with('events_rejected')->where('id',Auth::user()->id)->first();
+        $historyevents = $user->events_rejected;
+        return view('historyevent', compact('user', 'historyevents'));
     }
 }

@@ -11,7 +11,6 @@
         <thead>
             <th scope="col">#</th>
             <th scope="col">Event name</th>
-            <th scope="col">date</th>
             <th scope="col">Status</th>
             <th class="col">Reason</th>
         </thead>
@@ -23,9 +22,8 @@
                 <tr class="table-light">
                     <th>{{$loop->iteration}}</th>
                     <th>{{$event->name}}</th>
-                    <th>{{$event->date}}</th>
-                    <th>{{$event->status}}</th>
-                    <th>{{$event->reasoning}}</th>
+                    <th>{{$event->pivot->status}}</th>
+                    <th>{{$event->pivot->reasoning}}</th>
                 </tr>
             @endforeach
         </tbody>
