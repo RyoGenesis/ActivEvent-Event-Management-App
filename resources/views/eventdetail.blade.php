@@ -120,13 +120,13 @@
         </div>
         <div class="col-6" style="padding: 0%">
             <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" style="height:43rem" class="float-end img-fluid">
-            <div class="row">
+            <div class="row px-3">
                 <div class="col d-flex justify-content-end py-5">
                     @if (Auth::check())
                         {{-- wip for register event--}}
                         @if ($registered)
                             @if ($event->additional_form_link)
-                                 <button type="button" class="btn btn-primary me-4" data-bs-toggle="modal" data-bs-target="#modalform">
+                                 <button type="button" class="btn btn-info me-4" data-bs-toggle="modal" data-bs-target="#modalform">
                                 External Form Link
                                 </button>
 
@@ -177,7 +177,7 @@
                             </div>
                         
                         @else
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalregister">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalregister">
                                 Register
                             </button>
                             
@@ -196,7 +196,7 @@
                                     <form action="{{route('registration')}}" method="post">
                                         @csrf
                                         <input type="hidden" name="id" value="{{$event->id}}">
-                                        <button type="submit" class="btn btn-primary">Register</button>
+                                        <button type="submit" class="btn btn-success">Register</button>
                                     </form>
                                 </div>
                                 </div>

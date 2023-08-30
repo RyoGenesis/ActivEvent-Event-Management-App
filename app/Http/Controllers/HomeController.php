@@ -55,7 +55,7 @@ class HomeController extends Controller
                 $recommendedEvents = $recommendedEvents->orWhere('topic', 'like', "%".$interest."%");
             }
             $recommendedEvents = $recommendedEvents->orderBy('created_at', 'DESC')->limit(6)->get();
-            return view('home', compact('latestEvents', 'featuredEvents', 'popularEvents','recommendedEvents', 'topicInterests'));
+            return view('home', compact('latestEvents', 'featuredEvents', 'popularEvents', 'recommendedEvents'));
         }
         else{
             return view('home', compact('latestEvents', 'featuredEvents','popularEvents'));
