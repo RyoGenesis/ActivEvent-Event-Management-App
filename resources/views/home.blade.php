@@ -24,39 +24,30 @@
                                     @foreach ($featuredEvents as $featuredevent)
                                         @if ($loop->iteration <= 3)
                                             <div class="col">
-                                                <div class="card h-100" style="min-height: 27rem" data-clickable="true" data-href="/eventdetail/{{$featuredevent->id}}">
-                                                    <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$featuredevent->name}}" class="card-img-top img-fluid" style="height: 15rem">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title mb-3">{{$featuredevent->name}}</h5>
-                                                        <div class="card-text">
-                                                            <div class="my-2" style="display: flex">
-                                                                @if ($featuredevent->has_certificate == 'true')
-                                                                    <span span class="rounded-pill bg-success py-1 px-2 m-1 fs-6 text-light">
-                                                                        E-Certificate                                
-                                                                    </span>
-                                                                @endif
-                                                                
-                                                                @if ($featuredevent->has_sat == 'true')
-                                                                    <span class="rounded-pill bg-info py-1 px-2 m-1 fs-6 text-dark">
-                                                                        SAT Point
-                                                                    </span>
-                                                                @endif 
-                                        
-                                                                @if ($featuredevent->has_comserv == 'true')
-                                                                    <span class="rounded-pill bg-warning py-1 px-2 m-1 fs-6 text-dark">
-                                                                        Community Service Hour
-                                                                    </span>
-                                                                @endif 
+                                                <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$featuredevent->id]) }}" style="height:max-content">
+                                                    <div class="row g-0 allign-item-center">
+                                                        <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$featuredevent->name}}">
+
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                            <h4>{{$featuredevent->name}}</h4>
+                                                            <span class="badge rounded-pill text-bg-info">{{$featuredevent->category->name}}</span>
+                                                            @if ($featuredevent->has_sat == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">SAT</span>
+                                                            @endif
+                                                            @if ($featuredevent->has_comserv == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                                                            @endif
+                                                            @if ($featuredevent->has_certificate == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                                                            @endif
                                                             </div>
-                                                            <p class="fs-6 mt-4 mb-1">
-                                                                {{$featuredevent->date->format('l, j F Y - H:i \W\I\B')}}
-                                                            </p>
-                                                            <p class="fs-6" >
-                                                                Posted by {{$featuredevent->community->name}}
-                                                            </p>
+                                                            <p class="card-text fw-light">{{$featuredevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                                            <p class="card-text fw-light">Slot Available: {{$featuredevent->max_slot == -1 ? 'No Limit' : $featuredevent->max_slot}}</p>
+                                                            <small class="card-text">Posted by {{$featuredevent->community->name}}</small>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>     
                                         @endif
                                     @endforeach
@@ -69,39 +60,30 @@
                                         @foreach ($featuredEvents as $fevent)
                                             @if ($loop->iteration > 3)
                                                 <div class="col">
-                                                    <div class="card h-100" style="min-height: 27rem">
-                                                        <img src="{{$fevent->image ? asset('storage/'.$fevent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$fevent->name}}" class="card-img-top img-fluid" style="height: 15rem">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title mb-3">{{$fevent->name}}</h5>
-                                                            <div class="card-text">
-                                                                <p class="my-2" style="">
-                                                                @if ($fevent->has_certificate == 'true')
-                                                                    <span span class="rounded-pill bg-success py-1 px-2 m-1 fs-6 text-light">
-                                                                        E-Certificate         
-                                                                    </span>
-                                                                @endif
-                                                                    
+                                                    <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$fevent->id]) }}" style="height:max-content">
+                                                        <div class="row g-0 allign-item-center">
+                                                            <img src="{{$fevent->image ? asset('storage/'.$fevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$fevent->name}}">
+    
+                                                            <div class="card-body">
+                                                                <div class="card-title">
+                                                                <h4>{{$fevent->name}}</h4>
+                                                                <span class="badge rounded-pill text-bg-info">{{$fevent->category->name}}</span>
                                                                 @if ($fevent->has_sat == 'true')
-                                                                    <span class="rounded-pill bg-info py-1 px-2 m-1 fs-6 text-dark">
-                                                                        SAT Point
-                                                                    </span>
-                                                                @endif 
-                                            
+                                                                    <span class="badge rounded-pill text-bg-primary">SAT</span>
+                                                                @endif
                                                                 @if ($fevent->has_comserv == 'true')
-                                                                    <span class="rounded-pill bg-warning py-1 px-2 m-1 fs-6 text-dark">
-                                                                        Community Service Hour
-                                                                    </span>
-                                                                @endif 
-                                                                </p>
-                                                                <p class="fs-6 mt-4 mb-1">
-                                                                    {{$fevent->date->format('l, j F Y - H:i \W\I\B')}}
-                                                                </p>
-                                                                <p class="fs-6" >
-                                                                    Posted by {{$fevent->community->name}}
-                                                                </p>
+                                                                    <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                                                                @endif
+                                                                @if ($fevent->has_certificate == 'true')
+                                                                    <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                                                                @endif
+                                                                </div>
+                                                                <p class="card-text fw-light">{{$fevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                                                <p class="card-text fw-light">Slot Available: {{$fevent->max_slot == -1 ? 'No Limit' : $fevent->max_slot}}</p>
+                                                                <small class="card-text">Posted by {{$fevent->community->name}}</small>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </a>
                                                 </div>     
                                             @endif                                   
                                         @endforeach 
@@ -144,39 +126,30 @@
                                     @foreach ($latestEvents as $activelatestevent)
                                         @if ($loop->iteration <= 3)
                                             <div class="col">
-                                                <div class="card h-100" style="min-height: 27rem" data-clickable="true", data-href="/eventdetail/{{$activelatestevent->id}}">
-                                                    <img src="{{$activelatestevent->image ? asset('storage/'.$activelatestevent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$activelatestevent->name}}" class="card-img-top img-fluid" style="height: 15rem">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title mb-3">{{$activelatestevent->name}}</h5>
-                                                        <div class="card-text">
-                                                            <p class="my-2">
-                                                                @if ($activelatestevent->has_certificate == 'true')
-                                                                    <span span class="rounded-pill bg-success py-1 px-2 m-1 fs-6 text-light">
-                                                                        E-Certificate          
-                                                                    </span>
-                                                                @endif
-                                                                
-                                                                @if ($activelatestevent->has_sat == 'true')
-                                                                    <span class="rounded-pill bg-info py-1 px-2 m-1 fs-6 text-dark">
-                                                                        SAT Point
-                                                                    </span>
-                                                                @endif 
-                                        
-                                                                @if ($activelatestevent->has_comserv == 'true')
-                                                                    <span class="rounded-pill bg-warning py-1 px-2 m-1 fs-6 text-dark">
-                                                                        Community Service Hour
-                                                                    </span>
-                                                                @endif 
-                                                            </p>
-                                                            <p class="fs-6 mt-4 mb-1">
-                                                                {{$activelatestevent->date->format('l, j F Y - H:i \W\I\B')}}
-                                                            </p>
-                                                            <p class="fs-6" >
-                                                                Posted by {{$activelatestevent->community->name}}
-                                                            </p>
+                                                <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$activelatestevent->id]) }}" style="height:max-content">
+                                                    <div class="row g-0 allign-item-center">
+                                                        <img src="{{$activelatestevent->image ? asset('storage/'.$activelatestevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$activelatestevent->name}}">
+
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                            <h4>{{$activelatestevent->name}}</h4>
+                                                            <span class="badge rounded-pill text-bg-info">{{$activelatestevent->category->name}}</span>
+                                                            @if ($activelatestevent->has_sat == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">SAT</span>
+                                                            @endif
+                                                            @if ($activelatestevent->has_comserv == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                                                            @endif
+                                                            @if ($activelatestevent->has_certificate == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                                                            @endif
+                                                            </div>
+                                                            <p class="card-text fw-light">{{$activelatestevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                                            <p class="card-text fw-light">Slot Available: {{$activelatestevent->max_slot == -1 ? 'No Limit' : $activelatestevent->max_slot}}</p>
+                                                            <small class="card-text">Posted by {{$activelatestevent->community->name}}</small>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>     
                                         @endif                                   
                                     @endforeach
@@ -188,39 +161,30 @@
                                     @foreach ($latestEvents as $latestevent)
                                         @if ($loop->iteration > 3)
                                             <div class="col">
-                                                <div class="card h-100" style="min-height: 27rem" data-clickable="true" data-href="/eventdetail/{{$latestevent->id}}">
-                                                    <img src="{{$latestevent->image ? asset('storage/'.$latestevent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$latestevent->name}}" class="card-img-top img-fluid" style="height: 15rem">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title mb-3">{{$latestevent->name}}</h5>
-                                                        <div class="card-text">
-                                                            <p class="my-2">
-                                                                @if ($latestevent->has_certificate == 'true')
-                                                                    <span span class="rounded-pill bg-success py-1 px-2 m-1 fs-6 text-light">
-                                                                        E-Certificate      
-                                                                    </span>
-                                                                @endif
-                                                                
-                                                                @if ($latestevent->has_sat == 'true')
-                                                                    <span class="rounded-pill bg-info py-1 px-2 m-1 fs-6 text-dark">
-                                                                        SAT Point
-                                                                    </span>
-                                                                @endif 
-                                        
-                                                                @if ($latestevent->has_comserv == 'true')
-                                                                    <span class="rounded-pill bg-warning py-1 px-2 m-1 fs-6 text-dark">
-                                                                        Community Service Hour
-                                                                    </span>
-                                                                @endif 
-                                                            </p>
-                                                            <p class="fs-6 mt-4 mb-1">
-                                                                {{$latestevent->date->format('l, j F Y - H:i \W\I\B')}}
-                                                            </p>
-                                                            <p class="fs-6" >
-                                                                Posted by {{$latestevent->community->name}}
-                                                            </p>
+                                                <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$latestevent->id]) }}" style="height:max-content">
+                                                    <div class="row g-0 allign-item-center">
+                                                        <img src="{{$latestevent->image ? asset('storage/'.$latestevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$latestevent->name}}">
+
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                            <h4>{{$latestevent->name}}</h4>
+                                                            <span class="badge rounded-pill text-bg-info">{{$activelatestevent->category->name}}</span>
+                                                            @if ($latestevent->has_sat == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">SAT</span>
+                                                            @endif
+                                                            @if ($latestevent->has_comserv == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                                                            @endif
+                                                            @if ($latestevent->has_certificate == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                                                            @endif
+                                                            </div>
+                                                            <p class="card-text fw-light">{{$latestevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                                            <p class="card-text fw-light">Slot Available: {{$latestevent->max_slot == -1 ? 'No Limit' : $latestevent->max_slot}}</p>
+                                                            <small class="card-text">Posted by {{$latestevent->community->name}}</small>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>     
                                         @endif                                   
                                     @endforeach 
@@ -259,42 +223,33 @@
                     <div class="carousel-inner">                                
                             <div class="carousel-item active">
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
-                                    @foreach ($popularEvents as $popularEvent)
+                                    @foreach ($popularEvents as $popularevent)
                                         @if ($loop->iteration <= 3)
                                             <div class="col">
-                                                <div class="card h-100" style="min-height: 27rem" data-clickable="true", data-href="/eventdetail/{{$popularEvent->id}}">
-                                                    <img src="{{$popularEvent->image ? asset('storage/'.$popularEvent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$popularEvent->name}}" class="card-img-top img-fluid" style="height: 15rem">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title mb-3">{{$popularEvent->name}}</h5>
-                                                        <div class="card-text">
-                                                            <p class="my-2">
-                                                                @if ($popularEvent->has_certificate == 'true')
-                                                                    <span span class="rounded-pill bg-success py-1 px-2 m-1 fs-6 text-light">
-                                                                        E-Certificate          
-                                                                    </span>
-                                                                @endif
-                                                                
-                                                                @if ($popularEvent->has_sat == 'true')
-                                                                    <span class="rounded-pill bg-info py-1 px-2 m-1 fs-6 text-dark">
-                                                                        SAT Point
-                                                                    </span>
-                                                                @endif 
-                                        
-                                                                @if ($popularEvent->has_comserv == 'true')
-                                                                    <span class="rounded-pill bg-warning py-1 px-2 m-1 fs-6 text-dark">
-                                                                        Community Service Hour
-                                                                    </span>
-                                                                @endif 
-                                                            </p>
-                                                            <p class="fs-6 mt-4 mb-1">
-                                                                {{$popularEvent->date->format('l, j F Y - H:i \W\I\B')}}
-                                                            </p>
-                                                            <p class="fs-6" >
-                                                                Posted by {{$popularEvent->community->name}}
-                                                            </p>
+                                                <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$popularevent->id]) }}" style="height:max-content">
+                                                    <div class="row g-0 allign-item-center">
+                                                        <img src="{{$popularevent->image ? asset('storage/'.$popularevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$popularevent->name}}">
+
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                            <h4>{{$popularevent->name}}</h4>
+                                                            <span class="badge rounded-pill text-bg-info">{{$popularevent->category->name}}</span>
+                                                            @if ($popularevent->has_sat == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">SAT</span>
+                                                            @endif
+                                                            @if ($popularevent->has_comserv == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                                                            @endif
+                                                            @if ($popularevent->has_certificate == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                                                            @endif
+                                                            </div>
+                                                            <p class="card-text fw-light">{{$popularevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                                            <p class="card-text fw-light">Slot Available: {{$popularevent->max_slot == -1 ? 'No Limit' : $popularevent->max_slot}}</p>
+                                                            <small class="card-text">Posted by {{$popularevent->community->name}}</small>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>     
                                         @endif                                   
                                     @endforeach
@@ -303,42 +258,33 @@
 
                             <div class="carousel-item">
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
-                                    @foreach ($popularEvents as $popularEvent)
+                                    @foreach ($popularEvents as $pevent)
                                         @if ($loop->iteration > 3)
                                             <div class="col">
-                                                <div class="card h-100" style="min-height: 27rem" data-clickable="true" data-href="/eventdetail/{{$popularEvent->id}}">
-                                                    <img src="{{$popularEvent->image ? asset('storage/'.$popularEvent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$popularEvent->name}}" class="card-img-top img-fluid" style="height: 15rem">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title mb-3">{{$popularEvent->name}}</h5>
-                                                        <div class="card-text">
-                                                            <p class="my-2">
-                                                                @if ($popularEvent->has_certificate == 'true')
-                                                                    <span span class="rounded-pill bg-success py-1 px-2 m-1 fs-6 text-light">
-                                                                        E-Certificate      
-                                                                    </span>
-                                                                @endif
-                                                                
-                                                                @if ($popularEvent->has_sat == 'true')
-                                                                    <span class="rounded-pill bg-info py-1 px-2 m-1 fs-6 text-dark">
-                                                                        SAT Point
-                                                                    </span>
-                                                                @endif 
-                                        
-                                                                @if ($popularEvent->has_comserv == 'true')
-                                                                    <span class="rounded-pill bg-warning py-1 px-2 m-1 fs-6 text-dark">
-                                                                        Community Service Hour
-                                                                    </span>
-                                                                @endif 
-                                                            </p>
-                                                            <p class="fs-6 mt-4 mb-1">
-                                                                {{$popularEvent->date->format('l, j F Y - H:i \W\I\B')}}
-                                                            </p>
-                                                            <p class="fs-6" >
-                                                                Posted by {{$popularEvent->community->name}}
-                                                            </p>
+                                                <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$pevent->id]) }}" style="height:max-content">
+                                                    <div class="row g-0 allign-item-center">
+                                                        <img src="{{$pevent->image ? asset('storage/'.$pevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$pevent->name}}">
+
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                            <h4>{{$pevent->name}}</h4>
+                                                            <span class="badge rounded-pill text-bg-info">{{$pevent->category->name}}</span>
+                                                            @if ($pevent->has_sat == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">SAT</span>
+                                                            @endif
+                                                            @if ($pevent->has_comserv == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                                                            @endif
+                                                            @if ($pevent->has_certificate == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                                                            @endif
+                                                            </div>
+                                                            <p class="card-text fw-light">{{$pevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                                            <p class="card-text fw-light">Slot Available: {{$pevent->max_slot == -1 ? 'No Limit' : $latestevent->max_slot}}</p>
+                                                            <small class="card-text">Posted by {{$pevent->community->name}}</small>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>     
                                         @endif                                   
                                     @endforeach 
@@ -378,42 +324,33 @@
                     <div class="carousel-inner">                                
                             <div class="carousel-item active">
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
-                                    @foreach ($recommendedEvents as $recommendedEvent)
+                                    @foreach ($recommendedEvents as $recommendedevent)
                                     @if ($loop->iteration <= 3)
                                             <div class="col">
-                                                <div class="card h-100" style="min-height: 27rem" data-clickable="true", data-href="/eventdetail/{{$recommendedEvent->id}}">
-                                                    <img src="{{$recommendedEvent->image ? asset('storage/'.$recommendedEvent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$recommendedEvent->name}}" class="card-img-top img-fluid" style="height: 15rem">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title mb-3">{{$recommendedEvent->name}}</h5>
-                                                        <div class="card-text">
-                                                            <p class="my-2">
-                                                                @if ($recommendedEvent->has_certificate == 'true')
-                                                                    <span span class="rounded-pill bg-success py-1 px-2 m-1 fs-6 text-light">
-                                                                        E-Certificate          
-                                                                    </span>
-                                                                @endif
-                                                                
-                                                                @if ($recommendedEvent->has_sat == 'true')
-                                                                    <span class="rounded-pill bg-info py-1 px-2 m-1 fs-6 text-dark">
-                                                                        SAT Point
-                                                                    </span>
-                                                                @endif 
-                                        
-                                                                @if ($recommendedEvent->has_comserv == 'true')
-                                                                    <span class="rounded-pill bg-warning py-1 px-2 m-1 fs-6 text-dark">
-                                                                        Community Service Hour
-                                                                    </span>
-                                                                @endif 
-                                                            </p>
-                                                            <p class="fs-6 mt-4 mb-1">
-                                                                {{$recommendedEvent->date->format('l, j F Y - H:i \W\I\B')}}
-                                                            </p>
-                                                            <p class="fs-6" >
-                                                                Posted by {{$recommendedEvent->community->name}}
-                                                            </p>
+                                                <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$recommendedevent->id]) }}" style="height:max-content">
+                                                    <div class="row g-0 allign-item-center">
+                                                        <img src="{{$recommendedevent->image ? asset('storage/'.$recommendedevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$recommendedevent->name}}">
+
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                            <h4>{{$recommendedevent->name}}</h4>
+                                                            <span class="badge rounded-pill text-bg-info">{{$recommendedevent->category->name}}</span>
+                                                            @if ($recommendedevent->has_sat == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">SAT</span>
+                                                            @endif
+                                                            @if ($recommendedevent->has_comserv == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                                                            @endif
+                                                            @if ($recommendedevent->has_certificate == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                                                            @endif
+                                                            </div>
+                                                            <p class="card-text fw-light">{{$recommendedevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                                            <p class="card-text fw-light">Slot Available: {{$recommendedevent->max_slot == -1 ? 'No Limit' : $latestevent->max_slot}}</p>
+                                                            <small class="card-text">Posted by {{$recommendedevent->community->name}}</small>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>     
                                         @endif                                   
                                     @endforeach
@@ -425,39 +362,29 @@
                                     @foreach ($recommendedEvents as $recEvent)
                                         @if ($loop->iteration > 3)
                                             <div class="col">
-                                                <div class="card h-100" style="min-height: 27rem" data-clickable="true" data-href="/eventdetail/{{$recEvent->id}}">
-                                                    <img src="{{$recEvent->image ? asset('storage/'.$recEvent->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar {{$recEvent->name}}" class="card-img-top img-fluid" style="height: 15rem">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title mb-3">{{$recEvent->name}}</h5>
-                                                        <div class="card-text">
-                                                            <p class="my-2">
-                                                                @if ($recEvent->has_certificate == 'true')
-                                                                    <span span class="rounded-pill bg-success py-1 px-2 m-1 fs-6 text-light">
-                                                                        E-Certificate      
-                                                                    </span>
-                                                                @endif
-                                                                
-                                                                @if ($recEvent->has_sat == 'true')
-                                                                    <span class="rounded-pill bg-info py-1 px-2 m-1 fs-6 text-dark">
-                                                                        SAT Point
-                                                                    </span>
-                                                                @endif 
-                                        
-                                                                @if ($recEvent->has_comserv == 'true')
-                                                                    <span class="rounded-pill bg-warning py-1 px-2 m-1 fs-6 text-dark">
-                                                                        Community Service Hour
-                                                                    </span>
-                                                                @endif 
-                                                            </p>
-                                                            <p class="fs-6 mt-4 mb-1">
-                                                                {{$recEvent->date->format('l, j F Y - H:i \W\I\B')}}
-                                                            </p>
-                                                            <p class="fs-6" >
-                                                                Posted by {{$recEvent->community->name}}
-                                                            </p>
+                                                <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$recevent->id]) }}" style="height:max-content">
+                                                    <div class="row g-0 allign-item-center">
+                                                        <img src="{{$recevent->image ? asset('storage/'.$recevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$recevent->name}}">
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                            <h4>{{$recevent->name}}</h4>
+                                                            <span class="badge rounded-pill text-bg-info">{{$recevent->category->name}}</span>
+                                                            @if ($recevent->has_sat == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">SAT</span>
+                                                            @endif
+                                                            @if ($recevent->has_comserv == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                                                            @endif
+                                                            @if ($recevent->has_certificate == 'true')
+                                                                <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                                                            @endif
+                                                            </div>
+                                                            <p class="card-text fw-light">{{$recevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                                            <p class="card-text fw-light">Slot Available: {{$recevent->max_slot == -1 ? 'No Limit' : $recevent->max_slot}}</p>
+                                                            <small class="card-text">Posted by {{$recevent->community->name}}</small>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>     
                                         @endif                                   
                                     @endforeach 
