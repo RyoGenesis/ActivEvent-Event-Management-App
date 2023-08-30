@@ -7,60 +7,40 @@
     <a href="/home" style="text-decoration: none">Home</a> > <small> Latest Event</small>
   </div>
     <h3 class="mb-4">Latest Event</h3>
-    @foreach ($latestevents as $latestevent)
-      <div class="card mb-4 mx-auto" style="max-width: 1100px" data-clickable="true", data-href="/eventdetail/{{$latestevent->id}}">
-        <div class="row g-0">
-            <div class="col-md-4">
-              <img src="{{$latestevent->image}}" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h3 class="card-title">{{$latestevent->name}}</h3>
-                <div class='card-text'>
-                  <p class="my-4">
-                    @if ($latestevent->has_certificate == 'true')
-                        <span span class="rounded-pill border border-success border-3 p-1 me-2 text-success fs-6 fw-bold">
-                          E-Certificate                                
-                        </span>
-                    @endif
-                        
+    <div class="row gap-3">
+      @foreach ($latestevents as $latestevent)
+        <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$latestevent->id]) }}" style="height:max-content">
+          <div class="row g-0 allign-item-center">
+              <div class="col-md-4">
+                <img src="{{$latestevent->image ? asset('storage/'.$latestevent->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$latestevent->name}}">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <div class="card-title">
+                    <h4>{{$latestevent->name}}</h4>
+                    <span class="badge rounded-pill text-bg-info">{{$latestevent->category->name}}</span>
                     @if ($latestevent->has_sat == 'true')
-                        <span class="rounded-pill border border-3 border-info text-info p-1 me-2 fs-6 fw-bold">
-                          SAT Point
-                        </span>
-                    @endif 
-
+                        <span class="badge rounded-pill text-bg-primary">SAT</span>
+                    @endif
                     @if ($latestevent->has_comserv == 'true')
-                        <span class="rounded-pill border border-3 border-warning text-warning p-1 me-2 fs- fw-bold">
-                          Community Service Hour
-                        </span>
-                    @endif 
-                  </p>
-                <p class="fs-6 mt-2">
-                    {{$latestevent->date}}
-                </p>
-                <p class="fs-6" >
-                    Posted by {{$latestevent->community->name}}
-                </p>
+                        <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                    @endif
+                    @if ($latestevent->has_certificate == 'true')
+                        <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                    @endif
+                  </div>
+                  <p class="card-text fw-light">{{$latestevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                  <p class="card-text fw-light">Slot Available: {{$latestevent->max_slot == -1 ? 'No Limit' : $latestevent->max_slot}}</p>
+                  <small class="card-text">Posted by {{$latestevent->community->name}}</small>
                 </div>
               </div>
             </div>
-          </div>
-      </div>
-    @endforeach
+        </a>
+      @endforeach
+    </div>
+
     <div class="paginating">
       {{$latestevents->links()}}
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-  $(document).ready(() => {
-    $(document.body).on('click', '.card[data-clickable=true]', (e) => {
-      var href = $(e.currentTarget).data('href');
-      window.location = href;
-    });
-  })
-</script>
 @endsection

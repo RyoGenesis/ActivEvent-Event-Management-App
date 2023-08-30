@@ -14,17 +14,17 @@
                 <div class="row pb-3">
                     <div class="col">
                         @if ($event->has_certificate)
-                            <span class="d-inline-flex rounded-pill bg-success py-1 px-2 m-1 fs-5 text-light">
+                            <span class="d-inline-flex rounded-pill bg-primary py-1 px-2 m-1 fs-5 text-light">
                                 E-Certificate
                             </span>
                         @endif
                         @if ($event->has_sat)
-                            <span class="d-inline-flex rounded-pill bg-info py-1 px-2 m-1 fs-5 text-dark">
+                            <span class="d-inline-flex rounded-pill bg-primary py-1 px-2 m-1 fs-5 text-light">
                                 SAT Point - {{$event->sat_level->name}} Level
                             </span>
                         @endif
                         @if ($event->has_comserv)
-                            <span class="d-inline-flex rounded-pill bg-warning py-1 px-2 m-1 fs-5 text-dark">
+                            <span class="d-inline-flex rounded-pill bg-primary py-1 px-2 m-1 fs-5 text-light">
                                 Community Service Hour
                             </span>
                         @endif

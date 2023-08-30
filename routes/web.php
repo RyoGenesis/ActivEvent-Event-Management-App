@@ -37,6 +37,8 @@ Route::get('/latestevent', [App\Http\Controllers\EventController::class, 'latest
 
 Route::get('/featuredevent', [App\Http\Controllers\EventController::class, 'featuredevent'])->name('featuredevent');
 
+Route::get('/popularevent', [App\Http\Controllers\EventController::class, 'popularevent'])->name('popularevent');
+
 Route::middleware('auth')->group(function(){
     Route::get('recommendedevent', [App\Http\Controllers\EventController::class, 'recommendedevent'])->name('recommendedevent');
     Route::get('/profile', [App\Http\Controllers\UserController::class, 'userprofile'])->name('profile');

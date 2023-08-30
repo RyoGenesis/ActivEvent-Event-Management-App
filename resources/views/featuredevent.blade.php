@@ -7,60 +7,40 @@
     <a href="/home" style="text-decoration: none">Home</a> > <small> Featured Event</small>
   </div>
     <h3 class="mb-4">Featured Event</h3>
-    @foreach ($featuredevents as $featuredevent)
-      <div class="card mb-4 mx-auto" style="max-width: 1100px" data-clickable="true", data-href="/eventdetail/{{$featuredevent->id}}">
-        <div class="row g-0">
-            <div class="col-md-4">
-              <img src="{{$featuredevent->image}}" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h3 class="card-title">{{$featuredevent->name}}</h3>
-                <div class='card-text'>
-                  <p class="my-4">
-                    @if ($featuredevent->has_certificate == 'true')
-                        <span span class="rounded-pill border border-success border-3 p-1 me-2 text-success fs-6 fw-bold">
-                          E-Certificate                                
-                        </span>
-                    @endif
-                        
+    <div class="row gap-3">
+      @foreach ($featuredevents as $featuredevent)
+        <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$featuredevent->id]) }}" style="height:max-content">
+          <div class="row g-0 allign-item-center">
+              <div class="col-md-4">
+                <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$featuredevent->name}}">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <div class="card-title">
+                    <h4>{{$featuredevent->name}}</h4>
+                    <span class="badge rounded-pill text-bg-info">{{$featuredevent->category->name}}</span>
                     @if ($featuredevent->has_sat == 'true')
-                        <span class="rounded-pill border border-3 border-info text-info p-1 me-2 fs-6 fw-bold">
-                          SAT Point
-                        </span>
-                    @endif 
-
+                        <span class="badge rounded-pill text-bg-primary">SAT</span>
+                    @endif
                     @if ($featuredevent->has_comserv == 'true')
-                        <span class="rounded-pill border border-3 border-warning text-warning p-1 me-2 fs- fw-bold">
-                          Community Service Hour
-                        </span>
-                    @endif 
-                  </p>
-                <p class="fs-6 mt-2">
-                    {{$featuredevent->date}}
-                </p>
-                <p class="fs-6" >
-                    Posted by {{$featuredevent->community->name}}
-                </p>
+                        <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                    @endif
+                    @if ($featuredevent->has_certificate == 'true')
+                        <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                    @endif
+                  </div>
+                  <p class="card-text fw-light">{{$featuredevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                  <p class="card-text fw-light">Slot Available: {{$featuredevent->max_slot == -1 ? 'No Limit' : $featuredevent->max_slot}}</p>
+                  <small class="card-text">Posted by {{$featuredevent->community->name}}</small>
                 </div>
               </div>
             </div>
-          </div>
-      </div>
-    @endforeach
+        </a>
+      @endforeach
+    </div>
+
     <div class="paginating">
       {{$featuredevents->links()}}
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-  $(document).ready(() => {
-    $(document.body).on('click', '.card[data-clickable=true]', (e) => {
-      var href = $(e.currentTarget).data('href');
-      window.location = href;
-    });
-  })
-</script>
 @endsection
