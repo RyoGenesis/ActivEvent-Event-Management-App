@@ -9,8 +9,10 @@
             @csrf
             <div class="card d-flex justify-content-center" style="width:65rem">
                 <div class="form-group btn-reset btn mt-3 me-3">
-                    <div class="d-flex justify-content-end">
-                        <button id='submitbtn' type="submit" class="btn btn-outline-danger btn-submit btn-sm">
+                    <div class="d-flex justify-content-between">
+                        <a href="{{route('profile')}}" class="fa fa-2xl fa-arrow-left item-start" style="text-decoration:none; color:black"></a>
+
+                        <button id='submitbtn' type="submit" class="p-2 btn btn-outline-danger btn-submit btn-sm">
                             {{ __('Save') }}          
                         </button>
                     </div>
