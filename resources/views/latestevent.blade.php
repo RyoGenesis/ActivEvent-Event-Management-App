@@ -4,7 +4,7 @@
 
 <div class="container">
   <div class="mb-2">
-    <a href="/home" style="text-decoration: none">Home</a> > <small> Latest event</small>
+    <a href="/home" style="text-decoration: none">Home</a> > <small> Latest Event</small>
   </div>
     <h3 class="mb-4">Latest Event</h3>
     @foreach ($latestevents as $latestevent)

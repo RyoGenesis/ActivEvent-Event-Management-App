@@ -132,17 +132,20 @@
 
                                 <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="modallabelform" aria-hidden="true">
                                     <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="modallabelform">External Form Link</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="modallabelform">External Form Link</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Please fill out the external form which can be accessed via the link below 
+                                                <div>
+                                                    <a href="{{$event->additional_form_link}}">{{$event->additional_form_link}}</a>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
-                                            Please fill out the external form which can be accessed via the link below 
-                                            <div>{{$event->additional_form_link}}</div>
-                                        </div>
-                                        <div class="modal-footer">
-                                    </div>
                                     </div>
                                 </div>
                             @endif
@@ -153,22 +156,23 @@
 
                             <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
                                 <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Confirm to Cancel Your Registration?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                            <form action="{{route('cancelregistration')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{$event->id}}">
+                                                <button type="submit" class="btn btn-secondary btn-danger">yes</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        Confirm to Cancel Your Registration?
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                    <form action="{{route('cancelregistration')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{$event->id}}">
-                                        <button type="submit" class="btn btn-secondary btn-danger">yes</button>
-                                    </form>
-                                </div>
                                 </div>
                             </div>
                         
