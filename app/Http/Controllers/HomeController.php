@@ -41,13 +41,18 @@ class HomeController extends Controller
         if(Auth::check()){
             $user = User::find(Auth::user()->id);
 
+            dd($user->communities->pluck('id'));
+
             $recommendedEvents = Event::with('community')->where('status','Active')->whereDate('date','>',now());
 
             //get by user communities
+            $recommendedEvents = $recommendedEvents->orWhereIn('community_id', $user->communities->pluck('id'));
 
             //get by user major
+            $recommendedEvents = $recommendedEvents;
 
             //get by user category interest
+            $recommendedEvents = $recommendedEvents;
 
             //get by interest topics
             $topicInterests = explode(',',$user->topics);

@@ -220,7 +220,7 @@ class EventController extends Controller
                 ->get();
         if($request->checkcomserv){
             $sat=$request->checkcomserv;
-            $events = Event::where('has_comserv', true)->whereIn('id', $events->pluck('id'))->get();
+            $events = Event::where('has_comserv', true)->get();
         }
         return view('search', compact('events', 'search', 'category'));
     }
