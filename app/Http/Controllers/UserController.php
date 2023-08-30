@@ -52,15 +52,6 @@ class UserController extends Controller
         return redirect()->route('ladmin.student_user.index')->with('success','Successfully insert new student!');
     }
 
-    function edit() {
-        $user = User::with(['campus','faculty','major','communities','categories'])->where('id',Auth::user()->id)->first();
-        $campuses = Campus::all();
-        $faculties = Faculty::all();
-        $communities = Community::all();
-        $categories = Category::all();
-        return view('main.profile.edit', compact(['user', 'campuses', 'faculties', 'communities', 'categories']));
-    }
-
     function adminEdit($id) {
         $userStudent = User::with(['campus','faculty','major','communities'])->where('id',$id)->first();
         if(!$userStudent) {
@@ -158,12 +149,24 @@ class UserController extends Controller
         return view('profile', compact(['user','upcomingEvents','rejectedEvents','topicInterests']));
     }
 
+    
+    function edit() {
+        $user = User::with(['campus','faculty','major','communities','categories'])->where('id',Auth::user()->id)->first();
+        $campuses = Campus::all();
+        $faculties = Faculty::all();
+        $communities = Community::all();
+        $categories = Category::all();
+        return view('main.profile.edit', compact(['user', 'campuses', 'faculties', 'communities', 'categories']));
+    }
+
     function showEditProfileForm(){
-        $user=User::find(Auth::user()->id);
+        $user=User::with(['campus','faculty','major','communities','categories'])->find(Auth::user()->id);
         $campuses=Campus::all();
         $faculties=Faculty::all();
-        $majors=Major::all();
-        return view('editprofile', compact('user', 'campuses', 'faculties', 'majors'));
+        $communities = Community::all();
+        $categories = Category::all();
+        $userCommunities = $user->communities->pluck('id')->toArray();
+        return view('editprofile', compact('user', 'campuses', 'faculties','communities','categories','userCommunities'));
     }
 
     function historyevent(){

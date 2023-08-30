@@ -18,9 +18,6 @@
             <th scope="col" class="fs-4">Reason</th>
         </thead>
         <tbody>
-            {{-- @php
-                $i=1;
-            @endphp --}}
             @foreach ($historyevents as $event)
                 <tr class="table-light">
                     <th class="fw-light fs-5">{{$loop->iteration}}</th>

@@ -73,6 +73,11 @@
                                     <li class="ps-2"><a href="{{route('latestevent')}}" style="text-decoration: none; color: black">Latest</a></li>
                                 </ul> --}}
                             </li>
+                            @auth
+                            <li class="nav-item">
+                                <a class="nav-link main-menu" href="{{route('recommendedevent')}}">For You</a>
+                            </li>
+                            @endauth
                             <li class="nav-item">
                                 <a class="nav-link main-menu" href="{{route('contactus')}}">Contact us</a>
                             </li>

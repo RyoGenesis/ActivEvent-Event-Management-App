@@ -100,28 +100,35 @@
                 allowClear: true,
             });
 
+            function getMajorFaculty() {
+                var facultyEl = $('#faculty_id');
+                $.ajax({
+                    url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
+                    type : 'get',
+                    data : {
+                        id: facultyEl.val(),
+                    },
+                    success : function (response) {
+                        var majorId = $("#major_id");
+                        var studentMajor = {{$userStudent->major_id}};
+                        majorId.html('');
+                        majorId.append("<option></option>");
+                        $.each(response, function (i, item) {
+                            var selected = (item['id'] == studentMajor ? ' selected' : '');
+                            majorId.append("<option value='" + item['id'] + "'" + selected +">" + item['name'] + "</option>");
+                    });
+                        majorId.prop('disabled',false);
+                    },
+                        error: function(err) {
+                    }
+                })
+            }
+
+            getMajorFaculty();
+
             $(document).ready(function() {
                 $('#faculty_id').change(function() {
-                    $.ajax({
-                        url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
-                        type : 'get',
-                        data : {
-                            id: $(this).val(),
-                        },
-                        success : function (response) {
-                            var majorId = $("#major_id");
-                            var studentMajor = {{$userStudent->major_id}};
-                            majorId.html('');
-                            majorId.append("<option></option>");
-                            $.each(response, function (i, item) {
-                                var selected = (item['id'] == studentMajor ? ' selected' : '');
-                                majorId.append("<option value='" + item['id'] + "'" + selected +">" + item['name'] + "</option>");
-                            });
-                            majorId.prop('disabled',false);
-                        },
-                        error: function(err) {
-                        }
-                    })
+                    getMajorFaculty();
                 });
             });
         </script>

@@ -8,7 +8,7 @@
   </div>
     <h3 class="mb-4">Popular Event</h3>
     <div class="row gap-3">
-      @foreach ($popularevents as $popularevent)
+      @forelse ($popularevents as $popularevent)
         <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$popularevent->id]) }}" style="height:max-content">
           <div class="row g-0 allign-item-center">
               <div class="col-md-4">
@@ -36,7 +36,11 @@
               </div>
             </div>
         </a>
-      @endforeach
+      @empty
+        <div class="mx-auto py-5 text-center">
+          <p class="fs-4">No popular event at the moment.</p>
+        </div>
+      @endforelse
     </div>
 
     <div class="paginating">

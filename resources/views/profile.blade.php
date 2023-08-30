@@ -12,7 +12,7 @@
         <div class="card" style="width:50rem">
             <div class="card-body ms-5  ps-5 pe-3">
                 <a href="{{route("editprofile")}}" class="fa-solid fa-xl fa-pencil d-flex justify-content-end my-3 pe-3" style="text-decoration: none; color:black"></a>
-                <div class="row mb-4">
+                <div class="row mb-3">
                     <div class="col">
                         <h5 class="text-primary">Name</h5>
                         <div class="fs-6">{{$user->name}}</div>
@@ -71,6 +71,21 @@
                             <div class="fs-6">{{$user->major->name}}</div>
                         @endempty
                     </div>
+
+                    <div class="col-4">
+                        <h5 class="text-primary">Communities</h5>
+                        <div class="fs-6">
+                            @forelse ($user->communities as $community)
+                                @if ($loop->last)
+                                    {{$community->display_name}}
+                                @else
+                                    {{$community->display_name}}, 
+                                @endif
+                            @empty
+                                -
+                            @endforelse
+                        </div>
+                    </div>
                 </div>
 
                 <div>
@@ -92,12 +107,17 @@
     <div class="container text-center mt-3 pt-3">
         <div class="row">
             <div class="col">
-                <h3>Your Up Coming Event</h3>
+                <h3>Your Upcoming Event</h3>
             </div>
             <div class="col">
                 <a href="{{route('historyevent')}}" class="btn btn-secondary">History Event</a>
             </div>
         </div>
+        @if ($upcomingEvents->isEmpty())
+        <div class="mx-auto py-5 text-center">
+            <p class="fs-5">You currently don't have any upcoming event</p>
+        </div>
+        @else
         <table class="table table-secondary mt-5">
             <thead>
                 <tr>
@@ -153,5 +173,6 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 @endsection
