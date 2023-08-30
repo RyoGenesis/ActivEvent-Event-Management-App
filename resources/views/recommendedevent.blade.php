@@ -6,61 +6,41 @@
   <div class="mb-2">
     <a href="/home" style="text-decoration: none">Home</a> > <small> Recommended Event</small>
   </div>
-    <h3 class="mb-4">Recommended Events"</h3>
-    @foreach ($recommendedEvents as $recommendedevent)
-      <div class="card mb-4 mx-auto" style="max-width: 1100px" data-clickable="true", data-href="/eventdetail/{{$recommendedevent->id}}">
-        <div class="row g-0">
-            <div class="col-md-4">
-              <img src="{{$recommendedevent->image}}" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h3 class="card-title">{{$recommendedevent->name}}</h3>
-                <div class='card-text'>
-                  <p class="my-4">
-                    @if ($recommendedevent->has_certificate == 'true')
-                        <span span class="rounded-pill border border-success border-3 p-1 me-2 text-success fs-6 fw-bold">
-                          E-Certificate                                
-                        </span>
-                    @endif
-                        
+    <h3 class="mb-4">Recommended Event</h3>
+    <div class="row gap-3">
+      @foreach ($recommendedEvents as $recommendedevent)
+        <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$recommendedevent->id]) }}" style="height:max-content">
+          <div class="row g-0 allign-item-center">
+              <div class="col-md-4">
+                <img src="{{$recommendedevent->image ? asset('storage/'.$recommendedevent->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$recommendedevent->name}}">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <div class="card-title">
+                    <h4>{{$recommendedevent->name}}</h4>
+                    <span class="badge rounded-pill text-bg-info">{{$recommendedevent->category->name}}</span>
                     @if ($recommendedevent->has_sat == 'true')
-                        <span class="rounded-pill border border-3 border-info text-info p-1 me-2 fs-6 fw-bold">
-                          SAT Point
-                        </span>
-                    @endif 
-
+                        <span class="badge rounded-pill text-bg-primary">SAT</span>
+                    @endif
                     @if ($recommendedevent->has_comserv == 'true')
-                        <span class="rounded-pill border border-3 border-warning text-warning p-1 me-2 fs- fw-bold">
-                          Community Service Hour
-                        </span>
-                    @endif 
-                  </p>
-                <p class="fs-6 mt-2">
-                    {{$recommendedevent->date}}
-                </p>
-                <p class="fs-6" >
-                    Posted by {{$recommendedevent->community->name}}
-                </p>
+                        <span class="badge rounded-pill text-bg-primary">Comserv</span>
+                    @endif
+                    @if ($recommendedevent->has_certificate == 'true')
+                        <span class="badge rounded-pill text-bg-primary">Certificate</span>
+                    @endif
+                  </div>
+                  <p class="card-text fw-light">{{$recommendedevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                  <p class="card-text fw-light">Slot Available: {{$recommendedevent->max_slot == -1 ? 'No Limit' : $recommendedevent->max_slot}}</p>
+                  <small class="card-text">Posted by {{$recommendedevent->community->name}}</small>
                 </div>
               </div>
             </div>
-          </div>
-      </div>
-    @endforeach
+        </a>
+      @endforeach
+    </div>
+
     <div class="paginating">
       {{$recommendedEvents->links()}}
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-  $(document).ready(() => {
-    $(document.body).on('click', '.card[data-clickable=true]', (e) => {
-      var href = $(e.currentTarget).data('href');
-      window.location = href;
-    });
-  })
-</script>
 @endsection

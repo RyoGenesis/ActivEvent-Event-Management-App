@@ -361,6 +361,14 @@ class EventController extends Controller
         return view('featuredevent', compact('featuredevents'));
     }
 
+    public function popularevent(){
+        $popularevents=Event::with('community')->withCount('users')
+                        ->where('status', 'Active')
+                        // ->whereDate('date','>',now())
+                        ->orderBy('users_count','DESC')->orderBy('created_at', 'DESC')->paginate(10);
+        return view('popularevent', compact('popularevents'));
+    }
+
     public function recommendedevent(){
         // dd('abc');
         $user = User::find(Auth::user()->id);
