@@ -209,7 +209,8 @@ class EventController extends Controller
         ];
 
         $search = strip_tags($request->search);
-        $category = Category::all();
+        $categories = Category::all();
+        $communities = Community::all();
         $events = Event::where('name', 'like', "%".$search."%") //search name
                 ->orWhere('topic', 'like', "%".$search."%") //search topic
                 ->orWhere('description', 'like', "%".$search."%") //search description
@@ -222,7 +223,7 @@ class EventController extends Controller
             $sat=$request->checkcomserv;
             $events = Event::where('has_comserv', true)->get();
         }
-        return view('search', compact('events', 'search', 'category'));
+        return view('search', compact('events', 'search', 'communities', 'categories'));
     }
 
     function eventdetail($id){

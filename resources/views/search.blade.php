@@ -15,38 +15,75 @@
                 </button>
                 <ul class="dropdown-menu px-3">
                     <form id="formsearch" role="search" method="GET" action="{{route('search')}}">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checksat" name="checksat">
-                                    <label class="form-check-label"><small>SAT POINT</small></label>
-                                </div>
+                        <div class="py-2">
+                            <h5>SAT Point</h5>
+                            <div class="form-check">
+                                <label class="form-check-label"><small>Yes</small></label>
+                                <input class="form-check-input" type="checkbox" id="checksat" name="checksat">
                             </div>
-                            <div class="col">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkcomserv" name="checkcomserv">
-                                    <label class="form-check-label"><small>COMSERV</small></label>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="checkcertificate" name="checkcertificate">
-                                    <label class="form-check-label"><small>E-Certificate</small></label>
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label"><small>No</small></label>
+                                <input class="form-check-input" type="checkbox" id="checksat" name="checksat">
                             </div>
                         </div>
-                        <div>
-                            <h5>Category</h5>
+
+                        <div class="py-2">
+                            <h5>Community Service Hour</h5>
+                            <div class="form-check">
+                                <label class="form-check-label"><small>Yes</small></label>
+                                <input class="form-check-input" type="checkbox" id="checkcomserv" name="checkcomserv">
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label"><small>No</small></label>
+                                <input class="form-check-input" type="checkbox" id="checkcomserv" name="checkcomserv">
+                            </div>
+                        </div>
+
+                        <div class="py-2">
+                            <h5>E-Certificate</h5>
+                            <div class="form-check">
+                                <label class="form-check-label"><small>Yes</small></label>
+                                <input class="form-check-input" type="checkbox" id="checkcertificate" name="checkcertificate">
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label"><small>No</small></label>
+                                <input class="form-check-input" type="checkbox" id="checkcertificate" name="checkcertificate">
+                            </div>
+                        </div>
+
+                        <div class="py-2">
+                            <h5>Categories</h5>
                             <div class="row d-flex">
-                                @foreach ($category as $item)
+                                @foreach ($categories as $category)
                                     <div class="col-3 mb-2">
-                                        <input type="button" name="category" placeholder="{{$item->name}}">
-                                        <button class="px-1">{{$item->name}}</button>
+                                        <option  class="btn" value="{{$category->id}}">{{$category->name}}</option>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
+
+                        {{-- <div>
+                            <h5>Communities</h5>
+                            <div class="row d-flex">
+                                @foreach ($communities as $community)
+                                    <div class="col-3 mb-2">
+                                        <option class="btn" value="{{$community->id}}">{{$community->name}}</option>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div> --}}
+
+                        {{-- <div>
+                            <h5>Community</h5>
+                            <div class="row d-flex">
+                                @foreach ($communities as $community)
+                                    <div class="col-3 mb-2">
+                                        <input type="button" name="category" placeholder="{{$community->name}}">
+                                        <button class="px-1">{{$community->name}}</button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div> --}}
                     </form>
                 </ul>
                 
