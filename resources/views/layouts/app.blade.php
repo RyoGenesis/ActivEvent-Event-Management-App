@@ -46,7 +46,7 @@
                                 <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
                               </span>
                             </div>
-                            <input type="search" class="form-control" placeholder="Search Event">
+                            <input type="search" name="search" value="{{$search ?? ''}}" class="form-control" placeholder="Search Event">
                         </div>
                         {{-- <button class="btn btn-outline-secondary">Search</button> --}}
                     </form>

@@ -205,12 +205,12 @@ class EventController extends Controller
 
     public function search(Request $request){
         $validation = [
-            "nama"=>'string|max:60',
+            "search"=>'string|max:60',
         ];
 
-        $search = strip_tags($request->nama);
+        $search = strip_tags($request->search);
         $category = Category::all();
-        $event = Event::where('name', 'like', "%".$search."%") //search name
+        $events = Event::where('name', 'like', "%".$search."%") //search name
                 ->orWhere('topic', 'like', "%".$search."%") //search topic
                 ->orWhere('description', 'like', "%".$search."%") //search description
                 ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
@@ -220,9 +220,9 @@ class EventController extends Controller
                 ->get();
         if($request->checkcomserv){
             $sat=$request->checkcomserv;
-            $event = Event::where('has_comserv', true)->whereIn('id', $event->pluck('id'))->get();
+            $events = Event::where('has_comserv', true)->whereIn('id', $events->pluck('id'))->get();
         }
-        return view('search', compact('event', 'search', 'category'));
+        return view('search', compact('events', 'search', 'category'));
     }
 
     function eventdetail($id){

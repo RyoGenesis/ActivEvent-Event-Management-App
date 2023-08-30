@@ -154,40 +154,40 @@
             </div>
         </div> --}}
         
-    <div id="contentevent" class="p-2 bg-light ms-md-4 ms-sm-2" style="width:150ch">
-        <div class="row gap-5">
-            @if ($event->isEmpty())
-            There's no event named {{$search}}
+    <div id="contentevent" class="p-2 bg-light ms-md-4 ms-sm-2" style="width:100%">
+        <div class="row gap-3">
+            @if ($events->isEmpty())
+            No search result for "{{$search}}"
             @else
-            @foreach ($event as $event)
+            @foreach ($events as $event)
             {{-- <div class="col"> --}}
-                <div class="card" style="height:max-content">
-                    <div class="row g-0">
+                <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$event->id]) }}" style="height:max-content">
+                    <div class="row g-0 align-items-center">
                         <div class="col-md-4">
-                            <img src="{{$event->image}}" class="img-fluid" alt="gambar-{{$event->name}}">
+                            <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$event->name}}">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <div class="card-title">
                                     <h4>{{$event->name}}</h4>
-                                    <span class="badge rounded-pill text-bg-primary">{{$event->category->name}}</span>
-                                    @if ($event->has_sat=='true')
+                                    <span class="badge rounded-pill text-bg-info">{{$event->category->name}}</span>
+                                    @if ($event->has_sat == 'true')
                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
                                     @endif
-                                    @if ($event->has_comserv=='true')
+                                    @if ($event->has_comserv == 'true')
                                         <span class="badge rounded-pill text-bg-primary">Comserv</span>
                                     @endif
-                                    @if ($event->has_certificate=='true')
+                                    @if ($event->has_certificate == 'true')
                                         <span class="badge rounded-pill text-bg-primary">Certificate</span>
                                     @endif
                                 </div>
-                                <p class="card-text fw-light">{{$event->date}}</p>
-                                <p class="card-text fw-light">Slot Available {{$event->max_slot}}</p>
+                                <p class="card-text fw-light">{{$event->date->format('l, j F Y - H:i \W\I\B')}}</p>
+                                <p class="card-text fw-light">Slot Available: {{$event->max_slot == -1 ? 'No Limit' : $event->max_slot}}</p>
                                 <small class="card-text">Posted by {{$event->community->name}}</small>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             {{-- </div> --}}
             @endforeach    
             @endif
