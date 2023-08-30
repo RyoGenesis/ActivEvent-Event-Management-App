@@ -8,7 +8,7 @@
   </div>
     <h3 class="mb-4">Recommended Event</h3>
     <div class="row gap-3">
-      @foreach ($recommendedEvents as $recommendedevent)
+      @forelse ($recommendedEvents as $recommendedevent)
         <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$recommendedevent->id]) }}" style="height:max-content">
           <div class="row g-0 allign-item-center">
               <div class="col-md-4">
@@ -36,7 +36,12 @@
               </div>
             </div>
         </a>
-      @endforeach
+      @empty
+      <div class="mx-auto py-5 text-center">
+        <p class="fs-4">No recommendation for you at the moment.</p>
+        <p>But don't worry! Next time you check in, there might be some for you!</p>
+      </div>
+      @endforelse
     </div>
 
     <div class="paginating">

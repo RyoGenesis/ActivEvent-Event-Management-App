@@ -78,12 +78,12 @@
 
                     <div class="col-md-6 px-5 pt-5">
                         <label for="campus_id"><h5 class="text-primary">Campus</h5></label>
-                        <select class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
-                            <option value="{{$user->campus->id}}">
-                                <p class="fw-lighter">{{$user->campus->name}}</p>
-                            </option>
+                        <select data-placeholder="Select campus" class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
+                            <option></option>
                             @foreach ($campuses as $campus)
-                                <option value="{{$campus->id}}">{{$campus->name}}</option>
+                                <option value="{{$campus->id}}" {{ $campus->id == $user->campus_id ? 'selected' : '' }}>
+                                    {{$campus->name}}
+                                </option>
                             @endforeach
                         </select>
                         @error('campus_id')
@@ -98,11 +98,11 @@
                     <div class="col-md-6 px-5 pt-5">
                         <label for="faculty_id"><h5 class="text-primary">Faculty</h5></label>
                         <select class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
-                            <option value="{{$user->faculty->id}}">
-                                <p class="fw-lighter">{{$user->faculty->name}}</p>
-                            </option>
+                            <option></option>
                             @foreach ($faculties as $faculty)
-                                <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                <option value="{{$faculty->id}}" {{ $faculty->id == $user->faculty_id ? 'selected' : '' }}>
+                                    {{$faculty->name}}
+                                </option>
                             @endforeach
                         </select>
                         @error('faculty_id')
@@ -114,18 +114,26 @@
 
                     <div class="col-md-6 px-5 pt-5">
                         <label for="major_id"><h5 class="text-primary">Major</h5></label>
-                        <select class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id">
-                            <option value="{{$user->major->id}}">
-                                <p class="fw-lighter">{{$user->major->name}}</p>
-                            </option>
-                            @foreach ($majors as $major)
-                                <option value="{{$major->id}}">{{$major->name}}</option>
-                            @endforeach
+                        <select data-placeholder="Select major" class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id" disabled>
                         </select>
                         @error('major_id')
                             <span class="invalid-feedback">
                                 <strong>{{ $message }}</strong>
                             </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row g-3">
+                    <div class="col px-5 pt-5">
+                        <label for="communities"><h5 class="text-primary">Communities</h5></label>
+                        <select data-placeholder="Select communities" class="form-select form-control @error('communities') is-invalid @enderror" name="communities[]" id="communities" multiple>
+                            @foreach ($communities as $community)
+                                <option value="{{$community->id}}" {{ in_array($community->id, $userCommunities) ? 'selected' : '' }}>{{ $community->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('communities')
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
@@ -150,7 +158,64 @@
 
 @section('scripts')
 <script>
-    // console.log(document.querySelector("input[name=topics]"))
+    $(document).ready(function() {
+        $('#campus_id').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+        });
+
+        $('#faculty_id').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+        });
+        
+        $('#major_id').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+        });
+        
+        $('#communities').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+            allowClear: true,
+        });
+
+        function getMajorFaculty() {
+            var facultyEl = $('#faculty_id');
+            $.ajax({
+                url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
+                type : 'get',
+                data : {
+                    id: facultyEl.val(),
+                },
+                success : function (response) {
+                    var majorId = $("#major_id");
+                    var userMajor = {{$user->major_id}};
+                    majorId.html('');
+                    majorId.append("<option></option>");
+                    $.each(response, function (i, item) {
+                        var selected = (item['id'] == userMajor ? ' selected' : '');
+                        majorId.append("<option value='" + item['id'] + "'" + selected +">" + item['name'] + "</option>");
+                });
+                    majorId.prop('disabled',false);
+                },
+                    error: function(err) {
+                }
+             })
+        }
+
+        getMajorFaculty();
+        
+        $('#faculty_id').change(function() {
+            getMajorFaculty();
+        });
+    });
+
     var input = document.querySelector("input[name=topics]");
     tagify = new Tagify(input, {
       maxTags: 10,

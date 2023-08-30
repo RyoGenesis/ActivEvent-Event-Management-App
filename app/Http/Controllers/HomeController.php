@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,35 +30,37 @@ class HomeController extends Controller
     public function index()
     {
         $latestEvents = Event::with('community')->where('status', 'Active')
-                    // ->whereDate('date','>',now())
+                    ->whereDate('date','>',now())
                     ->orderBy('created_at', 'DESC')->limit(6)->get();
         $featuredEvents = Event::with('community')->where([['status', 'Active'], ['is_highlighted', true]])
-                        // ->whereDate('date','>',now())
+                        ->whereDate('date','>',now())
                         ->orderBy('created_at', 'DESC')->limit(6)->get();
         $popularEvents = Event::with('community')->withCount('users')
                         ->where('status', 'Active')
-                        // ->whereDate('date','>',now())
+                        ->whereDate('date','>',now())
                         ->orderBy('users_count','DESC')->orderBy('created_at', 'DESC')->limit(6)->get();
         if(Auth::check()){
             $user = User::find(Auth::user()->id);
 
-            // dd($user->communities->pluck('id'));
+            // dd($user->categories->pluck('id'));
 
             $recommendedEvents = Event::with('community')->where('status','Active')->whereDate('date','>',now());
 
             //get by user communities
-            $recommendedEvents = $recommendedEvents->orWhereIn('community_id', $user->communities->pluck('id'));
+            $recommendedEvents = $recommendedEvents->WhereIn('community_id', $user->communities->pluck('id'));
 
             //get by user major
-            $recommendedEvents = $recommendedEvents;
+            $recommendedEvents = $recommendedEvents->orWhereHas('majors', function (Builder $q) use ($user){
+                $q->where('id', $user->major_id);
+            });
 
             //get by user category interest
-            $recommendedEvents = $recommendedEvents;
+            $recommendedEvents = $recommendedEvents->orWhereIn('category_id', $user->categories->pluck('id'));
 
             //get by interest topics
             $topicInterests = explode(',',$user->topics);
             foreach($topicInterests as $interest){
-                $recommendedEvents = $recommendedEvents->orWhere('topic', 'like', "%".$interest."%");
+                $recommendedEvents = $recommendedEvents->orWhere('topic', 'like', "%".$interest."%")->orWhere('name', 'like', "%".$interest."%");
             }
             $recommendedEvents = $recommendedEvents->orderBy('created_at', 'DESC')->limit(6)->get();
             return view('home', compact('latestEvents', 'featuredEvents', 'popularEvents', 'recommendedEvents'));
