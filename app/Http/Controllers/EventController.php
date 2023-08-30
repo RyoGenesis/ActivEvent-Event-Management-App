@@ -361,6 +361,11 @@ class EventController extends Controller
         return view('featuredevent', compact('featuredevents'));
     }
 
+    public function recommendedevent($topic){
+        $recommendedevents=Event::where('topic', 'like', "%".$topic."%")->paginate(10);
+        return view('recommendedevent', compact('recommendedevents','topic'));
+    }
+
     function register(Request $request) {
         $validation = [
             "id"=>'required|integer|exists:events,id,deleted_at,NULL',

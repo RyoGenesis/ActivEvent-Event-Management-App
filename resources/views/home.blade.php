@@ -253,7 +253,13 @@
             <div class="container-fluid mb-4">
                 <div class="row mb-4">
                     <h3 class="col-8">Because You Intrested In "{{$topicinterest}}"</h3>
-                    <a href="" class="col-4 text-end fs-5" style="text-decoration: none; color: black">show more</a>
+                    @if($recomendedevents[$topicinterest]->isEmpty())
+                        <a href="/recommendedevent/{{$topicinterest}}" class="col-4 text-end fs-5" style="text-decoration: none; color: black"></a>
+
+                    @else
+                        <a href="/recommendedevent/{{$topicinterest}}" class="col-4 text-end fs-5" style="text-decoration: none; color: black">show more</a>
+                    @endif
+                    
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
