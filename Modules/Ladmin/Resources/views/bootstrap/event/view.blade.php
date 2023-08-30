@@ -65,20 +65,19 @@
             {{-- certificate--}}
             <div class="col">
                 <p class="fw-bold mb-1">Provide Certificate</p>
-                <p></p>
-                {{$event->has_certificate ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>'}}
+                {!! $event->has_certificate ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>' !!}
             </div>
             {{-- comserv --}}
             <div class="col">
                 <p class="fw-bold mb-1">Provide Community Service Hours</p>
-                {{$event->has_comserv ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>'}}
+                {!! $event->has_comserv ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>' !!}
             </div>
         </div>
         <div class="row">
             {{-- sat provide--}}
             <div class="col">
                 <p class="fw-bold mb-1">Provide SAT</p>
-                {{$event->has_sat ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>'}}
+                {!! $event->has_sat ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>' !!}
             </div>
             {{-- sat level --}}
             <div class="col">
@@ -124,12 +123,12 @@
             {{-- major excl--}}
             <div class="col">
                 <p class="fw-bold mb-1">Major exclusive</p>
-                {{$event->exclusive_major ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>'}}
+                {!! $event->exclusive_major ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>' !!}
             </div>
             {{-- member excl --}}
             <div class="col">
                 <p class="fw-bold mb-1">Community member exclusive</p>
-                {{$event->exclusive_member ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>'}}
+                {!!$event->exclusive_member ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>' !!}
             </div>
         </div>
         <div class="row">
@@ -141,7 +140,7 @@
             {{-- highlight --}}
             <div class="col">
                 <p class="fw-bold mb-1">Event is highlighted</p>
-                {{$event->is_highlighted ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>'}}
+                {!!$event->is_highlighted ? '<p class="text-success">Yes</p>' : '<p class="text-danger">No</p>'!!}
             </div>
         </div>
         <div class="row">

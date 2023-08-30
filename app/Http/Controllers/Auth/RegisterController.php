@@ -105,10 +105,9 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $campus=Campus::all();
-        $faculty=Faculty::all();
-        $major=Major::all();
-        return view('auth.register')->with('campus', $campus)->with('faculty', $faculty)->with('major', $major);
+        $campus = Campus::all();
+        $faculty = Faculty::all();
+        return view('auth.register')->with('campus', $campus)->with('faculty', $faculty);
 
     }
 }

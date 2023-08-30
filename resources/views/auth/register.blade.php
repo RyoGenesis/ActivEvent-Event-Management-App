@@ -101,7 +101,6 @@
                             {{-- <label for="faculty" class="col-md-4 col-form-label text-md-end">{{ __('Faculty') }}</label> --}}
                             <div class="col-md-8">
                                 <select class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
-                                    {{-- loop pake kampus nanti --}}
                                     <option value="" selected disabled>Your Faculty</option>
                                     @foreach ($faculty as $faculty)
                                         <option value="{{$faculty->id}}">{{$faculty->name}}</option>
@@ -118,12 +117,8 @@
                         <div class="row my-4 justify-content-center">
                             {{-- <label for="major" class="col-md-4 col-form-label text-md-end">{{ __('Major') }}</label> --}}
                             <div class="col-md-8">
-                                <select class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id">
-                                    {{-- loop pake kampus nanti --}}
+                                <select class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id" disabled>
                                     <option value="" selected disabled>Your Major</option>
-                                        @foreach ($major as $major)
-                                            <option option value="{{$major->id}}">{{$major->name}}</option>
-                                        @endforeach
                                 </select>
                                 @error('major_id')
                                     <span class="invalid-feedback">
@@ -152,4 +147,31 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#faculty_id').change(function() {
+                $.ajax({
+                    url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
+                    type : 'get',
+                    data : {
+                        id: $(this).val(),
+                    },
+                    success : function (response) {
+                        var majorId = $("#major_id");
+                        majorId.html('');
+                        majorId.append("<option value="" selected disabled>Your Major</option>");
+                        $.each(response, function (i, item) {
+                            majorId.append("<option value='" + item['id'] + "'>" + item['name'] + "</option>");
+                        });
+                        majorId.prop('disabled',false);
+                    },
+                    error: function(err) {
+                    }
+                })
+            });
+        });
+    </script>
 @endsection

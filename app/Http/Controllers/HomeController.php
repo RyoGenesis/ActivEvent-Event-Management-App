@@ -28,18 +28,37 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latestevents=Event::where('status', 'Active')->orderBy('created_at', 'DESC')->limit(9)->get();
-        $featuredevents=Event::where([['status', 'Active'], ['is_highlighted', true]])->limit(9)->get();
+        $latestEvents = Event::with('community')->where('status', 'Active')
+                    // ->whereDate('date','>',now())
+                    ->orderBy('created_at', 'DESC')->limit(6)->get();
+        $featuredEvents = Event::with('community')->where([['status', 'Active'], ['is_highlighted', true]])
+                        // ->whereDate('date','>',now())
+                        ->orderBy('created_at', 'DESC')->limit(6)->get();
+        $popularEvents = Event::with('community')->withCount('users')
+                        ->where('status', 'Active')
+                        // ->whereDate('date','>',now())
+                        ->orderBy('users_count','DESC')->orderBy('created_at', 'DESC')->limit(6)->get();
         if(Auth::check()){
             $user = User::find(Auth::user()->id);
+
+            $recommendedEvents = Event::with('community')->where('status','Active')->whereDate('date','>',now());
+
+            //get by user communities
+
+            //get by user major
+
+            //get by user category interest
+
+            //get by interest topics
             $topicInterests = explode(',',$user->topics);
             foreach($topicInterests as $interest){
-                $recomendedevents[$interest] = Event::where('topic', 'like', "%".$interest."%")->get();
+                $recommendedEvents = $recommendedEvents->orWhere('topic', 'like', "%".$interest."%");
             }
-            return view('home', compact('latestevents', 'featuredevents', 'recomendedevents', 'topicInterests'));
+            $recommendedEvents = $recommendedEvents->orderBy('created_at', 'DESC')->limit(6)->get();
+            return view('home', compact('latestEvents', 'featuredEvents', 'recommendedEvents', 'topicInterests'));
         }
         else{
-            return view('home', compact('latestevents', 'featuredevents'));
+            return view('home', compact('latestEvents', 'featuredEvents','popularEvents'));
         }
     }
 }

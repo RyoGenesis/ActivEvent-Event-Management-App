@@ -14,3 +14,19 @@
     font-size: 12px;
     opacity: 60%;
 }
+
+.card-title.event-name {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-text {
+    margin-bottom: 2px;
+}
+
+.btn-event-dashboard {
+    text-align: center;
+    margin-top: 0.75em;
+}

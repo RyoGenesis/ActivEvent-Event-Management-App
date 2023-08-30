@@ -1,0 +1,15 @@
+.img-logo img{
+    width: 6em;
+}
+
+.app-logo {
+    width: 12em;
+}
+
+.main-menu {
+    color: #115290 !important;
+}
+
+.main-menu.active {
+    font-weight: bold;
+}

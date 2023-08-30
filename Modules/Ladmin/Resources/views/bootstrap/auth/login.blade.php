@@ -6,7 +6,7 @@
                 <x-slot name="body">
                     <div class="px-4">
                         <div class="text-center p-3">
-                            <img src="{{ config('ladmin.logo') }}" alt="Logo" class="mb-3" width="200">
+                            <img src="{{asset('images/ActivEvent-logo.png')}}" alt="Logo" class="mb-3" width="250">
                             <div>Administrator Login</div>
                         </div>
 

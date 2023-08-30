@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/custom-css-main.css') }}">
     @yield('style')
 
     <!-- Scripts -->
@@ -31,8 +32,8 @@
         <header>
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'ActivEvent') }}
+                    <a class="navbar-brand img-logo" href="{{ url('/') }}">
+                        <img class="img-fluid" src="{{asset('images/ActivEvent-logo.png')}}" alt="ActivEvent Logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -53,16 +54,16 @@
                     <div class="collapse navbar-collapse" id=navbarApp>
                         <ul class="navbar-nav me-auto ms-3 my-2">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{route('home')}}">Home</a>
+                                <a class="nav-link main-menu active" href="{{route('home')}}">Home</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a  class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
+                                <a class="nav-link dropdown-toggle main-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="">Popular</a>
+                                    <a class="dropdown-item main-menu" href="">Popular</a>
 
-                                    <a class="dropdown-item" href="{{route ('featuredevent')}}">Featured</a>
+                                    <a class="dropdown-item main-menu" href="{{route ('featuredevent')}}">Featured</a>
 
-                                    <a  class="dropdown-item" href="{{route('latestevent')}}">Latest</a>
+                                    <a class="dropdown-item main-menu" href="{{route('latestevent')}}">Latest</a>
                                 </div>
                                 {{-- <ul class="dropdown-menu">
                                     <li class="ps-2">Popular</li>
@@ -73,7 +74,7 @@
                                 </ul> --}}
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('contactus')}}">Contact us</a>
+                                <a class="nav-link main-menu" href="{{route('contactus')}}">Contact us</a>
                             </li>
                         </ul>
                     </div>
@@ -90,27 +91,27 @@
                             @guest
                                 @if (Route::has('login'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Sign In') }}</a>
+                                        <a class="nav-link main-menu" href="{{ route('login') }}">{{ __('Sign In') }}</a>
                                     </li>
                                 @endif
     
                                 @if (Route::has('register'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Sign Up') }}</a>
+                                        <a class="nav-link main-menu" href="{{ route('register') }}">{{ __('Sign Up') }}</a>
                                     </li>
                                 @endif
                             @else
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown main-menu" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Hello, {{ Auth::user()->name }}
                                     </a>
     
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
+                                        <a class="dropdown-item main-menu" href="{{route('profile')}}">Profile</a>
 
-                                        <a href="{{route('changepassword')}}" class="dropdown-item">Change Password</a>
+                                        <a href="{{route('changepassword')}}" class="dropdown-item main-menu">Change Password</a>
 
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <a class="dropdown-item main-menu" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
@@ -136,7 +137,9 @@
         <footer class="footer" style="background-color: #05559e; color:white">
             <div class="container p-3">
                 <div class="row mb-3">
-                    <div class="col fs-4 fw-bold"> ActivEvent </div>
+                    <div class="col">
+                        <img class="img-fluid app-logo" src="{{asset('images/ActivEvent-logo.png')}}" alt="ActivEvent Logo"> 
+                    </div>
                     <div class="col-3">
                         <div class="fs-4">Event</div>
                         <div class="mt-2">

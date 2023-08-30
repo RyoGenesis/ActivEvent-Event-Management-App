@@ -24,7 +24,7 @@
         <div class="bg-aside bg-white">
 
             <header class="aside-logo text-center p-3">
-                <img src="{{ config('ladmin.logo') }}" alt="Logo" width="150">
+                <img src="{{asset('images/ActivEvent-logo.png')}}" alt="Logo" width="100">
                 <a href="javascript:Ladmin.toggleMenu();" class="text-decoration-none">
                     <i class="fa fa-2x text-danger btn-close-sidebar fa-regular fa-circle-xmark"></i>
                 </a>
@@ -54,7 +54,7 @@
             </div>
             <div class="d-flex align-items-center me-3">
 
-                <x-ladmin-notification :user="$user" />
+                {{-- <x-ladmin-notification :user="$user" /> --}}
 
                 <img src="{{ $user->gravatar }}" alt="Avatar" class="img-thumbnail me-3 img-fluid rounded-circle"
                     width="50">
