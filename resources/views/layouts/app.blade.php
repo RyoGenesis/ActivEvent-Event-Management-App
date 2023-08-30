@@ -41,12 +41,12 @@
 
                     <form class="input-xl col-lg-4 border rounded-pill bg-light" role="search" method="GET" action="{{route('search')}}">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text mt-1 bg-light border-0">
-                                <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
-                              </span>
-                            </div>
                             <input type="search" name="search" value="{{$search ?? ''}}" class="form-control" placeholder="Search Event">
+                            <div class="input-group-append">
+                                <span class="input-group-text mt-1 bg-light border-0">
+                                    <button type="submit" class="fa-solid fa-magnifying-glass border-0" style="color: #000000;"></button>
+                                </span>
+                              </div>
                         </div>
                         {{-- <button class="btn btn-outline-secondary">Search</button> --}}
                     </form>
