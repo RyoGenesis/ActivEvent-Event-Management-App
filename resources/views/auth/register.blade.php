@@ -162,7 +162,7 @@
                     success : function (response) {
                         var majorId = $("#major_id");
                         majorId.html('');
-                        majorId.append("<option value="" selected disabled>Your Major</option>");
+                        majorId.append('<option value="" selected disabled>Your Major</option>');
                         $.each(response, function (i, item) {
                             majorId.append("<option value='" + item['id'] + "'>" + item['name'] + "</option>");
                         });
@@ -170,7 +170,7 @@
                     },
                     error: function(err) {
                     }
-                })
+                });
             });
         });
     </script>
