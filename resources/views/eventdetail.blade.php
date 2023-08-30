@@ -123,7 +123,6 @@
             <div class="row px-3">
                 <div class="col d-flex justify-content-end py-5">
                     @if (Auth::check())
-                        {{-- wip for register event--}}
                         @if ($registered)
                             @if ($event->additional_form_link)
                                  <button type="button" class="btn btn-info me-4" data-bs-toggle="modal" data-bs-target="#modalform">
