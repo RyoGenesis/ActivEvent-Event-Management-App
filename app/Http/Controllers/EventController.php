@@ -361,9 +361,25 @@ class EventController extends Controller
         return view('featuredevent', compact('featuredevents'));
     }
 
-    public function recommendedevent($topic){
-        $recommendedevents=Event::where('topic', 'like', "%".$topic."%")->paginate(10);
-        return view('recommendedevent', compact('recommendedevents','topic'));
+    public function recommendedevent(){
+        // dd('abc');
+        $user = User::find(Auth::user()->id);
+
+        $recommendedEvents = Event::with('community')->where('status','Active')->whereDate('date','>',now());
+
+        //get by user communities
+
+        //get by user major
+
+        //get by user category interest
+
+        //get by interest topics
+        $topicInterests = explode(',',$user->topics);
+        foreach($topicInterests as $interest){
+            $recommendedEvents = $recommendedEvents->orWhere('topic', 'like', "%".$interest."%");
+        }
+        $recommendedEvents = $recommendedEvents->orderBy('created_at', 'DESC')->paginate(10);
+        return view('recommendedevent', compact('recommendedEvents', 'topicInterests'));    
     }
 
     function register(Request $request) {

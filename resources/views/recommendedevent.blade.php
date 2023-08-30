@@ -6,8 +6,8 @@
   <div class="mb-2">
     <a href="/home" style="text-decoration: none">Home</a> > <small> Recommended Event</small>
   </div>
-    <h3 class="mb-4">Recommended Events for Topic "{{$topic}}"</h3>
-    @foreach ($recommendedevents as $recommendedevent)
+    <h3 class="mb-4">Recommended Events"</h3>
+    @foreach ($recommendedEvents as $recommendedevent)
       <div class="card mb-4 mx-auto" style="max-width: 1100px" data-clickable="true", data-href="/eventdetail/{{$recommendedevent->id}}">
         <div class="row g-0">
             <div class="col-md-4">
@@ -49,7 +49,7 @@
       </div>
     @endforeach
     <div class="paginating">
-      {{$recommendedevents->links()}}
+      {{$recommendedEvents->links()}}
     </div>
 </div>
 @endsection
