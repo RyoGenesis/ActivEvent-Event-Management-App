@@ -6,7 +6,10 @@
         {{ session()->get('success') }}
     </div>
     @endif
-    <div class="container text-center"><h3>Profile</h3></div>
+    <div class="container ">
+            <a href="/home" style="text-decoration: none">Home</a> > <small>Profile</small>
+        <h3 class="text-center">Profile</h3>
+    </div>
 
     <div class="d-flex justify-content-center">
         <div class="card" style="width:50rem">
@@ -18,7 +21,7 @@
                         <div class="fs-6">{{$user->name}}</div>
                     </div>
                     <div class="col">
-                        <h5 class="text-primary">NIM</h5>
+                        <h5 class="text-primary">NIM</h5> 
                         <div class="fs-6">{{$user->nim}}</div>
                     </div>
                     <div class="col">
