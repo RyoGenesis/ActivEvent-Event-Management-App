@@ -170,8 +170,8 @@ class UserController extends Controller
     }
 
     function historyevent(){
-        $user = User::with('events_rejected')->where('id',Auth::user()->id)->first();
-        $historyevents = $user->events_rejected;
+        $user = User::with('events')->where('id',Auth::user()->id)->first();
+        $historyevents = $user->events;
         return view('historyevent', compact('user', 'historyevents'));
     }
 }

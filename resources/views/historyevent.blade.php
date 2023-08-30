@@ -7,7 +7,7 @@
             <a href="{{ url()->previous() }}" class="fa fa-xl fa-arrow-left" style="text-decoration:none; color:black"></a>
         </div>
         <div class="col-2">
-            <h3>Pevious Event</h3>
+            <h3>Event History</h3>
         </div>
     </div>
     <table class="table mt-2">
@@ -22,8 +22,18 @@
                 <tr class="table-light">
                     <th class="fw-light fs-5">{{$loop->iteration}}</th>
                     <th class="fw-light fs-5">{{$event->name}}</th>
-                    <th class="fw-light fs-5">{{$event->pivot->status}}</th>
-                    <th class="fw-light fs-5">{{$event->pivot->reasoning}}</th>
+                    <th class="fw-light fs-5">
+                        @if ($event->pivot->status == 'Registered')
+                        <p class="text-success">
+                            {{$event->pivot->status}}
+                        </p>
+                        @else
+                        <p class="text-danger">
+                            {{$event->pivot->status}}
+                        </p>
+                        @endif
+                    </th>
+                    <th class="fw-light fs-5">{{$event->pivot->reasoning ?? '-'}}</th>
                 </tr>
             @endforeach
         </tbody>

@@ -64,7 +64,7 @@
                      <small>Jam Operational:</small>
                      <ul>
                         <li>
-                            <small class="fw-bold">Senin-Sabtu: 78.00-22.00</small>
+                            <small class="fw-bold">Senin-Sabtu: 08.00-22.00</small>
                         </li>
                         <li>
                             <small class="fw-bold">Minggu: 08.00-15.00</small>

@@ -402,8 +402,10 @@ class EventController extends Controller
         $event = Event::with(['users','majors','community'])->find($request->id);
         $user = User::with(['events','communities','major'])->find(Auth::user()->id);
 
+        
+
         //check eligibility
-        if($this->checkEligibility($user, $event)) {
+        if(!$this->checkEligibility($user, $event)) {
             return redirect()->back()->with('successful', false)->with('error', 'You\'re not eligible to register for this event!');
         }
 
@@ -437,10 +439,12 @@ class EventController extends Controller
         if($event->registration_end->isPast()) {
             return false;
         }
+
         //check available slot
         if($event->max_slot != -1 && $event->users->count() >= $event->max_slot) {
             return false;
         }
+       
         //exclusive member check
         if($event->exclusive_member && !$student->communities->contains($event->community)) {
             return false;
