@@ -7,7 +7,7 @@
             <div class="card" style="width:50rem; border-radius:10%">
                 <div class="card-body">
                     <div class="card-title text-center my-4">
-                        <h3>{{ __('Sign Up') }}</h3>
+                        <h3>{{ __('Register Account') }}</h3>
                     </div>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf

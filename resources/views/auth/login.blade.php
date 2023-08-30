@@ -7,7 +7,7 @@
             <div class="card" style="width:565pt; height:698px; border-radius:10%">
                 <div class="card-body">
                     <div class="card-title my-5 py-4">
-                        <h3 class="text-center">{{ __('Sign In') }}</h3>
+                        <h3 class="text-center">{{ __('Login') }}</h3>
                     </div>
 
                     <form method="POST" action="{{ route('login') }}">

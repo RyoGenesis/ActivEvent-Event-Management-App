@@ -149,16 +149,6 @@ class UserController extends Controller
         return view('profile', compact(['user','upcomingEvents','rejectedEvents','topicInterests']));
     }
 
-    
-    function edit() {
-        $user = User::with(['campus','faculty','major','communities','categories'])->where('id',Auth::user()->id)->first();
-        $campuses = Campus::all();
-        $faculties = Faculty::all();
-        $communities = Community::all();
-        $categories = Category::all();
-        return view('main.profile.edit', compact(['user', 'campuses', 'faculties', 'communities', 'categories']));
-    }
-
     function showEditProfileForm(){
         $user=User::with(['campus','faculty','major','communities','categories'])->find(Auth::user()->id);
         $campuses=Campus::all();
@@ -166,7 +156,8 @@ class UserController extends Controller
         $communities = Community::all();
         $categories = Category::all();
         $userCommunities = $user->communities->pluck('id')->toArray();
-        return view('editprofile', compact('user', 'campuses', 'faculties','communities','categories','userCommunities'));
+        $preferredCategories = $user->categories->pluck('id')->toArray();
+        return view('editprofile', compact('user', 'campuses', 'faculties','communities','categories','userCommunities','preferredCategories'));
     }
 
     function historyevent(){

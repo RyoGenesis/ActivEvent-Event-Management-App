@@ -4,20 +4,21 @@
     <div class="container text-center mt-3">
         <h2>Edit Profile</h2>
     </div>
-    <div class="d-flex justify-content-center mt-5">
+    {{-- Need to add success message WIP --}}
+    <div class="container mt-5">
         <form action="{{route('editprofile.update')}}" method="POST" enctype="multipart/form-data" id="formeditprofile">
             @csrf
-            <div class="card d-flex justify-content-center" style="width:65rem">
-                <div class="form-group btn-reset btn mt-3 me-3">
+            <div class="card justify-content-center">
+                <div class="mt-3 me-3">
                     <div class="d-flex justify-content-between">
-                        <a href="{{route('profile')}}" class="fa fa-2xl fa-arrow-left item-start" style="text-decoration:none; color:black"></a>
+                        <a href="{{route('profile')}}" class="fa fa-2xl fa-arrow-left p-3" style="text-decoration:none; color:black"></a>
 
                         <button id='submitbtn' type="submit" class="p-2 btn btn-outline-danger btn-submit btn-sm">
                             {{ __('Save') }}          
                         </button>
                     </div>
                 </div>
-                <div class="form-group row g-3 mt-3">
+                <div class="form-group row g-2 mt-3">
                     <div class="col-md-6 px-5 pt-4">
                         <label for="name"><h5 class="text-primary">Name</h5></label>
                         <input type="text" id="name" name="name" value="{{$user->name}}" class="form-control @error('name') is-invalid @enderror">
@@ -40,8 +41,8 @@
                     </div>
                 </div>
 
-                <div class="form group row g-3">
-                    <div class="col-md-6 px-5 pt-5">
+                <div class="form group row g-2">
+                    <div class="col-md-6 px-5 pt-4">
                         <label for="phone"><h5 class="text-primary">Phone</h5></label>
                         <input type="text" value="{{$user->phone}}" id="phone" name="phone" class="form-control @error('phone')
                             is-invalid
@@ -52,7 +53,7 @@
                             </div>
                         @enderror
                     </div>
-                    <div class="col-md-6 px-5 pt-5">
+                    <div class="col-md-6 px-5 pt-4">
                         <label for="email"><h5 class="text-primary">Email</h5></label>
                         <input type="email" value="{{$user->email}}" id="email" name="email" disabled= 'true' class="form-control @error('email')
                             is-invalid
@@ -65,8 +66,8 @@
                     </div>
                 </div>
 
-                <div class="form-group row g-3">
-                    <div class="col-md-6 px-5 pt-5">
+                <div class="form-group row g-2">
+                    <div class="col-md-6 px-5 pt-4">
                         <label for="personal_email"><h5 class="text-primary">Personal Email</h5></label>
                         <input type="email" value="{{$user->personal_email}}" name="personal_email" id="personal_email" class="form-control @error('personal_email')
                             is-invalid
@@ -78,7 +79,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-6 px-5 pt-5">
+                    <div class="col-md-6 px-5 pt-4">
                         <label for="campus_id"><h5 class="text-primary">Campus</h5></label>
                         <select data-placeholder="Select campus" class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
                             <option></option>
@@ -96,8 +97,8 @@
                     </div>
                 </div>
 
-                <div class="form-group row g-3">
-                    <div class="col-md-6 px-5 pt-5">
+                <div class="form-group row g-2">
+                    <div class="col-md-6 px-5 pt-4">
                         <label for="faculty_id"><h5 class="text-primary">Faculty</h5></label>
                         <select class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
                             <option></option>
@@ -114,7 +115,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-6 px-5 pt-5">
+                    <div class="col-md-6 px-5 pt-4">
                         <label for="major_id"><h5 class="text-primary">Major</h5></label>
                         <select data-placeholder="Select major" class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id" disabled>
                         </select>
@@ -126,8 +127,8 @@
                     </div>
                 </div>
 
-                <div class="form-group row g-3">
-                    <div class="col px-5 pt-5">
+                <div class="form-group row g-2">
+                    <div class="col px-5 pt-4">
                         <label for="communities"><h5 class="text-primary">Communities</h5></label>
                         <select data-placeholder="Select communities" class="form-select form-control @error('communities') is-invalid @enderror" name="communities[]" id="communities" multiple>
                             @foreach ($communities as $community)
@@ -139,18 +140,32 @@
                         @enderror
                     </div>
                 </div>
+
+                <div class="form-group row g-2">
+                    <div class="col px-5 pt-4">
+                        <label for="categories"><h5 class="text-primary">Preferred Event Category</h5></label>
+                        <select data-placeholder="Select categories" class="form-select form-control @error('categories') is-invalid @enderror" name="categories[]" id="categories" multiple>
+                            @foreach ($categories as $category)
+                                <option value="{{$category->id}}" {{ in_array($category->id, $preferredCategories) ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('categories')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
                 
-                @if($errors->any())
+                {{-- @if($errors->any())
                 <div class="alert alert-danger">
                     {{ implode('', $errors->all(':message')) }}
                 </div>
-                @endif
+                @endif --}}
 
-                <div class="form-group row g-3">
-                    <div class="col px-5 py-5">
+                <div class="form-group row g-2">
+                    <div class="col px-5 py-4">
                         <label for="topics"><h5 class="text-primary">Topic Interests</h5></label>
                         <input class="form-control" name="topics" value="{{$user->topics}}" multiple id="topics">
-                        <button class='btn btn-warning tags--removeAllBtn mt-3' type='button'>Remove all tags</button>
+                        <button class='btn btn-warning tags--removeAllBtn mt-3' type='button'>Remove all topics</button>
                     </div>
                 </div>
             </div>
@@ -180,6 +195,14 @@
         });
         
         $('#communities').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+            allowClear: true,
+        });
+
+        $('#categories').select2({
             theme: "bootstrap-5",
             width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),

@@ -13,3 +13,13 @@
 .main-menu.active {
     font-weight: bold;
 }
+
+.profile-card {
+    width : 90%;
+}
+
+@media (min-width: 768px) {
+    .profile-card {
+        width: 70%;
+    }
+}

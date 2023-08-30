@@ -6,31 +6,29 @@
         {{ session()->get('success') }}
     </div>
     @endif
-    <div class="container ">
+    <div class="container mb-3">
             <a href="/home" style="text-decoration: none">Home</a> > <small>Profile</small>
         <h3 class="text-center">Profile</h3>
     </div>
 
     <div class="d-flex justify-content-center">
-        <div class="card" style="width:50rem">
-            <div class="card-body ms-5  ps-5 pe-3">
+        <div class="card profile-card">
+            <div class="card-body ms-2 ps-5 pe-3">
                 <a href="{{route("editprofile")}}" class="fa-solid fa-xl fa-pencil d-flex justify-content-end my-3 pe-3" style="text-decoration: none; color:black"></a>
-                <div class="row mb-3">
-                    <div class="col">
+                <div class="row">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">Name</h5>
                         <div class="fs-6">{{$user->name}}</div>
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">NIM</h5> 
                         <div class="fs-6">{{$user->nim}}</div>
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">Phone</h5>
                         <div class="fs-6">{{$user->phone}}</div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">Email</h5>
                         @empty($user->email)
                             <div class="fs-6">-</div>
@@ -38,7 +36,7 @@
                             <div class="fs-6">{{$user->email}}</div>
                         @endempty
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">Personal Email</h5>
                         @empty($user->personal_email)
                             <div class="fs-6">-</div>
@@ -46,7 +44,7 @@
                             <div class="fs-6">{{$user->personal_email}}</div>
                         @endempty
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">Campus</h5>
                         @empty($user->campus)
                             <div class="fs-6">-</div>
@@ -54,10 +52,7 @@
                             <div class="fs-6">{{$user->campus->name}}</div>
                         @endempty
                     </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-4">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">Faculty</h5>
                         @empty($user->faculty)
                             <div class="fs-6">-</div>
@@ -65,8 +60,7 @@
                             <div class="fs-6">{{$user->faculty->name}}</div>
                         @endempty
                     </div>
-
-                    <div class="col-4">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">Major</h5>
                         @empty($user->major)
                             <div class="fs-6">-</div>
@@ -74,8 +68,7 @@
                             <div class="fs-6">{{$user->major->name}}</div>
                         @endempty
                     </div>
-
-                    <div class="col-4">
+                    <div class="col-12 col-sm-4 mb-3">
                         <h5 class="text-primary">Communities</h5>
                         <div class="fs-6">
                             @forelse ($user->communities as $community)
@@ -90,16 +83,31 @@
                         </div>
                     </div>
                 </div>
+                <div class="mb-3">
+                    <h5 class="text-primary">Preferred Event Category</h5>
+                    <div class="fs-6">
+                        @forelse ($user->categories as $category)
+                            @if ($loop->last)
+                                {{$category->display_name}}
+                            @else
+                                {{$category->display_name}}, 
+                            @endif
+                        @empty
+                            -
+                        @endforelse
+                    </div>
+                </div>
 
                 <div>
-                    <h5 class="text-primary mb-3">Interested Topics</h5>
+                    <h5 class="text-primary mb-3">Topic Interests</h5>
                     @if(!$user->topics)
                         <div class="fs-6">-</div>
                     @else
                         @foreach ($topicInterests as $topic)
-                            <span class="rounded-pill border border-3 border-success text-success p-1 me-2 fs-6 fw-bold">
+                        {{-- need fixing responsive view --}}
+                            <span class="rounded-pill bg-info text-light p-2 m-1 fs-6">
                                 {{$topic}}
-                            </span>                           
+                            </span>
                         @endforeach
                     @endempty
                 </div>

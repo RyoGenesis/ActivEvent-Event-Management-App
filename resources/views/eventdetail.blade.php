@@ -47,7 +47,7 @@
                 <div class="row py-1">
                     <div class="col col-md-6">
                         <h4 class="fw-bold">Event Category</h2>
-                        <p class="fs-5">{{$event->category->display_name}}</p>
+                        <p class="fs-5">{{$event->category->name}}</p>
                     </div>
                     <div class="col col-md-6">
                         <h4 class="fw-bold">Topic</h4>

@@ -207,6 +207,7 @@ class EventController extends Controller
         $validation = [
             "search"=>'string|max:60',
         ];
+        $request->validate($validation);
 
         $search = strip_tags($request->search);
         $categories = Category::all();
@@ -219,6 +220,8 @@ class EventController extends Controller
                     $query->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
                 })
                 ->get();
+        
+        //filter logic WIP
         if($request->checkcomserv){
             $sat=$request->checkcomserv;
             $events = Event::where('has_comserv', true)->get();
@@ -254,7 +257,6 @@ class EventController extends Controller
         $validation = [
             "id"=>'required|integer|exists:events,id,deleted_at,NULL',
         ];
-
         $request->validate($validation);
         Event::where('id',$request->id)
             ->update(['status' => 'Active']);
@@ -279,11 +281,11 @@ class EventController extends Controller
 
     function highlightInsert(Request $request) {
         $validation = [
-            "id"=>'required|integer|exists:events,id,deleted_at,NULL',
+            "event_id"=>'required|integer|exists:events,id,deleted_at,NULL',
         ];
-
         $request->validate($validation);
-        Event::where('id',$request->id)->update(['is_highlighted' => true]);
+
+        Event::where('id',$request->event_id)->update(['is_highlighted' => true]);
         
         return redirect()->route('ladmin.event.highlight.index')->with('success','Successfully highlight selected event!');
     }
@@ -292,8 +294,8 @@ class EventController extends Controller
         $validation = [
             "id"=>'required|integer|exists:events,id,deleted_at,NULL',
         ];
-
         $request->validate($validation);
+
         Event::where('id',$request->id)->update(['is_highlighted' => false]);
         
         return redirect()->route('ladmin.event.highlight.index')->with('success','Successfully remove highlight from event!');
@@ -323,6 +325,7 @@ class EventController extends Controller
             'reasoning' => $request->reason,
         ]);
 
+        //Sending notification WIP
         $participant = User::where('id', $request->id)->first();
         // Mail::to($participant->email)->send(new RejectedParticipationMail($event, $request->reason));
         if($participant->personal_email) {
@@ -333,7 +336,6 @@ class EventController extends Controller
     }
 
     function downloadData($id) {
-
         $event = Event::with(['users' => ['campus','faculty','major']])->where('id',$id)->first();
         $participants = $event->users()->where('status','!=','Rejected')->get();
         $header_style = (new Style())->setFontBold();
@@ -348,30 +350,36 @@ class EventController extends Controller
                 'Campus' => $participant->campus->name,
                 'Faculty' => $participant->faculty->name,
                 'Major' => $participant->major->name,
+                'Attendance' => '',
             ];
         });
     }
 
     public function latestevent(){
-        $latestevents=Event::where('status', 'Active')->orderBy('created_at', 'DESC')->paginate(10);
+        $latestevents = Event::with('community')->where('status', 'Active')
+                        ->whereDate('date','>',now())
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate(10);
         return view('latestevent', compact('latestevents'));
     }
 
     public function featuredevent(){
-        $featuredevents=Event::where([['status', 'Active'], ['is_highlighted', true]])->paginate(10);
+        $featuredevents = Event::with('community')->where([['status', 'Active'], ['is_highlighted', true]])
+                        ->whereDate('date','>',now())
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate(10);
         return view('featuredevent', compact('featuredevents'));
     }
 
     public function popularevent(){
-        $popularevents=Event::with('community')->withCount('users')
+        $popularevents = Event::with('community')->withCount('users')
                         ->where('status', 'Active')
-                        // ->whereDate('date','>',now())
+                        ->whereDate('date','>',now())
                         ->orderBy('users_count','DESC')->orderBy('created_at', 'DESC')->paginate(10);
         return view('popularevent', compact('popularevents'));
     }
 
     public function recommendedevent(){
-        // dd('abc');
         $user = User::find(Auth::user()->id);
 
         $recommendedEvents = Event::with('community')->where('status','Active')->whereDate('date','>',now());
@@ -400,10 +408,10 @@ class EventController extends Controller
         $validation = [
             "id"=>'required|integer|exists:events,id,deleted_at,NULL',
         ];
+        $request->validate($validation);
+
         $event = Event::with(['users','majors','community'])->find($request->id);
         $user = User::with(['events','communities','major'])->find(Auth::user()->id);
-
-        
 
         //check eligibility
         if(!$this->checkEligibility($user, $event)) {
@@ -425,9 +433,9 @@ class EventController extends Controller
         $validation = [
             "id"=>'required|integer|exists:events,id,deleted_at,NULL',
         ];
-        
-        $user = User::find(Auth::user()->id);
+        $request->validate($validation);
 
+        $user = User::find(Auth::user()->id);
         //cancel registration
         $user->events()->detach($request->id);
 
