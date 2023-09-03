@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Event;
+use App\Rules\EventDateRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EventRequest extends FormRequest
 {
@@ -23,13 +26,16 @@ class EventRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('id') ?? null;
+        $event = Event::find($id);
+
         return [
             'name' => 'required|string',
             'community_id' => 'required|integer|exists:communities,id',
             'description' => 'required|string',
             'location' => 'required|string',
-            'registration_end' => 'required|date|after:tomorrow|date_format:Y-m-d\TH:i',
-            'date' => 'required|date|after:registration_end|date_format:Y-m-d\TH:i',
+            'registration_end' => ['required','date','date_format:Y-m-d\TH:i', new EventDateRule($event)],
+            'date' => ['required','date','date_format:Y-m-d\TH:i','after:registration_end' , new EventDateRule($event)],
             'status' => 'sometimes|required|string',
             'category_id' => 'required|integer|exists:categories,id',
             'topic' => 'nullable|string',

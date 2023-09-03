@@ -82,6 +82,7 @@ class User extends Authenticatable
 
     public function events_rejected() {
         return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')
+                ->where('date','>',Carbon::now())
                 ->wherePivot('status', 'Rejected')
                 ->withPivot('status', 'reasoning');
     }
