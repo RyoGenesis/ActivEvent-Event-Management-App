@@ -33,8 +33,10 @@ class EventDateRule implements Rule
             return true;
         }
         $dateMin = Carbon::today()->addWeek(2);
-        $dateInput = Carbon::createFromFormat($value);
-
+        // dd($dateMin);
+        // dd(Carbon::createFromFormat("Y-m-d H:i", $value));
+        $dateInput = Carbon::createFromFormat('Y-m-d\TH:i', $value, 'Asia/Jakarta');
+        dd($dateInput>$dateMin);
         return $dateInput > $dateMin;
     }
 
