@@ -36,7 +36,6 @@ class EventDateRule implements Rule
         // dd($dateMin);
         // dd(Carbon::createFromFormat("Y-m-d H:i", $value));
         $dateInput = Carbon::createFromFormat('Y-m-d\TH:i', $value, 'Asia/Jakarta');
-        dd($dateInput>$dateMin);
         return $dateInput > $dateMin;
     }
 
