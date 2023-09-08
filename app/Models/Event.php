@@ -49,4 +49,47 @@ class Event extends Model
     public function sat_level() {
         return $this->belongsTo(SatLevel::class)->withTrashed();
     }
+
+    public function scopeFilterBy($query, $request)
+    {
+        // $query->when($request->status, function ($q) use ($request) {
+        //     $q->where('status', $request->status);
+        // });
+        
+        $query->when($request->category_id, function ($q) use ($request) {
+            $q->where('category_id', $request->category_id);
+        });
+
+        $query->when($request->has_sat, function ($q) {
+            $q->where('has_sat',true);
+        });
+
+        $query->when($request->has_comserv, function ($q) {
+            $q->where('has_comserv',true);
+        });
+
+        $query->when($request->has_certificate, function ($q) {
+            $q->where('has_certificate',true);
+        });
+
+        $query->when($request->price, function ($q) use ($request) {
+            if($request->price == 'Free') {
+                $q->where('price', 0);
+            } else {
+                $q->where('price','>',0);
+            }
+        });
+
+        $query->when($request->max_slot, function ($q) use ($request) {
+            if($request->max_slot == 'No Limit') {
+                $q->where('max_slot', -1);
+            } else {
+                $q->where('max_slot','>',0);
+            }
+        });
+
+        $query->when($request->community_id, function ($q) use ($request) {
+            $q->where('community_id', $request->community_id);
+        });
+    }
 }
