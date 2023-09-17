@@ -69,7 +69,7 @@ class User extends Authenticatable
     }
 
     public function events() {
-        return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')
+        return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')->withTrashed()
                 ->withPivot('status', 'reasoning');
     }
 
@@ -81,9 +81,11 @@ class User extends Authenticatable
     }
 
     public function events_rejected() {
-        return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')
+        return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')->withTrashed()
                 ->where('date','>',Carbon::now())
-                ->wherePivot('status', 'Rejected')
+                ->where(function($q) {
+                    $q->whereNotNull('deleted_at')->orWherePivot('status', 'Rejected');
+                })
                 ->withPivot('status', 'reasoning');
     }
 

@@ -121,7 +121,7 @@
                 <h3>Your Upcoming Event</h3>
             </div>
             <div class="col">
-                <a href="{{route('historyevent')}}" class="btn btn-secondary">History Event</a>
+                <a href="{{route('historyevent')}}" class="btn btn-secondary">Event History</a>
             </div>
         </div>
         @if ($upcomingEvents->isEmpty())
