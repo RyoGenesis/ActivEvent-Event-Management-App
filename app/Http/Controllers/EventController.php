@@ -205,7 +205,7 @@ class EventController extends Controller
     }
 
     public function search(Request $request){
-        // $selectedoptions = $request->input('filter',[]);
+        $selectedoptions = $request->input();
         $validation = [
             "search"=>'string|max:60',
         ];

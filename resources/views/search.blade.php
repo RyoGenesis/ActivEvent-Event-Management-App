@@ -13,7 +13,7 @@
                             <h4>Filter</h4>
                         </div>
                         <div class="col text-end">
-                            <button class="btn btn-sm btn-primary fs-6" type="submit">Submit</button>
+                            <button class="btn btn-sm btn-primary fs-6" type="submit" id="submitfilter">Submit</button>
                         </div>
                     </div>
                     <div class="accordion" id="accordionSat">
@@ -186,83 +186,24 @@
             </div>
         </div>
     </div>
-
-
-    {{-- <div id="contentevent" class="p-2 bg-light ms-md-4 ms-sm-2" style="width:100%">
-        <div class="row gap-3">
-            @if ($events->isEmpty())
-            No search result for "{{$search}}"
-            @else
-            @foreach ($events as $event)
-                <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$event->id]) }}" style="height:max-content">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$event->name}}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <h4>{{$event->name}}</h4>
-                                    <span class="badge rounded-pill text-bg-info">{{$event->category->name}}</span>
-                                    @if ($event->has_sat == 'true')
-                                        <span class="badge rounded-pill text-bg-primary">SAT</span>
-                                    @endif
-                                    @if ($event->has_comserv == 'true')
-                                        <span class="badge rounded-pill text-bg-primary">Comserv</span>
-                                    @endif
-                                    @if ($event->has_certificate == 'true')
-                                        <span class="badge rounded-pill text-bg-primary">Certificate</span>
-                                    @endif
-                                </div>
-                                <p class="card-text fw-light">{{$event->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                <p class="card-text fw-light">Slot Available: {{$event->max_slot == -1 ? 'No Limit' : $event->max_slot}}</p>
-                                <p class="card-text fw-light">Fee: {{$event->price == 0 ? 'Free' : 'Rp. '.number_format($event->price,2,',','.')}}</p>
-                                <small class="card-text">Posted by {{$event->community->name}}</small>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            @endforeach    
-            @endif
-        
-        </div>
-    </div> --}}
-    {{-- </div> --}}
 </div>
 
 @endsection
 
-{{-- @section('scripts')
+@section('scripts')
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const autoSubmitCheckbox = document.querySelectorAll('.form-check-input');
-
-        const form = document.getElementById('formsearch');
-        const prevfilter = new URLSearchParams(window.location.search);
-        console.log(prevfilter);
-     
-        autoSubmitCheckbox.forEach(function(checkbox){
-            console.log(checkbox.checked);
-            checkbox.addEventListener('change', function(){
-                var search = "{{$search}}";
-                console.log(search);
-                const formdata =  new FormData(form);
-                fetch('{{route('search')}}', {
-                    method: 'GET',
-                    body: formdata,
-                })
-                .then(response =>response.text())
-                .then(data => {
-                    filteredResults.innerHTML = data;
-                })
-                // var prevsearch = document.createElement('input');
-                // prevsearch.type = 'hidden';
-                // prevsearch.name = 'nama';
-                // prevsearch.value = search;
-                
-                // form.appendChild(prevsearch)
-            });
-        });
+    const form = document.getElementById('formsearch');
+    document.getElementById('formsearch').addEventListener('submit', function(event){
+        event.preventDefault();
+        var searchvalue = "{{$search}}";
+        console.log(searchvalue);
+        var prevsearch = document.createElement('input');
+            prevsearch.type = 'hidden';
+            prevsearch.name = 'search';
+            prevsearch.value = searchvalue;
+            console.log(prevsearch);
+            form.appendChild(prevsearch);
+            form.submit();
     });
-</script> --}}
-{{-- @endsection --}}
+</script>
+@endsection
