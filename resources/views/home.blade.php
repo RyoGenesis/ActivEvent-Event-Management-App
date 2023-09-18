@@ -359,7 +359,7 @@
 
                             <div class="carousel-item">
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
-                                    @foreach ($recommendedEvents as $recEvent)
+                                    @foreach ($recommendedEvents as $recevent)
                                         @if ($loop->iteration > 3)
                                             <div class="col">
                                                 <a class="card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$recevent->id]) }}" style="height:max-content">

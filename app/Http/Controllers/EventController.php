@@ -154,9 +154,10 @@ class EventController extends Controller
         }
 
         $imageFile = $request->file('image');
-
+       
         if($imageFile) {
             $imageName = time().'_'.str_replace(' ', '-',$request->name).'.'.$imageFile->getClientOriginalExtension();
+            // dd($imageFile, $imageName);
             Storage::putFileAs('public/images/event_images/', $imageFile, $imageName);
             $imageUrl = 'images/event_images/'.$imageName;
             Storage::delete('public/'.$event->image);
@@ -204,6 +205,7 @@ class EventController extends Controller
     }
 
     public function search(Request $request){
+        // $selectedoptions = $request->input('filter',[]);
         $validation = [
             "search"=>'string|max:60',
         ];
@@ -222,10 +224,41 @@ class EventController extends Controller
                 ->get();
         
         //filter logic WIP
-        if($request->checkcomserv){
-            $sat=$request->checkcomserv;
-            $events = Event::where('has_comserv', true)->get();
+        if($request->checkcomserv == "yes"){
+           $events =  $events->where('has_comserv', true);
         }
+
+        if($request->checksat == "yes"){
+            $events =  $events->where('has_sat', true);        
+        }
+
+        if($request->checkcertificate == "yes"){
+            $events =  $events->where('has_certificate', true);        
+        }
+
+        if($request->checkcertificate == "yes"){
+            $events =  $events->where('has_certificate', true);        
+        }
+
+        if($request->categories != NULL){
+            $events = $events->whereIn('category_id', $request->categories);
+        }
+
+        if($request->checkfee){
+            if($request->checkfee == 'paid'){
+                $events =  $events->where('price', '>', '0');      
+            }
+            else{
+                $events =  $events->where('price', '=', '0');      
+
+            }
+        }
+
+        if($request->communities != NULL){
+            $events = $events->whereIn('community_id', $request->communities);
+        }
+
+
         return view('search', compact('events', 'search', 'communities', 'categories'));
     }
 
