@@ -7,7 +7,7 @@
     <div class="d-flex">
         <div class="p-2">
             <form id="formsearch" role="search" method="GET" action="{{route('search')}}">
-                <div class="container-fluid rounded-3 p-0" style="border:1px solid lightgrey">
+                <div class="container-fluid rounded-3 p-0" style="border:1px solid lightgrey; width:300px">
                     <div class="row my-3 px-2">
                         <div class="col">
                             <h4>Filter</h4>
@@ -16,7 +16,7 @@
                             <button class="btn btn-sm btn-primary fs-6" type="submit" id="submitfilter">Submit</button>
                         </div>
                     </div>
-                    <div class="accordion" id="accordionSat">
+                    <div class="accordion" style="" id="accordionSat">
                         <div class="accordion-item">
                             <h6 class="accordion-header">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesat" aria-expanded="true" aria-controls="collapsesat" >SAT Point</button>
