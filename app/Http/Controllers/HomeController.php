@@ -46,22 +46,25 @@ class HomeController extends Controller
 
             $recommendedEvents = Event::with('community')->where('status','Active')->whereDate('date','>',now());
 
-            //get by user communities
-            $recommendedEvents = $recommendedEvents->WhereIn('community_id', $user->communities->pluck('id'));
+            $recommendedEvents = $recommendedEvents->where(function ($q) use ($user) {
 
-            //get by user major
-            $recommendedEvents = $recommendedEvents->orWhereHas('majors', function (Builder $q) use ($user){
-                $q->where('id', $user->major_id);
+                $topicInterests = explode(',',$user->topics);
+
+                //get by user communities
+                $q = $q->whereIn('community_id', $user->communities->pluck('id'))
+                    //get by user major
+                    ->orWhereHas('majors', function (Builder $qu) use ($user){
+                        $qu->where('id', $user->major_id);
+                    })
+                    //get by user category interest
+                    ->orWhereIn('category_id', $user->categories->pluck('id'));
+                
+                //get by interest topics
+                foreach($topicInterests as $interest){
+                    $q = $q->orWhere('topic', 'like', "%".$interest."%")->orWhere('name', 'like', "%".$interest."%");
+                }
             });
-
-            //get by user category interest
-            $recommendedEvents = $recommendedEvents->orWhereIn('category_id', $user->categories->pluck('id'));
-
-            //get by interest topics
-            $topicInterests = explode(',',$user->topics);
-            foreach($topicInterests as $interest){
-                $recommendedEvents = $recommendedEvents->orWhere('topic', 'like', "%".$interest."%")->orWhere('name', 'like', "%".$interest."%");
-            }
+            
             $recommendedEvents = $recommendedEvents->orderBy('created_at', 'DESC')->limit(6)->get();
             return view('home', compact('latestEvents', 'featuredEvents', 'popularEvents', 'recommendedEvents'));
         }
