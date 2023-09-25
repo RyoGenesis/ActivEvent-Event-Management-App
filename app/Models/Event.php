@@ -52,44 +52,60 @@ class Event extends Model
 
     public function scopeFilterBy($query, $request)
     {
-        // $query->when($request->status, function ($q) use ($request) {
-        //     $q->where('status', $request->status);
-        // });
         
-        $query->when($request->category_id, function ($q) use ($request) {
-            $q->where('category_id', $request->category_id);
+        //Category filter
+        $query->when($request->categories, function ($q) use ($request) {
+            $q->whereIn('category_id', $request->categories);
         });
 
-        $query->when($request->has_sat, function ($q) {
-            $q->where('has_sat',true);
+        //SAT filter
+        $query->when($request->has_sat, function ($q) use ($request) {
+            if($request->has_sat == 'Yes') {
+                $q->where('has_sat',true);
+            } else if ($request->has_sat == 'No'){
+                $q->where('has_sat',false);
+            }
         });
 
-        $query->when($request->has_comserv, function ($q) {
-            $q->where('has_comserv',true);
+        //Comserv filter
+        $query->when($request->has_comserv, function ($q) use ($request) {
+            if($request->has_comserv == 'Yes') {
+                $q->where('has_comserv',true);
+            } else if ($request->has_comserv == 'No'){
+                $q->where('has_comserv',false);
+            }
         });
 
-        $query->when($request->has_certificate, function ($q) {
-            $q->where('has_certificate',true);
+        //certificate filter
+        $query->when($request->has_certificate, function ($q) use ($request) {
+            if($request->has_certificate == 'Yes') {
+                $q->where('has_certificate',true);
+            } else if ($request->has_certificate == 'No'){
+                $q->where('has_certificate',false);
+            }
         });
 
+        //price filter
         $query->when($request->price, function ($q) use ($request) {
             if($request->price == 'Free') {
                 $q->where('price', 0);
-            } else {
+            } else if ($request->price == 'Paid'){
                 $q->where('price','>',0);
             }
         });
 
+        //slot limitation filter
         $query->when($request->max_slot, function ($q) use ($request) {
             if($request->max_slot == 'No Limit') {
                 $q->where('max_slot', -1);
-            } else {
+            } else if ($request->max_slot == 'Limited'){
                 $q->where('max_slot','>',0);
             }
         });
 
-        $query->when($request->community_id, function ($q) use ($request) {
-            $q->where('community_id', $request->community_id);
+        //community filter
+        $query->when($request->communities, function ($q) use ($request) {
+            $q->whereIn('community_id', $request->communities);
         });
     }
 }

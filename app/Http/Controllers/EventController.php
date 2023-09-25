@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EventRequest;
+use App\Jobs\ApprovalRequestReminder;
+use App\Jobs\SendEmailEventCancelled;
+use App\Jobs\SendEmailEventChanged;
 use App\Mail\RejectedParticipationMail;
 use App\Models\Bga;
 use App\Models\Category;
@@ -87,6 +90,9 @@ class EventController extends Controller
             $event->bgas()->attach($request->bgas);
         }
 
+        //send email reminder to all super admin user about waiting approval
+        ApprovalRequestReminder::dispatchSync($event);
+
         return redirect()->route('ladmin.event.index')->with('success','Successfully added new event!');
     }
 
@@ -168,7 +174,7 @@ class EventController extends Controller
 
         //if date is changed, then send notification
         if($event->isDirty('date') || $event->isDirty('location')) {
-            //wip
+            SendEmailEventChanged::dispatch($event)->delay(now()->addMinutes(1));
         }
 
         $event->save();
@@ -196,6 +202,7 @@ class EventController extends Controller
 
         if($event->status == 'Active') {
             //send notification to participants
+            SendEmailEventCancelled::dispatch($event);
         }
 
         $event->update(['status' => 'Cancelled']);
@@ -205,61 +212,30 @@ class EventController extends Controller
     }
 
     public function search(Request $request){
-        $selectedoptions = $request->input();
         $validation = [
-            "search"=>'string|max:60',
+            "search"=>'string|max:100',
         ];
         $request->validate($validation);
 
+        // dd($request->input());
+
         $search = strip_tags($request->search);
-        $categories = Category::all();
-        $communities = Community::all();
-        $events = Event::where('name', 'like', "%".$search."%") //search name
-                ->orWhere('topic', 'like', "%".$search."%") //search topic
-                ->orWhere('description', 'like', "%".$search."%") //search description
-                ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
-                ->orWhereHas('community', function (Builder $query) use ($search){ //search community name
-                    $query->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
+        $availCategories = Category::all();
+        $availCommunities = Community::all();
+        $events = Event::with('community')->where('status', 'Active')->whereDate('date','>',now())
+                ->filterBy($request)
+                ->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%".$search."%") //search name
+                    ->orWhere('topic', 'like', "%".$search."%") //search topic
+                    ->orWhere('description', 'like', "%".$search."%") //search description
+                    ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
+                    ->orWhereHas('community', function (Builder $query) use ($search){ //search community name
+                        $query->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
+                    });
                 })
-                ->get();
-        
-        //filter logic WIP
-        if($request->checkcomserv == "yes"){
-           $events =  $events->where('has_comserv', true);
-        }
+                ->paginate(10)->withQueryString();
 
-        if($request->checksat == "yes"){
-            $events =  $events->where('has_sat', true);        
-        }
-
-        if($request->checkcertificate == "yes"){
-            $events =  $events->where('has_certificate', true);        
-        }
-
-        if($request->checkcertificate == "yes"){
-            $events =  $events->where('has_certificate', true);        
-        }
-
-        if($request->categories != NULL){
-            $events = $events->whereIn('category_id', $request->categories);
-        }
-
-        if($request->checkfee){
-            if($request->checkfee == 'paid'){
-                $events =  $events->where('price', '>', '0');      
-            }
-            else{
-                $events =  $events->where('price', '=', '0');      
-
-            }
-        }
-
-        if($request->communities != NULL){
-            $events = $events->whereIn('community_id', $request->communities);
-        }
-
-
-        return view('search', compact('events', 'search', 'communities', 'categories'));
+        return view('search', compact('events', 'search', 'availCommunities', 'availCategories','request'));
     }
 
     function eventdetail($id){

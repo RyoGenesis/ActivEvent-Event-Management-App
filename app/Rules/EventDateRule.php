@@ -29,12 +29,16 @@ class EventDateRule implements Rule
      */
     public function passes($attribute, $value)
     {
+        
         if($this->event) {
-            return true;
+            //also check that the changed date cannot be too close either
+            $dateMin = Carbon::today()->addDays(4); //ex for now, minimum 4 days
+            $dateInput = Carbon::createFromFormat('Y-m-d\TH:i', $value, 'Asia/Jakarta');
+            return $dateInput > $dateMin;
         }
+        
+        //initially, must be minimum 2 weeks
         $dateMin = Carbon::today()->addWeek(2);
-        // dd($dateMin);
-        // dd(Carbon::createFromFormat("Y-m-d H:i", $value));
         $dateInput = Carbon::createFromFormat('Y-m-d\TH:i', $value, 'Asia/Jakarta');
         return $dateInput > $dateMin;
     }
@@ -46,6 +50,9 @@ class EventDateRule implements Rule
      */
     public function message()
     {
+        if($this->event) {
+            return 'The selected date must be 4 days minimum from now.';
+        }
         return 'The selected date must be 2 weeks minimum from now.';
     }
 }
