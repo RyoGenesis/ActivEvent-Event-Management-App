@@ -235,7 +235,18 @@ class EventController extends Controller
                 })
                 ->paginate(10)->withQueryString();
 
-        return view('search', compact('events', 'search', 'availCommunities', 'availCategories','request'));
+        $selectedCategories = null;
+        $selectedCommunities = null;
+
+        if($request->categories) {
+            $selectedCategories = Category::whereIn('id',$request->categories)->get();
+        }
+
+        if($request->communities) {
+            $selectedCommunities = Community::whereIn('id',$request->communities)->get();
+        }
+
+        return view('search', compact('events', 'search', 'availCommunities', 'availCategories','request','selectedCategories','selectedCommunities'));
     }
 
     function eventdetail($id){

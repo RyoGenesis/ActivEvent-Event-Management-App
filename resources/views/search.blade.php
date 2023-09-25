@@ -3,8 +3,47 @@
 @section('content')
 
 <div class="container my-3">
-    <h3 class="mb-4">Search results for "{{$search}}"</h3>
-    {{-- add info about current filter used WIP --}}
+    <div class="mb-3">
+        <h3>Search results for "{{$search}}"</h3>
+        {{-- add info about current filter used WIP --}}
+        @if (isset($request->has_sat))
+            <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> SAT Point : {{$request->has_sat}}</span>
+        @endif
+        @if (isset($request->has_comserv))
+            <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> Community Service Hour : {{$request->has_comserv}}</span>
+        @endif
+        @if (isset($request->has_certificate))
+            <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> E-Certificate : {{$request->has_certificate}}</span>
+        @endif
+        @if (isset($request->price))
+            <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> Registration Fee : {{$request->price}}</span>
+        @endif
+        @if (isset($request->max_slot))
+            <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> Registration Limit : {{$request->max_slot}}</span>
+        @endif
+        @if ($selectedCategories)
+            <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> Category :
+                @foreach ($selectedCategories as $category)
+                    @if ($loop->last)
+                        {{$category->display_name}}
+                    @else
+                        {{$category->display_name}}, 
+                    @endif
+                @endforeach
+            </span>
+        @endif
+        @if ($selectedCommunities)
+            <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> Community :
+                @foreach ($selectedCommunities as $community)
+                    @if ($loop->last)
+                        {{$community->display_name}}
+                    @else
+                        {{$community->display_name}}, 
+                    @endif
+                @endforeach
+            </span>
+        @endif
+    </div>
     <div class="p-1 mb-3">
         <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
             <i class="fa-solid fa-filter"></i> Filter Options <i class="fa-solid fa-caret-down"></i>

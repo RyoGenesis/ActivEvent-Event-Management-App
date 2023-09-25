@@ -18,6 +18,10 @@
     width : 90%;
 }
 
+.badge.badge-filter {
+    font-size: 0.9em;
+}
+
 @media (min-width: 768px) {
     .profile-card {
         width: 70%;
