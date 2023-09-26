@@ -5,7 +5,6 @@
 <div class="container my-3">
     <div class="mb-3">
         <h3>Search results for "{{$search}}"</h3>
-        {{-- add info about current filter used WIP --}}
         @if (isset($request->has_sat))
             <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> SAT Point : {{$request->has_sat}}</span>
         @endif
@@ -20,6 +19,9 @@
         @endif
         @if (isset($request->max_slot))
             <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> Registration Limit : {{$request->max_slot}}</span>
+        @endif
+        @if (isset($request->exclusivity))
+            <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> Exclusivity : {{$request->exclusivity}}</span>
         @endif
         @if ($selectedCategories)
             <span class="badge badge-filter text-bg-secondary m-1"><i class="fa-solid fa-filter"></i> Category :
@@ -115,18 +117,17 @@
                                 <label class="form-check-label">Limited</label>
                             </div>
                         </div>
-                        {{-- WIP filter --}}
-                        {{-- <div class="col-6 col-md-4 mb-2" id="filterSlot">
-                            <label class="form-label fw-bold fs-5">Registration Limit</label>
+                        <div class="col-6 col-md-4 mb-2" id="filterExclusive">
+                            <label class="form-label fw-bold fs-5">Participation Exclusivity</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="max_slot" name="max_slot" value="No Limit" {{ (isset($max_slot) && $max_slot == "No Limit")? "checked" : "" }}>
-                                <label class="form-check-label">No Limit</label>
+                                <input class="form-check-input" type="checkbox" id="exclusivity" name="exclusivity" value="For Everyone" {{ (isset($request->exclusivity) && $request->exclusivity == "For Everyone")? "checked" : "" }}>
+                                <label class="form-check-label">For Everyone</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="max_slot" name="max_slot" value="Limited" {{ (isset($max_slot) && $max_slot == "Limited")? "checked" : "" }}>
-                                <label class="form-check-label">Limited</label>
+                                <input class="form-check-input" type="checkbox" id="exclusivity" name="exclusivity" value="Exclusive" {{ (isset($request->exclusivity) && $request->exclusivity == "Exclusive")? "checked" : "" }}>
+                                <label class="form-check-label">Exclusive</label>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="col-12 mb-2" id="filterCategory">
                             <label class="form-label fw-bold fs-5" for="categories">Category</label>
                             <select name="categories[]" id="categories" data-placeholder="Select category" class="form-select form-control" multiple>

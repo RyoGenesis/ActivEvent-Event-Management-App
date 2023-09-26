@@ -217,8 +217,6 @@ class EventController extends Controller
         ];
         $request->validate($validation);
 
-        // dd($request->input());
-
         $search = strip_tags($request->search);
         $availCategories = Category::all();
         $availCommunities = Community::all();

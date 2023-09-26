@@ -103,6 +103,17 @@ class Event extends Model
             }
         });
 
+        //exclusivity filter
+        $query->when($request->exclusivity, function ($q) use ($request) {
+            if($request->exclusivity == 'For Everyone') {
+                $q->where('exclusive_major', false)->where('exclusive_member',false);
+            } else if ($request->exclusivity == 'Exclusive'){
+                $q->where(function ($q) {
+                    $q->where('exclusive_major', true)->orWhere('exclusive_member',true);
+                });
+            }
+        });
+
         //community filter
         $query->when($request->communities, function ($q) use ($request) {
             $q->whereIn('community_id', $request->communities);
