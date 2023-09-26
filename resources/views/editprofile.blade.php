@@ -14,7 +14,7 @@
                         <a href="{{route('profile')}}" class="fa fa-2xl fa-arrow-left p-3" style="text-decoration:none; color:black"></a>
 
                         <button id='submitbtn' type="submit" class="p-2 btn btn-outline-danger btn-submit btn-sm">
-                            {{ __('Save') }}          
+                            Save          
                         </button>
                     </div>
                 </div>
@@ -30,10 +30,11 @@
                     </div>
 
                     <div class="col-md-6 px-5 pt-4">
-                        <label for="nim"><h5 class="text-primary">Nim</h5></label>
-                        <input type="text" value="{{$user->nim}}" id="nim" name="nim"
-                        disabled='true' class="form-control @error('nim') is-invalid @enderror">
-                        @error('nim')
+                        <label for="email"><h5 class="text-primary">Email</h5></label>
+                        <input type="email" value="{{$user->email}}" id="email" name="email" disabled='true' class="form-control @error('email')
+                            is-invalid
+                        @enderror">
+                        @error('email')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
@@ -43,22 +44,21 @@
 
                 <div class="form group row g-2">
                     <div class="col-md-6 px-5 pt-4">
-                        <label for="phone"><h5 class="text-primary">Phone</h5></label>
-                        <input type="text" value="{{$user->phone}}" id="phone" name="phone" class="form-control @error('phone')
-                            is-invalid
-                        @enderror">
-                        @error('phone')
+                        <label for="nim"><h5 class="text-primary">Nim</h5></label>
+                        <input type="text" value="{{$user->nim}}" id="nim" name="nim" disabled='true' class="form-control @error('nim') is-invalid @enderror">
+                        @error('nim')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
                         @enderror
                     </div>
+
                     <div class="col-md-6 px-5 pt-4">
-                        <label for="email"><h5 class="text-primary">Email</h5></label>
-                        <input type="email" value="{{$user->email}}" id="email" name="email" disabled= 'true' class="form-control @error('email')
+                        <label for="phone"><h5 class="text-primary">Phone</h5></label>
+                        <input type="text" value="{{$user->phone}}" id="phone" name="phone" class="form-control @error('phone')
                             is-invalid
                         @enderror">
-                        @error('email')
+                        @error('phone')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
@@ -146,7 +146,7 @@
                         <label for="categories"><h5 class="text-primary">Preferred Event Category</h5></label>
                         <select data-placeholder="Select categories" class="form-select form-control @error('categories') is-invalid @enderror" name="categories[]" id="categories" multiple>
                             @foreach ($categories as $category)
-                                <option value="{{$category->id}}" {{ in_array($category->id, $preferredCategories) ? 'selected' : '' }}>{{ $category->name }}</option>
+                                <option value="{{$category->id}}" {{ in_array($category->id, $preferredCategories) ? 'selected' : '' }}>{{ $category->display_name }}</option>
                             @endforeach
                         </select>
                         @error('categories')

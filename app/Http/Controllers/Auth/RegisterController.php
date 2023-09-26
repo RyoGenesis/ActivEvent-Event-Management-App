@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\Campus;
+use App\Models\Category;
+use App\Models\Community;
 use App\Models\Faculty;
 use App\Models\Major;
 use App\Providers\RouteServiceProvider;
@@ -80,6 +82,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
             'nim' => $data['nim'],
+            'personal_email' => $data['personal_email'] ?? null,
             'campus_id' => $data['campus_id'],
             'faculty_id' => $data['faculty_id'],
             'major_id' => $data['major_id'],
@@ -105,9 +108,11 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $campus = Campus::all();
-        $faculty = Faculty::all();
-        return view('auth.register')->with('campus', $campus)->with('faculty', $faculty);
+        $campuses = Campus::all();
+        $faculties = Faculty::all();
+        $communities = Community::all()->except([1]); //get all except univ itself
+        $categories = Category::all();
+        return view('auth.register', compact('campuses', 'faculties', 'communities', 'categories'));
 
     }
 }

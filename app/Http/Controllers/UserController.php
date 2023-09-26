@@ -153,7 +153,7 @@ class UserController extends Controller
         $user=User::with(['campus','faculty','major','communities','categories'])->find(Auth::user()->id);
         $campuses=Campus::all();
         $faculties=Faculty::all();
-        $communities = Community::all();
+        $communities = Community::all()->except([1]); //get all except univ itself
         $categories = Category::all();
         $userCommunities = $user->communities->pluck('id')->toArray();
         $preferredCategories = $user->categories->pluck('id')->toArray();
