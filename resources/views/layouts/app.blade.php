@@ -18,7 +18,17 @@
     <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('css/custom-css-main.css') }}">
     @yield('style')
-
+    <style>
+        @media (max-width: 767px) {
+            .footer .fa-brands{
+                font-size: 12px;
+            }
+            .footer{
+                font-size: 12px;
+                
+            }
+        }
+    </style>
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -48,17 +58,19 @@
                                 </span>
                               </div>
                         </div>
-                    </form>
-                    
-                    <div class="collapse navbar-collapse" id=navbarApp>
-                        <ul class="navbar-nav me-auto ms-3 my-2">
-                            <li class="nav-item">
+                        {{-- <button class="btn btn-outline-secondary">Search</button> --}}
+                    </form> 
+    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav me-auto">
+                             <li class="nav-item">
                                 <a class="nav-link main-menu active" href="{{route('home')}}">Home</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle main-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item main-menu" href="{{route ('popularevent')}}">Popular</a>
+                                    <a class="dropdown-item main-menu" href="{{route('popularevent')}}">Popular</a>
 
                                     <a class="dropdown-item main-menu" href="{{route ('featuredevent')}}">Featured</a>
 
@@ -76,13 +88,6 @@
                             <li class="nav-item">
                                 <a class="nav-link main-menu" href="{{route('contactus')}}">Contact us</a>
                             </li>
-                        </ul>
-                    </div>
-    
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav me-auto">
-    
                         </ul>
     
                         <!-- Right Side Of Navbar -->
@@ -140,19 +145,20 @@
                     <div class="col-3">
                         <div class="fs-4">Event</div>
                         <div class="mt-2">
-                            <a href="" style="text-decoration:none; color:white">Featured</a>
+                            <a href="{{route('featuredevent')}}" style="text-decoration:none; color:white">Featured</a>
                         </div>
                         <div class="mt-2">
-                            <a href="" style="text-decoration:none; color:white">Populer</a>
+                            <a href="{{route('popularevent')}}" style="text-decoration:none; color:white">Popular</a>
                         </div>
                         <div class="mt-2">
-                            <a href="" style="text-decoration:none; color:white">Latest</a>
+                            <a href="{{route('latestevent')}}" style="text-decoration:none; color:white">Latest</a>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="fs-4">Need help?</div>
+                        <p class="fs-4">Need help?</p>
                         <div class="mt-2">
-                            <div class="">Admission:</div>
+                            <div>Admission:</div>
                             <small>
                                 +62852 08 696969
                             </small>
