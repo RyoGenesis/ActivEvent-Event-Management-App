@@ -9,15 +9,14 @@
                     <div class="card-title text-center my-4">
                         <h3>Register New Account</h3>
                     </div>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" id="registerForm" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
-
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required placeholder="Name*">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -25,10 +24,10 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required placeholder="Email Address*">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" required placeholder="Email Address*">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -36,10 +35,10 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="Password*">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password" required placeholder="Password*">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -50,7 +49,7 @@
                                 <input id="nim" type="text" class="form-control @error('nim') is-invalid @enderror" name="nim" value="{{ old('nim') }}" required placeholder="NIM*">
                                 @error('nim')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -61,7 +60,7 @@
                                 <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required placeholder="Phone*">
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -72,7 +71,7 @@
                                 <input id="personal_email" type="email" class="form-control @error('personal_email') is-invalid @enderror" name="personal_email" value="{{ old('personal_email') }}" placeholder="Personal Email Address">
                                 @error('personal_email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -80,15 +79,15 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <select class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
-                                    <option selected disabled>Your Campus Location*</option>
+                                <select data-placeholder="Your Campus Location*" class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
+                                    <option></option>
                                     @foreach ($campuses as $campus)
                                         <option value="{{$campus->id}}">{{$campus->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('campus_id')
                                     <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -96,15 +95,15 @@
                         
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <select class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
-                                    <option selected disabled>Your Faculty*</option>
+                                <select data-placeholder="Your Faculty*" class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
+                                    <option></option>
                                     @foreach ($faculties as $faculty)
                                         <option value="{{$faculty->id}}">{{$faculty->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('faculty_id')
                                     <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -112,12 +111,11 @@
                         
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <select class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id" disabled>
-                                    <option selected disabled>Your Major*</option>
+                                <select data-placeholder="Your Major*" class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id" disabled>
                                 </select>
                                 @error('major_id')
                                     <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -132,7 +130,7 @@
                                 </select>
                                 @error('communities')
                                     <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -147,7 +145,7 @@
                                 </select>
                                 @error('categories')
                                     <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
@@ -162,7 +160,7 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="submitRegister" type="submit" class="btn btn-primary">
                                     Submit
                                 </button>
                             </div>
@@ -184,6 +182,24 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            $('#campus_id').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            });
+
+            $('#faculty_id').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            });
+            
+            $('#major_id').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            });
+
             $('#communities').select2({
                 theme: "bootstrap-5",
                 width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -235,7 +251,7 @@
         document.querySelector('.tags--removeAllBtn')
         .addEventListener('click', tagify.removeAllTags.bind(tagify))
 
-        document.getElementById('submitbtn').addEventListener('click', function (event) {
+        document.getElementById('submitRegister').addEventListener('click', function (event) {
             event.preventDefault();
 
             if(input.value) {
@@ -252,7 +268,7 @@
             }
             
             console.log(dataArray);
-            document.getElementById('formeditprofile').submit();
+            document.getElementById('registerForm').submit();
 
         });
     </script>

@@ -22,6 +22,14 @@
     font-size: 0.9em;
 }
 
+.select2-container--bootstrap-5 .select2-selection {
+    font-size: 0.9rem;
+}
+
+#registerForm .form-control {
+    background-color: #fff;
+}
+
 @media (min-width: 768px) {
     .profile-card {
         width: 70%;

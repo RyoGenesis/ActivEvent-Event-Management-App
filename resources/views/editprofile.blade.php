@@ -102,7 +102,7 @@
                 <div class="form-group row g-2">
                     <div class="col-md-6 px-5 pt-4">
                         <label for="faculty_id"><h5 class="text-primary">Faculty</h5></label>
-                        <select class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
+                        <select data-placeholder="Select faculty" class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
                             <option></option>
                             @foreach ($faculties as $faculty)
                                 <option value="{{$faculty->id}}" {{ $faculty->id == $user->faculty_id ? 'selected' : '' }}>
