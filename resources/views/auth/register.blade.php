@@ -1,10 +1,45 @@
 @extends('layouts.app')
+@section('style')
+<style>
+    @media(max-width: 767px){
+        .card{
+            width: auto;
+            height: 100%;
+            text-align: center;
+        }
+        
+        .card .card-title{
+            margin-bottom:1rem;
+            margin-top: 1rem;
+        }
+
+        .col-md-8 {
+            width:85%;
+        }
+    }
+</style>
+
+<style>
+    @media(min-width:768px){
+        .card{
+            width: 565pt;
+            height: 698px;
+        }
+
+        .card .card-title{
+            margin-bottom:4rem;
+            margin-top: 4rem;
+        }
+    }
+
+</style>
+@endsection
 
 @section('content')
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card" style="width:50rem; border-radius:10%">
+            <div class="card" style="border-radius:10%">
                 <div class="card-body">
                     <div class="card-title text-center my-4">
                         <h3>Register New Account</h3>
