@@ -35,7 +35,7 @@ class UserRequest extends FormRequest
             'email' => ['sometimes', 'required','email', 'ends_with:@binus.ac.id', Rule::unique('users','email')->ignore($id)],
             'phone' => ['sometimes','required', 'digits_between:1,20', Rule::unique('users','phone')->ignore($id)],
             'nim' => ['sometimes', 'required','size:10', 'regex:/^[0-9]+$/', Rule::unique('users','nim')->ignore($id)],
-            'email' => ['sometimes', 'nullable','email', Rule::unique('users','personal_email')->ignore($id)],
+            'personal_email' => ['sometimes', 'nullable','email', Rule::unique('users','personal_email')->ignore($id)],
             'password' => 'sometimes|required|string|min:6',
             'campus_id' => 'required|integer|exists:campuses,id',
             'faculty_id' => 'required|integer|exists:faculties,id',
@@ -54,6 +54,7 @@ class UserRequest extends FormRequest
     {
         return [
             'email' => 'email address',
+            'personal_email' => 'personal email',
             'phone' => 'phone number',
             'nim' => 'NIM',
             'campus_id' => 'campus',

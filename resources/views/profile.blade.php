@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','ActivEvent | Your Profile')
+
 @section('content')
     @if(session()->has('success'))
     <div class="alert alert-success">

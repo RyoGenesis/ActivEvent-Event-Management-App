@@ -7,7 +7,7 @@
             <div class="card" style="width:565pt; height:698px; border-radius:10%">
                 <div class="card-body pt-5 mt-5">
                     <div class="card-title text-center my-4">
-                        <h3 class="text-center">{{ __('Reset Password') }}</h3>
+                        <h3 class="text-center">Reset Password</h3>
                         <h5 class="text-center"> Enter your email</h5>
                     </div>
                     @if (session('status'))
@@ -33,7 +33,7 @@
                             <div class="row my-4 justify-content-center">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-secondary">
-                                        {{ __('Send Password Reset Link') }}
+                                        Send Password Reset Link
                                     </button>
                                 </div>
                             </div>

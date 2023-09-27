@@ -14,7 +14,7 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Name*">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required placeholder="Name*">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -25,7 +25,7 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email Address*">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required placeholder="Email Address*">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -36,7 +36,7 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password*">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="Password*">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -47,7 +47,7 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="nim" type="text" class="form-control @error('nim') is-invalid @enderror" name="nim" value="{{ old('nim') }}" required autocomplete="nim" autofocus placeholder="NIM*">
+                                <input id="nim" type="text" class="form-control @error('nim') is-invalid @enderror" name="nim" value="{{ old('nim') }}" required placeholder="NIM*">
                                 @error('nim')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -58,7 +58,7 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus placeholder="Phone*">
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required placeholder="Phone*">
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -69,7 +69,7 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="personal_email" type="email" class="form-control @error('personal_email') is-invalid @enderror" name="personal_email" value="{{ old('personal_email') }}" autocomplete="personal_email" placeholder="Personal Email Address">
+                                <input id="personal_email" type="email" class="form-control @error('personal_email') is-invalid @enderror" name="personal_email" value="{{ old('personal_email') }}" placeholder="Personal Email Address">
                                 @error('personal_email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

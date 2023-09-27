@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','ActivEvent | Contact Us')
+
 @section('content')
 <div class="container text-center pt-3 mt-3 border border-3">
     <h3 class="pb-4">Contact Us</h3>

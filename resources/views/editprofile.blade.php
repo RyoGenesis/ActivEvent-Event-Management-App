@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','ActivEvent | Edit Profile')
+
 @section('content')
     <div class="container text-center mt-3">
         <h2>Edit Profile</h2>

@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
+@section('title','ActivEvent | Popular Events')
+
 @section('content')
 
 <div class="container">
   <div class="mb-2">
     <a href="/home" style="text-decoration: none">Home</a> > <small> Popular Event</small>
   </div>
-    <h3 class="mb-4">Popular Event</h3>
+    <h3 class="mb-4">Popular Events</h3>
     <div class="row gap-3">
       @forelse ($popularevents as $popularevent)
         <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$popularevent->id]) }}" style="height:max-content">

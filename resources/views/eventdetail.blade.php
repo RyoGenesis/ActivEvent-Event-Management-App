@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title',{{'ActivEvent | "'.$event->name.'" by '.$event->community->display_name}})
+
 @section('content')
 <div class="container bg-light border border-dark-subtle border-3 mt-4">
     <div class="row">

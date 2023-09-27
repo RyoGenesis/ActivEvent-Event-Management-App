@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','ActivEvent | Search')
+
 @section('content')
 
 <div class="container my-3">

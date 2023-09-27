@@ -35,7 +35,7 @@
                     <a class="navbar-brand img-logo" href="{{ url('/') }}">
                         <img class="img-fluid" src="{{asset('images/ActivEvent-logo.png')}}" alt="ActivEvent Logo">
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
@@ -48,7 +48,6 @@
                                 </span>
                               </div>
                         </div>
-                        {{-- <button class="btn btn-outline-secondary">Search</button> --}}
                     </form>
                     
                     <div class="collapse navbar-collapse" id=navbarApp>
@@ -59,19 +58,12 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle main-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item main-menu" href="">Popular</a>
+                                    <a class="dropdown-item main-menu" href="{{route ('popularevent')}}">Popular</a>
 
                                     <a class="dropdown-item main-menu" href="{{route ('featuredevent')}}">Featured</a>
 
                                     <a class="dropdown-item main-menu" href="{{route('latestevent')}}">Latest</a>
                                 </div>
-                                {{-- <ul class="dropdown-menu">
-                                    <li class="ps-2">Popular</li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li class="ps-2"><a href="{{route ('featuredevent')}}" style="text-decoration: none; color: black">Featured</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li class="ps-2"><a href="{{route('latestevent')}}" style="text-decoration: none; color: black">Latest</a></li>
-                                </ul> --}}
                             </li>
                             @auth
                             <li class="nav-item">
@@ -95,17 +87,16 @@
     
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ms-auto">
-                            <!-- Authentication Links -->
                             @guest
                                 @if (Route::has('login'))
                                     <li class="nav-item">
-                                        <a class="nav-link main-menu" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        <a class="nav-link main-menu" href="{{ route('login') }}">Login</a>
                                     </li>
                                 @endif
     
                                 @if (Route::has('register'))
                                     <li class="nav-item">
-                                        <a class="nav-link main-menu" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        <a class="nav-link main-menu" href="{{ route('register') }}">Register</a>
                                     </li>
                                 @endif
                             @else
@@ -119,10 +110,8 @@
 
                                         <a href="{{route('changepassword')}}" class="dropdown-item main-menu">Change Password</a>
 
-                                        <a class="dropdown-item main-menu" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                        <a class="dropdown-item main-menu" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            Logout
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

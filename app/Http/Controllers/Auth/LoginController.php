@@ -46,4 +46,11 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
     }
+
+    protected function attemptLogin(Request $request)
+    {
+        return $this->guard()->attempt( //login always automatically remembered
+            $this->credentials($request), true
+        );
+    }
 }
