@@ -31,7 +31,7 @@
 </style>
 @endsection
 
-@section('title',{{'ActivEvent | "'.$event->name.'" by '.$event->community->display_name}})
+@section('title','ActivEvent | "'.$event->name.'" by '.$event->community->display_name)
 
 @section('content')
 <div class="container bg-light border border-dark-subtle border-3 mt-4 desktop-only">
@@ -209,33 +209,41 @@
                             </div>
                         
                         @else
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalregister">
-                                Register
-                            </button>
-                            
-                            <div class="modal fade" id="modalregister" tabindex="-1" aria-labelledby="modallabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="modallabel">Registration Event</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            @if ($event->registration_end > \Carbon\Carbon::now())
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalregister">
+                                    Register
+                                </button>
+                                
+                                <div class="modal fade" id="modalregister" tabindex="-1" aria-labelledby="modallabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="modallabel">Registration Event</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Confirm Registration for This Event?
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <form action="{{route('registration')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$event->id}}">
+                                            <button type="submit" class="btn btn-success">Register</button>
+                                        </form>
                                     </div>
-                                    <div class="modal-body">
-                                        Confirm Registration for This Event?
                                     </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <form action="{{route('registration')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{$event->id}}">
-                                        <button type="submit" class="btn btn-success">Register</button>
-                                    </form>
                                 </div>
-                                </div>
-                            </div>
+                            @else
+                                <p class="text-danger">Sorry, registration period has ended! You're not able to register for this event.</p>
+                            @endif
                         @endif
                     @else
-                        <a href="{{route('login')}}" class="btn btn-primary btn-lg">Register</a>
+                        @if ($event->registration_end > \Carbon\Carbon::now())
+                            <a href="{{route('login')}}" class="btn btn-primary btn-lg">Register</a>
+                        @else
+                            <p class="text-danger">Sorry, registration period has ended! You're not able to register for this event.</p>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -413,33 +421,41 @@
                     </div>
                 
                 @else
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalregister">
-                        Register
-                    </button>
-                    
-                    <div class="modal fade" id="modalregister" tabindex="-1" aria-labelledby="modallabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h1 class="modal-title fs-6" id="modallabel">Registration Event</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    @if ($event->registration_end > \Carbon\Carbon::now())
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalregister">
+                            Register
+                        </button>
+                        
+                        <div class="modal fade" id="modalregister" tabindex="-1" aria-labelledby="modallabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-6" id="modallabel">Registration Event</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Confirm Registration for This Event?
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form action="{{route('registration')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$event->id}}">
+                                    <button type="submit" class="btn btn-success btn">Register</button>
+                                </form>
                             </div>
-                            <div class="modal-body">
-                                Confirm Registration for This Event?
                             </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form action="{{route('registration')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="id" value="{{$event->id}}">
-                                <button type="submit" class="btn btn-success btn">Register</button>
-                            </form>
                         </div>
-                        </div>
-                    </div>
+                    @else
+                        <p class="text-danger">Sorry, registration period has ended! You're not able to register for this event.</p>
+                    @endif
                 @endif
             @else
-                <a href="{{route('login')}}" class="btn btn-primary btn">Register</a>
+                @if ($event->registration_end > \Carbon\Carbon::now())
+                    <a href="{{route('login')}}" class="btn btn-primary btn-lg">Register</a>
+                @else
+                    <p class="text-danger">Sorry, registration period has ended! You're not able to register for this event.</p>
+                @endif
             @endif
         </div>
     </div>
