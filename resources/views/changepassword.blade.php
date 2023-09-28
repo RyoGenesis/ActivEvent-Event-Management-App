@@ -6,7 +6,7 @@
 <div class="container">
     <div class="text-center mb-4"><h3>Change Password</h3></div>
     <div class="d-flex justify-content-center">
-        <div class="card pt-4" style="width:565pt;border-radius:10%">
+        <div class="card card-auth pt-4" style="width:565pt;border-radius:10%">
             <div class="card-body">
                 <form action="{{route("changepassword.update")}}" method="post">
                     @csrf
