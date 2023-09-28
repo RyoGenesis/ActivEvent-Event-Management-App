@@ -30,8 +30,38 @@
     background-color: #fff;
 }
 
+.card-auth {
+    width: auto;
+    height: 100%;
+    text-align: center;
+    border-radius:10% !important;
+}
+
+.card-auth .card-title {
+    margin-bottom:1rem;
+    margin-top: 1rem;
+}
+
+/* applied for mobile / tablet*/
+@media(max-width: 767.9px){ 
+    .register-col {
+        width:85%;
+    }
+}
+
+/* applied when large screen / desktop */
 @media (min-width: 768px) {
     .profile-card {
         width: 70%;
+    }
+
+    .card-auth {
+        width: 565pt;
+        height: 698px;
+    }
+
+    .card-auth .card-title {
+        margin-bottom:4rem;
+        margin-top: 4rem;
     }
 }

@@ -58,7 +58,6 @@
                                 </span>
                               </div>
                         </div>
-                        {{-- <button class="btn btn-outline-secondary">Search</button> --}}
                     </form> 
     
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
