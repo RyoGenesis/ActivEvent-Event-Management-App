@@ -9,9 +9,9 @@
     <a href="/home" style="text-decoration: none">Home</a> > <small> Latest Event</small>
   </div>
     <h3 class="mb-4">Latest Events</h3>
-    <div class="row gap-3">
+    <div class="row gap-3" id="card-event-row">
       @forelse ($latestevents as $latestevent)
-        <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$latestevent->id]) }}" style="height:max-content">
+        <a class="card card-event" href="{{ route('eventdetail', ['id'=>$latestevent->id])}}">
           <div class="row g-0 allign-item-center">
               <div class="col-md-4">
                 <img src="{{$latestevent->image ? asset('storage/'.$latestevent->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$latestevent->name}}">

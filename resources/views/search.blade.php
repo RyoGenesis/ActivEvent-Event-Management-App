@@ -151,13 +151,13 @@
             </form>
         </div>
     </div>
-    <div class="row gap-3">
+    <div class="row gap-3" id="card-event-row">
         @if ($events->isEmpty())
         No search result for "{{$search}}"
         @else
         @foreach ($events as $event)
         {{-- <div class="col"> --}}
-            <a class="card text-decoration-none text-dark" href="{{ route('eventdetail', ['id'=>$event->id]) }}" style="height:max-content">
+            <a class="card card-event" href="{{ route('eventdetail', ['id'=>$event->id]) }}" style="height:max-content">
                 <div class="row g-0 align-items-center">
                     <div class="col-md-4">
                         <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$event->name}}">
