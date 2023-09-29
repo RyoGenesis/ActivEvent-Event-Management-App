@@ -49,7 +49,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <form class="input-xl col-lg-4 border rounded-pill bg-light" role="search" method="GET" action="{{route('search')}}">
+                    <form class="input-xl col-12 col-lg-4 border rounded-pill bg-light" role="search" method="GET" action="{{route('search')}}">
                         <div class="input-group">
                             <input type="search" name="search" value="{{$search ?? ''}}" class="form-control" placeholder="Search Event">
                             <div class="input-group-append">

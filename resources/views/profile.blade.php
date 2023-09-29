@@ -18,19 +18,19 @@
             <div class="card-body ms-2 ps-5 pe-3">
                 <a href="{{route("editprofile")}}" class="fa-solid fa-xl fa-pencil d-flex justify-content-end my-3 pe-3" style="text-decoration: none; color:black"></a>
                 <div class="row">
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">Name</h5>
                         <div class="fs-6">{{$user->name}}</div>
                     </div>
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">NIM</h5> 
                         <div class="fs-6">{{$user->nim}}</div>
                     </div>
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">Phone</h5>
                         <div class="fs-6">{{$user->phone}}</div>
                     </div>
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">Email</h5>
                         @empty($user->email)
                             <div class="fs-6">-</div>
@@ -38,7 +38,7 @@
                             <div class="fs-6">{{$user->email}}</div>
                         @endempty
                     </div>
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">Personal Email</h5>
                         @empty($user->personal_email)
                             <div class="fs-6">-</div>
@@ -46,7 +46,7 @@
                             <div class="fs-6">{{$user->personal_email}}</div>
                         @endempty
                     </div>
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">Campus</h5>
                         @empty($user->campus)
                             <div class="fs-6">-</div>
@@ -54,7 +54,7 @@
                             <div class="fs-6">{{$user->campus->name}}</div>
                         @endempty
                     </div>
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">Faculty</h5>
                         @empty($user->faculty)
                             <div class="fs-6">-</div>
@@ -62,7 +62,7 @@
                             <div class="fs-6">{{$user->faculty->name}}</div>
                         @endempty
                     </div>
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">Major</h5>
                         @empty($user->major)
                             <div class="fs-6">-</div>
@@ -70,7 +70,7 @@
                             <div class="fs-6">{{$user->major->name}}</div>
                         @endempty
                     </div>
-                    <div class="col-12 col-sm-4 mb-3">
+                    <div class="col-6 col-sm-4 mb-3">
                         <h5 class="text-primary">Communities</h5>
                         <div class="fs-6">
                             @forelse ($user->communities as $community)

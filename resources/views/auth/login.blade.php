@@ -5,7 +5,7 @@
         <div class="col-md-8">
             <div class="card card-auth">
                 <div class="card-body">
-                    <div class="card-title my-5 py-4">
+                    <div class="card-title">
                         <h3 class="text-center">Login</h3>
                     </div>
 
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="row my-4 justify-content-center">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary">
                                     Log In
                                 </button>

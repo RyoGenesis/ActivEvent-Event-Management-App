@@ -5,7 +5,7 @@
         <div class="col-md-8 register-col">
             <div class="card card-auth">
                 <div class="card-body">
-                    <div class="card-title text-center my-4">
+                    <div class="card-title text-center">
                         <h3>Register New Account</h3>
                     </div>
                     <form method="POST" id="registerForm" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -158,7 +158,7 @@
                         </div>
 
                         <div class="row my-4 justify-content-center">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6">
                                 <button id="submitRegister" type="submit" class="btn btn-primary">
                                     Submit
                                 </button>

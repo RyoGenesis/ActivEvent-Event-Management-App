@@ -4,8 +4,8 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card" style="width:565pt; height:698px; border-radius:10%">
-                <div class="card-body pt-5 mt-5">
+            <div class="card card-auth">
+                <div class="card-body">
                     <div class="card-title text-center my-4">
                         <h3 class="text-center">Reset Password</h3>
                         <h5 class="text-center"> Enter your email</h5>
