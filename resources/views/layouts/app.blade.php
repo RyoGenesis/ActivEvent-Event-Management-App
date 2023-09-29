@@ -155,7 +155,6 @@
                     </div>
                     <div class="col-3">
                         <div class="fs-4">Need help?</div>
-                        <p class="fs-4">Need help?</p>
                         <div class="mt-2">
                             <div>Admission:</div>
                             <small>

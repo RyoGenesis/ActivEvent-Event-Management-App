@@ -1,3 +1,11 @@
+.desktop-only {
+    display: none;
+}
+
+.mobile-only {
+    display: block;
+}
+
 .img-logo img{
     width: 6em;
 }
@@ -42,15 +50,38 @@
     margin-top: 1rem;
 }
 
+.carousel-control-prev.control-home {
+    left: 0pt !important;
+}
+
+.carousel-control-next.control-home {
+    right: 0pt !important;
+}
+
 /* applied for mobile / tablet*/
 @media(max-width: 767.9px){ 
     .register-col {
         width:85%;
     }
+
+    .carousel-card {
+        display: block;
+        width: 80%;
+        margin:auto;
+        padding: 0 15px;
+    }
 }
 
 /* applied when large screen / desktop */
 @media (min-width: 768px) {
+    .desktop-only {
+        display: block;
+    }
+    
+    .mobile-only {
+        display: none;
+    }
+
     .profile-card {
         width: 70%;
     }
@@ -63,5 +94,13 @@
     .card-auth .card-title {
         margin-bottom:4rem;
         margin-top: 4rem;
+    }
+
+    .carousel-control-prev.control-home {
+        left: -75pt !important;
+    }
+
+    .carousel-control-next.control-home {
+        right: -75pt !important;
     }
 }
