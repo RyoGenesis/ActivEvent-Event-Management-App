@@ -16,6 +16,7 @@
         <thead>
             <th scope="col" class="fs-4">#</th>
             <th scope="col" class="fs-4">Event name</th>
+            <th scope="col" class="fs-4">Held by</th>
             <th scope="col" class="fs-4">Status</th>
             <th scope="col" class="fs-4">Reason</th>
         </thead>
@@ -24,6 +25,7 @@
                 <tr class="table-light">
                     <th class="fw-light fs-5">{{$loop->iteration}}</th>
                     <th class="fw-light fs-5">{{$event->name}}</th>
+                    <th class="fw-light fs-5">{{$event->community->display_name}}</th>
                     <th class="fw-light fs-5">
                         @if ($event->pivot->status == 'Registered')
                         <p class="text-success">

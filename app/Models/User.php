@@ -84,6 +84,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')->withTrashed()
                 ->where('date','>',Carbon::now())
                 ->where(function($q) {
+                    //get upcoming events that got cancelled along with events registration that got rejected
                     $q->whereNotNull('deleted_at')->orWhere('user_event.status', 'Rejected');
                 })
                 ->withPivot('status', 'reasoning');

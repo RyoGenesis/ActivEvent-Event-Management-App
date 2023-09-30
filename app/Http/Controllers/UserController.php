@@ -161,7 +161,7 @@ class UserController extends Controller
     }
 
     function historyevent(){
-        $user = User::with('events')->where('id',Auth::user()->id)->first();
+        $user = User::with('events.community')->where('id',Auth::user()->id)->first();
         $historyevents = $user->events;
         return view('historyevent', compact('user', 'historyevents'));
     }

@@ -4,8 +4,9 @@
 
 @section('content')
     @if(session()->has('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session()->get('success') }}
+        <button type="button" class="btn-close" color="white" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
     <div class="container mb-3">
@@ -120,7 +121,7 @@
     <div class="container text-center mt-3 pt-3">
         <div class="row">
             <div class="col">
-                <h3>Your Upcoming Event</h3>
+                <h3>Your Upcoming Events</h3>
             </div>
             <div class="col">
                 <a href="{{route('historyevent')}}" class="btn btn-secondary">Event History</a>
@@ -136,6 +137,7 @@
                 <tr>
                     <th scope="col" class="fs-4">#</th>
                     <th scope="col" class="fs-4">Event name</th>
+                    <th scope="col" class="fs-4">Held by</th>
                     <th scope="col" class="fs-4">Date</th>
                     <th scope="col" class="fs-4">Status</th>
                     <th scope="col" class="fs-4">Action</th>
@@ -146,6 +148,7 @@
                     <tr class="table-light">
                         <th>{{$loop->iteration}}</th>
                         <th>{{$event->name}}</th>
+                        <th>{{$event->community->display_name}}</th>
                         <th>{{$event->date->format('l, j F Y - H:i \W\I\B')}}</th>
                         <th>
                             @if ($event->pivot->status == 'Registered')
@@ -191,6 +194,53 @@
                                     </div>
                                 </div>
                             </form>
+                        </th>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @endif
+        {{-- only when rejected event is present --}}
+        @if (!$rejectedEvents->isEmpty())
+        <div class="row">
+            <div class="col">
+                <h3>Rejected and Cancelled Events</h3>
+            </div>
+        </div>
+        <table class="table table-secondary mt-5">
+            <thead>
+                <tr>
+                    <th scope="col" class="fs-4">#</th>
+                    <th scope="col" class="fs-4">Event name</th>
+                    <th scope="col" class="fs-4">Held by</th>
+                    <th scope="col" class="fs-4">Date</th>
+                    <th scope="col" class="fs-4">Status</th>
+                    <th scope="col" class="fs-4">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($rejectedEvents as $event)
+                    <tr class="table-light">
+                        <th>{{$loop->iteration}}</th>
+                        <th>{{$event->name}}</th>
+                        <th>{{$event->community->display_name}}</th>
+                        <th>{{$event->date->format('l, j F Y - H:i \W\I\B')}}</th>
+                        <th>
+                            @if ($event->pivot->status == 'Rejected')
+                            <p class="text-danger">
+                                {{$event->pivot->status}}
+                            </p>
+                            <p>
+                                Reasoning : {{$event->pivot->reasoning}}
+                            </p>
+                            @else
+                            <p class="text-danger">
+                                Cancelled
+                            </p>
+                            @endif
+                        </th>
+                        <th class="d-grid gap-1">
+                            <a href="/eventdetail/{{$event->id}}" class="btn btn-primary">View</a>
                         </th>
                     </tr>
                 @endforeach

@@ -6,7 +6,13 @@
     <div class="container text-center mt-3">
         <h2>Edit Profile</h2>
     </div>
-    {{-- Need to add success message WIP --}}
+    @isset($success)
+        <div class = 'alert mb-0 alert-success rounded-0 alert-dismissible fade show' role="alert">
+                {{$success}}
+                <button type="button" class="btn-close" color="white" data-bs-dismiss="alert" aria-label="Close"></button>
+            @endif
+        </div>
+    @endisset
     <div class="container mt-5">
         <form action="{{route('editprofile.update')}}" method="POST" enctype="multipart/form-data" id="formeditprofile">
             @csrf
@@ -16,7 +22,7 @@
                         <a href="{{route('profile')}}" class="fa fa-2xl fa-arrow-left p-3" style="text-decoration:none; color:black"></a>
 
                         <button id='submitbtn' type="submit" class="p-2 btn btn-outline-danger btn-submit btn-sm">
-                            Save          
+                            Save
                         </button>
                     </div>
                 </div>
@@ -156,12 +162,6 @@
                         @enderror
                     </div>
                 </div>
-                
-                {{-- @if($errors->any())
-                <div class="alert alert-danger">
-                    {{ implode('', $errors->all(':message')) }}
-                </div>
-                @endif --}}
 
                 <div class="form-group row g-2">
                     <div class="col px-5 py-4">
