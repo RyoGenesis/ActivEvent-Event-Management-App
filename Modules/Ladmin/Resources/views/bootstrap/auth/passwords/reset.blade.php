@@ -29,7 +29,7 @@
 
 
             <div class="text-center">
-                <a href="{{ route('ladmin.login') }}">&larr; Back to login</a>
+                <a href="{{ route('ladmin.login') }}" style="color: rgb(233, 233, 233)">&larr; Back to login</a>
             </div>
         </div>
     </div>

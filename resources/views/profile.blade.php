@@ -132,73 +132,75 @@
             <p class="fs-5">You currently don't have any upcoming event</p>
         </div>
         @else
-        <table class="table table-secondary mt-5">
-            <thead>
-                <tr>
-                    <th scope="col" class="fs-4">#</th>
-                    <th scope="col" class="fs-4">Event name</th>
-                    <th scope="col" class="fs-4">Held by</th>
-                    <th scope="col" class="fs-4">Date</th>
-                    <th scope="col" class="fs-4">Status</th>
-                    <th scope="col" class="fs-4">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($upcomingEvents as $event)
-                    <tr class="table-light">
-                        <th>{{$loop->iteration}}</th>
-                        <th>{{$event->name}}</th>
-                        <th>{{$event->community->display_name}}</th>
-                        <th>{{$event->date->format('l, j F Y - H:i \W\I\B')}}</th>
-                        <th>
-                            @if ($event->pivot->status == 'Registered')
-                            <p class="text-success">
-                                {{$event->pivot->status}}
-                            </p>
-                            @else
-                            <p class="text-danger">
-                                {{$event->pivot->status}}
-                            </p>
-                            <p>
-                                Reasoning : {{$event->pivot->reasoning}}
-                            </p>
-                            @endif
-                        </th>
-                        <th class="d-grid gap-1">
-                            <a href="/eventdetail/{{$event->id}}" class="btn btn-primary">View</a>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
-                                Cancel
-                            </button>
-                            <form action="{{route('cancelregistration')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="id" value="{{$event->id}}">
-    
-                                <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Confirm to Cancel Your Registration?
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                        <form action="{{route('cancelregistration')}}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{$event->id}}">
-                                            <button type="submit" class="btn btn-secondary btn-danger">yes</button>
-                                        </form>
-                                    </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </th>
+        <div class="table-responsive-sm">
+            <table id="upcomingEvents" class="table table-secondary mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col" class="fs-4">#</th>
+                        <th scope="col" class="fs-4">Event name</th>
+                        <th scope="col" class="fs-4">Held by</th>
+                        <th scope="col" class="fs-4">Date</th>
+                        <th scope="col" class="fs-4">Status</th>
+                        <th scope="col" class="fs-4">Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($upcomingEvents as $event)
+                        <tr class="table-light">
+                            <th></th>
+                            <th>{{$event->name}}</th>
+                            <th>{{$event->community->display_name}}</th>
+                            <th>{{$event->date->format('l, j F Y - H:i \W\I\B')}}</th>
+                            <th>
+                                @if ($event->pivot->status == 'Registered')
+                                <p class="text-success">
+                                    {{$event->pivot->status}}
+                                </p>
+                                @else
+                                <p class="text-danger">
+                                    {{$event->pivot->status}}
+                                </p>
+                                <p>
+                                    Reasoning : {{$event->pivot->reasoning}}
+                                </p>
+                                @endif
+                            </th>
+                            <th class="d-grid gap-1">
+                                <a href="/eventdetail/{{$event->id}}" class="btn btn-primary">View</a>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
+                                    Cancel
+                                </button>
+                                <form action="{{route('cancelregistration')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$event->id}}">
+        
+                                    <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Confirm to Cancel Your Registration?
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                            <form action="{{route('cancelregistration')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{$event->id}}">
+                                                <button type="submit" class="btn btn-secondary btn-danger">yes</button>
+                                            </form>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </th>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         @endif
         {{-- only when rejected event is present --}}
         @if (!$rejectedEvents->isEmpty())
@@ -207,45 +209,97 @@
                 <h3>Rejected and Cancelled Events</h3>
             </div>
         </div>
-        <table class="table table-secondary mt-5">
-            <thead>
-                <tr>
-                    <th scope="col" class="fs-4">#</th>
-                    <th scope="col" class="fs-4">Event name</th>
-                    <th scope="col" class="fs-4">Held by</th>
-                    <th scope="col" class="fs-4">Date</th>
-                    <th scope="col" class="fs-4">Status</th>
-                    <th scope="col" class="fs-4">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($rejectedEvents as $event)
-                    <tr class="table-light">
-                        <th>{{$loop->iteration}}</th>
-                        <th>{{$event->name}}</th>
-                        <th>{{$event->community->display_name}}</th>
-                        <th>{{$event->date->format('l, j F Y - H:i \W\I\B')}}</th>
-                        <th>
-                            @if ($event->pivot->status == 'Rejected')
-                            <p class="text-danger">
-                                {{$event->pivot->status}}
-                            </p>
-                            <p>
-                                Reasoning : {{$event->pivot->reasoning}}
-                            </p>
-                            @else
-                            <p class="text-danger">
-                                Cancelled
-                            </p>
-                            @endif
-                        </th>
-                        <th class="d-grid gap-1">
-                            <a href="/eventdetail/{{$event->id}}" class="btn btn-primary">View</a>
-                        </th>
+        <div class="table-responsive-sm">
+            <table id="rejectedEvents" class="table table-secondary mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col" class="fs-4">#</th>
+                        <th scope="col" class="fs-4">Event name</th>
+                        <th scope="col" class="fs-4">Held by</th>
+                        <th scope="col" class="fs-4">Date</th>
+                        <th scope="col" class="fs-4">Status</th>
+                        <th scope="col" class="fs-4">Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($rejectedEvents as $event)
+                        <tr class="table-light">
+                            <th></th>
+                            <th>{{$event->name}}</th>
+                            <th>{{$event->community->display_name}}</th>
+                            <th>{{$event->date->format('l, j F Y - H:i \W\I\B')}}</th>
+                            <th>
+                                @if ($event->pivot->status == 'Rejected')
+                                <p class="text-danger">
+                                    {{$event->pivot->status}}
+                                </p>
+                                <p>
+                                    Reasoning : {{$event->pivot->reasoning}}
+                                </p>
+                                @else
+                                <p class="text-danger">
+                                    Cancelled
+                                </p>
+                                @endif
+                            </th>
+                            <th class="d-grid gap-1">
+                                <a href="/eventdetail/{{$event->id}}" class="btn btn-primary">View</a>
+                            </th>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         @endif
     </div>
+@endsection
+
+@section('scripts')
+@if (!$upcomingEvents->isEmpty())
+    <script>
+        $(document).ready(function() {
+            const table = $('#upcomingEvents').DataTable( {
+                dom: 'lfrtip',
+                "lengthMenu": [10, 20],
+                "columnDefs": [
+                    { "searchable": false, "targets": [0,5] },
+                    { "orderable": false, "targets": [0,5]}
+                ]
+            } );
+
+            table.on('order.dt search.dt', function () {
+                let i = 1;
+    
+                table.cells(null, 0, { search: 'applied', order: 'applied' })
+                    .every(function (cell) {
+                        this.data(i++);
+                    });
+            }).draw();
+        }); 
+
+    </script>
+@endif
+@if (!$rejectedEvents->isEmpty())
+    <script>
+        $(document).ready(function() {
+            const rejectTable = $('#rejectedEvents').DataTable( {
+                dom: 'lfrtip',
+                "lengthMenu": [10, 20],
+                "columnDefs": [
+                    { "searchable": false, "targets": [0,5] },
+                    { "orderable": false, "targets": [0,5]}
+                ]
+            } );
+
+            rejectTable.on('order.dt search.dt', function () {
+                let i = 1;
+    
+                table.cells(null, 0, { search: 'applied', order: 'applied' })
+                    .every(function (cell) {
+                        this.data(i++);
+                    });
+            }).draw();
+        });
+    </script>
+@endif
 @endsection
