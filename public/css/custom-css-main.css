@@ -76,11 +76,20 @@
         color: black;
         width: 80%;
         height: max-content;
+        margin: 0;
+        padding: 0;
+        /* box-sizing: border-box; */
     }
 
     #card-event-row {
         display: flex;
         justify-content: center;
+    }
+
+    .card-event .card-event-img{
+        object-fit: cover;
+        max-width: auto;
+        height: 250px;
     }
 }
 
@@ -120,5 +129,14 @@
         text-decoration: none;
         color: black;
         height: max-content;
+        margin: 0;
+        padding: 0;
+        /* box-sizing: border-box; */
+    }
+
+    .card-event .card-event-img{
+        object-fit: cover;
+        max-width: auto;
+        height: 300px;
     }
 }

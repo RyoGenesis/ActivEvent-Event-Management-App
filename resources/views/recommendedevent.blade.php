@@ -14,7 +14,7 @@
         <a class="card card-event" href="{{ route('eventdetail', ['id'=>$recommendedevent->id]) }}" style="height:max-content">
           <div class="row g-0 allign-item-center">
               <div class="col-md-4">
-                <img src="{{$recommendedevent->image ? asset('storage/'.$recommendedevent->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$recommendedevent->name}}">
+                <img src="{{$recommendedevent->image ? asset('storage/'.$recommendedevent->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid card-event-img" alt="gambar-{{$recommendedevent->name}}">
               </div>
               <div class="col-md-8">
                 <div class="card-body">

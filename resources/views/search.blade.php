@@ -160,7 +160,7 @@
             <a class="card card-event" href="{{ route('eventdetail', ['id'=>$event->id]) }}" style="height:max-content">
                 <div class="row g-0 align-items-center">
                     <div class="col-md-4">
-                        <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid" alt="gambar-{{$event->name}}">
+                        <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid card-event-img" alt="gambar-{{$event->name}}">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
