@@ -88,8 +88,20 @@
 
     .card-event .card-event-img{
         object-fit: cover;
-        max-width: auto;
+        width: 400px;
         height: 250px;
+    }
+
+    #eventdetailmobile {
+        margin: 0;
+        padding: 0;
+    }
+
+    .event-detail-img{
+        object-fit: cover;
+        width: 450px;
+        height: 250px;
+        margin-bottom: 5px;
     }
 }
 
@@ -136,7 +148,13 @@
 
     .card-event .card-event-img{
         object-fit: cover;
-        max-width: auto;
+        width: 400px;
         height: 300px;
+    }
+    
+    .event-detail-img {
+        object-fit: cover;
+        width: 650px;
+        height: 550px;
     }
 }

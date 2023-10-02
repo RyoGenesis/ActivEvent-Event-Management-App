@@ -152,7 +152,7 @@
             </div>
         </div>
         <div class="col-6" style="padding: 0%">
-            <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" style="height:43rem" class="float-end img-fluid">
+            <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" class="float-end img-fluid event-detail-img">
             <div class="row px-3">
                 <div class="col d-flex justify-content-end py-5">
                     @if (Auth::check())
@@ -251,9 +251,9 @@
     </div>
 </div>
 
-<div class="container bg-light border border-dark-subtle border-3 mt-4 mobile-only">
+<div class="container bg-light border border-dark-subtle border-3 mt-4 mobile-only" id="eventdetailmobile">
     <div class="mb-3">
-        <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" style="height:20rem" class="float-end img-fluid">
+        <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" style="height:20rem" class="float-end img-fluid event-detail-img">
     </div>
     <div id="event-information" class="px-3">
         <h3 class="fw-bold mb-3">{{$event->name}}</h3>
