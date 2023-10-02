@@ -7,7 +7,7 @@
     @endauth
     <div class="container-fluid mb-4">
         <div class="row mb-4">
-            <h3 class="col-8">Featured event</h3>
+            <h3 class="col-8">Featured events</h3>
             <a href="{{route('featuredevent')}}" class="col-4 text-end fs-5" style="text-decoration: none;">Show more</a>
         </div>
         <div class="row">
@@ -120,7 +120,7 @@
 
     <div class="container-fluid mb-4">
         <div class="row mb-4">
-            <h3 class="col-8">Latest event</h3>
+            <h3 class="col-8">Latest events</h3>
             <a href="{{route('latestevent')}}" class="col-4 text-end fs-5" style="text-decoration: none;">Show more</a>
         </div>
         <div class="row">
@@ -233,7 +233,7 @@
 
     <div class="container-fluid mb-4">
         <div class="row mb-4">
-            <h3 class="col-8">Popular event</h3>
+            <h3 class="col-8">Popular events</h3>
             <a href="{{route('popularevent')}}" class="col-4 text-end fs-5" style="text-decoration: none;">Show more</a>
         </div>
         <div class="row">

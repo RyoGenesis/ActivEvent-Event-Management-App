@@ -85,6 +85,9 @@
                             <li class="nav-item">
                                 <a class="nav-link main-menu" href="{{route('historyevent')}}">Event History</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link main-menu" href="{{route('profile')}}#upcoming">Upcoming</a>
+                            </li>
                             @endauth
                             <li class="nav-item">
                                 <a class="nav-link main-menu" href="{{route('contactus')}}">Contact us</a>

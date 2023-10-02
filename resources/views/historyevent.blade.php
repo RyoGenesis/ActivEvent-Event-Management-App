@@ -8,18 +8,18 @@
         <div class="col-1">
             <a href="{{ url()->previous() }}" class="fa fa-xl fa-arrow-left" style="text-decoration:none; color:black"></a>
         </div>
-        <div class="col-2">
+        <div class="col">
             <h3>Event History</h3>
         </div>
     </div>
-    <div class="table-responsive-sm">
-        <table id="eventHistory" class="table mt-2">
+    <div class="table-responsive-sm mt-3">
+        <table id="eventHistory" class="table pt-2">
             <thead>
-                <th scope="col" class="fs-4">#</th>
-                <th scope="col" class="fs-4">Event name</th>
-                <th scope="col" class="fs-4">Held by</th>
-                <th scope="col" class="fs-4">Status</th>
-                <th scope="col" class="fs-4">Reason</th>
+                <th scope="col" class="fs-5">#</th>
+                <th scope="col" class="fs-5">Event name</th>
+                <th scope="col" class="fs-5">Held by</th>
+                <th scope="col" class="fs-5">Status</th>
+                <th scope="col" class="fs-5">Reason</th>
             </thead>
             <tbody>
                 @foreach ($historyevents as $event)
@@ -38,7 +38,7 @@
                             </p>
                             @endif
                         </th>
-                        <th class="fw-light fs-5">{{$event->pivot->reasoning ?? '-'}}</th>
+                        <th class="fw-light fs-5">{{$event->pivot->status == 'Registered' ? '-' : ($event->pivot->reasoning ?? '-')}}</th>
                     </tr>
                 @endforeach
             </tbody>
@@ -52,7 +52,7 @@
         $(document).ready(function() {
             const table = $('#eventHistory').DataTable( {
                 dom: 'lfrtip',
-                "lengthMenu": [20, 50],
+                "lengthMenu": [20, 30, 50],
                 "columnDefs": [
                     { "searchable": false, "targets": [0] },
                     { "orderable": false, "targets": [0]}

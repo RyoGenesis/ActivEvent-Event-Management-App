@@ -118,9 +118,9 @@
         </div>
     </div>
 
-    <div class="container text-center mt-3 pt-3">
+    <div class="container text-center mt-4 pt-md-3">
         <div class="row">
-            <div class="col">
+            <div class="col" id="upcoming">
                 <h3>Your Upcoming Events</h3>
             </div>
             <div class="col">
@@ -132,16 +132,16 @@
             <p class="fs-5">You currently don't have any upcoming event</p>
         </div>
         @else
-        <div class="table-responsive-sm">
-            <table id="upcomingEvents" class="table table-secondary mt-5">
+        <div class="table-responsive-sm px-0 px-md-5 mt-3">
+            <table id="upcomingEvents" class="table table-secondary pt-2">
                 <thead>
                     <tr>
-                        <th scope="col" class="fs-4">#</th>
-                        <th scope="col" class="fs-4">Event name</th>
-                        <th scope="col" class="fs-4">Held by</th>
-                        <th scope="col" class="fs-4">Date</th>
-                        <th scope="col" class="fs-4">Status</th>
-                        <th scope="col" class="fs-4">Action</th>
+                        <th scope="col" class="fs-5">#</th>
+                        <th scope="col" class="fs-5">Event name</th>
+                        <th scope="col" class="fs-5">Held by</th>
+                        <th scope="col" class="fs-5">Date</th>
+                        <th scope="col" class="fs-5">Status</th>
+                        <th scope="col" class="fs-5">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -189,7 +189,7 @@
                                             <form action="{{route('cancelregistration')}}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$event->id}}">
-                                                <button type="submit" class="btn btn-secondary btn-danger">yes</button>
+                                                <button type="submit" class="btn btn-secondary btn-danger">Yes</button>
                                             </form>
                                         </div>
                                         </div>
@@ -204,21 +204,21 @@
         @endif
         {{-- only when rejected event is present --}}
         @if (!$rejectedEvents->isEmpty())
-        <div class="row">
-            <div class="col">
+        <div class="row mt-2">
+            <div class="col" id="rejected-and-cancelled">
                 <h3>Rejected and Cancelled Events</h3>
             </div>
         </div>
-        <div class="table-responsive-sm">
-            <table id="rejectedEvents" class="table table-secondary mt-5">
+        <div class="table-responsive-sm px-0 px-md-5 mt-3">
+            <table id="rejectedEvents" class="table table-secondary pt-2">
                 <thead>
                     <tr>
-                        <th scope="col" class="fs-4">#</th>
-                        <th scope="col" class="fs-4">Event name</th>
-                        <th scope="col" class="fs-4">Held by</th>
-                        <th scope="col" class="fs-4">Date</th>
-                        <th scope="col" class="fs-4">Status</th>
-                        <th scope="col" class="fs-4">Action</th>
+                        <th scope="col" class="fs-5">#</th>
+                        <th scope="col" class="fs-5">Event name</th>
+                        <th scope="col" class="fs-5">Held by</th>
+                        <th scope="col" class="fs-5">Date</th>
+                        <th scope="col" class="fs-5">Status</th>
+                        <th scope="col" class="fs-5">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -259,8 +259,8 @@
     <script>
         $(document).ready(function() {
             const table = $('#upcomingEvents').DataTable( {
-                dom: 'lfrtip',
-                "lengthMenu": [10, 20],
+                dom: 'frtp',
+                "lengthMenu": 10,
                 "columnDefs": [
                     { "searchable": false, "targets": [0,5] },
                     { "orderable": false, "targets": [0,5]}
@@ -283,8 +283,8 @@
     <script>
         $(document).ready(function() {
             const rejectTable = $('#rejectedEvents').DataTable( {
-                dom: 'lfrtip',
-                "lengthMenu": [10, 20],
+                dom: 'frtp',
+                "lengthMenu": 10,
                 "columnDefs": [
                     { "searchable": false, "targets": [0,5] },
                     { "orderable": false, "targets": [0,5]}
