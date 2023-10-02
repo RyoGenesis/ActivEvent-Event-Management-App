@@ -91,7 +91,7 @@ class EventController extends Controller
         }
 
         //send email reminder to all super admin user about waiting approval
-        ApprovalRequestReminder::dispatchSync($event);
+        // ApprovalRequestReminder::dispatchSync($event);
 
         return redirect()->route('ladmin.event.index')->with('success','Successfully added new event!');
     }
@@ -174,7 +174,7 @@ class EventController extends Controller
 
         //if date is changed, then send notification
         if($event->isDirty('date') || $event->isDirty('location')) {
-            SendEmailEventChanged::dispatch($event)->delay(now()->addMinutes(1));
+            // SendEmailEventChanged::dispatch($event)->delay(now()->addMinutes(1));
         }
 
         $event->save();
@@ -202,7 +202,7 @@ class EventController extends Controller
 
         if($event->status == 'Active') {
             //send notification to participants
-            SendEmailEventCancelled::dispatch($event);
+            // SendEmailEventCancelled::dispatch($event);
         }
 
         $event->update(['status' => 'Cancelled']);
@@ -251,7 +251,7 @@ class EventController extends Controller
         $event=Event::find($id);
         if(Auth::check()){
             $user_event = $event->users->find(Auth::user()->id);
-            if($user_event !== NULL){
+            if($user_event !== NULL && $user_event->pivot->status == 'Registered'){
                 return view('eventdetail')->with('event', $event)->with('registered', true);
             }
             else{
@@ -439,7 +439,15 @@ class EventController extends Controller
         }
 
         //registering to event
-        $user->events()->attach($request->id, ['status' => 'Registered']);
+        $user_event = $user->events->find($event->id);
+        if($user_event != NULL && $user_event->pivot->status == 'Rejected'){ //when registered before but got rejected & want to register again
+            $user->events()->updateExistingPivot($request->id, [
+                'status' => 'Registered',
+            ]);
+        }
+        else { //if not rejected before then register as new
+            $user->events()->attach($request->id, ['status' => 'Registered']);
+        }
 
         //if event has additional form link
         if($event->additional_form_link){

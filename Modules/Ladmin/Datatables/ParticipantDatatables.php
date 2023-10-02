@@ -4,6 +4,7 @@ namespace Modules\Ladmin\Datatables;
 
 use App\Models\Event;
 use App\Models\User;
+use Carbon\Carbon;
 use Hexters\Ladmin\Supports\Datatables;
 use Illuminate\Support\Facades\Blade;
 
@@ -39,6 +40,7 @@ class ParticipantDatatables extends Datatables
     {
         $event = Event::with(['users' => ['campus','faculty','major','communities']])->where('id',$this->data['id'])->first();
         $this->query = $event->users;
+        $rejectDate = Carbon::createFromDate($event->date)->addWeeks(2);
         return $this->collection($this->query)
             ->editColumn('personal_email', function ($row) {
                 return $row->personal_email ?? '-';
@@ -58,8 +60,8 @@ class ParticipantDatatables extends Datatables
                 if ($communities->isEmpty()) {
                     $formattedComms = 'No community association';
                 } else {
-                    foreach($communities as $community) {
-                        if (end($communities) == $community) {
+                    foreach($communities as $key => $community) {
+                        if ($key == $communities->count() - 1) {
                             $formattedComms .= $community->name;
                         } else {
                             $formattedComms .= $community->name.', ';
@@ -68,13 +70,14 @@ class ParticipantDatatables extends Datatables
                 }
                 return Blade::render($formattedComms);
             })
-            ->addColumn('action', function ($row) {
-                return $this->action($row);
+            ->addColumn('action', function ($row) use ($rejectDate) {
+                return $this->action($row, $rejectDate);
             });
     }
 
-    public function action($data)
+    public function action($data, $date)
     {
+        $data['maxRejectDate'] = $date;
         return ladmin()->view('event._parts.participant-table-action', $data);
     }
 

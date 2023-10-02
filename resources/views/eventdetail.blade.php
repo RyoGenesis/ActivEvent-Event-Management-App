@@ -157,56 +157,60 @@
                 <div class="col d-flex justify-content-end py-5">
                     @if (Auth::check())
                         @if ($registered)
-                            @if ($event->additional_form_link)
-                                 <button type="button" class="btn btn-info me-4" data-bs-toggle="modal" data-bs-target="#modalform">
-                                External Form Link
+                            @if ($event->date > \Carbon\Carbon::now())
+                                @if ($event->additional_form_link)
+                                    <button type="button" class="btn btn-info me-4" data-bs-toggle="modal" data-bs-target="#modalform">
+                                    External Form Link
+                                    </button>
+
+                                    <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="modallabelform" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="modallabelform">External Form Link</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Please fill out the external form which can be accessed via the link below 
+                                                    <div>
+                                                        <a href="{{$event->additional_form_link}}">{{$event->additional_form_link}}</a>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
+                                    Cancel
                                 </button>
 
-                                <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="modallabelform" aria-hidden="true">
+                                <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="modallabelform">External Form Link</h1>
+                                                <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Please fill out the external form which can be accessed via the link below 
-                                                <div>
-                                                    <a href="{{$event->additional_form_link}}">{{$event->additional_form_link}}</a>
-                                                </div>
+                                                Confirm to Cancel Your Registration?
                                             </div>
                                             <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                <form action="{{route('cancelregistration')}}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$event->id}}">
+                                                    <button type="submit" class="btn btn-secondary btn-danger">yes</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            @else
+                                <p class="text-danger">Event has begun / ended! You're not able to cancel for this event.</p>
                             @endif
-                           
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
-                                Cancel
-                            </button>
-
-                            <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Confirm to Cancel Your Registration?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                            <form action="{{route('cancelregistration')}}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$event->id}}">
-                                                <button type="submit" class="btn btn-secondary btn-danger">yes</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         
                         @else
                             @if ($event->registration_end > \Carbon\Carbon::now())
@@ -369,57 +373,60 @@
         <div class="col d-flex justify-content-end py-5">
             @if (Auth::check())
                 @if ($registered)
-                    @if ($event->additional_form_link)
-                         <button type="button" class="btn btn-info me-4" data-bs-toggle="modal" data-bs-target="#modalform">
-                        External Form Link
+                    @if ($event->date > \Carbon\Carbon::now())
+                        @if ($event->additional_form_link)
+                            <button type="button" class="btn btn-info me-4" data-bs-toggle="modal" data-bs-target="#modalform">
+                            External Form Link
+                            </button>
+
+                            <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="modallabelform" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-6" id="modallabelform">External Form Link</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Please fill out the external form which can be accessed via the link below 
+                                            <div>
+                                                <a href="{{$event->additional_form_link}}">{{$event->additional_form_link}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
+                            Cancel
                         </button>
 
-                        <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="modallabelform" aria-hidden="true">
-                            <div class="modal-dialog">
+                        <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-6" id="modallabelform">External Form Link</h1>
+                                        <h1 class="modal-title fs-6" id="modallabelcancel">Cancel Registration</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Please fill out the external form which can be accessed via the link below 
-                                        <div>
-                                            <a href="{{$event->additional_form_link}}">{{$event->additional_form_link}}</a>
-                                        </div>
+                                        Confirm to Cancel Your Registration?
                                     </div>
                                     <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                        <form action="{{route('cancelregistration')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$event->id}}">
+                                            <button type="submit" class="btn btn-secondary btn-danger">yes</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    @else
+                        <p class="text-danger">Event has begun / ended! You're not able to cancel for this event.</p>
                     @endif
-                   
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
-                        Cancel
-                    </button>
-
-                    <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-6" id="modallabelcancel">Cancel Registration</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Confirm to Cancel Your Registration?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                    <form action="{{route('cancelregistration')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{$event->id}}">
-                                        <button type="submit" class="btn btn-secondary btn-danger">yes</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
                 @else
                     @if ($event->registration_end > \Carbon\Carbon::now())
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalregister">
