@@ -42,6 +42,7 @@ class SendEmailEventCancelled implements ShouldQueue
 
         foreach ($participants as $participant) { //send to every current participants
             Mail::to($participant->email)->send(new EventChangedMail($event, 'Cancellation', $participant->email));
+            //send WA notification WIP
         }
     }
 }

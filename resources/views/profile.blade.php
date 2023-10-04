@@ -102,13 +102,12 @@
                 </div>
 
                 <div>
-                    <h5 class="text-primary mb-3">Topic Interests</h5>
+                    <h5 class="text-primary mb-2">Topic Interests</h5>
                     @if(!$user->topics)
                         <div class="fs-6">-</div>
                     @else
                         @foreach ($topicInterests as $topic)
-                        {{-- need fixing responsive view --}}
-                            <span class="rounded-pill bg-info text-light p-2 m-1 fs-6">
+                            <span class="d-inline-flex rounded-pill bg-info text-light px-2 py-1 m-1 fs-6">
                                 {{$topic}}
                             </span>
                         @endforeach

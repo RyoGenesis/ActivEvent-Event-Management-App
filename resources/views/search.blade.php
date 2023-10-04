@@ -156,7 +156,6 @@
         No search result for "{{$search}}"
         @else
         @foreach ($events as $event)
-        {{-- <div class="col"> --}}
             <a class="card card-event" href="{{ route('eventdetail', ['id'=>$event->id]) }}" style="height:max-content">
                 <div class="row g-0 align-items-center">
                     <div class="col-md-4">
@@ -185,7 +184,6 @@
                     </div>
                 </div>
             </a>
-        {{-- </div> --}}
         @endforeach    
         @endif
     </div>

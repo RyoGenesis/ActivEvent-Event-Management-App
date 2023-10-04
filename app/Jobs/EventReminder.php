@@ -42,6 +42,7 @@ class EventReminder implements ShouldQueue
 
         foreach ($participants as $participant) { //send to every current participants
             Mail::to($participant->email)->send(new EventReminderMail($event));
+            //send WA notification WIP
         }
     }
 }

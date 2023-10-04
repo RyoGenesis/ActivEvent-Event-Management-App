@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="mb-2">
-    <a href="/home" style="text-decoration: none">Home</a> > <small> Latest Event</small>
+    <a href="/home" style="text-decoration: none">Home</a> > <small> Latest Events</small>
   </div>
     <h3 class="mb-4">Latest Events</h3>
     <div class="row gap-3" id="card-event-row">

@@ -42,6 +42,7 @@ class SendEmailEventChanged implements ShouldQueue
 
         foreach ($participants as $participant) { //send to every current participants
             Mail::to($participant->email)->send(new EventChangedMail($event, 'Update', $participant->email));
+            //send WA notification WIP
         }
     }
 }
