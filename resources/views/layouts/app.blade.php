@@ -64,12 +64,12 @@
     
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav me-auto">
+                        <ul class="navbar-nav me-auto ">
                              <li class="nav-item">
-                                <a class="nav-link main-menu text-center active" href="{{route('home')}}">Home</a>
+                                <a class="nav-link main-menu active" href="{{route('home')}}">Home</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-center main-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
+                                <a class="nav-link dropdown-toggle main-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item main-menu" href="{{route('popularevent')}}">Popular</a>
 
@@ -80,17 +80,17 @@
                             </li>
                             @auth
                             <li class="nav-item">
-                                <a class="nav-link main-menu text-center" href="{{route('recommendedevent')}}">For You</a>
+                                <a class="nav-link main-menu" href="{{route('recommendedevent')}}">For You</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link main-menu text-center" href="{{route('historyevent')}}">Event History</a>
+                                <a class="nav-link main-menu" href="{{route('historyevent')}}">Event History</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link main-menu text-center" href="{{route('profile')}}#upcoming">Upcoming</a>
+                                <a class="nav-link main-menu" href="{{route('profile')}}#upcoming">Upcoming</a>
                             </li>
                             @endauth
                             <li class="nav-item">
-                                <a class="nav-link main-menu text-center" href="{{route('contactus')}}">Contact us</a>
+                                <a class="nav-link main-menu" href="{{route('contactus')}}">Contact us</a>
                             </li>
                         </ul>
     
