@@ -107,6 +107,10 @@
         display: flex;
         justify-content: center;
     }
+    
+    .main-menu{
+        text-align: center;
+    }
 }
 
 /* applied when large screen / desktop */
