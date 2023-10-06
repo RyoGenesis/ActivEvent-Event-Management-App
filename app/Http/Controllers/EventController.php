@@ -109,6 +109,9 @@ class EventController extends Controller
         if(!$event) {
             return redirect()->route('ladmin.event.index')->with('danger','Event data not found!');
         }
+        if(now() > $event->date) { //if already past date cannot edit anymore
+            return redirect()->back()->with('danger', 'Not allowed to edit this event anymore because event already happened!');
+        }
         $community = $event->community;
         $majors = !$community->majors->isEmpty() ? Major::whereIn('id', $community->majors->pluck('id')) :  Major::all();
         $categories = Category::all();
@@ -125,7 +128,9 @@ class EventController extends Controller
         if(!$event) {
             return Redirect::back()->with('danger','Event data not found!');
         }
-
+        if(now() > $event->date) { //if already past date cannot update anymore, for safety net
+            return redirect()->back()->with('danger', 'Not allowed to update this event anymore because event already happened!');
+        }
         $updateData = [
             'name' => $request->name,
             'description' => $request->description,
@@ -199,7 +204,9 @@ class EventController extends Controller
 
         $request->validate($validation);
         $event = Event::where('id',$request->id)->first();
-
+        if(now() > $event->date) { //if already past date cannot cancel the event
+            return redirect()->back()->with('danger', 'Not allowed to cancel this event anymore because event already happened!');
+        }
         if($event->status == 'Active') {
             //send notification to participants
             // SendEmailEventCancelled::dispatch($event);
