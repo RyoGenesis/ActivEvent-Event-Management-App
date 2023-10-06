@@ -109,7 +109,7 @@
                                     </li>
                                 @endif
                             @else
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown main-menu">
                                     <a id="navbarDropdown main-menu" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Hello, {{ Auth::user()->name }}
                                     </a>
