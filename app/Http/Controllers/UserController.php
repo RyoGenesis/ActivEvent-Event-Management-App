@@ -150,13 +150,13 @@ class UserController extends Controller
     }
 
     function showEditProfileForm(){
-        $user=User::with(['campus','faculty','major','communities','categories'])->find(Auth::user()->id);
-        $campuses=Campus::all();
-        $faculties=Faculty::all();
-        $communities = Community::all()->except([1]); //get all except univ itself
-        $categories = Category::all();
+        $user = User::with(['campus','faculty','major','communities','categories'])->find(Auth::user()->id);
         $userCommunities = $user->communities->pluck('id')->toArray();
         $preferredCategories = $user->categories->pluck('id')->toArray();
+        $campuses = Campus::withTrashed()->whereNull('deleted_at')->orWhere('id', $user->campus_id)->get();
+        $faculties = Faculty::withTrashed()->whereNull('deleted_at')->orWhere('id', $user->campus_id)->get();
+        $communities = Community::withTrashed()->whereNull('deleted_at')->orWhereIn('id', $userCommunities)->except([1])->get(); //get all except univ itself
+        $categories = Category::withTrashed()->whereNull('deleted_at')->orWhereIn('id', $preferredCategories)->get();
         return view('editprofile', compact('user', 'campuses', 'faculties','communities','categories','userCommunities','preferredCategories'));
     }
 

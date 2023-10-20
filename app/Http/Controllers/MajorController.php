@@ -37,7 +37,8 @@ class MajorController extends Controller
         if(!$major) {
             return redirect()->route('ladmin.major.index')->with('danger','Major data not found!');
         }
-        $faculties = Faculty::all();
+        //get all (not deleted) and currently selected faculty option
+        $faculties = Faculty::withTrashed()->whereNull('deleted_at')->orWhere('id', $major->faculty_id)->get();
         return ladmin()->view('major.edit', compact(['major', 'faculties']));
     }
 

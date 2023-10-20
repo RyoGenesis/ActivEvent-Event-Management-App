@@ -113,8 +113,12 @@ class EventController extends Controller
             return redirect()->back()->with('danger', 'Not allowed to edit this event anymore because event already happened!');
         }
         $community = $event->community;
-        $majors = !$community->majors->isEmpty() ? Major::whereIn('id', $community->majors->pluck('id')) :  Major::all();
-        $categories = Category::all();
+        //get majors option based on community and currently selected majors
+        $majors = !$community->majors->isEmpty() ? Major::withTrashed()->where( function($q) use ($community) {
+                                                        $q->whereNull('deleted_at')->whereIn('id', $community->majors->pluck('id'));
+                                                    })->orWhereIn('id', $event->majors->pluck('id'))->get()
+                                                :  Major::withTrashed()->whereNull('deleted_at')->orWhereIn('id', $event->majors->pluck('id'))->get();
+        $categories = Category::withTrashed()->whereNull('deleted_at')->orWhere('id', $event->category_id)->get();
         $sat_levels = SatLevel::all();
         $bgas = Bga::all();
         $eventBgas = $event->bgas->pluck('id')->toArray();

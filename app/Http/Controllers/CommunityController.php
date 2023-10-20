@@ -43,7 +43,7 @@ class CommunityController extends Controller
             return redirect()->route('ladmin.community.index')->with('danger','Community data not found!');
         }
         $communityMajors = $community->majors->pluck('id')->toArray();
-        $majors = Major::all();
+        $majors = Major::withTrashed()->whereNull('deleted_at')->orWhereIn('id', $communityMajors)->get();
         return ladmin()->view('community.edit', compact(['community', 'communityMajors' ,'majors']));
     }
 
