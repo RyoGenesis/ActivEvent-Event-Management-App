@@ -189,7 +189,10 @@
                                 <h1 class="modal-title detail-text" id="modallabelform">External Form Link</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body text-center">
+                                @isset($form_link)
+                                You succesfully registered to the event!<br>
+                                @endisset
                                 Please fill out the additional form which can be accessed via the link below to fully complete the registration for this event
                                 <div>
                                     <a href="{{$event->additional_form_link}}">{{$event->additional_form_link}}</a>
@@ -245,6 +248,49 @@
                     </div>
                 </div>
             </div>
+        @endif
+    @endif
+    @if ((isset($successful) && !$event->additional_form_link) || isset($success_cancel))
+        <div class="modal fade" id="modalnotif" tabindex="-1" aria-labelledby="modallabelnotif" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title detail-text" id="modallabelnotif">Registration</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        @if (isset($successful) && $successful)
+                        You succesfully registered to the event!
+                        @elseif (isset($successful) && !$successful)
+                        {{$error}}
+                        @elseif (isset($success_cancel))
+                        Succesfully cancel your registration for this event!
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+@endif
+@endsection
+
+@section('scripts')
+@if (Auth::check() && $registered)
+    @if ($registered && $event->date > \Carbon\Carbon::now())
+        @if ($event->additional_form_link)
+            @isset($form_link)
+                <script defer>
+                    $(window).ready(function() {
+                        $('#modalform').modal('show');
+                    });
+                </script>
+            @endisset
+        @elseif((isset($successful) && !$event->additional_form_link) || isset($success_cancel))
+            <script defer>
+                $(window).ready(function() {
+                    $('#modalnotif').modal('show');
+                });
+            </script>
         @endif
     @endif
 @endif
