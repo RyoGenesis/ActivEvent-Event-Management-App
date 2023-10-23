@@ -79,7 +79,7 @@ class UserController extends Controller
 
         $user->communities()->sync($request->communities);
         $user->categories()->sync($request->categories);
-
+        
         return redirect()->back()->with('success','Successfully update profile information!');
     }
 
@@ -155,7 +155,7 @@ class UserController extends Controller
         $preferredCategories = $user->categories->pluck('id')->toArray();
         $campuses = Campus::withTrashed()->whereNull('deleted_at')->orWhere('id', $user->campus_id)->get();
         $faculties = Faculty::withTrashed()->whereNull('deleted_at')->orWhere('id', $user->campus_id)->get();
-        $communities = Community::withTrashed()->whereNull('deleted_at')->orWhereIn('id', $userCommunities)->except([1])->get(); //get all except univ itself
+        $communities = Community::withTrashed()->whereNull('deleted_at')->orWhereIn('id', $userCommunities)->where('id','!=',1)->get(); //get all except univ itself
         $categories = Category::withTrashed()->whereNull('deleted_at')->orWhereIn('id', $preferredCategories)->get();
         return view('editprofile', compact('user', 'campuses', 'faculties','communities','categories','userCommunities','preferredCategories'));
     }

@@ -1,5 +1,5 @@
 @php
-    $back = route('ladmin.highlight.index');
+    $back = route('ladmin.event.highlight.index');
 @endphp
 <div class="d-grid gap-2">
   @can(['ladmin.highlight.index'])

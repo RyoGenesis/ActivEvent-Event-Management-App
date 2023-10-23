@@ -45,7 +45,7 @@ class ApprovalDatatables extends Datatables
                 return $row->registration_end->format('d/m/Y H:i');
             })
             ->editColumn('updated_at', function ($row) {
-                return $row->updated_at->format('d/m/Y H:i');
+                return $row->updated_at->format('d/m/Y H:i:s');
             })
             ->editColumn('community.name', function ($row) {
                 return $row->community->display_name;

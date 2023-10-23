@@ -38,6 +38,15 @@ class HighlightEventDatatables extends Datatables
     public function handle()
     {
         return $this->eloquent($this->query)
+        ->editColumn('date', function ($row) {
+            return $row->date->format('d/m/Y H:i');
+        })
+        ->editColumn('registration_end', function ($row) {
+            return $row->registration_end->format('d/m/Y H:i');
+        })
+        ->editColumn('updated_at', function ($row) {
+            return $row->updated_at->format('d/m/Y H:i:s');
+        })
         ->editColumn('community.name', function ($row) {
             return $row->community->display_name;
         })

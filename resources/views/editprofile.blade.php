@@ -6,18 +6,17 @@
     <div class="container text-center mt-3">
         <h2>Edit Profile</h2>
     </div>
-    @isset($success)
-        <div class = 'alert mb-0 alert-success rounded-0 alert-dismissible fade show' role="alert">
-                {{$success}}
-                <button type="button" class="btn-close" color="white" data-bs-dismiss="alert" aria-label="Close"></button>
-            @endif
-        </div>
-    @endisset
     <div class="container mt-5">
         <form action="{{route('editprofile.update')}}" method="POST" enctype="multipart/form-data" id="formeditprofile">
             @csrf
             <div class="card justify-content-center">
-                <div class="mt-3 me-3">
+                @if (session()->has('success'))
+                    <div class = 'alert mb-0 alert-success rounded-0 alert-dismissible fade show' role="alert">
+                            {{session('success')}}
+                            <button type="button" class="btn-close" color="white" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                <div class="my-3 me-3">
                     <div class="d-flex justify-content-between">
                         <a href="{{route('profile')}}" class="fa fa-2xl fa-arrow-left p-3" style="text-decoration:none; color:black"></a>
 
@@ -26,7 +25,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="form-group row g-2 mt-3">
+                <div class="form-group row g-2">
                     <div class="col-md-6 px-5 pt-4">
                         <label for="name"><h5 class="text-primary">Name</h5></label>
                         <input type="text" id="name" name="name" value="{{$user->name}}" class="form-control @error('name') is-invalid @enderror">
