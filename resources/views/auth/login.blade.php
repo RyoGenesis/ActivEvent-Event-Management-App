@@ -36,7 +36,7 @@
                             </div>
                         </div>
 
-                        <div class="row my-4 justify-content-center">
+                        <div class="row my-4 justify-content-center text-center">
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary">
                                     Log In

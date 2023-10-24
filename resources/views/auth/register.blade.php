@@ -151,13 +151,13 @@
                         </div>
 
                         <div class="row my-4 justify-content-center">
-                            <div class="col-md-8">
+                            <div class="col col-md-8">
                                 <input class="form-control" name="topics" value="{{ old('topics') }}" id="topics" placeholder="Your Topic Interests">
                                 <button class='btn btn-warning tags--removeAllBtn mt-3' type='button'>Remove all topics</button>
                             </div>
                         </div>
 
-                        <div class="row my-4 justify-content-center">
+                        <div class="row my-4 justify-content-center text-center">
                             <div class="col-md-6">
                                 <button id="submitRegister" type="submit" class="btn btn-primary">
                                     Submit
