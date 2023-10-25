@@ -21,13 +21,13 @@
                     <div class="carousel-inner">                         
                         @foreach ($featuredEvents as $key => $featuredevent)
                             @if ($key % 3 == 0)
-                            <div class="carousel-item{{$key === 0  ? ' active' : '' }}">
+                            <div class="carousel-item {{$key === 0  ? 'active' : '' }}">
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
                             @endif
                                     <div class="col">
                                         <a class="card carousel-card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$featuredevent->id]) }}" style="height:max-content">
-                                            <div class="row g-0 allign-item-center">
-                                                <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$featuredevent->name}}">
+                                            <div class="row g-0 align-item-center">
+                                                <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top card-img-home img-fluid" alt="gambar-{{$featuredevent->name}}">
 
                                                 <div class="card-body">
                                                     <div class="card-title">
@@ -50,7 +50,7 @@
                                             </div>
                                         </a>
                                     </div>
-                            @if ($key % 3 == 0)
+                            @if ($loop->last || $key == 2)
                                 </div>
                             </div>
                             @endif
@@ -74,8 +74,8 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
                                     <div class="col-12 col-md-4">
                                         <a class="card carousel-card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$featuredevent->id]) }}" style="height:max-content">
-                                            <div class="row g-0 allign-item-center">
-                                                <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$featuredevent->name}}">
+                                            <div class="row g-0 align-item-center">
+                                                <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top card-img-home img-fluid" alt="gambar-{{$featuredevent->name}}">
 
                                                 <div class="card-body">
                                                     <div class="card-title">
@@ -134,13 +134,13 @@
                     <div class="carousel-inner">
                         @foreach ($latestEvents as $key => $latestevent)
                             @if ($key % 3 == 0)
-                            <div class="carousel-item{{$key === 0  ? ' active' : '' }}">
+                            <div class="carousel-item {{$key === 0  ? 'active' : '' }}">
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
                             @endif
                                     <div class="col">
                                         <a class="card carousel-card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$latestevent->id]) }}" style="height:max-content">
-                                            <div class="row g-0 allign-item-center">
-                                                <img src="{{$latestevent->image ? asset('storage/'.$latestevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$latestevent->name}}">
+                                            <div class="row g-0 align-item-center">
+                                                <img src="{{$latestevent->image ? asset('storage/'.$latestevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top card-img-home img-fluid" alt="gambar-{{$latestevent->name}}">
         
                                                 <div class="card-body">
                                                     <div class="card-title">
@@ -163,7 +163,7 @@
                                             </div>
                                         </a>
                                     </div>
-                            @if ($key % 3 == 0)
+                            @if ($loop->last || $key == 2)
                                 </div>
                             </div>
                             @endif
@@ -187,8 +187,8 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
                                     <div class="col-12 col-md-4">
                                         <a class="card carousel-card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$activelatestevent->id]) }}" style="height:max-content">
-                                            <div class="row g-0 allign-item-center">
-                                                <img src="{{$activelatestevent->image ? asset('storage/'.$activelatestevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$activelatestevent->name}}">
+                                            <div class="row g-0 align-item-center">
+                                                <img src="{{$activelatestevent->image ? asset('storage/'.$activelatestevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top card-img-home img-fluid" alt="gambar-{{$activelatestevent->name}}">
 
                                                 <div class="card-body">
                                                     <div class="card-title">
@@ -252,8 +252,8 @@
                             @endif
                                     <div class="col">
                                         <a class="card carousel-card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$popularevent->id]) }}" style="height:max-content">
-                                            <div class="row g-0 allign-item-center">
-                                                <img src="{{$popularevent->image ? asset('storage/'.$popularevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$popularevent->name}}">
+                                            <div class="row g-0 align-item-center">
+                                                <img src="{{$popularevent->image ? asset('storage/'.$popularevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top card-img-home img-fluid" alt="gambar-{{$popularevent->name}}">
 
                                                 <div class="card-body">
                                                     <div class="card-title">
@@ -276,7 +276,7 @@
                                             </div>
                                         </a>
                                     </div>
-                            @if ($key % 3 == 0)
+                            @if ($loop->last || $key == 2)
                                 </div>
                             </div>
                             @endif
@@ -300,8 +300,8 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
                                     <div class="col-12 col-md-4">
                                         <a class="card carousel-card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$popularevent->id]) }}" style="height:max-content">
-                                            <div class="row g-0 allign-item-center">
-                                                <img src="{{$popularevent->image ? asset('storage/'.$popularevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$popularevent->name}}">
+                                            <div class="row g-0 align-item-center">
+                                                <img src="{{$popularevent->image ? asset('storage/'.$popularevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top card-img-home img-fluid" alt="gambar-{{$popularevent->name}}">
 
                                                 <div class="card-body">
                                                     <div class="card-title">
@@ -366,8 +366,8 @@
                             @endif
                                     <div class="col">
                                         <a class="card carousel-card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$recommendedevent->id]) }}" style="height:max-content">
-                                            <div class="row g-0 allign-item-center">
-                                                <img src="{{$recommendedevent->image ? asset('storage/'.$recommendedevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$recommendedevent->name}}">
+                                            <div class="row g-0 align-item-center">
+                                                <img src="{{$recommendedevent->image ? asset('storage/'.$recommendedevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top card-img-home img-fluid" alt="gambar-{{$recommendedevent->name}}">
 
                                                 <div class="card-body">
                                                     <div class="card-title">
@@ -390,7 +390,7 @@
                                             </div>
                                         </a>
                                     </div>
-                            @if ($key % 3 == 0)
+                            @if ($loop->last || $key == 2)
                                 </div>
                             </div>
                             @endif
@@ -414,8 +414,8 @@
                                 <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
                                     <div class="col-12 col-md-4">
                                         <a class="card carousel-card text-decoration-none text-dark h-100" href="{{ route('eventdetail', ['id'=>$recommendedevent->id]) }}" style="height:max-content">
-                                            <div class="row g-0 allign-item-center">
-                                                <img src="{{$recommendedevent->image ? asset('storage/'.$recommendedevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top img-fluid" alt="gambar-{{$recommendedevent->name}}">
+                                            <div class="row g-0 align-item-center">
+                                                <img src="{{$recommendedevent->image ? asset('storage/'.$recommendedevent->image) : asset('images/No-Image-Placeholder.png')}}" class="card-img-top card-img-home img-fluid" alt="gambar-{{$recommendedevent->name}}">
 
                                                 <div class="card-body">
                                                     <div class="card-title">

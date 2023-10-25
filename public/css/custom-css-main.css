@@ -57,6 +57,15 @@
     right: 0pt !important;
 }
 
+.card-img-home {
+    height: 11em;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    border-radius: 0% !important;
+}
+
 .card-event {
     text-decoration: none;
     color: black;
@@ -151,6 +160,10 @@
         margin: 0;
         padding: 0;
         /* box-sizing: border-box; */
+    }
+
+    .card-img-home {
+        height: 14em;
     }
 
     .card-event .card-event-img{
