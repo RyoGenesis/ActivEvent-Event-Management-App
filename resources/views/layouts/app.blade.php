@@ -137,7 +137,6 @@
 
         <main class="py-4 flex-fill">
             @yield('content')
-            
         </main>
 
         <footer class="footer" style="background-color: #05559e; color:white">
@@ -187,7 +186,33 @@
                 </div>
             </div>
         </footer>
+
+        <button type="button" class="btn btn-info btn-lg" id="btn-back-top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
     </div>
+    <script>
+        $(document).ready(function() {
+            var btnTop = $("#btn-back-top");
+            
+            function backToTop() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+
+            // show button when not on top
+            $(window).on('scroll', function() {
+                if ($(window).scrollTop() > 20) {
+                    btnTop.show();
+                } else {
+                    btnTop.hide();
+                }
+            });
+    
+            // event listener for scroll to top
+            btnTop.on("click", backToTop);
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>
