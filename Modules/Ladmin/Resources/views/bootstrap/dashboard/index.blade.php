@@ -2,6 +2,14 @@
     <x-slot name="title">Dashboard</x-slot>
     <div class="m-3">
         <p class="fs-4 fw-bold">Hello, {{auth()->user()->display_name}}</p>
+        
+
+        <div class="p-6 m-20 bg-white rounded shadow">
+            {!! $charts->container() !!}
+        </div>
+        <script src="{{$charts->cdn()}}"></script>
+        {{$charts->script()}}
+
         {{-- featuring events latest active, near closing, already past but latest, last updated, waiting approval--}}
         <div class="row mb-2">
             <p class="fw-bold fs-5">Latest Active Events</p>
@@ -110,3 +118,5 @@
         </div>
     </div>
 </x-ladmin-auth-layout>
+
+

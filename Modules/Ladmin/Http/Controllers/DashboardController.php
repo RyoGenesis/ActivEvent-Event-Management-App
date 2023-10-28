@@ -4,6 +4,7 @@ namespace Modules\Ladmin\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Charts\AnalyticChart;
 use Modules\Ladmin\Http\Controllers\Controller;
 
 class DashboardController extends Controller
@@ -14,7 +15,7 @@ class DashboardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, AnalyticChart $chart)
     {
         //get relevant events info
         $user = auth()->user();
@@ -37,7 +38,8 @@ class DashboardController extends Controller
         $recentlyFinished = $recentlyFinished->where('status','Active')->whereDate('date','<',now())->orderBy('date','DESC')->take(3)->get();
         $latestUpdated = $latestUpdated->orderBy('updated_at','DESC')->take(3)->get();
         $waitingApproval = $waitingApproval->where('status','Draft')->oldest()->take(3)->get();
-
-        return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval']));
+        
+        $charts = $chart->build();
+        return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval','charts']));
     }
 }
