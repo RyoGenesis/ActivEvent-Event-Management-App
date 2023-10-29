@@ -6,6 +6,7 @@ use App\Http\Requests\EventRequest;
 use App\Jobs\ApprovalRequestReminder;
 use App\Jobs\SendEmailEventCancelled;
 use App\Jobs\SendEmailEventChanged;
+use App\Mail\RegisterEventMail;
 use App\Mail\RejectedParticipationMail;
 use App\Models\Bga;
 use App\Models\Category;
@@ -459,6 +460,13 @@ class EventController extends Controller
         else { //if not rejected before then register as new
             $user->events()->attach($request->id, ['status' => 'Registered']);
         }
+
+        // send mail notification about registration success
+        // Mail::to($user->email)->send(new RegisterEventMail($event, $user->email));
+            
+        // if($user->personal_email) {
+        //     Mail::to($user->personal_email)->send(new RegisterEventMail($event, $user->email));
+        // }
 
         //if event has additional form link
         if($event->additional_form_link){
