@@ -43,13 +43,10 @@ class EventReminder implements ShouldQueue
 
         foreach ($participants as $participant) { //send to every current participants
             Mail::to($participant->email)->send(new EventReminderMail($event));
-            //send WA notification WIP
-            $twilio = new Client(getenv('TWILIO_ACCOUNT_SID'),getenv('TWILIO_AUTH_TOKEN'));
 
-            $twilio->messages->create('whatssapp:'. $participant->phone,[
-                'from'=>'whatsapp' . getenv('TWILIO_WHATSAPP_NUMBER'),
-                'body'=>'Halo' . $participant->name . ', pesan ini merupakan pesan pengingat partisipasi anda di acara' . $event->name . 'Yang akan dilaksanakan pada' .$event->date,
-            ]);
+            if($participant->personal_email) {
+                Mail::to($participant->personal_email)->send(new EventReminderMail($event));
+            }
         }
     }
 }
