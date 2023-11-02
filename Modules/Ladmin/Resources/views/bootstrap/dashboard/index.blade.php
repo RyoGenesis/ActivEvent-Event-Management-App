@@ -2,6 +2,13 @@
     <x-slot name="title">Dashboard</x-slot>
     <div class="m-3">
         <p class="fs-4 fw-bold">Hello, {{auth()->user()->display_name}}</p>
+        <form method="GET" action="{{route('ladmin.index')}}">
+            <select class="form-select mb-3" id="groupby" name='groupby_value'>
+                <option selected value="category">Category</option>
+                <option value="community">Community</option>
+            </select>
+            <input type="submit" value="submit">
+        </form>
         
 
         <div class="p-6 m-20 bg-white rounded shadow">
@@ -118,5 +125,3 @@
         </div>
     </div>
 </x-ladmin-auth-layout>
-
-
