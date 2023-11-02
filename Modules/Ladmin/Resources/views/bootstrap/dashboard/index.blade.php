@@ -2,13 +2,12 @@
     <x-slot name="title">Dashboard</x-slot>
     <div class="m-3">
         <p class="fs-4 fw-bold">Hello, {{auth()->user()->display_name}}</p>
-        <form method="GET" action="{{route('ladmin.index')}}">
-            <select class="form-select mb-3" id="groupby" name='groupby_value'>
-                <option selected value="category">Category</option>
-                <option value="community">Community</option>
-            </select>
-            <input type="submit" value="submit">
-        </form>
+        
+        <select class="form-select mb-3" id="groupby" name='groupby_value' style="width: 400px">
+            <option selected value="">Choose Group By</option>
+            <option value="category">Category</option>
+            <option value="community">Community</option>
+        </select>
         
 
         <div class="p-6 m-20 bg-white rounded shadow">
@@ -125,3 +124,15 @@
         </div>
     </div>
 </x-ladmin-auth-layout>
+
+<script>
+    $(document).ready(function(){
+        $('#groupby').change(function(){
+            var selectedValue = $(this).val();
+
+            console.log(selectedValue);
+
+            window.location.href = '/administrator?groupby_value=' + selectedValue;
+        });
+    });
+</script>
