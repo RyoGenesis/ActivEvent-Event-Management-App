@@ -40,7 +40,7 @@ class DashboardController extends Controller
         $latestUpdated = $latestUpdated->orderBy('updated_at','DESC')->take(3)->get();
         $waitingApproval = $waitingApproval->where('status','Draft')->oldest()->take(3)->get();
         $groupby_chart = isset($request->groupby_value)?($request->groupby_value):'';
-        $charts = $chart->build($groupby_chart);
+        $charts = $chart->build($groupby_chart, $user);
 
         return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval','charts','groupby_chart']));
     }
