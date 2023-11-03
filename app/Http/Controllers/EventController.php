@@ -355,7 +355,7 @@ class EventController extends Controller
             'reasoning' => $request->reason,
         ]);
 
-        //Sending notification WIP
+        //Sending notification
         $participant = User::where('id', $request->id)->first();
         // Mail::to($participant->email)->send(new RejectedParticipationMail($event, $request->reason));
         if($participant->personal_email) {

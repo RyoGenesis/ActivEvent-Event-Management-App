@@ -41,6 +41,6 @@ class DashboardController extends Controller
         $groupby_chart = isset($request->groupby_value)?($request->groupby_value):'';
         $charts = $chart->build($groupby_chart);
 
-        return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval','charts']));
+        return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval','charts','groupby_chart']));
     }
 }

@@ -3,18 +3,21 @@
     <div class="m-3">
         <p class="fs-4 fw-bold">Hello, {{auth()->user()->display_name}}</p>
         
-        <select class="form-select mb-3" id="groupby" name='groupby_value' style="width: 400px">
-            <option selected value="">Choose Group By</option>
-            <option value="category">Category</option>
-            <option value="community">Community</option>
-        </select>
-        
-
-        <div class="p-6 m-20 bg-white rounded shadow">
-            {!! $charts->container() !!}
+        <div class="mb-4">
+            <p class="fw-bold fs-5">Participants Count Summary</p>
+            <select class="form-select mb-3" id="groupby" name='groupby_value' style="width: 400px">
+                <option selected value="">Choose Group By</option>
+                <option value="category" {{ $groupby_chart == "category" ? "selected" : "" }}>Category</option>
+                <option value="community" {{ $groupby_chart == "community" ? "selected" : "" }}>Community</option>
+            </select>
+            
+    
+            <div class="p-6 m-20 bg-white rounded shadow">
+                {!! $charts->container() !!}
+            </div>
+            <script src="{{$charts->cdn()}}"></script>
+            {{$charts->script()}}
         </div>
-        <script src="{{$charts->cdn()}}"></script>
-        {{$charts->script()}}
 
         {{-- featuring events latest active, near closing, already past but latest, last updated, waiting approval--}}
         <div class="row mb-2">
