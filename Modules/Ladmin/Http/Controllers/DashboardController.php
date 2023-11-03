@@ -17,6 +17,7 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request, AnalyticChart $chart)
     {
+        // dd($request->groupby_value);
         //get relevant events info
         $user = auth()->user();
         $latestActive = Event::with(['community','category']);

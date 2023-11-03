@@ -10,11 +10,12 @@ use PDO;
 
 class AnalyticChart
 {
-    protected $chart;
+    protected $chart, $chart2;
 
-    public function __construct(LarapexChart $chart)
+    public function __construct(LarapexChart $chart, LarapexChart $chart2)
     {
         $this->chart = $chart;
+        $this->chart2 = $chart2;
     }
 
     public function build($value)
@@ -46,9 +47,15 @@ class AnalyticChart
             $list_total_user[] = $total_users;
         }
 
-        return $this->chart->pieChart()
-            ->setTitle('Report Event Per ' .$value)
-            ->addData($list_total_user)
-            ->setLabels($list_sort_label);
+        $pie_chart = $this->chart->pieChart()
+        ->setTitle('Report Event Per ' .$value)
+        ->addData($list_total_user)
+        ->setLabels($list_sort_label);
+
+        $bar_chart = $this->chart2->barChart()
+        ->setTitle('Testing Bar Chart')
+        ->addData('Jakarta', [40, 50, 40]);
+
+        return [$pie_chart, $bar_chart];
     }
 }

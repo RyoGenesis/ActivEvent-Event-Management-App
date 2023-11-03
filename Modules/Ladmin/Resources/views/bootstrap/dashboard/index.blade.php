@@ -11,12 +11,13 @@
                 <option value="community" {{ $groupby_chart == "community" ? "selected" : "" }}>Community</option>
             </select>
             
-    
-            <div class="p-6 m-20 bg-white rounded shadow">
-                {!! $charts->container() !!}
-            </div>
-            <script src="{{$charts->cdn()}}"></script>
-            {{$charts->script()}}
+            @foreach ($charts as $chart)
+                <div class="p-6 m-20 bg-white rounded shadow mb-5">
+                    {!! $chart->container() !!}
+                </div>
+                <script src="{{$chart->cdn()}}"></script>
+                {{$chart->script()}}
+            @endforeach
         </div>
 
         {{-- featuring events latest active, near closing, already past but latest, last updated, waiting approval--}}
