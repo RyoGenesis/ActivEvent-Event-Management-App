@@ -5,10 +5,13 @@
         
         <div class="mb-4">
             <p class="fw-bold fs-5">Participants Count Summary</p>
-            <select class="form-select mb-3" id="groupby" name='groupby_value' style="width: 400px">
-                <option selected value="">Choose Group By</option>
-                <option value="category" {{ $groupby_chart == "category" ? "selected" : "" }}>Category</option>
-                <option value="community" {{ $groupby_chart == "community" ? "selected" : "" }}>Community</option>
+            <select class="form-select mb-3" id="groupby" name='groupby_community' style="width: 400px">
+                <option selected value="">Choose Community</option>
+                {{-- <option value="category" {{ $groupby_chart == "category" ? "selected" : "" }}>Category</option>
+                < value="community" {{ $groupby_chart == "community" ? "selected" : "" }}>Community</ option> --}}
+                @foreach ($communities as $community)
+                    <option value="{{$community->id}}">{{$community->name}}</option>
+                @endforeach
             </select>
             
             @foreach ($charts as $chart)
@@ -136,7 +139,7 @@
 
             console.log(selectedValue);
 
-            window.location.href = '/administrator?groupby_value=' + selectedValue;
+            window.location.href = '/administrator?groupby_community=' + selectedValue;
         });
     });
 </script>

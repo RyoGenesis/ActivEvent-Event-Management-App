@@ -3,6 +3,7 @@
 namespace Modules\Ladmin\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Community;
 use Illuminate\Http\Request;
 use App\Charts\AnalyticChart;
 use Modules\Ladmin\Http\Controllers\Controller;
@@ -25,6 +26,7 @@ class DashboardController extends Controller
         $recentlyFinished = Event::with(['community','category']);
         $latestUpdated = Event::with(['community','category']);
         $waitingApproval = Event::with(['community','category']);
+        $communities = Community::all();
 
         if($user->community_id != 1) { //only get events that is related to admin community
             $latestActive = $latestActive->where('community_id',$user->community_id);
@@ -39,9 +41,10 @@ class DashboardController extends Controller
         $recentlyFinished = $recentlyFinished->where('status','Active')->whereDate('date','<',now())->orderBy('date','DESC')->take(3)->get();
         $latestUpdated = $latestUpdated->orderBy('updated_at','DESC')->take(3)->get();
         $waitingApproval = $waitingApproval->where('status','Draft')->oldest()->take(3)->get();
-        $groupby_chart = isset($request->groupby_value)?($request->groupby_value):'';
-        $charts = $chart->build($groupby_chart, $user);
+        // $groupby_chart = isset($request->groupby_value)?($request->groupby_value):'';
+        $groupby_community = isset($request->groupby_community)?($request->groupby_community):'';
+        $charts = $chart->build($user, $groupby_community);
 
-        return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval','charts','groupby_chart']));
+        return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval','charts', 'communities']));
     }
 }

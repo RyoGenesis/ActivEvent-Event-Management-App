@@ -10,46 +10,62 @@ use PDO;
 
 class AnalyticChart
 {
-    protected $chart, $chart2;
+    protected $chart, $chart2, $chart3;
 
-    public function __construct(LarapexChart $chart, LarapexChart $chart2)
+    public function __construct(LarapexChart $chart, LarapexChart $chart2, LarapexChart $chart3)
     {
         $this->chart = $chart;
         $this->chart2 = $chart2;
+        $this->chart3 = $chart3;
     }
 
-    public function build($value_groupby, $user)
+    public function build($user,$value_community)
     {
         $categories = Category::all();
         $communities = Community::all();
-
         
+        $list_label_chart = array();
+        $list_total_user_chart = array();
+        
+        if(empty($value_community)){
+            foreach($categories as $category){
+                $category_events = Event::where('category_id', $category->id)->get();
+                $total = 0;
+                foreach($category_events as $category_event){
+                    $count = $category_event->users->count();
+                    $total += $count;
+                }
 
-
-        if($value_groupby == 'category' || empty($value_groupby)){
-            $sorts = $categories;
-            $search = 'category_id';
-            $value_groupby = 'category';
+                $list_label_chart[] = $category->name;
+                $list_total_user_chart[] = $total;
+            }
         }
-
-        else if($value_groupby == 'community'){
-            $sorts = $communities;
-            $search = 'community_id';
+        else{
+            foreach($categories as $category){
+                $category_events = Event::where('community_id', $value_community)->where('category_id', $category->id)->get();
+                $total = 0;
+                foreach($category_events as $category_event){
+                    $count = $category_event->users->count();
+                    $total += $count;
+                }
+                $list_label_chart[] = $category->name;
+                $list_total_user_chart[] = $total;
+            }
         }
 
         $list_sort_label_piechart = array();
         $list_total_user_piechart = array();
 
-        foreach($sorts as $sort){
-            $events_persort = Event::where($search, $sort->id)->get();
+        foreach($communities as $community){
+            $events_percommunity = Event::where('community_id', $community->id)->get();
 
             $total_users = 0;
 
-            foreach($events_persort as $event){
-                $count_users = $event->users->count();
+            foreach($events_percommunity as $event_percommunity){
+                $count_users = $event_percommunity->users->count();
                 $total_users += $count_users;
             }
-            $list_sort_label_piechart[] = $sort->name;
+            $list_sort_label_piechart[] = $community->name;
             $list_total_user_piechart[] = $total_users;
         }
 
@@ -70,17 +86,21 @@ class AnalyticChart
             $list_label_barchart[] = $category->name;
             $list_total_user_barchart[] = $total_user;
         }
+        
+        $chart = $this->chart->pieChart()
+        ->addData($list_total_user_chart)
+        ->setLabels($list_label_chart);
 
-        $pie_chart = $this->chart->pieChart()
-        ->setTitle('Report Event Per ' .$value_groupby)
+        $pie_chart = $this->chart2->pieChart()
+        ->setTitle('Report Event Total Participant Per Community')
         ->addData($list_total_user_piechart)
         ->setLabels($list_sort_label_piechart);
 
-        $bar_chart = $this->chart2->barChart()
+        $bar_chart = $this->chart3->barChart()
         ->setTitle('Report Total Participant Which Events You Created')
         ->addData('a', $list_total_user_barchart)
         ->setXAxis($list_label_barchart);
 
-        return [$pie_chart, $bar_chart];
+        return [$chart, $pie_chart, $bar_chart];
     }
 }
