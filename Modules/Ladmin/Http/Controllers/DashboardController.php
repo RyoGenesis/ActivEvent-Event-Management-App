@@ -45,6 +45,6 @@ class DashboardController extends Controller
         $groupby_community = isset($request->groupby_community)?($request->groupby_community):'';
         $charts = $chart->build($user, $groupby_community);
 
-        return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval','charts', 'communities']));
+        return ladmin()->view('dashboard.index', compact(['latestActive','nearClosing','recentlyFinished','latestUpdated','waitingApproval','charts', 'communities', 'user']));
     }
 }

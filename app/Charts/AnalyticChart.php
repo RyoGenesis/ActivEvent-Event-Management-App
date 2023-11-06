@@ -101,7 +101,13 @@ class AnalyticChart
         ->setTitle('Total Participants From Your Community')
         ->addData('Participants', $list_total_user_barchart)
         ->setXAxis($list_label_barchart);
+        
+        if($user->community_id == 1){
+            return [$chart, $pie_chart, $bar_chart];
+        }
+        else{
+            return [$bar_chart];
+        }
 
-        return [$chart, $pie_chart, $bar_chart];
     }
 }
