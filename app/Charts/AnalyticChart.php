@@ -88,17 +88,18 @@ class AnalyticChart
         }
         
         $chart = $this->chart->pieChart()
+        ->setTitle('Total Event Participants Per Category')
         ->addData($list_total_user_chart)
         ->setLabels($list_label_chart);
 
         $pie_chart = $this->chart2->pieChart()
-        ->setTitle('Report Event Total Participant Per Community')
+        ->setTitle('Total Event Participants Per Community')
         ->addData($list_total_user_piechart)
         ->setLabels($list_sort_label_piechart);
 
         $bar_chart = $this->chart3->barChart()
-        ->setTitle('Report Total Participant Which Events You Created')
-        ->addData('a', $list_total_user_barchart)
+        ->setTitle('Total Participants From Your Community')
+        ->addData('Participants', $list_total_user_barchart)
         ->setXAxis($list_label_barchart);
 
         return [$chart, $pie_chart, $bar_chart];
