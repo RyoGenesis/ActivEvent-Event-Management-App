@@ -65,7 +65,7 @@ class RegisterEventMail extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'mail.register_event',
-            text: 'mail.register_event-text',
+            // text: 'mail.register_event-text',
             with: [
                 'data' => $this->data,
             ],

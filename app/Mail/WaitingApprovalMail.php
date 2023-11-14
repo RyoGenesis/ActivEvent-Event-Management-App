@@ -47,7 +47,7 @@ class WaitingApprovalMail extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'mail.waiting_approval',
-            text: 'mail.waiting_approval-text',
+            // text: 'mail.waiting_approval-text',
             with: [
                 'data' => $this->data,
             ],

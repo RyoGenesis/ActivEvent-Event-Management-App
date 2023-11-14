@@ -66,7 +66,7 @@ class EventChangedMail extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'mail.update_event',
-            text: 'mail.update_event-text',
+            // text: 'mail.update_event-text',
             with: [
                 'data' => $this->data,
                 'status' => $this->status,

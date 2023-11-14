@@ -48,7 +48,7 @@ class RejectedParticipationMail extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'mail.rejection',
-            text: 'mail.rejection-text',
+            // text: 'mail.rejection-text',
             with: [
                 'data' => $this->data,
                 'reason' => $this->reason,

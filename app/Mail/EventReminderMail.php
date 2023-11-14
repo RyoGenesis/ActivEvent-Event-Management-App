@@ -47,7 +47,7 @@ class EventReminderMail extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'mail.reminder',
-            text: 'mail.reminder-text',
+            // text: 'mail.reminder-text',
             with: [
                 'data' => $this->data,
             ],

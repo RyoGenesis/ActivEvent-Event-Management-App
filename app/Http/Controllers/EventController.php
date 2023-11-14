@@ -92,7 +92,7 @@ class EventController extends Controller
         }
 
         //send email reminder to all super admin user about waiting approval
-        // ApprovalRequestReminder::dispatchSync($event);
+        ApprovalRequestReminder::dispatchSync($event);
 
         return redirect()->route('ladmin.event.index')->with('success','Successfully added new event!');
     }
@@ -184,7 +184,7 @@ class EventController extends Controller
 
         //if date is changed, then send notification
         if($event->isDirty('date') || $event->isDirty('location')) {
-            // SendEmailEventChanged::dispatch($event)->delay(now()->addMinutes(1));
+            SendEmailEventChanged::dispatch($event)->delay(now()->addMinutes(1));
         }
 
         $event->save();
@@ -357,9 +357,9 @@ class EventController extends Controller
 
         //Sending notification
         $participant = User::where('id', $request->id)->first();
-        // Mail::to($participant->email)->send(new RejectedParticipationMail($event, $request->reason));
+        Mail::to($participant->email)->send(new RejectedParticipationMail($event, $request->reason));
         if($participant->personal_email) {
-            // Mail::to($participant->personal_email)->send(new RejectedParticipationMail($event, $request->reason));
+            Mail::to($participant->personal_email)->send(new RejectedParticipationMail($event, $request->reason));
         }
 
         return redirect()->back()->with('success', 'Rejected participant registration');
@@ -462,11 +462,11 @@ class EventController extends Controller
         }
 
         // send mail notification about registration success
-        // Mail::to($user->email)->send(new RegisterEventMail($event, $user->email));
+        Mail::to($user->email)->send(new RegisterEventMail($event, $user->email));
             
-        // if($user->personal_email) {
-        //     Mail::to($user->personal_email)->send(new RegisterEventMail($event, $user->email));
-        // }
+        if($user->personal_email) {
+            Mail::to($user->personal_email)->send(new RegisterEventMail($event, $user->email));
+        }
 
         //if event has additional form link
         if($event->additional_form_link){
