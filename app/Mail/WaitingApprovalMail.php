@@ -26,43 +26,43 @@ class WaitingApprovalMail extends Mailable implements ShouldQueue
         $this->data = $event;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: '[ActivEvent] New Event "'. $this->data->name .'" is Awaiting For Approval',
-        );
-    }
+    // /**
+    //  * Get the message envelope.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Envelope
+    //  */
+    // public function envelope()
+    // {
+    //     return new Envelope(
+    //         subject: '[ActivEvent] New Event "'. $this->data->name .'" is Awaiting For Approval',
+    //     );
+    // }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'mail.waiting_approval',
-            // text: 'mail.waiting_approval-text',
-            with: [
-                'data' => $this->data,
-            ],
-        );
-    }
+    // /**
+    //  * Get the message content definition.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Content
+    //  */
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'mail.waiting_approval',
+    //         // text: 'mail.waiting_approval-text',
+    //         with: [
+    //             'data' => $this->data,
+    //         ],
+    //     );
+    // }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
-    }
+    // /**
+    //  * Get the attachments for the message.
+    //  *
+    //  * @return array
+    //  */
+    // public function attachments()
+    // {
+    //     return [];
+    // }
 
     public function build()
     {

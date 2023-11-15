@@ -43,47 +43,47 @@ class RegisterEventMail extends Mailable implements ShouldQueue
         $this->calendar->appendProperty(TextProperty::create('METHOD', 'REQUEST'));
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            // from: new Address('no-reply.activevent@binus.ac.id', 'ActivEvent System'),
-            subject: '[ActivEvent] Successful Registration To Event "'. $this->data->name .'"',
-        );
-    }
+    // /**
+    //  * Get the message envelope.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Envelope
+    //  */
+    // public function envelope()
+    // {
+    //     return new Envelope(
+    //         // from: new Address('no-reply.activevent@binus.ac.id', 'ActivEvent System'),
+    //         subject: '[ActivEvent] Successful Registration To Event "'. $this->data->name .'"',
+    //     );
+    // }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'mail.register_event',
-            // text: 'mail.register_event-text',
-            with: [
-                'data' => $this->data,
-            ],
-        );
-    }
+    // /**
+    //  * Get the message content definition.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Content
+    //  */
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'mail.register_event',
+    //         // text: 'mail.register_event-text',
+    //         with: [
+    //             'data' => $this->data,
+    //         ],
+    //     );
+    // }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [
-            Attachment::fromData(fn () => $this->calendar->get(), 'invite.ics')
-                ->withMime('text/calendar; charset=UTF-8; method=REQUEST'),
-        ];
-    }
+    // /**
+    //  * Get the attachments for the message.
+    //  *
+    //  * @return array
+    //  */
+    // public function attachments()
+    // {
+    //     return [
+    //         Attachment::fromData(fn () => $this->calendar->get(), 'invite.ics')
+    //             ->withMime('text/calendar; charset=UTF-8; method=REQUEST'),
+    //     ];
+    // }
 
     public function build()
     {

@@ -465,7 +465,7 @@ class EventController extends Controller
         Mail::to($user->email)->send(new RegisterEventMail($event, $user->email));
             
         if($user->personal_email) {
-            Mail::to($user->personal_email)->send(new RegisterEventMail($event, $user->email));
+            Mail::to($user->personal_email)->send(new RegisterEventMail($event, $user->personal_email));
         }
 
         //if event has additional form link

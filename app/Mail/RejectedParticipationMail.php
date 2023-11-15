@@ -27,44 +27,44 @@ class RejectedParticipationMail extends Mailable implements ShouldQueue
         $this->reason = $reason;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: '[ActivEvent] Your Registration For Event "'. $this->data->name .' Has Been Rejected"',
-        );
-    }
+    // /**
+    //  * Get the message envelope.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Envelope
+    //  */
+    // public function envelope()
+    // {
+    //     return new Envelope(
+    //         subject: '[ActivEvent] Your Registration For Event "'. $this->data->name .' Has Been Rejected"',
+    //     );
+    // }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'mail.rejection',
-            // text: 'mail.rejection-text',
-            with: [
-                'data' => $this->data,
-                'reason' => $this->reason,
-            ],
-        );
-    }
+    // /**
+    //  * Get the message content definition.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Content
+    //  */
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'mail.rejection',
+    //         // text: 'mail.rejection-text',
+    //         with: [
+    //             'data' => $this->data,
+    //             'reason' => $this->reason,
+    //         ],
+    //     );
+    // }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
-    }
+    // /**
+    //  * Get the attachments for the message.
+    //  *
+    //  * @return array
+    //  */
+    // public function attachments()
+    // {
+    //     return [];
+    // }
 
     public function build()
     {

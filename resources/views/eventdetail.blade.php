@@ -215,10 +215,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <form action="{{route('cancelregistration')}}" method="post">
+                            <form action="{{route('cancelregistration')}}" method="post" id="register-form">
                                 @csrf
                                 <input type="hidden" name="id" value="{{$event->id}}">
-                                <button type="submit" class="btn btn-secondary btn-danger">Yes</button>
+                                <button type="submit" id="cancel-btn" class="btn btn-secondary btn-danger">Yes</button>
                             </form>
                         </div>
                     </div>
@@ -239,10 +239,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form action="{{route('registration')}}" method="post">
+                            <form action="{{route('registration')}}" method="post" id="register-form">
                                 @csrf
                                 <input type="hidden" name="id" value="{{$event->id}}">
-                                <button type="submit" class="btn btn-success">Register</button>
+                                <button type="submit" id="register-btn" class="btn btn-success">Register</button>
                             </form>
                         </div>
                     </div>
@@ -252,7 +252,7 @@
     @endif
     @if ((session()->has('successful') && !$event->additional_form_link) || session()->has('success_cancel'))
         <div class="modal fade" id="modalnotif" tabindex="-1" aria-labelledby="modallabelnotif" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title detail-text" id="modallabelnotif">Registration</h1>
@@ -275,8 +275,18 @@
 @endsection
 
 @section('scripts')
-@if (Auth::check() && $registered)
-    @if ($registered && $event->date > \Carbon\Carbon::now())
+<script>
+    $(window).ready(function() {
+        $('#register-form').on('submit', function () {
+            $('#register-btn').prop('disabled', true);
+        });
+        $('#cancel-form').on('submit', function () {
+            $('#cancel-btn').prop('disabled', true);
+        });
+    });
+</script>
+@if (Auth::check() && ($registered || session()->has('success_cancel') ))
+    @if (($registered && $event->date > \Carbon\Carbon::now()) || session()->has('success_cancel'))
         @if ($event->additional_form_link)
             @if (session()->has('form_link'))
                 <script defer>
