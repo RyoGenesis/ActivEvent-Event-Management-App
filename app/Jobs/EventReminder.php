@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\EventReminderMail;
 use App\Models\Event;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,16 +18,13 @@ class EventReminder implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $event;
-
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Event $event)
+    public function __construct()
     {
-        $this->event = $event;
     }
 
     /**
@@ -36,16 +34,19 @@ class EventReminder implements ShouldQueue
      */
     public function handle()
     {
-        $event = $this->event;
-        $participants = $event->users()->whereHas('events', function ($q) use ($event) {
-            $q->where('id', $event->id)->where('user_event.status', 'Registered');
-        })->get();
-
-        foreach ($participants as $participant) { //send to every current participants
-            Mail::to($participant->email)->send(new EventReminderMail($event));
-
-            if($participant->personal_email) {
-                Mail::to($participant->personal_email)->send(new EventReminderMail($event));
+        $events = Event::where('status', 'Active')->whereDate('date', '=', Carbon::tomorrow())->get();
+        
+        foreach ($events as $event) {
+            $participants = $event->users()->whereHas('events', function ($q) use ($event) {
+                $q->where('id', $event->id)->where('user_event.status', 'Registered');
+            })->get();
+    
+            foreach ($participants as $participant) { //send to every current participants
+                Mail::to($participant->email)->send(new EventReminderMail($event));
+    
+                if($participant->personal_email) {
+                    Mail::to($participant->personal_email)->send(new EventReminderMail($event));
+                }
             }
         }
     }
