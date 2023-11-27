@@ -142,36 +142,40 @@
             <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" class="float-end img-fluid event-detail-img desktop-only">
             <div class="row px-5 px-md-3">
                 <div class="col d-flex justify-content-end py-5">
-                    @if (Auth::check())
-                        @if ($registered)
-                            @if ($event->date > \Carbon\Carbon::now())
-                                @if ($event->additional_form_link)
-                                    <button type="button" class="btn btn-info me-4" data-bs-toggle="modal" data-bs-target="#modalform">
-                                    External Form Link
+                    @if ($event->deleted_at == null)
+                        @if (Auth::check())
+                            @if ($registered)
+                                @if ($event->date > \Carbon\Carbon::now())
+                                    @if ($event->additional_form_link)
+                                        <button type="button" class="btn btn-info me-4" data-bs-toggle="modal" data-bs-target="#modalform">
+                                        External Form Link
+                                        </button>
+                                    @endif
+                                
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
+                                        Cancel
                                     </button>
+                                @else
+                                    <p class="text-danger">Event has begun / ended! You're not able to cancel for this event.</p>
                                 @endif
-                            
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
-                                    Cancel
-                                </button>
                             @else
-                                <p class="text-danger">Event has begun / ended! You're not able to cancel for this event.</p>
+                                @if ($event->registration_end > \Carbon\Carbon::now())
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalregister">
+                                        Register
+                                    </button>
+                                @else
+                                    <p class="text-danger">Sorry, registration period has ended! You're not able to register for this event.</p>
+                                @endif
                             @endif
                         @else
                             @if ($event->registration_end > \Carbon\Carbon::now())
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalregister">
-                                    Register
-                                </button>
+                                <a href="{{route('login')}}" class="btn btn-primary btn-lg">Register</a>
                             @else
                                 <p class="text-danger">Sorry, registration period has ended! You're not able to register for this event.</p>
                             @endif
                         @endif
                     @else
-                        @if ($event->registration_end > \Carbon\Carbon::now())
-                            <a href="{{route('login')}}" class="btn btn-primary btn-lg">Register</a>
-                        @else
-                            <p class="text-danger">Sorry, registration period has ended! You're not able to register for this event.</p>
-                        @endif
+                        <p class="text-danger">Sorry, event has been cancelled.</p>
                     @endif
                 </div>
             </div>

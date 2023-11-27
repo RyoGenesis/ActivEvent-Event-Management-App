@@ -44,7 +44,7 @@ class SendEmailEventCancelled implements ShouldQueue
             Mail::to($participant->email)->send(new EventChangedMail($event, 'Cancellation', $participant->email));
             
             if($participant->personal_email) {
-                Mail::to($participant->personal_email)->send(new EventChangedMail($event, 'Cancellation', $participant->email));
+                Mail::to($participant->personal_email)->send(new EventChangedMail($event, 'Cancellation', $participant->personal_email));
             }
         }
     }

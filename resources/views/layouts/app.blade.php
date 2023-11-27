@@ -66,7 +66,7 @@
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav me-auto ">
                              <li class="nav-item">
-                                <a class="nav-link main-menu active" href="{{route('home')}}">Home</a>
+                                <a class="nav-link main-menu {{Route::is('home') ? 'active' : ''}}" href="{{route('home')}}">Home</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle main-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Event </a>
@@ -80,17 +80,17 @@
                             </li>
                             @auth
                             <li class="nav-item">
-                                <a class="nav-link main-menu" href="{{route('recommendedevent')}}">For You</a>
+                                <a class="nav-link main-menu {{Route::is('recommendedevent') ? 'active' : ''}}" href="{{route('recommendedevent')}}">For You</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link main-menu" href="{{route('historyevent')}}">Event History</a>
+                                <a class="nav-link main-menu {{Route::is('historyevent') ? 'active' : ''}}" href="{{route('historyevent')}}">Event History</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link main-menu" href="{{route('profile')}}#upcoming">Upcoming</a>
                             </li>
                             @endauth
                             <li class="nav-item">
-                                <a class="nav-link main-menu" href="{{route('contactus')}}">Contact us</a>
+                                <a class="nav-link main-menu {{Route::is('contactus') ? 'active' : ''}}" href="{{route('contactus')}}">Contact us</a>
                             </li>
                         </ul>
     

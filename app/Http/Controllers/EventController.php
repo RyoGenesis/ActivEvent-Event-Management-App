@@ -173,7 +173,6 @@ class EventController extends Controller
        
         if($imageFile) {
             $imageName = time().'_'.str_replace(' ', '-',$request->name).'.'.$imageFile->getClientOriginalExtension();
-            // dd($imageFile, $imageName);
             Storage::putFileAs('public/images/event_images/', $imageFile, $imageName);
             $imageUrl = 'images/event_images/'.$imageName;
             Storage::delete('public/'.$event->image);
@@ -214,13 +213,13 @@ class EventController extends Controller
         }
         if($event->status == 'Active') {
             //send notification to participants
-            // SendEmailEventCancelled::dispatch($event);
+            SendEmailEventCancelled::dispatch($event);
         }
 
         $event->update(['status' => 'Cancelled']);
         Event::destroy($request->id);
 
-        return redirect()->back()->with('success','Successfully deleted event!');
+        return redirect()->back()->with('success','Successfully cancelled the event!');
     }
 
     public function search(Request $request){
@@ -234,15 +233,7 @@ class EventController extends Controller
         $availCommunities = Community::all();
         $events = Event::with('community')->where('status', 'Active')->whereDate('date','>',now())
                 ->filterBy($request)
-                ->where(function ($q) use ($search) {
-                    $q->where('name', 'like', "%".$search."%") //search name
-                    ->orWhere('topic', 'like', "%".$search."%") //search topic
-                    ->orWhere('description', 'like', "%".$search."%") //search description
-                    ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
-                    ->orWhereHas('community', function (Builder $query) use ($search){ //search community name
-                        $query->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
-                    });
-                })
+                ->search($search)
                 ->paginate(10)->withQueryString();
 
         $selectedCategories = null;

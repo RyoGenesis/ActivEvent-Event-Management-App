@@ -44,7 +44,7 @@ class SendEmailEventChanged implements ShouldQueue
             Mail::to($participant->email)->send(new EventChangedMail($event, 'Update', $participant->email));
             
             if($participant->personal_email) {
-                Mail::to($participant->personal_email)->send(new EventChangedMail($event, 'Update', $participant->email));
+                Mail::to($participant->personal_email)->send(new EventChangedMail($event, 'Update', $participant->personal_email));
             }
         }
     }

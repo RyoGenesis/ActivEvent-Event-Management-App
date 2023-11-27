@@ -50,6 +50,18 @@ class Event extends Model
         return $this->belongsTo(SatLevel::class)->withTrashed();
     }
 
+    public function scopeSearch($query, $search) {
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', "%".$search."%") //search name
+            ->orWhere('topic', 'like', "%".$search."%") //search topic
+            ->orWhere('description', 'like', "%".$search."%") //search description
+            ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
+            ->orWhereHas('community', function (Builder $que) use ($search){ //search community name
+                $que->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
+            });
+        })
+    }
+
     public function scopeFilterBy($query, $request)
     {
         
