@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/changepassword', function(){
         return view('changepassword');
     })->name('changepassword');
-    Route::get('/historyevent', [App\Http\Controllers\UserController::class, 'historyevent'])->name('historyevent');
+    Route::get('/event-history', [App\Http\Controllers\UserController::class, 'eventHistory'])->name('eventhistory');
     Route::get('/editprofile', [App\Http\Controllers\UserController::class, 'showEditProfileForm'])->name('editprofile');
     Route::post('editprofile/update', [App\Http\Controllers\UserController::class, 'profileUpdate'])->name('editprofile.update');
     Route::post('/changepassword/update', [App\Http\Controllers\UserController::class, 'passwordChange'])->name('changepassword.update');

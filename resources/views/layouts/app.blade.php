@@ -83,7 +83,7 @@
                                 <a class="nav-link main-menu {{Route::is('recommendedevent') ? 'active' : ''}}" href="{{route('recommendedevent')}}">For You</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link main-menu {{Route::is('historyevent') ? 'active' : ''}}" href="{{route('historyevent')}}">Event History</a>
+                                <a class="nav-link main-menu {{Route::is('eventhistory') ? 'active' : ''}}" href="{{route('eventhistory')}}">Event History</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link main-menu" href="{{route('profile')}}#upcoming">Upcoming</a>

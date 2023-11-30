@@ -160,7 +160,7 @@ class UserController extends Controller
         return view('editprofile', compact('user', 'campuses', 'faculties','communities','categories','userCommunities','preferredCategories'));
     }
 
-    function historyevent(){
+    function eventHistory(){
         $user = User::with('events.community')->where('id',Auth::user()->id)->first();
         $historyevents = $user->events;
         return view('historyevent', compact('user', 'historyevents'));
