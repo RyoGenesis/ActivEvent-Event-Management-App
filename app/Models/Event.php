@@ -59,7 +59,7 @@ class Event extends Model
             ->orWhereHas('community', function (Builder $que) use ($search){ //search community name
                 $que->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
             });
-        })
+        });
     }
 
     public function scopeFilterBy($query, $request)
