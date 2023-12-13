@@ -57,10 +57,10 @@ class UserController extends Controller
         if(!$userStudent) {
             return redirect()->route('ladmin.student_user.index')->with('danger','Student data not found!');
         }
-        $campuses = Campus::all();
-        $faculties = Faculty::all();
-        $communities = Community::all();
         $userCommunities = $userStudent->communities->pluck('id')->toArray();
+        $campuses = Campus::withTrashed()->whereNull('deleted_at')->orWhere('id', $userStudent->campus_id)->get();
+        $faculties = Faculty::withTrashed()->whereNull('deleted_at')->orWhere('id', $userStudent->faculty_id)->get();
+        $communities = Community::withTrashed()->whereNull('deleted_at')->orWhereIn('id', $userCommunities)->where('id','!=',1)->get();
         return ladmin()->view('student_user.edit', compact(['userStudent', 'campuses', 'faculties', 'communities', 'userCommunities']));
     }
 

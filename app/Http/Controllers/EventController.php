@@ -54,7 +54,7 @@ class EventController extends Controller
         $imageUrl = null;
         
         if($imageFile) {
-            $imageName = time().'_'.str_replace(' ', '-',$request->name).'.'.$imageFile->getClientOriginalExtension();
+            $imageName = time().'_'.str_replace(' ', '-', preg_replace("/[^a-zA-Z0-9() ]/", "", $request->name)).'.'.$imageFile->getClientOriginalExtension();
             Storage::putFileAs('public/images/event_images/', $imageFile, $imageName);
             $imageUrl = 'images/event_images/'.$imageName;
         }
@@ -92,7 +92,7 @@ class EventController extends Controller
         }
 
         //send email reminder to all super admin user about waiting approval
-        ApprovalRequestReminder::dispatchSync($event);
+        // ApprovalRequestReminder::dispatchSync($event);
 
         return redirect()->route('ladmin.event.index')->with('success','Successfully added new event!');
     }
@@ -172,7 +172,7 @@ class EventController extends Controller
         $imageFile = $request->file('image');
        
         if($imageFile) {
-            $imageName = time().'_'.str_replace(' ', '-',$request->name).'.'.$imageFile->getClientOriginalExtension();
+            $imageName = time().'_'.str_replace(' ', '-',preg_replace("/[^a-zA-Z0-9() ]/", "", $request->name)).'.'.$imageFile->getClientOriginalExtension();
             Storage::putFileAs('public/images/event_images/', $imageFile, $imageName);
             $imageUrl = 'images/event_images/'.$imageName;
             Storage::delete('public/'.$event->image);
@@ -405,7 +405,13 @@ class EventController extends Controller
 
         $recommendedEvents = Event::with('community')->where('status','Active')->whereDate('date','>',now());
 
-        $recommendedEvents = $recommendedEvents->where(function ($q) use ($user) {
+        $recommendedEvents = $this->userBasedEventRecommendation($user, $recommendedEvents);
+        $recommendedEvents = $recommendedEvents->orderBy('created_at', 'DESC')->paginate(10);
+        return view('recommendedevent', compact('recommendedEvents'));
+    }
+
+    private function userBasedEventRecommendation($user, $events) {
+        $recommendations = $events->where(function ($q) use ($user) {
 
             $topicInterests = explode(',',$user->topics);
 
@@ -423,8 +429,8 @@ class EventController extends Controller
                 $q = $q->orWhere('topic', 'like', "%".$interest."%")->orWhere('name', 'like', "%".$interest."%");
             }
         });
-        $recommendedEvents = $recommendedEvents->orderBy('created_at', 'DESC')->paginate(10);
-        return view('recommendedevent', compact('recommendedEvents'));    
+        
+        return $recommendations;
     }
 
     function register(Request $request) {

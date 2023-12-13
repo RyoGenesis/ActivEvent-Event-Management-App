@@ -28,7 +28,7 @@ class AdminRequest extends FormRequest
     {
         $roles = [
             'username' => ['required', 'max:100'],
-            'email' => ['required', Rule::unique(ladmin()->getAdminTable(), 'email'), 'email'],
+            'email' => ['required', Rule::unique(ladmin()->getAdminTable(), 'email'), 'email:rfc,strict,dns'],
             'password' => ['sometimes', 'required', 'confirmed', 'min:6'],
             'roles' => ['required', 'array'],
             'display_name' => ['required', 'max:100'],

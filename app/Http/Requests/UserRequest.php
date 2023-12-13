@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
 
         $rules = [
             'name' => 'required|string',
-            'email' => ['sometimes', 'required','email', 'ends_with:@binus.ac.id', Rule::unique('users','email')->ignore($id)],
+            'email' => ['sometimes', 'required','email:rfc,strict', 'ends_with:@binus.ac.id', Rule::unique('users','email')->ignore($id)],
             'phone' => ['sometimes','required', 'digits_between:1,20', Rule::unique('users','phone')->ignore($id)],
             'nim' => ['sometimes', 'required','size:10', 'regex:/^[0-9]+$/', Rule::unique('users','nim')->ignore($id)],
             'personal_email' => ['sometimes', 'nullable','email', Rule::unique('users','personal_email')->ignore($id)],

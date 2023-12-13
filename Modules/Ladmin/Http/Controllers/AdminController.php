@@ -105,7 +105,6 @@ class AdminController extends Controller
         $admin->roles()->sync($request->roles);
 
         return redirect()->back()->with('success', 'Admin has been updated successfully!');
-
     }
 
     public function deactivate(Request $request)
@@ -118,7 +117,6 @@ class AdminController extends Controller
         }
         $admin->update(['deactivated_at' => Carbon::now()]);
         return redirect()->back()->with('success', 'Successfully deactivate admin account!');
-
     }
 
     public function reactivate(Request $request)
@@ -131,9 +129,7 @@ class AdminController extends Controller
         }
         $admin->update(['deactivated_at' => null]);
         return redirect()->back()->with('success', 'Successfully re-activate admin account!');
-
     }
 
     //wip edge case login admin for deleted community
-    
 }
