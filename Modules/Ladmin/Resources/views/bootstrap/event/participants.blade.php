@@ -12,7 +12,7 @@
     <div class="modal fade" id="reject-modal" tabindex="-1" role="dialog" aria-labelledby="reject-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
-            <form action="{{ route('ladmin.event.participant.reject', [$event->id]) }}" method="post">
+            <form id="reject-form" action="{{ route('ladmin.event.participant.reject', [$event->id]) }}" method="post">
               @csrf
               <input type="hidden" name="id" value="">
               <div class="modal-header border-0">
@@ -28,7 +28,7 @@
               </div>
               <div class="modal-footer border-0">
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">No</button>
-                <button type="submit" class="btn btn-sm btn-danger">Yes</button>
+                <button id="submit-btn" type="submit" class="btn btn-sm btn-danger">Yes</button>
               </div>
             </form>
           </div>
@@ -40,6 +40,12 @@
             $('#reject-modal').on('show.bs.modal' ,function(e) {
                 var itemId =  $(e.relatedTarget).data('id');
                 $(this).find('[name=id]').val(itemId);
+            });
+
+            $(window).ready(function() {
+                $('#reject-form').on('submit', function () {
+                    $('#submit-btn').prop('disabled', true);
+                });
             });
         </script>
     </x-slot>

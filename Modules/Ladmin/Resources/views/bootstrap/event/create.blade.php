@@ -1,6 +1,6 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Add New Event</x-slot>
-    <form action="{{ route('ladmin.event.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="create-form" action="{{ route('ladmin.event.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         {{-- name --}}
         <div class="row d-flex align-items-center mb-3">
@@ -233,12 +233,18 @@
         </div>
 
         <div class="text-end">
-            <x-ladmin-button>Submit</x-ladmin-button>
+            <x-ladmin-button id="submit-btn">Submit</x-ladmin-button>
         </div>
     </form>
     <x-slot name="scripts">
         <x-head.tinymce-config/>
         <script>
+            $(window).ready(function() {
+                $('#create-form').on('submit', function () {
+                    $('#submit-btn').prop('disabled', true);
+                });
+            });
+
             $('#category_id').select2({
                 theme: "bootstrap-5",
                 width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',

@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col mb-3">
-            <form action="{{ route('ladmin.profile.store') }}" method="POST">
+            <form id="profile-form" action="{{ route('ladmin.profile.store') }}" method="POST">
                 @csrf
 
                 @include(ladmin()->view_path('admin._parts._form'), ['admin' => $user])
@@ -20,11 +20,20 @@
                 </div>
 
                 <div class="text-end">
-                    <x-ladmin-button>Update</x-ladmin-button>
+                    <x-ladmin-button id="update-btn">Update</x-ladmin-button>
                 </div>
 
             </form>
         </div>
     </div>
 
+    <x-slot name="scripts">
+        <script>
+            $(window).ready(function() {
+                $('#profile-form').on('submit', function () {
+                    $('#update-btn').prop('disabled', true);
+                });
+            });
+        </script>
+    </x-slot>
 </x-ladmin-auth-layout>

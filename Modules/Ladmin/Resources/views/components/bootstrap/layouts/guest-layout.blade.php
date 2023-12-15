@@ -9,7 +9,7 @@
     <title>Administrator {{ $metaTitle }} | ActivEvent</title>
 
     @stack('before-styles')
-    <link rel="stylesheet" href="{{ mix('/css/bs-ladmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/bs-ladmin.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/custom-css-admin.css') }}">
     {{ $styles ?? null }}
     @stack('after-styles')
@@ -21,7 +21,7 @@
     {{ $slot }}
 
     @stack('before-scripts')
-    <script src="{{ mix('/js/bs-ladmin.js') }}"></script>
+    <script src="{{ asset('/js/bs-ladmin.js') }}"></script>
     @stack('after-scripts')
 </body>
 

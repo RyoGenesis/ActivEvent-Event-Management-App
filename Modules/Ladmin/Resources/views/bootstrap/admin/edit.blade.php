@@ -1,7 +1,7 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Admin Details</x-slot>
     
-    <form action="{{ route('ladmin.admin.update', $admin->id) }}" method="POST">
+    <form id="edit-form" action="{{ route('ladmin.admin.update', $admin->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -12,7 +12,7 @@
         <input type="hidden" name="id" value="{{ $admin->id }}">
 
         <div class="text-end">
-            <x-ladmin-button>Update</x-ladmin-button>
+            <x-ladmin-button id="submit-btn">Update</x-ladmin-button>
         </div>
 
     </form>
@@ -24,6 +24,12 @@
                 placeholder: $( this ).data('placeholder'),
                 closeOnSelect: false,
                 allowClear: true,
+            });
+
+            $(window).ready(function() {
+                $('#edit-form').on('submit', function () {
+                    $('#submit-btn').prop('disabled', true);
+                });
             });
         </script>
     </x-slot>

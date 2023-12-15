@@ -176,6 +176,12 @@
 
 @section('scripts')
 <script>
+    $(window).ready(function() {
+        $('#formeditprofile').on('submit', function () {
+            $('#submitbtn').prop('disabled', true);
+        });
+    });
+
     $(document).ready(function() {
         $('#campus_id').select2({
             theme: "bootstrap-5",

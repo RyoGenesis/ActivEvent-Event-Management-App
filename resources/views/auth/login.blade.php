@@ -9,7 +9,7 @@
                         <h3 class="text-center">Login</h3>
                     </div>
 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form id="login-form" method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="row justify-content-center mb-4">
@@ -38,7 +38,7 @@
 
                         <div class="row my-4 justify-content-center text-center">
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="login-btn">
                                     Log In
                                 </button>
                             </div>
@@ -60,4 +60,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(window).ready(function() {
+        $('#login-form').on('submit', function () {
+            $('#login-btn').prop('disabled', true);
+        });
+    });
+</script>
 @endsection

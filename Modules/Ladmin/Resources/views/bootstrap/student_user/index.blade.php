@@ -14,7 +14,7 @@
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
-            <form action="{{ route('ladmin.student_user.destroy') }}" method="post">
+            <form id="deactive-form" action="{{ route('ladmin.student_user.destroy') }}" method="post">
               @csrf
               <input type="hidden" name="id" value="">
               <div class="modal-header border-0">
@@ -26,7 +26,7 @@
               </div>
               <div class="modal-footer border-0">
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">No</button>
-                <button type="submit" class="btn btn-sm btn-danger">Yes</button>
+                <button id="submit-deactive-btn" type="submit" class="btn btn-sm btn-danger">Yes</button>
               </div>
             </form>
           </div>
@@ -36,7 +36,7 @@
     <div class="modal fade" id="reactivate-modal" tabindex="-1" role="dialog" aria-labelledby="reactivate-modal-label" aria-hidden="true">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-          <form action="{{ route('ladmin.student_user.reactivate') }}" method="post">
+          <form id="reactive-form" action="{{ route('ladmin.student_user.reactivate') }}" method="post">
             @csrf
             <input type="hidden" name="id" value="">
             <div class="modal-header border-0">
@@ -48,7 +48,7 @@
             </div>
             <div class="modal-footer border-0">
               <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">No</button>
-              <button type="submit" class="btn btn-sm btn-success">Yes</button>
+              <button id="submit-reactive-btn" type="submit" class="btn btn-sm btn-success">Yes</button>
             </div>
           </form>
         </div>
@@ -65,6 +65,15 @@
             $('#reactivate-modal').on('show.bs.modal' ,function(e) {
                 var itemId =  $(e.relatedTarget).data('id');
                 $(this).find('[name=id]').val(itemId);
+            });
+
+            $(window).ready(function() {
+                $('#deactive-form').on('submit', function () {
+                    $('#submit-deactive-btn').prop('disabled', true);
+                });
+                $('#reactive-form').on('submit', function () {
+                    $('#submit-reactive-btn').prop('disabled', true);
+                });
             });
         </script>
     </x-slot>

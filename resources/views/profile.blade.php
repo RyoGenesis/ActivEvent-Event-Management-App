@@ -169,36 +169,31 @@
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
                                     Cancel
                                 </button>
-                                <form action="{{route('cancelregistration')}}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{$event->id}}">
-        
-                                    <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Confirm to Cancel Your Registration?
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                            <form action="{{route('cancelregistration')}}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$event->id}}">
-                                                <button type="submit" class="btn btn-secondary btn-danger">Yes</button>
-                                            </form>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </form>
                             </th>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modallabelcancel">Cancel Registration</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Confirm to Cancel Your Registration?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form id="cancel-form" action="{{route('cancelregistration')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{$event->id}}">
+                    <button id="cancel-btn" type="submit" class="btn btn-secondary btn-danger">Yes</button>
+                </form>
+            </div>
+            </div>
         </div>
         @endif
         {{-- only when rejected event is present --}}
@@ -274,8 +269,18 @@
                         this.data(i++);
                     });
             }).draw();
-        }); 
+        });
 
+        $('#modalcancel').on('show.bs.modal' ,function(e) {
+            var itemId =  $(e.relatedTarget).data('id');
+            $(this).find('[name=id]').val(itemId);
+        });
+
+        $(window).ready(function() {
+            $('#cancel-form').on('submit', function () {
+                $('#cancel-btn').prop('disabled', true);
+            });
+        });
     </script>
 @endif
 @if (!$rejectedEvents->isEmpty())

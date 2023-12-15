@@ -180,6 +180,12 @@
 
 @section('scripts')
     <script>
+        $(window).ready(function() {
+            $('#registerForm').on('submit', function () {
+                $('#submitRegister').prop('disabled', true);
+            });
+        });
+
         $(document).ready(function() {
             $('#campus_id').select2({
                 theme: "bootstrap-5",

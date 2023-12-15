@@ -1,6 +1,6 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Add New Community</x-slot>
-    <form action="{{ route('ladmin.community.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="create-form" action="{{ route('ladmin.community.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row d-flex align-items-center mb-3">
             <label for="name" class="form-label col-lg-3">Name <span class="text-danger">*</span></label>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="text-end">
-            <x-ladmin-button>Submit</x-ladmin-button>
+            <x-ladmin-button id="submit-btn">Submit</x-ladmin-button>
         </div>
     </form>
     <x-slot name="scripts">
@@ -37,6 +37,12 @@
                 placeholder: $( this ).data('placeholder'),
                 closeOnSelect: false,
                 allowClear: true,
+            });
+
+            $(window).ready(function() {
+                $('#create-form').on('submit', function () {
+                    $('#submit-btn').prop('disabled', true);
+                });
             });
         </script>
     </x-slot>

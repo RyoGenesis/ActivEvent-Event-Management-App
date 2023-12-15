@@ -1,6 +1,6 @@
 <x-ladmin-auth-layout>
     <x-slot name="title">Edit Major</x-slot>
-    <form action="{{ route('ladmin.major.update', $major->id) }}" method="POST">
+    <form id="edit-form" action="{{ route('ladmin.major.update', $major->id) }}" method="POST">
         @csrf
         <div class="row d-flex align-items-center mb-3">
             <label for="name" class="form-label col-lg-3">Name <span class="text-danger">*</span></label>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="text-end">
-            <x-ladmin-button>Submit</x-ladmin-button>
+            <x-ladmin-button id="submit-btn">Submit</x-ladmin-button>
         </div>
     </form>
     <x-slot name="scripts">
@@ -32,6 +32,12 @@
                 theme: "bootstrap-5",
                 width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
                 placeholder: $(this).data('placeholder'),
+            });
+
+            $(window).ready(function() {
+                $('#edit-form').on('submit', function () {
+                    $('#submit-btn').prop('disabled', true);
+                });
             });
         </script>
     </x-slot>

@@ -9,7 +9,7 @@
     <div class="modal fade" id="approve-modal" tabindex="-1" role="dialog" aria-labelledby="approve-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
-            <form action="{{ route('ladmin.event.approval.post') }}" method="post">
+            <form id="approve-form" action="{{ route('ladmin.event.approval.post') }}" method="post">
               @csrf
               <input type="hidden" name="id" value="">
               <div class="modal-header border-0">
@@ -21,7 +21,7 @@
               </div>
               <div class="modal-footer border-0">
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">No</button>
-                <button type="submit" class="btn btn-sm btn-success">Yes</button>
+                <button id="submit-btn" type="submit" class="btn btn-sm btn-success">Yes</button>
               </div>
             </form>
           </div>
@@ -33,6 +33,11 @@
             $('#approve-modal').on('show.bs.modal' ,function(e) {
                 var itemId =  $(e.relatedTarget).data('id');
                 $(this).find('[name=id]').val(itemId);
+            });
+            $(window).ready(function() {
+                $('#approve-form').on('submit', function () {
+                    $('#submit-btn').prop('disabled', true);
+                });
             });
         </script>
     </x-slot>
