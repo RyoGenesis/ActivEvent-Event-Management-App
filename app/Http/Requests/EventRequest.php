@@ -76,6 +76,7 @@ class EventRequest extends FormRequest
             'max_slot' => 'maximum slot',
             'bgas' => 'selected BGA',
             'majors' => 'associated majors',
+            'date' => 'event date',
         ];
     }
 }

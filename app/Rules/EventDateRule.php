@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Rule;
 class EventDateRule implements Rule
 {
 
-    protected $event;
+    protected $event, $attr;
 
     /**
      * Create a new rule instance.
@@ -29,6 +29,7 @@ class EventDateRule implements Rule
      */
     public function passes($attribute, $value)
     {
+        $this->attr = $attribute;
         
         if($this->event) {
             //also check that the changed date cannot be too close either
@@ -50,9 +51,10 @@ class EventDateRule implements Rule
      */
     public function message()
     {
+        $attrName = $this->attr == 'date' ? 'event date' : 'registration end date';
         if($this->event) {
-            return 'The selected date must be 4 days minimum from now.';
+            return 'The selected '.$attrName.' must be 4 days minimum from now.';
         }
-        return 'The selected date must be 2 weeks minimum from now.';
+        return 'The selected '.$attrName.' must be 2 weeks minimum from now.';
     }
 }

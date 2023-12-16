@@ -55,7 +55,7 @@
                 <select name="category_id" id="category_id" data-placeholder="Select category" class="form-select form-control @error('category_id') is-invalid @enderror">
                     <option></option>
                     @foreach ($categories as $category)
-                        <option value="{{$category->id}}">{{ $category->name }}</option>
+                        <option value="{{$category->id}}" {{ $category->id == old('category_id') ? 'selected' : '' }}>{{ $category->name }}</option>
                     @endforeach
                 </select>
                 @error('category_id')
@@ -73,7 +73,7 @@
         <div class="row d-flex mb-3">
             <label for="description" class="form-label col-lg-3">Description <span class="text-danger">*</span></label>
             <div class="col">
-                <textarea name="description" id="description" class="form-control" rows="8" placeholder="Event detail and description..."></textarea>
+                <textarea name="description" id="description" class="form-control" rows="8" placeholder="Event detail and description...">{!! old('description') !!}</textarea>
                 @error('description')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -90,7 +90,7 @@
             <label for="has_certificate" class="form-label col-lg-3">Provide certificate</label>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="has_certificate" name="has_certificate" aria-label="Provide certificate">
+                    <input class="form-check-input" type="checkbox" value="1" id="has_certificate" name="has_certificate" aria-label="Provide certificate" {{ old('has_certificate') ? 'checked' : '' }}>
                 </div>
                 @error('has_certificate')
                     <small class="text-danger">{{ $message }}</small>
@@ -103,7 +103,7 @@
             <label for="has_comserv" class="form-label col-lg-3">Provide community service hour</label>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="has_comserv" name="has_comserv" aria-label="Provide community service hour">
+                    <input class="form-check-input" type="checkbox" value="1" id="has_comserv" name="has_comserv" aria-label="Provide community service hour" {{ old('has_comserv') ? 'checked' : '' }}>
                 </div>
                 @error('has_comserv')
                     <small class="text-danger">{{ $message }}</small>
@@ -116,15 +116,15 @@
             <label for="sat_level_id" class="form-label col-lg-3">SAT level</label>
             <div class="col">
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="1" id="has_sat" name="has_sat">
+                    <input class="form-check-input" type="checkbox" value="1" id="has_sat" name="has_sat" {{ old('has_sat') ? 'checked' : '' }}>
                     <label class="form-check-label" for="has_sat">
                         Provide SAT
                     </label>
                 </div>
-                <select name="sat_level_id" id="sat_level_id" data-placeholder="Select SAT Level" class="form-select form-control @error('sat_level_id') is-invalid @enderror" disabled>
+                <select name="sat_level_id" id="sat_level_id" data-placeholder="Select SAT Level" class="form-select form-control @error('sat_level_id') is-invalid @enderror" {{!old('has_sat') ? 'disabled' : ''}}>
                     <option></option>
                     @foreach ($sat_levels as $level)
-                        <option value="{{$level->id}}">{{ $level->name }}</option>
+                        <option value="{{$level->id}}" {{ $level->id == old('sat_level_id') ? 'selected' : '' }}>{{ $level->name }}</option>
                     @endforeach
                 </select>
                 @error('sat_level_id')
@@ -140,9 +140,9 @@
                 <div class="text-desc">This option only available when event provide SAT</div>
             </div>
             <div class="col">
-                <select name="bgas[]" id="bgas" data-placeholder="Select BGA" class="form-select form-control @error('bgas') is-invalid @enderror" multiple disabled>
+                <select name="bgas[]" id="bgas" data-placeholder="Select BGA" class="form-select form-control @error('bgas') is-invalid @enderror" multiple {{!old('has_sat') ? 'disabled' : ''}}>
                     @foreach ($bgas as $bga)
-                        <option value="{{$bga->id}}">{{ $bga->name }}</option>
+                        <option value="{{$bga->id}}" {{ in_array($bga->id, old('bgas',[])) ? 'selected' : '' }}>{{ $bga->name }}</option>
                     @endforeach
                 </select>
                 @error('bgas')
@@ -197,7 +197,7 @@
             <div class="col">
                 <select name="majors[]" id="majors" data-placeholder="Select majors" class="form-select form-control @error('majors') is-invalid @enderror" multiple>
                     @foreach ($majors as $major)
-                        <option value="{{$major->id}}">{{ $major->name }}</option>
+                        <option value="{{$major->id}}" {{ in_array($major->id, old('majors',[])) ? 'selected' : '' }}>{{ $major->name }}</option>
                     @endforeach
                 </select>
                 @error('majors')
@@ -211,7 +211,7 @@
             <label for="exclusive_major" class="form-label col-lg-3">Major exclusive</label>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_major" name="exclusive_major" aria-label="Major exclusive">
+                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_major" name="exclusive_major" aria-label="Major exclusive" {{ old('exclusive_major') ? 'checked' : '' }}>
                 </div>
                 @error('exclusive_major')
                     <small class="text-danger">{{ $message }}</small>
@@ -224,7 +224,7 @@
             <label for="exclusive_member" class="form-label col-lg-3">Community member exclusive</label>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_member" name="exclusive_member" aria-label="Community member exclusive">
+                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_member" name="exclusive_member" aria-label="Community member exclusive" {{ old('exclusive_member') ? 'checked' : '' }}>
                 </div>
                 @error('exclusive_member')
                     <small class="text-danger">{{ $message }}</small>
