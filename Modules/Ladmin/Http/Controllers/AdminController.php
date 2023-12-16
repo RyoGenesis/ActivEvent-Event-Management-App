@@ -132,5 +132,4 @@ class AdminController extends Controller
     }
 
     //wip edge case login admin for deleted community
-    //wip disable click when submitting frontend
 }

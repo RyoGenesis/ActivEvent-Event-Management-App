@@ -177,7 +177,7 @@
                                 @endif
                             </div>
                             <p class="card-text fw-light">{{$event->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                            <p class="card-text fw-light">Slot Available: {{$event->max_slot == -1 ? 'No Limit' : $event->max_slot}}</p>
+                            <p class="card-text fw-light">Slot Limit: {{$event->max_slot == -1 ? 'No Limit' : $event->max_slot}}</p>
                             <p class="card-text fw-light">Fee: {{$event->price == 0 ? 'Free' : 'Rp. '.number_format($event->price,2,',','.')}}</p>
                             <small class="card-text">Posted by {{$event->community->name}}</small>
                         </div>

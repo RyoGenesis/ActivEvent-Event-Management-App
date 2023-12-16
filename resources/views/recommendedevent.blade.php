@@ -32,7 +32,7 @@
                     @endif
                   </div>
                   <p class="card-text fw-light">{{$recommendedevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                  <p class="card-text fw-light">Slot Available: {{$recommendedevent->max_slot == -1 ? 'No Limit' : $recommendedevent->max_slot}}</p>
+                  <p class="card-text fw-light">Slot Limit: {{$recommendedevent->max_slot == -1 ? 'No Limit' : $recommendedevent->max_slot}}</p>
                   <small class="card-text">Posted by {{$recommendedevent->community->name}}</small>
                 </div>
               </div>

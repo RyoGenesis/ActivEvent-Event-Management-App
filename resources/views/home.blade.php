@@ -44,7 +44,7 @@
                                                     @endif
                                                     </div>
                                                     <p class="card-text fw-light">{{$featuredevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                                    <p class="card-text fw-light">Slot Available: {{$featuredevent->max_slot == -1 ? 'No Limit' : $featuredevent->max_slot}}</p>
+                                                    <p class="card-text fw-light">Slot Limit: {{$featuredevent->max_slot == -1 ? 'No Limit' : $featuredevent->max_slot}}</p>
                                                     <small class="card-text">Posted by {{$featuredevent->community->name}}</small>
                                                 </div>
                                             </div>
@@ -92,7 +92,7 @@
                                                     @endif
                                                     </div>
                                                     <p class="card-text fw-light">{{$featuredevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                                    <p class="card-text fw-light">Slot Available: {{$featuredevent->max_slot == -1 ? 'No Limit' : $featuredevent->max_slot}}</p>
+                                                    <p class="card-text fw-light">Slot Limit: {{$featuredevent->max_slot == -1 ? 'No Limit' : $featuredevent->max_slot}}</p>
                                                     <small class="card-text">Posted by {{$featuredevent->community->name}}</small>
                                                 </div>
                                             </div>
@@ -157,7 +157,7 @@
                                                     @endif
                                                     </div>
                                                     <p class="card-text fw-light">{{$latestevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                                    <p class="card-text fw-light">Slot Available: {{$latestevent->max_slot == -1 ? 'No Limit' : $latestevent->max_slot}}</p>
+                                                    <p class="card-text fw-light">Slot Limit: {{$latestevent->max_slot == -1 ? 'No Limit' : $latestevent->max_slot}}</p>
                                                     <small class="card-text">Posted by {{$latestevent->community->name}}</small>
                                                 </div>
                                             </div>
@@ -205,7 +205,7 @@
                                                     @endif
                                                     </div>
                                                     <p class="card-text fw-light">{{$activelatestevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                                    <p class="card-text fw-light">Slot Available: {{$activelatestevent->max_slot == -1 ? 'No Limit' : $activelatestevent->max_slot}}</p>
+                                                    <p class="card-text fw-light">Slot Limit: {{$activelatestevent->max_slot == -1 ? 'No Limit' : $activelatestevent->max_slot}}</p>
                                                     <small class="card-text">Posted by {{$activelatestevent->community->name}}</small>
                                                 </div>
                                             </div>
@@ -270,7 +270,7 @@
                                                     @endif
                                                     </div>
                                                     <p class="card-text fw-light">{{$popularevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                                    <p class="card-text fw-light">Slot Available: {{$popularevent->max_slot == -1 ? 'No Limit' : $popularevent->max_slot}}</p>
+                                                    <p class="card-text fw-light">Slot Limit: {{$popularevent->max_slot == -1 ? 'No Limit' : $popularevent->max_slot}}</p>
                                                     <small class="card-text">Posted by {{$popularevent->community->name}}</small>
                                                 </div>
                                             </div>
@@ -318,7 +318,7 @@
                                                     @endif
                                                     </div>
                                                     <p class="card-text fw-light">{{$popularevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                                    <p class="card-text fw-light">Slot Available: {{$popularevent->max_slot == -1 ? 'No Limit' : $popularevent->max_slot}}</p>
+                                                    <p class="card-text fw-light">Slot Limit: {{$popularevent->max_slot == -1 ? 'No Limit' : $popularevent->max_slot}}</p>
                                                     <small class="card-text">Posted by {{$popularevent->community->name}}</small>
                                                 </div>
                                             </div>
@@ -384,7 +384,7 @@
                                                     @endif
                                                     </div>
                                                     <p class="card-text fw-light">{{$recommendedevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                                    <p class="card-text fw-light">Slot Available: {{$recommendedevent->max_slot == -1 ? 'No Limit' : $recommendedevent->max_slot}}</p>
+                                                    <p class="card-text fw-light">Slot Limit: {{$recommendedevent->max_slot == -1 ? 'No Limit' : $recommendedevent->max_slot}}</p>
                                                     <small class="card-text">Posted by {{$recommendedevent->community->name}}</small>
                                                 </div>
                                             </div>
@@ -432,7 +432,7 @@
                                                     @endif
                                                     </div>
                                                     <p class="card-text fw-light">{{$recommendedevent->date->format('l, j F Y - H:i \W\I\B')}}</p>
-                                                    <p class="card-text fw-light">Slot Available: {{$recommendedevent->max_slot == -1 ? 'No Limit' : $recommendedevent->max_slot}}</p>
+                                                    <p class="card-text fw-light">Slot Limit: {{$recommendedevent->max_slot == -1 ? 'No Limit' : $recommendedevent->max_slot}}</p>
                                                     <small class="card-text">Posted by {{$recommendedevent->community->name}}</small>
                                                 </div>
                                             </div>
