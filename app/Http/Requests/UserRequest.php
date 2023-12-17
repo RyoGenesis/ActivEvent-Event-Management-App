@@ -61,6 +61,7 @@ class UserRequest extends FormRequest
             'faculty_id' => 'faculty',
             'major_id' => 'major',
             'categories' => 'preferred categories',
+            'topics' => 'topic interests',
         ];
     }
 }

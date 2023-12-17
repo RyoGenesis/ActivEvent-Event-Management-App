@@ -22,7 +22,7 @@
         <select name="community_id" id="community_id" class="form-select form-control @error('community_id') is-invalid @enderror">
             <option value="" selected disabled>Select associated community</option>
             @foreach ($communities as $community)
-                <option {{ $community->id == $admin->community_id ? 'selected' : '' }} value="{{$community->id}}">
+                <option {{ $community->id == old('community_id',$admin->community_id) ? 'selected' : '' }} value="{{$community->id}}">
                     {{ $community->name }}</option>
             @endforeach
         </select>

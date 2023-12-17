@@ -13,7 +13,7 @@
                 <select name="faculty_id" id="faculty_id" data-placeholder="Select faculty" class="form-select form-control @error('faculty_id') is-invalid @enderror">
                     <option></option>
                     @foreach ($faculties as $faculty)
-                        <option value="{{$faculty->id}}">{{ $faculty->name }}</option>
+                        <option value="{{$faculty->id}}" {{ $faculty->id == old('faculty_id') ? 'selected' : '' }}>{{ $faculty->name }}</option>
                     @endforeach
                 </select>
                 @error('faculty_id')

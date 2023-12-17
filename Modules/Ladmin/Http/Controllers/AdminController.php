@@ -75,7 +75,7 @@ class AdminController extends Controller
         if(!$admin) {
             return redirect()->route('ladmin.admin.index')->with('danger','Admin data not found!');
         }
-        $communities = Community::all();
+        $communities = Community::withTrashed()->whereNull('deleted_at')->orWhere('id', $admin->community_id)->get();
         return ladmin()->view('admin.edit', compact(['admin','communities']));
     }
 

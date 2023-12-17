@@ -21,11 +21,8 @@
     @yield('style')
     <style>
         @media (max-width: 767px) {
-            .footer .fa-brands{
-                font-size: 12px;
-            }
             .footer{
-                font-size: 12px;
+                font-size: 14px;
                 
             }
         }
@@ -53,14 +50,14 @@
 
                     <form class="input-xl col-12 col-md-4 border rounded-pill bg-light" role="search" method="GET" action="{{route('search')}}">
                         <div class="input-group">
-                            <input type="search" name="search" value="{{$search ?? ''}}" class="form-control" placeholder="Search Event">
+                            <input type="search" name="search" value="{{$search ?? ''}}" class="form-control" placeholder="Search Event Keywords">
                             <div class="input-group-append">
                                 <span class="input-group-text mt-1 bg-light border-0">
                                     <button type="submit" class="fa-solid fa-magnifying-glass border-0" style="color: #000000;"></button>
                                 </span>
                               </div>
                         </div>
-                    </form> 
+                    </form>
     
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
@@ -142,10 +139,10 @@
         <footer class="footer" style="background-color: #05559e; color:white">
             <div class="container p-3">
                 <div class="row mb-3">
-                    <div class="col">
+                    <div class="col-12 col-md-3 mb-2">
                         <img class="img-fluid app-logo" src="{{asset('images/ActivEvent-logo.png')}}" alt="ActivEvent Logo"> 
                     </div>
-                    <div class="col-3">
+                    <div class="col-4 col-md-3">
                         <div class="fs-4">Event</div>
                         <div class="mt-2">
                             <a href="{{route('featuredevent')}}" style="text-decoration:none; color:white">Featured</a>
@@ -157,7 +154,7 @@
                             <a href="{{route('latestevent')}}" style="text-decoration:none; color:white">Latest</a>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4 col-md-3">
                         <div class="fs-4">Need help?</div>
                         <div class="mt-2">
                             <div>Admission:</div>
@@ -171,13 +168,13 @@
                             </small>
                         </div>
                     </div>
-                    <div class="text-end col">
+                    <div class="text-end col-4 col-md-3">
                         <div class="fw-bold fs-4 mb-3">Connect With Us</div>
                         <div>
-                            <i class="fa-brands fa-facebook fa-2xl mx-1" style="color: #ffffff;"></i>
-                            <i class="fa-brands fa-instagram fa-2xl mx-1" style="color: #ffffff;"></i>
-                            <i class="fa-brands fa-twitter fa-2xl mx-1" style="color: #ffffff;"></i>
-                            <i class="fa-brands fa-youtube fa-2xl mx-1" style="color: #ffffff;"></i>
+                            <i class="fa-brands fa-facebook fa-2xl mx-1 my-3" style="color: #ffffff;"></i>
+                            <i class="fa-brands fa-instagram fa-2xl mx-1 my-3" style="color: #ffffff;"></i>
+                            <i class="fa-brands fa-twitter fa-2xl mx-1 my-3" style="color: #ffffff;"></i>
+                            <i class="fa-brands fa-youtube fa-2xl mx-1 my-3" style="color: #ffffff;"></i>
                         </div>
                     </div>
                 </div>

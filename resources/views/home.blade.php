@@ -13,8 +13,8 @@
         <div class="row">
             <div class="col-sm-12">
             @if ($featuredEvents->isEmpty())
-                <div class="text-dark mx-auto py-5 text-center">
-                    No Featured Event Yet
+                <div class="text-dark mx-auto py-5 my-4 text-center">
+                    No featured event yet
                 </div>
             @else
                 <div id="carouselControlFE" class="carousel carousel-dark slide desktop-only" data-bs-interval="false">
@@ -126,8 +126,8 @@
         <div class="row">
             <div class="col-sm-12">
             @if ($latestEvents->isEmpty())
-                <div class="text-dark mx-auto py-5 text-center">
-                    No Event Yet
+                <div class="text-dark mx-auto py-5 my-4 text-center">
+                    No new event yet
                 </div>
             @else
                 <div id="carouselControlLE" class="carousel carousel-dark slide desktop-only" data-bs-interval="false">
@@ -239,8 +239,8 @@
         <div class="row">
             <div class="col-sm-12">
             @if ($popularEvents->isEmpty())
-                <div class="text-dark mx-auto py-5 text-center">
-                    No Event Yet
+                <div class="text-dark mx-auto py-5 my-4 text-center">
+                    No event yet
                 </div>
             @else
                 <div id="carouselControlPE" class="carousel carousel-dark slide desktop-only" data-bs-interval="false">
@@ -353,7 +353,7 @@
         <div class="row">
             <div class="col-sm-12">
             @if ($recommendedEvents->isEmpty())
-                <div class="text-dark mx-auto py-5 text-center">
+                <div class="text-dark mx-auto py-5 my-4 text-center">
                     There's no event recommended for you yet 
                 </div>
             @else

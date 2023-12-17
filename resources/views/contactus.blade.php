@@ -63,7 +63,7 @@
                 </div>
                 <div>
                      <small>Jam Operational:</small>
-                     <ul>
+                     <ul class="contact-us-list">
                         <li>
                             <small class="fw-bold">Senin-Sabtu: 08.00-22.00</small>
                         </li>
@@ -84,7 +84,7 @@
                 </div>
                 <div>
                      <small>Jam Operational:</small>
-                     <ul>
+                     <ul class="contact-us-list">
                         <li>
                             <small class="fw-bold">Senin-Sabtu: 08.00-22.00</small>
                         </li>

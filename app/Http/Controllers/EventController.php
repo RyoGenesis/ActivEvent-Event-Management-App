@@ -224,7 +224,7 @@ class EventController extends Controller
 
     public function search(Request $request){
         $validation = [
-            "search"=>'string|max:100',
+            "search"=>'nullable|string|max:100',
         ];
         $request->validate($validation);
 

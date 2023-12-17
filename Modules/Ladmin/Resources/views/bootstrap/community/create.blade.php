@@ -17,7 +17,7 @@
             <div class="col">
                 <select name="majors[]" id="majors" data-placeholder="Select majors" class="form-select form-control @error('majors') is-invalid @enderror" multiple>
                     @foreach ($majors as $major)
-                        <option value="{{$major->id}}">{{ $major->name }}</option>
+                        <option value="{{$major->id}}" {{ in_array($major->id, old('majors',[])) ? 'selected' : '' }}>{{ $major->name }}</option>
                     @endforeach
                 </select>
                 @error('majors')

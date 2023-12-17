@@ -127,6 +127,14 @@
     .main-menu{
         text-align: center;
     }
+
+    .contact-us-list {
+        padding-left: 0;
+    }
+
+    .contact-us-list li{
+        list-style-type: none;
+    }
 }
 
 /* applied when large screen / desktop */

@@ -23,7 +23,7 @@
                 <select name="campus_id" id="campus_id" data-placeholder="Select campus" class="form-select form-control @error('campus_id') is-invalid @enderror">
                     <option></option>
                     @foreach ($campuses as $campus)
-                        <option value="{{$campus->id}}">{{ $campus->name }}</option>
+                        <option value="{{$campus->id}}" {{ $campus->id == old('campus_id') ? 'selected' : '' }}>{{ $campus->name }}</option>
                     @endforeach
                 </select>
                 @error('campus_id')
@@ -37,7 +37,7 @@
                 <select name="faculty_id" id="faculty_id" data-placeholder="Select faculty" class="form-select form-control @error('faculty_id') is-invalid @enderror">
                     <option></option>
                     @foreach ($faculties as $faculty)
-                        <option value="{{$faculty->id}}">{{ $faculty->name }}</option>
+                        <option value="{{$faculty->id}}" {{ $faculty->id == old('faculty_id') ? 'selected' : '' }}>{{ $faculty->name }}</option>
                     @endforeach
                 </select>
                 @error('faculty_id')
@@ -60,7 +60,7 @@
             <div class="col">
                 <select name="communities[]" id="communities" data-placeholder="Select communities" class="form-select form-control @error('communities') is-invalid @enderror" multiple>
                     @foreach ($communities as $community)
-                        <option value="{{$community->id}}">{{ $community->name }}</option>
+                        <option value="{{$community->id}}" {{ in_array($community->id, old('communities',[])) ? 'selected' : '' }}>{{ $community->name }}</option>
                     @endforeach
                 </select>
                 @error('communities')
@@ -106,29 +106,41 @@
                 allowClear: true,
             });
 
+            function getMajorFaculty() {
+                var facultyEl = $('#faculty_id');
+                $.ajax({
+                    url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
+                    type : 'get',
+                    data : {
+                        id: facultyEl.val(),
+                    },
+                    success : function (response) {
+                        var majorId = $("#major_id");
+                        var selectMajor = {{old('major_id',-1)}};
+                        majorId.html('');
+                        majorId.append("<option></option>");
+                        $.each(response, function (i, item) {
+                            var selected = (item['id'] == selectMajor ? ' selected' : '');
+                            majorId.append("<option value='" + item['id'] + "'" + selected +">" + item['name'] + "</option>");
+                        });
+                        majorId.prop('disabled',false);
+                    },
+                    error: function(err) {
+                    }
+                })
+            }
+            
             $(document).ready(function() {
+                var selectFaculty = {{old('faculty_id',-1)}};
+    
+                if(selectFaculty != -1) {
+                    getMajorFaculty();
+                }
+
                 $('#faculty_id').change(function() {
-                    $.ajax({
-                        url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
-                        type : 'get',
-                        data : {
-                            id: $(this).val(),
-                        },
-                        success : function (response) {
-                            var majorId = $("#major_id");
-                            majorId.html('');
-                            majorId.append("<option></option>");
-                            $.each(response, function (i, item) {
-                                majorId.append("<option value='" + item['id'] + "'>" + item['name'] + "</option>");
-                            });
-                            majorId.prop('disabled',false);
-                        },
-                        error: function(err) {
-                        }
-                    })
+                    getMajorFaculty();
                 });
             });
         </script>
-        {{-- <script src="{{asset('/js/custom-js-admin.js')}}"></script> --}}
     </x-slot>
 </x-ladmin-auth-layout>
