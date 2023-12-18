@@ -81,7 +81,7 @@
                                 <select data-placeholder="Your Campus Location*" class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
                                     <option></option>
                                     @foreach ($campuses as $campus)
-                                        <option value="{{$campus->id}}">{{$campus->name}}</option>
+                                        <option value="{{$campus->id}}" {{ $campus->id == old('campus_id') ? 'selected' : '' }}>{{$campus->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('campus_id')
@@ -97,7 +97,7 @@
                                 <select data-placeholder="Your Faculty*" class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
                                     <option></option>
                                     @foreach ($faculties as $faculty)
-                                        <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                        <option value="{{$faculty->id}}" {{ $faculty->id == old('faculty_id') ? 'selected' : '' }}>{{$faculty->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('faculty_id')
@@ -124,7 +124,7 @@
                             <div class="col-md-8">
                                 <select data-placeholder="Your Communities" class="form-control form-select @error('communities') is-invalid @enderror" id="communities" name="communities[]" multiple>
                                     @foreach ($communities as $community)
-                                        <option value="{{$community->id}}">{{$community->display_name}}</option>
+                                        <option value="{{$community->id}}" {{ in_array($community->id, old('communities',[])) ? 'selected' : '' }}>{{$community->display_name}}</option>
                                     @endforeach
                                 </select>
                                 @error('communities')
@@ -139,7 +139,7 @@
                             <div class="col-md-8">
                                 <select data-placeholder="Your Preferred Event Categories" class="form-control form-select @error('categories') is-invalid @enderror" id="categories" name="categories[]" multiple>
                                     @foreach ($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->display_name}}</option>
+                                        <option value="{{$category->id}}" {{ in_array($category->id, old('categories',[])) ? 'selected' : '' }}>{{$category->display_name}}</option>
                                     @endforeach
                                 </select>
                                 @error('categories')
@@ -221,26 +221,38 @@
                 allowClear: true,
             });
 
-            $('#faculty_id').change(function() {
+            function getMajorFaculty() {
+                var facultyEl = $('#faculty_id');
                 $.ajax({
                     url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
                     type : 'get',
                     data : {
-                        id: $(this).val(),
+                        id: facultyEl.val(),
                     },
                     success : function (response) {
                         var majorId = $("#major_id");
+                        var selectMajor = {{old('major_id',-1)}};
                         majorId.html('');
-                        majorId.append('<option value="" selected disabled>Your Major</option>');
+                        majorId.append("<option value="" selected disabled>Your Major</option>");
                         $.each(response, function (i, item) {
-                            majorId.append("<option value='" + item['id'] + "'>" + item['name'] + "</option>");
+                            var selected = (item['id'] == selectMajor ? ' selected' : '');
+                            majorId.append("<option value='" + item['id'] + "'" + selected +">" + item['name'] + "</option>");
                         });
                         majorId.prop('disabled',false);
                     },
                     error: function(err) {
                     }
-                });
+                })
+            }
+
+            $('#faculty_id').change(function() {
+                getMajorFaculty();
             });
+            var selectFaculty = {{old('faculty_id',-1)}};
+    
+            if(selectFaculty != -1) {
+                getMajorFaculty();
+            }
         });
 
         var input = document.querySelector("input[name=topics]");
@@ -262,19 +274,15 @@
             if(input.value) {
                 var dataInput = JSON.parse(input.value);
                 var dataArray = [];
-                console.log(dataInput);
         
                 dataInput.forEach(function(item){
-                    console.log(item.value) 
                     dataArray.push(item.value);
                 });
         
                 input.value = dataArray;
             }
             
-            console.log(dataArray);
             document.getElementById('registerForm').submit();
-
         });
     </script>
 @endsection

@@ -187,7 +187,7 @@
         @if ($event->date > \Carbon\Carbon::now())
             @if ($event->additional_form_link)
                 <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="modallabelform" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title detail-text" id="modallabelform">External Form Link</h1>
@@ -208,7 +208,7 @@
             @endif
 
             <div class="modal fade" id="modalcancel" tabindex="-1" aria-labelledby="modallabelcancel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title detail-text" id="modallabelcancel">Cancel Registration</h1>
@@ -232,7 +232,7 @@
     @else
         @if ($event->registration_end > \Carbon\Carbon::now())
             <div class="modal fade" id="modalregister" tabindex="-1" aria-labelledby="modallabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title detail-text" id="modallabel">Registration</h1>

@@ -12,7 +12,7 @@
     </x-ladmin-card>
 
     <div class="modal fade" id="deactivate-modal" tabindex="-1" role="dialog" aria-labelledby="deactivate-modal-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
           <div class="modal-content">
             <form id="deactive-form" action="{{ route('ladmin.admin.deactivate') }}" method="post">
               @csrf
@@ -34,7 +34,7 @@
     </div>
 
     <div class="modal fade" id="reactivate-modal" tabindex="-1" role="dialog" aria-labelledby="reactivate-modal-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
           <div class="modal-content">
             <form id="reactive-form" action="{{ route('ladmin.admin.reactivate') }}" method="post">
               @csrf

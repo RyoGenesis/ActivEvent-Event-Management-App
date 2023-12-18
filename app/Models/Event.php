@@ -52,15 +52,36 @@ class Event extends Model
     }
 
     public function scopeSearch($query, $search) {
-        $query->where(function ($q) use ($search) {
-            $q->where('name', 'like', "%".$search."%") //search name
-            ->orWhere('topic', 'like', "%".$search."%") //search topic
-            ->orWhere('description', 'like', "%".$search."%") //search description
-            ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
-            ->orWhereHas('community', function (Builder $que) use ($search){ //search community name
-                $que->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
-            });
+        $searchWords = explode(' ', $search);
+
+        $query->where(function ($q) use ($searchWords) {
+            $q->where('name','like', '%'.$searchWords[0].'%'); //search name
+
+            if($amt = count($searchWords) > 1) {
+                for ($i=1; $i < $amt; $i++) { 
+                    $q = $q->orWhere('name', 'like', "%{$searchWords[$i]}%");
+                }
+            }
+
+            foreach ($searchWords as $keyword) {
+                $q->orWhere('topic', 'like', "%".$keyword."%") //search topic
+                ->orWhere('description', 'like', "%".$keyword."%") //search description
+                ->orWhereRelation('category','display_name', 'like', "%".$keyword."%") //search category name
+                ->orWhereHas('community', function (Builder $que) use ($keyword){ //search community name
+                    $que->where('name', 'like', '%'.$keyword.'%')->orWhere('display_name','like','%'.$keyword.'%');
+                });
+            }
         });
+
+        // $query->where(function ($q) use ($search) {
+        //     $q->where('name', 'like', "%".$search."%") //search name
+        //     ->orWhere('topic', 'like', "%".$search."%") //search topic
+        //     ->orWhere('description', 'like', "%".$search."%") //search description
+        //     ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
+        //     ->orWhereHas('community', function (Builder $que) use ($search){ //search community name
+        //         $que->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
+        //     });
+        // });
     }
 
     public function scopeFilterBy($query, $request)

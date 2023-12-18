@@ -11,7 +11,7 @@
         };
     @endphp
 
-    <form action="{{ route('ladmin.permission.update', $role->id) }}" method="POST">
+    <form id="permission-form" action="{{ route('ladmin.permission.update', $role->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -29,13 +29,21 @@
                     </x-slot>
                     <x-slot name="footer">
                         <div class="text-end">
-                            <x-ladmin-button>Assign Permission</x-ladmin-button>
+                            <x-ladmin-button id="assign-btn">Assign Permission</x-ladmin-button>
                         </div>
                     </x-slot>
                 </x-ladmin-card>
             </div>
         </div>
-
     </form>
 
+    <x-slot name="scripts">
+        <script>
+            $(window).ready(function() {
+                $('#permission-form').on('submit', function () {
+                    $('#assign-btn').prop('disabled', true);
+                });
+            });
+        </script>
+    </x-slot>
 </x-ladmin-auth-layout>

@@ -19,7 +19,7 @@
               <div class="col-md-8">
                 <div class="card-body">
                   <div class="card-title">
-                    <h4>{{$latestevent->name}}</h4>
+                    <h4 class="card-event-name" title="{{$latestevent->name}}">{{$latestevent->name}}</h4>
                     <span class="badge rounded-pill text-bg-info">{{$latestevent->category->name}}</span>
                     @if ($latestevent->has_sat == 'true')
                         <span class="badge rounded-pill text-bg-primary">SAT</span>

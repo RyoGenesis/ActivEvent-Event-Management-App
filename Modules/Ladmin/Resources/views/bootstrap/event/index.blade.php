@@ -12,7 +12,7 @@
     </x-ladmin-card>
         
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
           <div class="modal-content">
             <form id="cancel-form" action="{{ route('ladmin.event.destroy') }}" method="post">
               @csrf

@@ -19,7 +19,7 @@
               <div class="col-md-8">
                 <div class="card-body">
                   <div class="card-title">
-                    <h4>{{$featuredevent->name}}</h4>
+                    <h4 class="card-event-name" title="{{$featuredevent->name}}">{{$featuredevent->name}}</h4>
                     <span class="badge rounded-pill text-bg-info">{{$featuredevent->category->name}}</span>
                     @if ($featuredevent->has_sat == 'true')
                         <span class="badge rounded-pill text-bg-primary">SAT</span>

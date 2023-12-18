@@ -164,7 +164,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <div class="card-title">
-                                <h4>{{$event->name}}</h4>
+                                <h4 class="card-event-name" title="{{$event->name}}">{{$event->name}}</h4>
                                 <span class="badge rounded-pill text-bg-info">{{$event->category->name}}</span>
                                 @if ($event->has_sat == 'true')
                                     <span class="badge rounded-pill text-bg-primary">SAT</span>

@@ -31,7 +31,7 @@
 
                                                 <div class="card-body">
                                                     <div class="card-title">
-                                                    <h4>{{$featuredevent->name}}</h4>
+                                                    <h4 class="card-event-name" title="{{$featuredevent->name}}">{{$featuredevent->name}}</h4>
                                                     <span class="badge rounded-pill text-bg-info">{{$featuredevent->category->name}}</span>
                                                     @if ($featuredevent->has_sat == 'true')
                                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
@@ -79,7 +79,7 @@
 
                                                 <div class="card-body">
                                                     <div class="card-title">
-                                                    <h4>{{$featuredevent->name}}</h4>
+                                                    <h4 class="card-event-name" title="{{$featuredevent->name}}">{{$featuredevent->name}}</h4>
                                                     <span class="badge rounded-pill text-bg-info">{{$featuredevent->category->name}}</span>
                                                     @if ($featuredevent->has_sat == 'true')
                                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
@@ -144,7 +144,7 @@
         
                                                 <div class="card-body">
                                                     <div class="card-title">
-                                                    <h4>{{$latestevent->name}}</h4>
+                                                    <h4 class="card-event-name" title="{{$latestevent->name}}">{{$latestevent->name}}</h4>
                                                     <span class="badge rounded-pill text-bg-info">{{$latestevent->category->name}}</span>
                                                     @if ($latestevent->has_sat == 'true')
                                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
@@ -192,7 +192,7 @@
 
                                                 <div class="card-body">
                                                     <div class="card-title">
-                                                    <h4>{{$activelatestevent->name}}</h4>
+                                                    <h4 class="card-event-name" title="{{$latestevent->name}}">{{$activelatestevent->name}}</h4>
                                                     <span class="badge rounded-pill text-bg-info">{{$activelatestevent->category->name}}</span>
                                                     @if ($activelatestevent->has_sat == 'true')
                                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
@@ -257,7 +257,7 @@
 
                                                 <div class="card-body">
                                                     <div class="card-title">
-                                                    <h4>{{$popularevent->name}}</h4>
+                                                    <h4 class="card-event-name" title="{{$popularevent->name}}">{{$popularevent->name}}</h4>
                                                     <span class="badge rounded-pill text-bg-info">{{$popularevent->category->name}}</span>
                                                     @if ($popularevent->has_sat == 'true')
                                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
@@ -305,7 +305,7 @@
 
                                                 <div class="card-body">
                                                     <div class="card-title">
-                                                    <h4>{{$popularevent->name}}</h4>
+                                                    <h4 class="card-event-name" title="{{$popularevent->name}}">{{$popularevent->name}}</h4>
                                                     <span class="badge rounded-pill text-bg-info">{{$popularevent->category->name}}</span>
                                                     @if ($popularevent->has_sat == 'true')
                                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
@@ -371,7 +371,7 @@
 
                                                 <div class="card-body">
                                                     <div class="card-title">
-                                                    <h4>{{$recommendedevent->name}}</h4>
+                                                    <h4 class="card-event-name" title="{{$recommendedevent->name}}">{{$recommendedevent->name}}</h4>
                                                     <span class="badge rounded-pill text-bg-info">{{$recommendedevent->category->name}}</span>
                                                     @if ($recommendedevent->has_sat == 'true')
                                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
@@ -419,7 +419,7 @@
 
                                                 <div class="card-body">
                                                     <div class="card-title">
-                                                    <h4>{{$recommendedevent->name}}</h4>
+                                                    <h4 class="card-event-name" title="{{$recommendedevent->name}}">{{$recommendedevent->name}}</h4>
                                                     <span class="badge rounded-pill text-bg-info">{{$recommendedevent->category->name}}</span>
                                                     @if ($recommendedevent->has_sat == 'true')
                                                         <span class="badge rounded-pill text-bg-primary">SAT</span>
