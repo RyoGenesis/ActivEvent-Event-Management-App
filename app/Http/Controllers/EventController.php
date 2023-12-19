@@ -41,7 +41,7 @@ class EventController extends Controller
 
     function create() {
         $community = Community::with(['majors'])->where('id', auth()->user()->community_id)->first();
-        $majors = !$community->majors->isEmpty() ? Major::whereIn('id', $community->majors->pluck('id')) :  Major::all();
+        $majors = !$community->majors->isEmpty() ? Major::whereIn('id', $community->majors->pluck('id'))->get() :  Major::all();
         $categories = Category::all();
         $sat_levels = SatLevel::all();
         $bgas = Bga::all();
