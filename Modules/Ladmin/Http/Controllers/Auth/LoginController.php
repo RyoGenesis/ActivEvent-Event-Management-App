@@ -30,12 +30,17 @@ class LoginController extends Controller
     public function attempt(Request $request)
     {
 
-        $data = $request->validate([
+        $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        $data['deactivated_at'] = null;
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'deactivated_at' => null,
+            fn($query) => $query->whereHas('community', function($q) {$q->where('deleted_at',null);})
+        ];
 
         if (Auth::guard( config('ladmin.auth.guard') )->attempt($data, $request->remember)) {
             $request->session()->regenerate();
