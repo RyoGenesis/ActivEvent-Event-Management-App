@@ -120,7 +120,7 @@ class ParticipantDatatables extends Datatables
             ['data' => 'faculty.name',],
             ['data' => 'major.name',],
             ['data' => 'communities.name', 'orderable' => false],
-            ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
+            ['data' => 'action', 'class' => 'text-center', 'orderable' => false, "searchable" => false]
         ];
     }
 

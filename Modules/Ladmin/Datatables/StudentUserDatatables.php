@@ -49,7 +49,7 @@ class StudentUserDatatables extends Datatables
             ->editColumn('major.name', function ($row) {
                 return $row->major->name;
             })
-            ->editColumn('communities.name', function ($row) {
+            ->editColumn('communities.display_name', function ($row) {
                 $communities = $row->communities;
                 $formattedComms = '';
                 foreach($communities as $community) {
@@ -106,7 +106,7 @@ class StudentUserDatatables extends Datatables
             ['data' => 'campus.name',],
             ['data' => 'faculty.name',],
             ['data' => 'major.name',],
-            ['data' => 'communities.name', 'orderable' => false],
+            ['data' => 'communities.display_name', 'orderable' => false],
             ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
         ];
     }

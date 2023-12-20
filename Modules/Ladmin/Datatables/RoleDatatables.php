@@ -79,7 +79,7 @@ class RoleDatatables extends Datatables
             ['data' => 'name'],
             ['data' => 'admins', 'class' => 'text-center'],
             ['data' => 'gates', 'class' => 'text-center'],
-            ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
+            ['data' => 'action', 'class' => 'text-center', 'orderable' => false, "searchable" => false]
         ];
     }
 }

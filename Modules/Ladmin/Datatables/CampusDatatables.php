@@ -71,7 +71,7 @@ class CampusDatatables extends Datatables
         return [
             ['data' => 'id', 'class' => 'text-center'],
             ['data' => 'name'],
-            ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
+            ['data' => 'action', 'class' => 'text-center', 'orderable' => false, "searchable" => false]
         ];
     }
 

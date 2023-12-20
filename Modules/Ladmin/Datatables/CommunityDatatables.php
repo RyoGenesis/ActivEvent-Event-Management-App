@@ -85,7 +85,7 @@ class CommunityDatatables extends Datatables
             ['data' => 'name',],
             ['data' => 'display_name',],
             ['data' => 'majors.name', 'orderable' => false],
-            ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
+            ['data' => 'action', 'class' => 'text-center', 'orderable' => false, "searchable" => false]
         ];
     }
 

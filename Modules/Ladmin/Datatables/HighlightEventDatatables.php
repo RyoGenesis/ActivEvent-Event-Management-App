@@ -139,11 +139,11 @@ class HighlightEventDatatables extends Datatables
             ['data' => 'location',],
             ['data' => 'date',],
             ['data' => 'registration_end',],
-            ['data' => 'perks', 'orderable' => false],
+            ['data' => 'perks', 'orderable' => false, "searchable" => false],
             ['data' => 'price',],
             ['data' => 'status',],
             ['data' => 'updated_at',],
-            ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
+            ['data' => 'action', 'class' => 'text-center', 'orderable' => false, "searchable" => false]
         ];
     }
 

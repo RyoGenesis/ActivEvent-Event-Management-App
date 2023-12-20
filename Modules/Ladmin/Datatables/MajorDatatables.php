@@ -76,7 +76,7 @@ class MajorDatatables extends Datatables
             ['data' => 'id', 'class' => 'text-center'],
             ['data' => 'name',],
             ['data' => 'faculty.name',],
-            ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
+            ['data' => 'action', 'class' => 'text-center', 'orderable' => false, "searchable" => false]
         ];
     }
 

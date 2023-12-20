@@ -135,19 +135,19 @@ class EventDatatables extends Datatables
     {
         return [
             ['data' => 'id', 'class' => 'text-center'],
-            ['data' => 'name',],
-            ['data' => 'community.name',],
+            ['data' => 'name'],
+            ['data' => 'community.display_name'],
             ['data' => 'majors.name', 'orderable' => false],
-            ['data' => 'category.name',],
-            ['data' => 'topic',],
-            ['data' => 'location',],
-            ['data' => 'date',],
-            ['data' => 'registration_end',],
-            ['data' => 'perks', 'orderable' => false],
-            ['data' => 'price',],
-            ['data' => 'status',],
-            ['data' => 'updated_at',],
-            ['data' => 'action', 'class' => 'text-center', 'orderable' => false]
+            ['data' => 'category.name'],
+            ['data' => 'topic'],
+            ['data' => 'location'],
+            ['data' => 'date'],
+            ['data' => 'registration_end'],
+            ['data' => 'perks', 'orderable' => false, "searchable" => false],
+            ['data' => 'price'],
+            ['data' => 'status'],
+            ['data' => 'updated_at'],
+            ['data' => 'action', 'class' => 'text-center', 'orderable' => false, "searchable" => false]
         ];
     }
 
