@@ -233,7 +233,7 @@
                         var majorId = $("#major_id");
                         var selectMajor = {{old('major_id',-1)}};
                         majorId.html('');
-                        majorId.append("<option value="" selected disabled>Your Major</option>");
+                        majorId.append('<option value="" selected disabled>Your Major</option>');
                         $.each(response, function (i, item) {
                             var selected = (item['id'] == selectMajor ? ' selected' : '');
                             majorId.append("<option value='" + item['id'] + "'" + selected +">" + item['name'] + "</option>");

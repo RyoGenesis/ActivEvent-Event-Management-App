@@ -151,7 +151,7 @@
             </form>
         </div>
     </div>
-    <div class="row gap-3" id="card-event-row">
+    <div class="row gap-3 mb-3" id="card-event-row">
         @if ($events->isEmpty())
         No search result for "{{$search}}"
         @else

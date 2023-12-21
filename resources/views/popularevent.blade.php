@@ -9,7 +9,7 @@
     <a href="/home" style="text-decoration: none">Home</a> > <small> Popular Events</small>
   </div>
     <h3 class="mb-4">Popular Events</h3>
-    <div class="row gap-3" id="card-event-row">
+    <div class="row gap-3 mb-3" id="card-event-row">
       @forelse ($popularevents as $popularevent)
         <a class="card card-event" href="{{ route('eventdetail', ['id'=>$popularevent->id]) }}" style="height:max-content">
           <div class="row g-0 allign-item-center">

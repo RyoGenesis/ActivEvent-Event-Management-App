@@ -102,7 +102,6 @@
 .event-detail-img{
     object-fit: cover;
     width: 450px;
-    height: 250px;
     margin-bottom: 5px;
 }
 
@@ -210,6 +209,6 @@
     .event-detail-img {
         object-fit: cover;
         width: 650px;
-        height: 550px;
+        max-height: 800px;
     }
 }

@@ -18,7 +18,7 @@
             <a href="{{ url()->previous() }}" class="fa fa-2xl fa-arrow-left" style="text-decoration:none; color:black"></a>
         </div>
         <div class="text-center">
-            <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" style="height:20rem" class="img-fluid event-detail-img">
+            <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" class="img-fluid event-detail-img">
         </div>
     </div>
     <div class="row">
