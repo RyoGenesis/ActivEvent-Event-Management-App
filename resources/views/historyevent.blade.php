@@ -29,18 +29,22 @@
                         <th class="fw-light fs-5">{{$event->name}}</th>
                         <th class="fw-light fs-5">{{$event->community->display_name}}</th>
                         <th class="fw-light fs-5">
-                            @if ($event->pivot->status == 'Registered')
-                            <p class="text-success">
-                                {{$event->pivot->status}}
-                            </p>
+                            @if ($event->status == 'Cancelled')
+                                <p class="text-danger">
+                                    Cancelled
+                                </p>
                             @else
-                            <p class="text-danger">
-                                {{$event->pivot->status}}
-                            </p>
+                                @if ($event->pivot->status == 'Registered')
+                                <p class="text-success">
+                                @else
+                                <p class="text-danger">
+                                @endif
+                                    {{$event->pivot->status}}
+                                </p>
                             @endif
                         </th>
                         <th class="fw-light fs-5">
-                            @if ($event->date > \Carbon\Carbon::now() || (!$event->has_certificate && !$event->has_sat && !$event->has_comserv) || $event->pivot->status != 'Registered')
+                            @if ($event->date > \Carbon\Carbon::now() || (!$event->has_certificate && !$event->has_sat && !$event->has_comserv) || $event->pivot->status != 'Registered' || $event->status ==  'Cancelled')
                             -
                             @else
                                 @if ($event->has_sat)
