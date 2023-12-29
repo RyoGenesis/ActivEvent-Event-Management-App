@@ -198,7 +198,7 @@
                                 You succesfully registered to the event!<br>    
                                 @endif
                                 Please fill out the additional form which can be accessed via the link below to fully complete the registration for this event
-                                <div>
+                                <div class="my-2">
                                     <a href="{{$event->additional_form_link}}">{{$event->additional_form_link}}</a>
                                 </div>
                             </div>

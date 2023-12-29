@@ -19,6 +19,7 @@
                 <th scope="col" class="fs-5">Event name</th>
                 <th scope="col" class="fs-5">Held by</th>
                 <th scope="col" class="fs-5">Status</th>
+                <th scope="col" class="fs-5">Benefit</th>
                 <th scope="col" class="fs-5">Reason</th>
             </thead>
             <tbody>
@@ -36,6 +37,27 @@
                             <p class="text-danger">
                                 {{$event->pivot->status}}
                             </p>
+                            @endif
+                        </th>
+                        <th class="fw-light fs-5">
+                            @if ($event->date > \Carbon\Carbon::now() || (!$event->has_certificate && !$event->has_sat && !$event->has_comserv) || $event->pivot->status != 'Registered')
+                            -
+                            @else
+                                @if ($event->has_sat)
+                                <span class="d-inline-flex rounded bg-warning p-1 m-1 fs-6 text-center">
+                                    SAT Point ({{$event->sat_level->name}})
+                                </span>
+                                @endif
+                                @if ($event->has_certificate)
+                                <span class="d-inline-flex rounded bg-warning p-1 m-1 fs-6 text-center">
+                                    Certificate
+                                </span>
+                                @endif
+                                @if ($event->has_comserv)
+                                <span class="d-inline-flex rounded bg-warning p-1 m-1 fs-6 text-center">
+                                    Comserv Hour
+                                </span>
+                                @endif
                             @endif
                         </th>
                         <th class="fw-light fs-5">{{$event->pivot->status == 'Registered' ? '-' : ($event->pivot->reasoning ?? '-')}}</th>
