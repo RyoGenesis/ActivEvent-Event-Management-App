@@ -73,6 +73,8 @@ class Event extends Model
             }
         });
 
+        $query->orderBy('created_at','DESC');
+
         // $query->where(function ($q) use ($search) {
         //     $q->where('name', 'like', "%".$search."%") //search name
         //     ->orWhere('topic', 'like', "%".$search."%") //search topic
