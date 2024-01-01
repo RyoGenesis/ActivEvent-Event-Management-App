@@ -178,7 +178,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="my-2 text-end">
+                <div class="my-2">
                     ActivEvent - &copy 2023
                 </div>
             </div>

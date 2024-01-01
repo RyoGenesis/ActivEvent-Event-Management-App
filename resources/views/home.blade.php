@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="container">
+    <div class="alert alert-primary alert-dismissible fade show d-flex align-items-center" role="alert">
+        <div>
+            Welcome to ActivEvent! Find information about events and activities happening at the university and communities, register to events, and manage your participations here! Explore your interests and be active!
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     @auth
         <div class="fs-5 mb-4">Welcome, {{Auth::user()->name}}</div>
     @endauth
