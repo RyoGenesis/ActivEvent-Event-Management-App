@@ -196,6 +196,21 @@
             </div>
         </div>
         @endif
+        @if (session()->has('success_cancel'))
+            <div class="modal fade" id="modalnotif" tabindex="-1" aria-labelledby="modallabelnotif" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title detail-text" id="modallabelnotif">Registration</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            Succesfully cancel your registration for the event!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         {{-- only when rejected event is present --}}
         @if (!$rejectedEvents->isEmpty())
         <div class="row mt-2">
@@ -280,6 +295,13 @@
             $('#cancel-form').on('submit', function () {
                 $('#cancel-btn').prop('disabled', true);
             });
+        });
+    </script>
+@endif
+@if(session()->has('success_cancel'))
+    <script defer>
+        $(window).ready(function() {
+            $('#modalnotif').modal('show');
         });
     </script>
 @endif

@@ -23,7 +23,7 @@
 
                         <div class="row my-4 justify-content-center">
                             <div class="col-md-8">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" required placeholder="Email Address*">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" required placeholder="Email Address (University)*">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         {{ $message }}
