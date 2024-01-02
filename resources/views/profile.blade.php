@@ -166,7 +166,7 @@
                             </th>
                             <th class="d-grid gap-1">
                                 <a href="/eventdetail/{{$event->id}}" class="btn btn-primary">View</a>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalcancel">
+                                <button type="button" class="btn btn-danger" data-id="{{$event->id}}" data-bs-toggle="modal" data-bs-target="#modalcancel">
                                     Cancel
                                 </button>
                             </th>
@@ -189,7 +189,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                 <form id="cancel-form" action="{{route('cancelregistration')}}" method="post">
                     @csrf
-                    <input type="hidden" name="id" value="{{$event->id}}">
+                    <input type="hidden" name="id" value="">
                     <button id="cancel-btn" type="submit" class="btn btn-secondary btn-danger">Yes</button>
                 </form>
             </div>
