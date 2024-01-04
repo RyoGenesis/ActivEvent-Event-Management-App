@@ -228,14 +228,14 @@ class EventController extends Controller
         ];
         $request->validate($validation);
 
-        $search = strip_tags($request->search);
         $availCategories = Category::all();
         $availCommunities = Community::all();
         $events = Event::with('community')->where('status', 'Active')->whereDate('date','>',now())
                 ->filterBy($request)
-                ->search($search)
+                ->search($request)
                 ->paginate(10)->withQueryString();
-
+        
+        $search = strip_tags($request->search);
         $selectedCategories = null;
         $selectedCommunities = null;
 
@@ -509,4 +509,6 @@ class EventController extends Controller
 
         return true;
     }
+
+    //note, in live website, the storage store a bit buggy, bandaid approach
 }

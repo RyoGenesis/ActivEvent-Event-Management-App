@@ -52,8 +52,8 @@
         <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
             <i class="fa-solid fa-filter"></i> Filter Options <i class="fa-solid fa-caret-down"></i>
         </button>
-        <div class="collapse" id="collapseFilter">
-            <form id="formsearch" role="search" method="GET" action="{{route('search')}}">
+        <form id="formsearch" role="search" method="GET" action="{{route('search')}}">
+            <div class="collapse" id="collapseFilter">
                 <div class="container-fluid rounded-bottom p-3" style="border:1px solid lightgrey;">
                     <div class="row mb-1">
                         <div class="col">
@@ -67,67 +67,67 @@
                         <div class="col-6 col-md-4 mb-2" id="filterSat">
                             <label class="form-label fw-bold fs-5">SAT Point</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="has_sat" name="has_sat" value="Yes" {{ (isset($request->has_sat) && $request->has_sat == "Yes")? "checked" : "" }}>
-                                <label class="form-check-label">Yes</label>
+                                <input class="form-check-input" type="checkbox" id="has_sat_yes" name="has_sat" value="Yes" {{ (isset($request->has_sat) && $request->has_sat == "Yes")? "checked" : "" }}>
+                                <label class="form-check-label" for="has_sat_yes">Yes</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="has_sat" name="has_sat" value="No" {{ (isset($request->has_sat) && $request->has_sat == "No")? "checked" : "" }}>
-                                <label class="form-check-label">No</label>
+                                <input class="form-check-input" type="checkbox" id="has_sat_no" name="has_sat" value="No" {{ (isset($request->has_sat) && $request->has_sat == "No")? "checked" : "" }}>
+                                <label class="form-check-label" for="has_sat_no">No</label>
                             </div>
                         </div>
                         <div class="col-6 col-md-4 mb-2" id="filterComserv">
                             <label class="form-label fw-bold fs-5">Community Service Hour</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="has_comserv" name="has_comserv" value="Yes" {{ (isset($request->has_comserv) && $request->has_comserv == "Yes")? "checked" : "" }}>
-                                <label class="form-check-label">Yes</label>
+                                <input class="form-check-input" type="checkbox" id="has_comserv_yes" name="has_comserv" value="Yes" {{ (isset($request->has_comserv) && $request->has_comserv == "Yes")? "checked" : "" }}>
+                                <label class="form-check-label" for="has_comserv_yes">Yes</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="has_comserv" name="has_comserv" value="No" {{ (isset($request->has_comserv) && $request->has_comserv == "No")? "checked" : "" }}>
-                                <label class="form-check-label">No</label>
+                                <input class="form-check-input" type="checkbox" id="has_comserv_no" name="has_comserv" value="No" {{ (isset($request->has_comserv) && $request->has_comserv == "No")? "checked" : "" }}>
+                                <label class="form-check-label" for="has_comserv_no">No</label>
                             </div>
                         </div>
                         <div class="col-6 col-md-4 mb-2" id="filterCertificate">
                             <label class="form-label fw-bold fs-5">E-Certificate</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="has_certificate" name="has_certificate" value="Yes" {{ (isset($request->has_certificate) && $request->has_certificate == "Yes")? "checked" : "" }}>
-                                <label class="form-check-label">Yes</label>
+                                <input class="form-check-input" type="checkbox" id="has_certificate_yes" name="has_certificate" value="Yes" {{ (isset($request->has_certificate) && $request->has_certificate == "Yes")? "checked" : "" }}>
+                                <label class="form-check-label" for="has_certificate_yes">Yes</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="has_certificate" name="has_certificate" value="No" {{ (isset($request->has_certificate) && $request->has_certificate == "No")? "checked" : "" }}>
-                                <label class="form-check-label">No</label>
+                                <input class="form-check-input" type="checkbox" id="has_certificate_no" name="has_certificate" value="No" {{ (isset($request->has_certificate) && $request->has_certificate == "No")? "checked" : "" }}>
+                                <label class="form-check-label" for="has_certificate_no">No</label>
                             </div>
                         </div>
                         <div class="col-6 col-md-4 mb-2" id="filterPrice">
                             <label class="form-label fw-bold fs-5">Registration Fee</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="price" name="price" value="Free" {{ (isset($request->price) && $request->price == "Free")? "checked" : "" }}>
-                                <label class="form-check-label">Free</label>
+                                <input class="form-check-input" type="checkbox" id="price_free" name="price" value="Free" {{ (isset($request->price) && $request->price == "Free")? "checked" : "" }}>
+                                <label class="form-check-label" for="price_free">Free</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="price" name="price" value="Paid" {{ (isset($request->price) && $request->price == "Paid")? "checked" : "" }}>
-                                <label class="form-check-label">Paid</label>
+                                <input class="form-check-input" type="checkbox" id="price_paid" name="price" value="Paid" {{ (isset($request->price) && $request->price == "Paid")? "checked" : "" }}>
+                                <label class="form-check-label" for="price_paid">Paid</label>
                             </div>
                         </div>
                         <div class="col-6 col-md-4 mb-2" id="filterSlot">
                             <label class="form-label fw-bold fs-5">Registration Limit</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="max_slot" name="max_slot" value="No Limit" {{ (isset($request->max_slot) && $request->max_slot == "No Limit")? "checked" : "" }}>
-                                <label class="form-check-label">No Limit</label>
+                                <input class="form-check-input" type="checkbox" id="max_slot_no" name="max_slot" value="No Limit" {{ (isset($request->max_slot) && $request->max_slot == "No Limit")? "checked" : "" }}>
+                                <label class="form-check-label" for="max_slot_no">No Limit</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="max_slot" name="max_slot" value="Limited" {{ (isset($request->max_slot) && $request->max_slot == "Limited")? "checked" : "" }}>
-                                <label class="form-check-label">Limited</label>
+                                <input class="form-check-input" type="checkbox" id="max_slot_limited" name="max_slot" value="Limited" {{ (isset($request->max_slot) && $request->max_slot == "Limited")? "checked" : "" }}>
+                                <label class="form-check-label" for="max_slot_limited">Limited</label>
                             </div>
                         </div>
                         <div class="col-6 col-md-4 mb-2" id="filterExclusive">
                             <label class="form-label fw-bold fs-5">Participation Exclusivity</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="exclusivity" name="exclusivity" value="For Everyone" {{ (isset($request->exclusivity) && $request->exclusivity == "For Everyone")? "checked" : "" }}>
-                                <label class="form-check-label">For Everyone</label>
+                                <input class="form-check-input" type="checkbox" id="exclusivity_everyone" name="exclusivity" value="For Everyone" {{ (isset($request->exclusivity) && $request->exclusivity == "For Everyone")? "checked" : "" }}>
+                                <label class="form-check-label" for="exclusivity_everyone">For Everyone</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="exclusivity" name="exclusivity" value="Exclusive" {{ (isset($request->exclusivity) && $request->exclusivity == "Exclusive")? "checked" : "" }}>
-                                <label class="form-check-label">Exclusive</label>
+                                <input class="form-check-input" type="checkbox" id="exclusivity_exclusive" name="exclusivity" value="Exclusive" {{ (isset($request->exclusivity) && $request->exclusivity == "Exclusive")? "checked" : "" }}>
+                                <label class="form-check-label" for="exclusivity_exclusive">Exclusive</label>
                             </div>
                         </div>
                         <div class="col-12 mb-2" id="filterCategory">
@@ -148,8 +148,19 @@
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3" id="sortDate">
+                    <label class="form-label fw-bold fs-5" for="date_sort">Sort:</label>
+                    <select name="date_sort" id="date_sort" data-placeholder="Sort by" class="form-select form-control">
+                        <option value="publishedDesc" {{ (isset($request->date_sort) && $request->date_sort == 'publishedDesc') ? 'selected' : '' }}>Published - Newest</option>
+                        <option value="publishedAsc" {{ (isset($request->date_sort) && $request->date_sort == 'publishedAsc') ? 'selected' : '' }}>Published - Oldest</option>
+                        <option value="dateDesc" {{ (isset($request->date_sort) && $request->date_sort == 'dateDesc') ? 'selected' : '' }}>Date - Later</option>
+                        <option value="dateAsc" {{ (isset($request->date_sort) && $request->date_sort == 'dateAsc') ? 'selected' : '' }}>Date - Coming soon</option>
+                    </select>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="row gap-3 mb-3" id="card-event-row">
         @if ($events->isEmpty())
@@ -196,10 +207,11 @@
 
 @section('scripts')
 <script>
+
     const form = document.getElementById('formsearch');
+    const searchvalue = "{{$search}}";
     document.getElementById('formsearch').addEventListener('submit', function(event){
         event.preventDefault();
-        var searchvalue = "{{$search}}";
         console.log(searchvalue);
         var prevsearch = document.createElement('input');
             prevsearch.type = 'hidden';
@@ -208,6 +220,15 @@
             console.log(prevsearch);
             form.appendChild(prevsearch);
             form.submit();
+    });
+
+    $('#date_sort').on('change', function(){
+        var prevsearch = document.createElement('input');
+        prevsearch.type = 'hidden';
+        prevsearch.name = 'search';
+        prevsearch.value = searchvalue;
+        form.appendChild(prevsearch);
+        $('#formsearch').submit();
     });
 
     $("input:checkbox").on('click', function() {

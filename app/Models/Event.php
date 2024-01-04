@@ -51,7 +51,9 @@ class Event extends Model
         return $this->belongsTo(SatLevel::class)->withTrashed();
     }
 
-    public function scopeSearch($query, $search) {
+    public function scopeSearch($query, $request) {
+
+        $search = strip_tags($request->search);
         $searchWords = explode(' ', $search);
 
         $query->where(function ($q) use ($searchWords) {
@@ -73,17 +75,21 @@ class Event extends Model
             }
         });
 
-        $query->orderBy('created_at','DESC');
-
-        // $query->where(function ($q) use ($search) {
-        //     $q->where('name', 'like', "%".$search."%") //search name
-        //     ->orWhere('topic', 'like', "%".$search."%") //search topic
-        //     ->orWhere('description', 'like', "%".$search."%") //search description
-        //     ->orWhereRelation('category','display_name', 'like', "%".$search."%") //search category name
-        //     ->orWhereHas('community', function (Builder $que) use ($search){ //search community name
-        //         $que->where('name', 'like', '%'.$search.'%')->orWhere('display_name','like','%'.$search.'%');
-        //     });
-        // });
+        if ($request->date_sort) {
+            if($request->date_sort == 'dateAsc') {
+                $query->orderBy('date','ASC');
+            } else if ($request->date_sort == 'dateDesc'){
+                $query->orderBy('date','DESC');
+            } else if ($request->date_sort == 'publishedDesc'){
+                $query->orderBy('created_at','DESC');
+            } else if ($request->date_sort == 'publishedAsc'){
+                $query->orderBy('created_at','ASC');
+            } else {
+                $query->orderBy('created_at','DESC');
+            }
+        } else {
+            $query->orderBy('created_at','DESC');
+        }
     }
 
     public function scopeFilterBy($query, $request)
