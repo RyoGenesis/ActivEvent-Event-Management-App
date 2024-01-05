@@ -155,8 +155,8 @@
                     <select name="date_sort" id="date_sort" data-placeholder="Sort by" class="form-select form-control">
                         <option value="publishedDesc" {{ (isset($request->date_sort) && $request->date_sort == 'publishedDesc') ? 'selected' : '' }}>Published - Newest</option>
                         <option value="publishedAsc" {{ (isset($request->date_sort) && $request->date_sort == 'publishedAsc') ? 'selected' : '' }}>Published - Oldest</option>
-                        <option value="dateDesc" {{ (isset($request->date_sort) && $request->date_sort == 'dateDesc') ? 'selected' : '' }}>Date - Later</option>
-                        <option value="dateAsc" {{ (isset($request->date_sort) && $request->date_sort == 'dateAsc') ? 'selected' : '' }}>Date - Coming soon</option>
+                        <option value="dateDesc" {{ (isset($request->date_sort) && $request->date_sort == 'dateDesc') ? 'selected' : '' }}>Date - Farthest</option>
+                        <option value="dateAsc" {{ (isset($request->date_sort) && $request->date_sort == 'dateAsc') ? 'selected' : '' }}>Date - Closest</option>
                     </select>
                 </div>
             </div>
@@ -169,7 +169,7 @@
         @foreach ($events as $event)
             <a class="card card-event" href="{{ route('eventdetail', ['id'=>$event->id]) }}" style="height:max-content">
                 <div class="row g-0 align-items-center">
-                    <div class="col-md-4">
+                    <div class="col-md-4 img-event">
                         <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid card-event-img" alt="gambar-{{$event->name}}">
                     </div>
                     <div class="col-md-8">

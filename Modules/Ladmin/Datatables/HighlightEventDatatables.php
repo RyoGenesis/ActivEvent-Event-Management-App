@@ -66,13 +66,13 @@ class HighlightEventDatatables extends Datatables
             $perks = '';
             if($row->has_certificate || $row->has_comserv || $row->has_sat) {
                 if($row->has_certificate) {
-                    $perks .= '<span class="badge badge-lg text-bg-warning">Certificate</span>';
+                    $perks .= '<span class="badge badge-lg text-bg-warning mb-1 me-1">Certificate</span>';
                 }
                 if($row->has_sat) {
-                    $perks .= '<span class="badge badge-lg text-bg-warning">SAT Points</span>';
+                    $perks .= '<span class="badge badge-lg text-bg-warning mb-1 me-1">SAT Points</span>';
                 }
                 if($row->has_comserv) {
-                    $perks .= '<span class="badge badge-lg text-bg-warning">Community Service Hours</span>';
+                    $perks .= '<span class="badge badge-lg text-bg-warning mb-1 me-1">Community Service Hours</span>';
                 }
             } else {
                 $perks = '-';

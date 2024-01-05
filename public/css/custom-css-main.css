@@ -112,6 +112,10 @@
     overflow: hidden;
 }
 
+.img-event {
+    text-align: center;
+}
+
 /* applied for mobile / tablet*/
 @media(max-width: 767.9px){ 
     .register-col {
@@ -210,5 +214,9 @@
         object-fit: cover;
         width: 650px;
         max-height: 800px;
+    }
+
+    .img-event {
+        text-align: start;
     }
 }

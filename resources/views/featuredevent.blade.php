@@ -13,7 +13,7 @@
       @forelse ($featuredevents as $featuredevent)
         <a class="card card-event" href="{{ route('eventdetail', ['id'=>$featuredevent->id]) }}" style="height:max-content">
           <div class="row g-0 allign-item-center">
-              <div class="col-md-4">
+              <div class="col-md-4 img-event">
                 <img src="{{$featuredevent->image ? asset('storage/'.$featuredevent->image) : asset('images/No-Image-Placeholder.png')}}" class="img-fluid card-event-img" alt="gambar-{{$featuredevent->name}}">
               </div>
               <div class="col-md-8">
