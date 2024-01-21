@@ -393,7 +393,9 @@ class EventController extends Controller
     }
 
     public function popularevent(){
-        $popularevents = Event::with('community')->withCount('users')
+        $popularevents = Event::with('community')->withCount(['users' => function ($query) {
+                            $query->where('status', 'Registered');
+                        }])
                         ->where('status', 'Active')
                         ->whereDate('date','>',now())
                         ->orderBy('users_count','DESC')->orderBy('created_at', 'DESC')->paginate(10);

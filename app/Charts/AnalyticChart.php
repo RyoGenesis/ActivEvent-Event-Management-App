@@ -32,7 +32,7 @@ class AnalyticChart
                 $category_events = Event::where('category_id', $category->id)->get();
                 $total = 0;
                 foreach($category_events as $category_event){
-                    $count = $category_event->users->count();
+                    $count = $category_event->users->where('pivot.status','Registered')->count();
                     $total += $count;
                 }
 
@@ -45,7 +45,7 @@ class AnalyticChart
                 $category_events = Event::where('community_id', $value_community)->where('category_id', $category->id)->get();
                 $total = 0;
                 foreach($category_events as $category_event){
-                    $count = $category_event->users->count();
+                    $count = $category_event->users->where('pivot.status','Registered')->count();
                     $total += $count;
                 }
                 $list_label_chart[] = $category->name;
@@ -62,7 +62,7 @@ class AnalyticChart
             $total_users = 0;
 
             foreach($events_percommunity as $event_percommunity){
-                $count_users = $event_percommunity->users->count();
+                $count_users = $event_percommunity->users->where('pivot.status','Registered')->count();
                 $total_users += $count_users;
             }
             $list_sort_label_piechart[] = $community->name;
@@ -80,7 +80,7 @@ class AnalyticChart
             $community_events = Event::where('community_id', $user->community_id)->where('category_id', $category->id)->get();
             $total_user = 0;
             foreach($community_events as $community_event){
-                $count_user = $community_event->users->count();
+                $count_user = $community_event->users->where('pivot.status','Registered')->count();
                 $total_user += $count_user;
             }
             $list_label_barchart[] = $category->name;
