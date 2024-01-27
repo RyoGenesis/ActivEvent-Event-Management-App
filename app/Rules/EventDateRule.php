@@ -35,6 +35,14 @@ class EventDateRule implements Rule
             //also check that the changed date cannot be too close either
             $dateMin = Carbon::today()->addDays(4); //ex for now, minimum 4 days
             $dateInput = Carbon::createFromFormat('Y-m-d\TH:i', $value, 'Asia/Jakarta');
+
+            //check if date value changed or not, if not then allow it as true
+            if($attribute == 'date' && $dateInput == $this->event->date) {
+                return true;
+            } else if($attribute == 'registration_end' && $dateInput == $this->event->registration_end) {
+                return true;
+            }
+
             return $dateInput > $dateMin;
         }
         

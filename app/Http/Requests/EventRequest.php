@@ -34,7 +34,7 @@ class EventRequest extends FormRequest
             'community_id' => 'required|integer|exists:communities,id',
             'description' => 'required|string',
             'location' => 'required|string',
-            'registration_end' => ['required','date','date_format:Y-m-d\TH:i', 'after:tomorrow', new EventDateRule($event)],
+            'registration_end' => ['required','date','date_format:Y-m-d\TH:i', new EventDateRule($event)],
             'date' => ['required','date','date_format:Y-m-d\TH:i','after:registration_end' , new EventDateRule($event)],
             'status' => 'sometimes|required|string',
             'category_id' => 'required|integer|exists:categories,id',

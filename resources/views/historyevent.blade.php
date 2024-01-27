@@ -18,6 +18,7 @@
                 <th scope="col" class="fs-5">#</th>
                 <th scope="col" class="fs-5">Event name</th>
                 <th scope="col" class="fs-5">Held by</th>
+                <th scope="col" class="fs-5">Date</th>
                 <th scope="col" class="fs-5">Status</th>
                 <th scope="col" class="fs-5">Benefit</th>
                 <th scope="col" class="fs-5">Reason</th>
@@ -28,6 +29,7 @@
                         <th class="fw-light fs-5"></th>
                         <th class="fw-light fs-5">{{$event->name}}</th>
                         <th class="fw-light fs-5">{{$event->community->display_name}}</th>
+                        <th>{{$event->date->format('d-m-Y H:i \W\I\B')}}</th>
                         <th class="fw-light fs-5">
                             @if ($event->status == 'Cancelled')
                                 <p class="text-danger">

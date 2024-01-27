@@ -252,7 +252,9 @@
                                 @endif
                             </th>
                             <th class="d-grid gap-1">
+                                @if ($event->pivot->status == 'Rejected')
                                 <a href="/eventdetail/{{$event->id}}" class="btn btn-primary">View</a>
+                                @endif
                             </th>
                         </tr>
                     @endforeach
