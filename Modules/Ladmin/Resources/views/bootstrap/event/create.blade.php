@@ -6,7 +6,7 @@
         <div class="row d-flex align-items-center mb-3">
             <label for="name" class="form-label col-lg-3">Name <span class="text-danger">*</span></label>
             <x-ladmin-input id="name" type="text" class="col" required name="name" 
-                value="{{ old('name') }}" placeholder="Name" />
+                value="{!! old('name') !!}" placeholder="Name" />
         </div>
         {{-- community id --}}
         <div class="row d-flex align-items-center mb-3">
@@ -24,7 +24,7 @@
         <div class="row d-flex align-items-center mb-3">
             <label for="location" class="form-label col-lg-3">Location <span class="text-danger">*</span></label>
             <x-ladmin-input id="location" type="text" class="col" required name="location" 
-                value="{{ old('location') }}" placeholder="Location" />
+                value="{!! old('location') !!}" placeholder="Location" />
         </div>
         {{-- date --}}
         <div class="row d-flex align-items-center mb-3">
@@ -67,7 +67,7 @@
         <div class="row d-flex align-items-center mb-3">
             <label for="topic" class="form-label col-lg-3">Topic <span class="text-danger">*</span></label>
             <x-ladmin-input id="topic" type="text" class="col" required name="topic"
-                value="{{ old('topic') }}" placeholder="Topic" />
+                value="{!! old('topic') !!}" placeholder="Topic" />
         </div>
         {{-- description --}}
         <div class="row d-flex mb-3">
@@ -83,7 +83,7 @@
         <div class="row d-flex align-items-center mb-3">
             <label for="speaker" class="form-label col-lg-3">Speaker</label>
             <x-ladmin-input id="speaker" type="text" class="col" name="speaker"
-                value="{{ old('speaker') }}" placeholder="Speaker" />
+                value="{!! old('speaker') !!}" placeholder="Speaker" />
         </div>
         {{-- has certificate --}}
         <div class="row d-flex align-items-center mb-3">
@@ -155,7 +155,7 @@
         <div class="row d-flex align-items-center mb-3">
             <label for="contact_person" class="form-label col-lg-3">Contact person</label>
             <x-ladmin-input id="contact_person" type="text" class="col" name="contact_person"
-                value="{{ old('contact_person') }}" placeholder="Contact Person" />
+                value="{!! old('contact_person') !!}" placeholder="Contact Person" />
         </div>
         {{-- form link --}}
         <div class="row d-flex align-items-center mb-3">

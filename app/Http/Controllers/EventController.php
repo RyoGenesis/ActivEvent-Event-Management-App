@@ -251,7 +251,7 @@ class EventController extends Controller
     }
 
     function eventdetail($id){
-        $event=Event::find($id);
+        $event=Event::where('status','Active')->findOrFail($id);
         if(Auth::check()){
             $user_event = $event->users->find(Auth::user()->id);
             if($user_event !== NULL && $user_event->pivot->status == 'Registered'){
