@@ -42,8 +42,6 @@ class HomeController extends Controller
         if(Auth::check()){
             $user = User::find(Auth::user()->id);
 
-            // dd($user->categories->pluck('id'));
-
             $recommendedEvents = Event::with('community')->where('status','Active')->whereDate('date','>',now());
 
             $recommendedEvents = $recommendedEvents->where(function ($q) use ($user) {

@@ -69,10 +69,6 @@ class AnalyticChart
             $list_total_user_piechart[] = $total_users;
         }
 
-        $community_user = Community::select('name')->where('id', $user->community_id)->get();
-
-        // dd($community_user->attribute);
-
         $list_label_barchart = array();
         $list_total_user_barchart = array();
 

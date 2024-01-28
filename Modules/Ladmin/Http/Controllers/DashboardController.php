@@ -18,7 +18,6 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request, AnalyticChart $chart)
     {
-        // dd($request->groupby_value);
         //get relevant events info
         $user = auth()->user();
         $latestActive = Event::with(['community','category']);
@@ -41,7 +40,6 @@ class DashboardController extends Controller
         $recentlyFinished = $recentlyFinished->where('status','Active')->whereDate('date','<',now())->orderBy('date','DESC')->take(3)->get();
         $latestUpdated = $latestUpdated->orderBy('updated_at','DESC')->take(3)->get();
         $waitingApproval = $waitingApproval->where('status','Draft')->oldest()->take(3)->get();
-        // $groupby_chart = isset($request->groupby_value)?($request->groupby_value):'';
         $groupby_community = isset($request->groupby_community)?($request->groupby_community):'';
         $charts = $chart->build($user, $groupby_community);
 
