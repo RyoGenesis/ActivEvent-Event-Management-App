@@ -39,7 +39,7 @@ class ParticipantDatatables extends Datatables
     public function handle()
     {
         $event = Event::with(['users' => ['campus','faculty','major','communities']])->where('id',$this->data['id'])->first();
-        $this->query = $event->users;
+        $this->query = $event->users()->where('status','!=','Rejected')->get();
         $rejectDate = Carbon::createFromDate($event->date)->addWeeks(2);
         return $this->collection($this->query)
             ->editColumn('personal_email', function ($row) {
