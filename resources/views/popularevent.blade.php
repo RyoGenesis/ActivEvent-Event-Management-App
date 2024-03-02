@@ -46,7 +46,9 @@
     </div>
 
     <div class="paginating">
-      {{$popularevents->links()}}
+      @if (!$popularevents->isEmpty())
+        {{$popularevents->onEachSide(1)->links()}}
+      @endif
     </div>
 </div>
 @endsection

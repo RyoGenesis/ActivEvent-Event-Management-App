@@ -199,7 +199,9 @@
         @endif
     </div>
     <div class="paginating">
-        {{$events->links()}}
+        @if (!$events->isEmpty())
+            {{$events->onEachSide(1)->links()}}
+        @endif
     </div>
 </div>
 

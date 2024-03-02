@@ -46,7 +46,9 @@
     </div>
 
     <div class="paginating">
-      {{$featuredevents->links()}}
+      @if (!$featuredevents->isEmpty())
+        {{$featuredevents->onEachSide(1)->links()}}
+      @endif
     </div>
 </div>
 @endsection

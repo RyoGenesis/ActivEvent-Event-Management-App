@@ -47,7 +47,9 @@
     </div>
 
     <div class="paginating">
-      {{$recommendedEvents->links()}}
+      @if (!$recommendedevents->isEmpty())
+        {{$recommendedEvents->onEachSide(1)->links()}}
+      @endif
     </div>
 </div>
 @endsection

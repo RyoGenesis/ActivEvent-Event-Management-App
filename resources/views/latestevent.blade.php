@@ -45,8 +45,10 @@
       @endforelse
     </div>
 
-    <div class="paginating">
-      {{$latestevents->links()}}
+    <div class="paginating text-center">
+      @if (!$latestevents->isEmpty())
+        {{$latestevents->onEachSide(1)->links()}}  
+      @endif
     </div>
 </div>
 @endsection
