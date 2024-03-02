@@ -35,7 +35,9 @@ class HomeController extends Controller
         $featuredEvents = Event::with('community')->where([['status', 'Active'], ['is_highlighted', true]])
                         ->whereDate('date','>',now())
                         ->orderBy('created_at', 'DESC')->limit(6)->get();
-        $popularEvents = Event::with('community')->withCount('users')
+        $popularEvents = Event::with('community')->withCount(['users' => function ($query) {
+                            $query->where('status', 'Registered');
+                        }])
                         ->where('status', 'Active')
                         ->whereDate('date','>',now())
                         ->orderBy('users_count','DESC')->orderBy('created_at', 'DESC')->limit(6)->get();
