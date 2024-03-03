@@ -19,15 +19,23 @@
                     if($start < 1) {
                         $start = 1; // reset start to 1
                         $end += 1;
-                    } 
-                    if($end >= $paginator->lastPage() ) $end = $paginator->lastPage(); // reset end to last page
+                    }
+                    if($end > $paginator->lastPage() ) {
+                        //decrement tied to how many links wanted to be shown during last page after offset inclusion, 
+                        //in this case, want 2 links (1,...,n-2,n-1,n) with 1 offset in mind, decrease it by 1 extra
+                        if($start > 1 && $paginator->currentPage() == $paginator->lastPage()) {
+                            $start -= 1;
+                        }
+                        $end = $paginator->lastPage(); // reset end to last page
+                    }
                 @endphp
-
                 @if($start > 1)
                     <li class="page-item">
                         <a class="page-link" href="{{ $paginator->url(1) }}">{{1}}</a>
                     </li>
-                    @if($paginator->currentPage() != 3)
+                    {{-- make sure separator not shown on specific page count, 
+                        first cond is based on $start each side links offset (curr page number that satisfy curr - offset - 1 = 1 or $start - 1 = 1) --}}
+                    @if($paginator->currentPage() != 3 && $paginator->lastPage() != 4)
                         {{-- Dots Separator --}}
                         <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
                     @endif
@@ -40,7 +48,9 @@
                     @endif
                 @endfor
                 @if($end < $paginator->lastPage())
-                    @if($paginator->currentPage() + 2 != $paginator->lastPage())
+                    {{-- make sure separator not shown on specific page count, 
+                        first cond is based on $end each side links offset (number that satisfy num - 1 = offset) --}}
+                    @if($paginator->currentPage() + 2 != $paginator->lastPage() && $paginator->lastPage() != 4)
                         {{-- Dots Separator --}}
                         <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
                     @endif
