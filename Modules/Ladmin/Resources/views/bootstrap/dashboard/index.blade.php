@@ -9,7 +9,7 @@
                 <select class="form-select mb-3" id="groupby" name='groupby_community' style="width: 400px">
                     <option selected value="">Choose Community</option>
                     @foreach ($communities as $community)
-                        <option value="{{$community->id}}">{{$community->name}}</option>
+                        <option value="{{$community->id}}" {{request()->get('groupby_community') == $community->id ? 'selected' : ''}}>{{$community->name}}</option>
                     @endforeach
                 </select>
             @endif
