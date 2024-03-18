@@ -24,6 +24,7 @@ class AnalyticChart
         $categories = Category::all();
         $communities = Community::all();
         
+        //chart participants per category, only for admin kemahasiswaan
         $list_label_chart = array();
         $list_total_user_chart = array();
         
@@ -53,6 +54,7 @@ class AnalyticChart
             }
         }
 
+        //chart participants per community, only for admin kemahasiswaan
         $list_sort_label_piechart = array();
         $list_total_user_piechart = array();
 
@@ -69,6 +71,7 @@ class AnalyticChart
             $list_total_user_piechart[] = $total_users;
         }
 
+        //chart participants per category for current user community
         $list_label_barchart = array();
         $list_total_user_barchart = array();
 

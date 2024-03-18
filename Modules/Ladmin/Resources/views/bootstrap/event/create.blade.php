@@ -211,7 +211,7 @@
             <label for="exclusive_major" class="form-label col-lg-3">Major exclusive</label>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_major" name="exclusive_major" aria-label="Major exclusive" {{ old('exclusive_major') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_major" name="exclusive_major" aria-label="Major exclusive" {{  old('exclusive_major') ? 'checked' : '' }}>
                 </div>
                 @error('exclusive_major')
                     <small class="text-danger">{{ $message }}</small>
@@ -224,7 +224,7 @@
             <label for="exclusive_member" class="form-label col-lg-3">Community member exclusive</label>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_member" name="exclusive_member" aria-label="Community member exclusive" {{ old('exclusive_member') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_member" name="exclusive_member" aria-label="Community member exclusive" {{ old('exclusive_member') ? 'checked' : '' }} {{auth()->user()->community_id == 1 ? 'disabled' : ''}}>
                 </div>
                 @error('exclusive_member')
                     <small class="text-danger">{{ $message }}</small>

@@ -195,7 +195,7 @@
                 <div class="text-desc">Event's main majors target, can be optional.<br>Available options are tied to community associated majors.<br>This attribute can not be changed after this event is approved</div>
             </div>
             <div class="col">
-                <select name="majors[]" id="majors" data-placeholder="Select majors" class="form-select form-control @error('majors') is-invalid @enderror" multiple {{$event->status == 'Active' ? 'disabled' : ''}}>
+                <select name="majors[]" id="majors" data-placeholder="Select majors" class="form-select form-control @error('majors') is-invalid @enderror" multiple {{ $event->status == 'Active' ? 'disabled' : ''}}>
                     @foreach ($majors as $major)
                         <option value="{{$major->id}}" {{ in_array($major->id, old('majors',$eventMajors)) ? 'selected' : '' }}>{{ $major->name }}</option>
                     @endforeach
@@ -214,7 +214,7 @@
             </div>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_major" name="exclusive_major" aria-label="Major exclusive" {{$event->exclusive_major ? 'checked' : ''}} {{$event->status == 'Active' ? 'disabled' : ''}}>
+                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_major" name="exclusive_major" aria-label="Major exclusive" {{$event->exclusive_major ? 'checked' : ''}} {{ $event->status == 'Active' ? 'disabled' : ''}}>
                 </div>
                 @error('exclusive_major')
                     <small class="text-danger">{{ $message }}</small>
@@ -230,7 +230,7 @@
             </div>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_member" name="exclusive_member" aria-label="Community member exclusive" {{$event->exclusive_member ? 'checked' : ''}} {{$event->status == 'Active' ? 'disabled' : ''}}>
+                    <input class="form-check-input" type="checkbox" value="1" id="exclusive_member" name="exclusive_member" aria-label="Community member exclusive" {{$event->exclusive_member ? 'checked' : ''}} {{ auth()->user()->community_id == 1 || $event->status == 'Active' ? 'disabled' : ''}}>
                 </div>
                 @error('exclusive_member')
                     <small class="text-danger">{{ $message }}</small>
