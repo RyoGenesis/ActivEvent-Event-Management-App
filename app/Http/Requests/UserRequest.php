@@ -26,7 +26,11 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        //used for ignoring user ID when updating / editing profile
+        //first condition is for update by admin, second one is for own profile update
         $id = $this->route('id') ?? (Auth::user() ? Auth::user()->id : null);
+        
+        //used for validation to make sure selected major is a part of the selected faculty
         $faculty =  Faculty::find($this->faculty_id);
         $major_ids = $faculty ? $faculty->majors->pluck('id') : [];
 

@@ -26,6 +26,7 @@ class EventRequest extends FormRequest
      */
     public function rules()
     {
+        //used for updating event date and end registration date
         $id = $this->route('id') ?? null;
         $event = Event::find($id);
 
