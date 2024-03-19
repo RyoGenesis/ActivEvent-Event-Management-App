@@ -15,7 +15,7 @@
 <div class="container bg-light border border-dark-subtle border-3 mt-4">
     <div class="mb-3 mobile-only">
         <div class="my-3 ps-4">
-            <a href="{{ url()->previous() }}" class="fa fa-2xl fa-arrow-left" style="text-decoration:none; color:black"></a>
+            <a href="{{ url()->previous() == url()->current() ? route('home') : url()->previous() }}" class="fa fa-2xl fa-arrow-left" style="text-decoration:none; color:black"></a>
         </div>
         <div class="text-center">
             <img src="{{$event->image ? asset('storage/'.$event->image) : asset('images/No-Image-Placeholder.png')}}" alt="gambar acara {{$event->name}}" class="img-fluid event-detail-img">
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-12 col-md-6 p-3">
             <div class="my-3 ps-4 desktop-only">
-                <a href="{{ url()->previous() }}" class="fa fa-2xl fa-arrow-left" style="text-decoration:none; color:black"></a>
+                <a href="{{ url()->previous() == url()->current() ? route('home') : url()->previous() }}" class="fa fa-2xl fa-arrow-left" style="text-decoration:none; color:black"></a>
             </div>
             <div class="px-3 px-md-5">
                 <h1 class="fw-bold mb-3 desktop-only">{{$event->name}}</h1>
