@@ -20,7 +20,7 @@ return new class extends Migration
             ->on('events')->onUpdate('cascade')->onDelete('cascade');
             $table->string('status');
             $table->string('reasoning')->nullable();
-            // $table->timestamps();
+            $table->timestamps();
         });
     }
 

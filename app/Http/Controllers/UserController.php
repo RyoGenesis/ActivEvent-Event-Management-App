@@ -130,7 +130,7 @@ class UserController extends Controller
     }
 
     function passwordChangeIndex() {
-        return view('main.profile.password_change');
+        return view('changepassword');
     }
 
     function passwordChange(ChangePasswordRequest $request) {

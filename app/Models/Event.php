@@ -32,7 +32,7 @@ class Event extends Model
 
     public function users() {
         return $this->belongsToMany(User::class, 'user_event', 'event_id', 'user_id')->withTrashed()
-                ->withPivot('status', 'reasoning');
+                ->withPivot('status', 'reasoning')->withTimestamps();
     }
 
     public function community() {

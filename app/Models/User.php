@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function events() {
         return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id')->withTrashed()
-                ->withPivot('status', 'reasoning');
+                ->withPivot('status', 'reasoning')->withTimestamps();
     }
 
     public function events_upcoming() {
