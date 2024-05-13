@@ -1,0 +1,36 @@
+.bg-auth {
+    background-image: linear-gradient(#439fef, #a0d3ff,#58A8F0, #a1ccf2);
+}
+
+.btn.btn-primary, .btn.btn-danger{
+    color: white;
+}
+
+.badge.badge-lg {
+    font-size: 1em;
+}
+
+.badge.badge-md {
+    font-size: 0.8em;
+}
+
+.text-desc {
+    font-size: 12px;
+    opacity: 60%;
+}
+
+.card-title.event-name {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-text {
+    margin-bottom: 2px;
+}
+
+.btn-event-dashboard {
+    text-align: center;
+    margin-top: 0.75em;
+}

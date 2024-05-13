@@ -1,72 +1,174 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
+<div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
+        <div class="col-md-8 register-col">
+            <div class="card card-auth">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <div class="card-title text-center">
+                        <h3>Register New Account</h3>
+                    </div>
+                    <form method="POST" id="registerForm" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
-
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required placeholder="Name*">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" required placeholder="Email Address (University)*">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password" required placeholder="Password*">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                     </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <input id="nim" type="text" class="form-control @error('nim') is-invalid @enderror" name="nim" value="{{ old('nim') }}" required placeholder="NIM*">
+                                @error('nim')
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required placeholder="Phone*">
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <input id="personal_email" type="email" class="form-control @error('personal_email') is-invalid @enderror" name="personal_email" value="{{ old('personal_email') }}" placeholder="Personal Email Address">
+                                @error('personal_email')
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <select data-placeholder="Your Campus Location*" class="form-control form-select @error('campus_id') is-invalid @enderror" id="campus_id" name="campus_id">
+                                    <option></option>
+                                    @foreach ($campuses as $campus)
+                                        <option value="{{$campus->id}}" {{ $campus->id == old('campus_id') ? 'selected' : '' }}>{{$campus->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('campus_id')
+                                    <span class="invalid-feedback">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <select data-placeholder="Your Faculty*" class="form-control form-select @error('faculty_id') is-invalid @enderror" id="faculty_id" name="faculty_id">
+                                    <option></option>
+                                    @foreach ($faculties as $faculty)
+                                        <option value="{{$faculty->id}}" {{ $faculty->id == old('faculty_id') ? 'selected' : '' }}>{{$faculty->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('faculty_id')
+                                    <span class="invalid-feedback">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <select data-placeholder="Your Major*" class="form-control form-select @error('major_id') is-invalid @enderror" id="major_id" name="major_id" disabled>
+                                </select>
+                                @error('major_id')
+                                    <span class="invalid-feedback">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <select data-placeholder="Your Communities" class="form-control form-select @error('communities') is-invalid @enderror" id="communities" name="communities[]" multiple>
+                                    @foreach ($communities as $community)
+                                        <option value="{{$community->id}}" {{ in_array($community->id, old('communities',[])) ? 'selected' : '' }}>{{$community->display_name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('communities')
+                                    <span class="invalid-feedback">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center">
+                            <div class="col-md-8">
+                                <select data-placeholder="Your Preferred Event Categories" class="form-control form-select @error('categories') is-invalid @enderror" id="categories" name="categories[]" multiple>
+                                    @foreach ($categories as $category)
+                                        <option value="{{$category->id}}" {{ in_array($category->id, old('categories',[])) ? 'selected' : '' }}>{{$category->display_name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('categories')
+                                    <span class="invalid-feedback">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center">
+                            <div class="col col-md-8">
+                                <input class="form-control" name="topics" value="{{ old('topics') }}" id="topics" placeholder="Your Topic Interests">
+                                <button class='btn btn-warning tags--removeAllBtn mt-3' type='button'>Remove all topics</button>
+                            </div>
+                        </div>
+
+                        <div class="row my-4 justify-content-center text-center">
+                            <div class="col-md-6">
+                                <button id="submitRegister" type="submit" class="btn btn-primary">
+                                    Submit
                                 </button>
                             </div>
+                        </div>
+
+                        <div class="text-center">
+                            <p>
+                                Already have an account? <a href="/login" style="text-decoration: none;">Login</a>
+                            </p>
                         </div>
                     </form>
                 </div>
@@ -74,4 +176,113 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(window).ready(function() {
+            $('#registerForm').on('submit', function () {
+                $('#submitRegister').prop('disabled', true);
+            });
+        });
+
+        $(document).ready(function() {
+            $('#campus_id').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            });
+
+            $('#faculty_id').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            });
+            
+            $('#major_id').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            });
+
+            $('#communities').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+                allowClear: true,
+            });
+
+            $('#categories').select2({
+                theme: "bootstrap-5",
+                width: $( this ).data('width') ? $(this).data('width') : $(this).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+                allowClear: true,
+            });
+
+            function getMajorFaculty() {
+                var facultyEl = $('#faculty_id');
+                $.ajax({
+                    url : '{{ env("APP_URL") }}' + '/api/faculty-majors',
+                    type : 'get',
+                    data : {
+                        id: facultyEl.val(),
+                    },
+                    success : function (response) {
+                        var majorId = $("#major_id");
+                        var selectMajor = {{old('major_id',-1)}};
+                        majorId.html('');
+                        majorId.append('<option value="" selected disabled>Your Major</option>');
+                        $.each(response, function (i, item) {
+                            var selected = (item['id'] == selectMajor ? ' selected' : '');
+                            majorId.append("<option value='" + item['id'] + "'" + selected +">" + item['name'] + "</option>");
+                        });
+                        majorId.prop('disabled',false);
+                    },
+                    error: function(err) {
+                    }
+                })
+            }
+
+            $('#faculty_id').change(function() {
+                getMajorFaculty();
+            });
+            var selectFaculty = {{old('faculty_id',-1)}};
+    
+            if(selectFaculty != -1) {
+                getMajorFaculty();
+            }
+        });
+
+        var input = document.querySelector("input[name=topics]");
+        tagify = new Tagify(input, {
+            maxTags: 10,
+            dropdown: {
+                maxItems: 20,           // <- maximum allowed rendered suggestions
+                classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+                enabled: 0,             // <- show suggestions on focus
+                closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+            }
+        });
+        document.querySelector('.tags--removeAllBtn')
+        .addEventListener('click', tagify.removeAllTags.bind(tagify))
+
+        document.getElementById('submitRegister').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if(input.value) {
+                var dataInput = JSON.parse(input.value);
+                var dataArray = [];
+        
+                dataInput.forEach(function(item){
+                    dataArray.push(item.value);
+                });
+        
+                input.value = dataArray;
+            }
+            
+            document.getElementById('registerForm').submit();
+        });
+    </script>
 @endsection
