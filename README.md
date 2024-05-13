@@ -1,3 +1,9 @@
+## About ActivEvent
+
+ActivEvent is an event management web application that can be used by university students to find information about events and activities happening at the university and communities, register to them, and manage their participations, as well as reminders about said events that they participated in. This website also has an admin management system that can be used by the university's student affairs and representatives of each student communities to manage events that they held and their participants.
+
+Powered by Laravel with Ladmin for the admin site.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
